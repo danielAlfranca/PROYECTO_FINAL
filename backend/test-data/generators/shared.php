@@ -1,8 +1,12 @@
 <?php 
 
-    function randomPick($arr,$num){ 
+    function randomPick($arr,$num = 1){ 
         
-        return $arr[array_rand($arr,$num)];    
+        $index = array_rand($arr, $num);
+   
+        if($num==1) return $arr[$index];
+
+        return array_map(fn($e) => $arr[$e], $index);
     }
 
     function builListNames($name,$num){ 
@@ -23,4 +27,5 @@
         return $arr;
     }
 
+ 
 ?>

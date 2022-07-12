@@ -27,7 +27,7 @@
         $paises = builListNames('pais',5);
 
         $empresas = buildIdLisT(1,15);
-        $empresasHoteleras = randomPick($empresas,4);
+        $empresasHoteleras = randomPick($empresas, 4 );
         $tours = buildIdLisT(15,30);
         $hoteles = buildIdLisT(30,42);
         $paquetes = buildIdLisT(42,50);
@@ -79,12 +79,12 @@
                 $type, // tipo
                 ($type == 1 ? randomPick([1,2,3,4,5]):null), // categoria
                 randomPick($hotel_services,randomPick([1,2,3,4])), // services
-                randomPick($direccion). ', '.randomPick($destino).', '.randomPick($pais) // address
+                randomPick($direccion). ', '.randomPick($destinos).', '.randomPick($paises) // address
             ];
 
             $inventory_array[] =  [
 
-                'id'=> $i,
+                'id'=> $id,
                 'agent'=>randomPick($empresasHoteleras),
                 'item_type'=>3,
                 'data'=>json_encode($data)
@@ -107,7 +107,7 @@
 
             $inventory_array[] =  [
 
-                'id'=> $i,
+                'id'=> $id,
                 'agent'=>NULL,
                 'item_type'=>4,
                 'data'=>json_encode($data)
