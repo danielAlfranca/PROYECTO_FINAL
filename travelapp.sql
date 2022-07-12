@@ -40,6 +40,21 @@ CREATE TABLE activities(
     FOREIGN KEY (agent) REFERENCES agents(id)
 );
 
+CREATE TABLE passengers(
+
+    group INT,
+    activity TINYINT,
+    activity_type TINYINT,
+    event_ref INT,
+    pax JSON,
+    PRIMARY KEY (group,activity,activity_type, event_ref),
+    FOREIGN KEY (group) REFERENCES activities(group),
+    FOREIGN KEY (activities) REFERENCES activities(activity),
+    FOREIGN KEY (activity_type) REFERENCES activities(activity_type),
+    FOREIGN KEY (event_ref) REFERENCES activity_group(id)
+    
+);
+
 CREATE TABLE invoices(
 
     id INT AUTO_INCREMENT PRIMARY KEY,
