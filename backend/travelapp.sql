@@ -1,3 +1,4 @@
+-- Active: 1657547555018@@127.0.0.1@3306@plantes
 DROP DATABASE IF EXISTS travelapp;
 
 CREATE DATABASE travelapp DEFAULT CHARSET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -26,30 +27,30 @@ CREATE TABLE activity_group(
 
 CREATE TABLE activities(
 
-    group INT,
-    activity TINYINT,
-    activity_type TINYINT,
+    group_id INT,
+    activity_index TINYINT NOT NULL,
+    activity_type TINYINT NOT NULL,
     agent INT NOT NULL,
     date_start DATE NOT NULL,
     date_end DATE NOT NULL,
     time_start TIME,
     time_end TIME,
     data JSON,
-    PRIMARY KEY (group,activity,activity_type),
-    FOREIGN KEY (group) REFERENCES activity_group(id)
+    PRIMARY KEY (group_id,activity_index,activity_type),
+    FOREIGN KEY (group_id) REFERENCES activity_group(id),
     FOREIGN KEY (agent) REFERENCES agents(id)
 );
 
 CREATE TABLE passengers(
 
-    group INT,
-    activity TINYINT,
+    group_id INT,
+    activity_index TINYINT,
     activity_type TINYINT,
     event_ref INT,
     pax JSON,
-    PRIMARY KEY (group,activity,activity_type, event_ref),
-    FOREIGN KEY (group) REFERENCES activities(group),
-    FOREIGN KEY (activities) REFERENCES activities(activity),
+    PRIMARY KEY (group_id,activity_index,activity_type, event_ref),
+    FOREIGN KEY (group_id) REFERENCES activities(group_id),
+    FOREIGN KEY (activity_index) REFERENCES activities(activity_index),
     FOREIGN KEY (activity_type) REFERENCES activities(activity_type),
     FOREIGN KEY (event_ref) REFERENCES activity_group(id)
     
@@ -58,8 +59,8 @@ CREATE TABLE passengers(
 CREATE TABLE invoices(
 
     id INT AUTO_INCREMENT PRIMARY KEY,
-    document INT,
-    payment ENUM(1,2) NOT NULL,
+    document_id INT,
+    payment_type BOOLEAN NOT NULL,
     document_type TINYINT NOT NULL,
     document_date DATE ,
     amount FLOAT NOT NULL,
@@ -72,18 +73,19 @@ CREATE TABLE invoices(
     FOREIGN KEY (charger) REFERENCES agents(id)
 );
 
+
 CREATE TABLE concept_invoice(
 
     id INT AUTO_INCREMENT PRIMARY KEY,
-    group INT NOT NULL,
-    activity TINYINT NOT NULL,
+    group_id INT NOT NULL,
+    activity_index TINYINT NOT NULL,
     activity_type TINYINT NOT NULL,
     invoice INT,
     amount FLOAT NOT NULL,
     concept VARCHAR(70),
     details JSON,
-    FOREIGN KEY (group) REFERENCES activities(group),
-    FOREIGN KEY (activities) REFERENCES activities(activity),
+    FOREIGN KEY (group_id) REFERENCES activities(group_id),
+    FOREIGN KEY (activity_index) REFERENCES activities(activity_index),
     FOREIGN KEY (activity_type) REFERENCES activities(activity_type),
     FOREIGN KEY (invoice) REFERENCES invoices(id)
 );
