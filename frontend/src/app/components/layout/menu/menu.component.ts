@@ -9,7 +9,19 @@ export class MenuComponent implements OnInit {
 
   constructor() { }
 
+  mobileMenu = false;
+
+  appSections = [
+
+    {icon:'bi bi-bookmark', title:'reservas'},
+    {icon:'bi bi-truck', title:'salidas'},
+    {icon:'bi bi-credit-card', title:'pagos'},
+    {icon:'bi bi-archive', title:'inventario'},
+
+  ];
+
   ngOnInit(): void {
   }
+
 
 }

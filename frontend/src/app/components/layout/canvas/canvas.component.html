@@ -1,0 +1,17 @@
+<div class="canvas-blanket" [ngClass]="{'canvas-hidden':!someCanvasIsActive}">
+    <aside [ngClass]="{'aside-hidden':!asideIsActive}"></aside>
+    <div class="canvas-blanket pop-up-container d-flex justify-content-center align-items-center" [ngClass]="{'canvas-hidden':!popUpIsActive}">
+        <div class="pop-up"></div>
+    </div>
+</div>
+ <button class="btn btn-lg btn-primary" (click)="someCanvasIsActive=!someCanvasIsActive">
+    canvas
+ </button>
+ <button class="btn btn-lg btn-warning" (click)="asideIsActive=!asideIsActive">
+    aside
+ </button>
+
+ <button class="btn btn-lg btn-danger" (click)="popUpIsActive=!popUpIsActive">
+    pop-up
+ </button>
+

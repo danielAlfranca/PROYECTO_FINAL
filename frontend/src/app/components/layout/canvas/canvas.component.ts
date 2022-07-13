@@ -7,6 +7,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CanvasComponent implements OnInit {
 
+  someCanvasIsActive = false;
+  asideIsActive = false;
+  popUpIsActive = false;
+
   constructor() { }
 
   ngOnInit(): void {

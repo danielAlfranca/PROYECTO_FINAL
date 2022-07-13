@@ -1,0 +1,79 @@
+.app-menu-container {
+
+    height: auto;
+    --menuHeight: 100px;
+}
+
+.app-logo>i{
+
+    font-size: 5rem;
+    height: 5rem;
+    vertical-align: top;
+    margin-bottom: 0.5rem;
+    font-weight: 300; 
+}
+
+.app-logo>h5{
+
+    font-weight: 300;
+    letter-spacing: 2px;
+    margin-bottom: 1rem;
+}
+
+.list-group-item.app-menu-item:hover, .list-group-item.app-menu-item.active{
+
+    background-color: hsla(0, 0%, 0%, 1) !important;
+    cursor: pointer;
+}
+
+#hamburger-container{
+
+    cursor: pointer;
+}
+
+.wrapper-menu-item {
+
+    max-width: 10rem;
+}
+
+.wrapper-logo{
+
+    z-index: 2;
+    position: relative;
+    height: var(--menuHeight);
+    overflow: hidden;
+
+}
+
+.app-menu-bar{
+
+    position: absolute;
+    top: -100%;
+    left:0;
+    transition: top 0.5s;
+    z-index: 1;
+}
+
+.app-menu-bar.menu-active{
+
+    top: var(--menuHeight);  
+}
+
+@media (min-width: 992px) { 
+
+    .app-menu-container {
+
+        height: 100%
+    }
+    
+
+    .wrapper-menu-item{
+
+        max-width: 100%;
+    }
+    .app-menu-bar{
+
+        position: static;
+
+    }
+}

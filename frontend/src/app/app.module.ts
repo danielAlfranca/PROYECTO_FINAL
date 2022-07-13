@@ -29,6 +29,7 @@ import { FeaturedDataDisplayComponent } from './components/shared/display/card-d
 import { FooterDisplayComponent } from './components/shared/display/footer-display/footer-display.component';
 import { FooterComponent } from './components/layout/footer/footer.component';
 import { ShowPipe } from './pipes/show.pipe';
+import { SelectDataDatesComponent } from './components/layout/header/select-data-dates/select-data-dates.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import { ShowPipe } from './pipes/show.pipe';
     FeaturedDataDisplayComponent,
     FooterDisplayComponent,
     FooterComponent,
-    ShowPipe
+    ShowPipe,
+    SelectDataDatesComponent
   ],
   imports: [
     BrowserModule,

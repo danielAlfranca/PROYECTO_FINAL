@@ -1,0 +1,46 @@
+.canvas-blanket{
+
+    z-index: 100;
+    background-color: rgba(0, 0, 0, 0.521);
+    opacity: 1;
+    transition: opacity 1s;
+    position: absolute;
+    top:0;
+    height: 100%;
+    width: 100%;
+    left:0;
+    overflow: hidden;
+}
+
+.canvas-blanket.canvas-hidden{
+    opacity: 0;
+    height: 0;
+    width: 0;
+}
+
+aside{
+
+    background-color: tomato;
+    position: absolute;
+    top:0;
+    right: 0;
+    bottom: 0;
+    width: 40%;
+    min-width: 22rem;
+    max-width: 28rem;
+    transition: right 0.5s;
+}
+
+aside.aside-hidden{
+
+    right: -100%;
+}
+
+.pop-up{
+
+    background-color: green;
+    width: 100%;
+    max-width: 30rem;
+    max-height: 30rem;
+    height: 100vh;
+}

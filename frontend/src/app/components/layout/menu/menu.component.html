@@ -1,0 +1,25 @@
+<section class="app-menu-container bg-primary">
+
+    <div class="wrapper-logo d-flex justify-content-between justify-content-lg-center align-items-center px-3 pb-3 mx-auto bg-primary">
+        <div class="app-logo d-flex justify-content-center align-items-center flex-column text-light ">
+            <i class="bi bi-brightness-alt-high"></i>
+            <h5 class="mt-0">SUMMERBIT</h5>
+        </div>
+        <div id="hamburger-container" (click)="mobileMenu = !mobileMenu"
+             class="d-block d-lg-none d-flex align-items-center justify-content-center me-3">
+            <i class="bi bi-list text-light fs-1"></i>
+        </div>
+    </div>
+    
+
+    <div class="app-menu-bar w-100 bg-primary" [ngClass]="{'menu-active':mobileMenu}">
+        <ul id="app-menu-sections"  class="list-group rounded-0">
+            <li class="list-group-item app-menu-item bg-transparent text-light rounded-0" *ngFor="let section of appSections">
+                <div class="d-flex wrapper-menu-item d-flex align-items-center py-2 mx-auto">
+                    <i class="app-icon-section {{section.icon}} "></i> <small class="ms-4 app-text-section text-uppercase">{{section.title}}</small>
+                </div>               
+            </li>           
+        </ul>
+    </div>
+
+</section>

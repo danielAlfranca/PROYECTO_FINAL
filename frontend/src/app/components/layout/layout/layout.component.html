@@ -1,0 +1,41 @@
+
+
+<main class="d-flex justify-content-center align-items-center">
+    <div id="app-wrapper" class="bg-light position-relative">
+
+        <div id="app-main-content" class="d-flex h-100 flex-column flex-lg-row">
+
+            <section id="app-menu" class="h-lg-100">     
+                <app-menu></app-menu>
+            </section>
+            
+
+            <section id="app-sections" class="h-100 w-100">
+
+                <header class="app-section-header">
+
+                    <app-header></app-header>
+
+                </header>                
+
+                <div class="app-section-content">
+
+                    <ng-content></ng-content>
+
+                </div>
+                
+                <footer class="app-footer">
+
+                   <!--  <app-footer></app-footer> -->
+    
+                </footer>
+
+            </section>            
+
+        </div>
+        
+        <app-canvas></app-canvas>
+
+    </div>    
+</main>
+
