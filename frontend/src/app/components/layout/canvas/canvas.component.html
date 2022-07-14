@@ -1,13 +1,15 @@
-<div class="canvas-blanket" [ngClass]="{'canvas-hidden':!someCanvasIsActive}">
+
+<div class="canvas-blanket" [ngClass]="{'canvas-hidden':!(asideIsActive||popUpIsActive)}">
+
     <aside [ngClass]="{'aside-hidden':!asideIsActive}"></aside>
-    <div class="canvas-blanket pop-up-container d-flex justify-content-center align-items-center" [ngClass]="{'canvas-hidden':!popUpIsActive}">
-        <div class="pop-up"></div>
-    </div>
+
+    <div class="canvas-blanket" [ngClass]="{'canvas-hidden':!(asideIsActive&&popUpIsActive)}"></div>
+
+    <div class="pop-up position-absolute top-50 start-50 translate-middle" [ngClass]="{'pop-up-hidden':!popUpIsActive}"></div>
+
 </div>
- <button class="btn btn-lg btn-primary" (click)="someCanvasIsActive=!someCanvasIsActive">
-    canvas
- </button>
- <button class="btn btn-lg btn-warning" (click)="asideIsActive=!asideIsActive">
+
+<button class="btn btn-lg btn-warning" (click)="asideIsActive=!asideIsActive">
     aside
  </button>
 

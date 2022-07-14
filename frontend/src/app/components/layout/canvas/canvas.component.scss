@@ -12,6 +12,7 @@
     overflow: hidden;
 }
 
+
 .canvas-blanket.canvas-hidden{
     opacity: 0;
     height: 0;
@@ -29,6 +30,7 @@ aside{
     min-width: 22rem;
     max-width: 28rem;
     transition: right 0.5s;
+    z-index:50;
 }
 
 aside.aside-hidden{
@@ -43,4 +45,14 @@ aside.aside-hidden{
     max-width: 30rem;
     max-height: 30rem;
     height: 100vh;
+    z-index:150;
+    transition: max-width 0.5s, max-height 0.5;
+    overflow: hidden;
+}
+
+.pop-up.pop-up-hidden{
+
+    max-width: 0;
+    max-height: 0;
+    
 }
