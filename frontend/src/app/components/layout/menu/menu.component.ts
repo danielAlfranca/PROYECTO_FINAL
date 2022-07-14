@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { AppSections } from 'src/app/interfaces/canvas';
+import { AppConfigService } from 'src/app/services/app-config.service';
 
 @Component({
   selector: 'app-menu',
@@ -7,7 +10,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MenuComponent implements OnInit {
 
-  constructor() { }
+  public active = '';
+
+  constructor(private appConfig: AppConfigService) { 
+
+    this.appConfig.canvas.routesChanges.subscribe(config=> {
+
+      const last = this.appConfig.canvas.last;
+
+      if(last.type=='main') { this.active = last.title}
+
+    });
+  }
 
   mobileMenu = false;
 
@@ -16,11 +30,18 @@ export class MenuComponent implements OnInit {
     {icon:'bi bi-bookmark', title:'reservas'},
     {icon:'bi bi-truck', title:'salidas'},
     {icon:'bi bi-credit-card', title:'pagos'},
-    {icon:'bi bi-archive', title:'inventario'},
+    {icon:'bi bi-archive', title:'inventario'}
 
   ];
 
   ngOnInit(): void {
+
+    
+  }
+
+  public changeSection(section:string){
+
+    this.appConfig.canvas.changeSection(section as AppSections);    
   }
 
 

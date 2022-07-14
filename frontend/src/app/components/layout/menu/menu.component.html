@@ -14,7 +14,12 @@
 
     <div class="app-menu-bar w-100 bg-primary" [ngClass]="{'menu-active':mobileMenu}">
         <ul id="app-menu-sections"  class="list-group rounded-0">
-            <li class="list-group-item app-menu-item bg-transparent text-light rounded-0" *ngFor="let section of appSections">
+            <li 
+                class="list-group-item app-menu-item bg-transparent text-light rounded-0" 
+                *ngFor="let section of appSections" 
+                [ngClass]="{active:active==section.title}"
+                (click)="changeSection(section.title)"> 
+                
                 <div class="d-flex wrapper-menu-item d-flex align-items-center py-2 mx-auto">
                     <i class="app-icon-section {{section.icon}} "></i> <small class="ms-4 app-text-section text-uppercase">{{section.title}}</small>
                 </div>               

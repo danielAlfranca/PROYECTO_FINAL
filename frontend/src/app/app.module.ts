@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { AppRoutingModule } from './app-routing.module';
+import { AppRoutingModule } from './routes/app-routing.module';
 import { AppComponent } from './app.component';
 import { LayoutComponent } from './components/layout/layout/layout.component';
 import { MenuComponent } from './components/layout/menu/menu.component';
@@ -11,7 +11,7 @@ import { AsideComponent } from './components/layout/canvas/aside/aside.component
 import { ModalComponent } from './components/layout/canvas/modal/modal.component';
 import { CarouselRouterComponent } from './components/layout/canvas/carousel-router/carousel-router.component';
 import { HeaderCanvasComponent } from './components/layout/canvas/header-canvas/header-canvas.component';
-import { SectionComponent } from './components/shared/section/section.component';
+import { SectionComponent } from './components/shared/models/section/section.component';
 import { TableComponent } from './components/shared/table/table.component';
 import { TabsComponent } from './components/shared/tabs/tabs.component';
 import { SearchComponent } from './components/shared/table/search/search.component';
@@ -30,6 +30,10 @@ import { FooterDisplayComponent } from './components/shared/display/footer-displ
 import { FooterComponent } from './components/layout/footer/footer.component';
 import { ShowPipe } from './pipes/show.pipe';
 import { SelectDataDatesComponent } from './components/layout/header/select-data-dates/select-data-dates.component';
+import { ReservasSectionComponent } from './components/sections/reservas/reservas-section/reservas-section.component';
+import { InventarioSectionComponent } from './components/sections/inventario/inventario-section/inventario-section.component';
+import { SalidasSectionComponent } from './components/sections/salidas/salidas-section/salidas-section.component';
+import { PagosSectionComponent } from './components/sections/pagos/pagos-section/pagos-section.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +64,11 @@ import { SelectDataDatesComponent } from './components/layout/header/select-data
     FooterDisplayComponent,
     FooterComponent,
     ShowPipe,
-    SelectDataDatesComponent
+    SelectDataDatesComponent,
+    ReservasSectionComponent,
+    InventarioSectionComponent,
+    SalidasSectionComponent,
+    PagosSectionComponent
   ],
   imports: [
     BrowserModule,

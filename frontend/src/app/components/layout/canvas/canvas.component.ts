@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { CanvasConfig } from 'src/app/interfaces/canvas';
+import { AppConfigService } from 'src/app/services/app-config.service';
 
 @Component({
   selector: 'app-canvas',
@@ -7,11 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CanvasComponent implements OnInit {
 
-  someCanvasIsActive = false;
   asideIsActive = false;
   popUpIsActive = false;
 
-  constructor() { }
+  constructor(private appConfig: AppConfigService) {
+    
+    this.appConfig.canvas.routesChanges.subscribe(() => { 
+
+
+     });
+  }
 
   ngOnInit(): void {
   }
