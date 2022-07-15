@@ -7,15 +7,11 @@ import { LayoutComponent } from './components/layout/layout/layout.component';
 import { MenuComponent } from './components/layout/menu/menu.component';
 import { HeaderComponent } from './components/layout/header/header.component';
 import { CanvasComponent } from './components/layout/canvas/canvas.component';
-import { AsideComponent } from './components/layout/canvas/aside/aside.component';
-import { ModalComponent } from './components/layout/canvas/modal/modal.component';
-import { CarouselRouterComponent } from './components/layout/canvas/carousel-router/carousel-router.component';
 import { HeaderCanvasComponent } from './components/layout/canvas/header-canvas/header-canvas.component';
 import { SectionComponent } from './components/shared/models/section/section.component';
 import { TableComponent } from './components/shared/table/table.component';
 import { TabsComponent } from './components/shared/tabs/tabs.component';
 import { SearchComponent } from './components/shared/table/search/search.component';
-import { PaginatorComponent } from './components/shared/table/paginator/paginator.component';
 import { DataConfigFormComponent } from './components/shared/forms/data-config-form/data-config-form.component';
 import { FormCreatorComponent } from './components/shared/forms/form-creator/form-creator.component';
 import { FormInputComponent } from './components/shared/forms/form-input/form-input.component';
@@ -42,15 +38,11 @@ import { PagosSectionComponent } from './components/sections/pagos/pagos-section
     MenuComponent,
     HeaderComponent,
     CanvasComponent,
-    AsideComponent,
-    ModalComponent,
-    CarouselRouterComponent,
     HeaderCanvasComponent,
     SectionComponent,
     TableComponent,
     TabsComponent,
     SearchComponent,
-    PaginatorComponent,
     DataConfigFormComponent,
     FormCreatorComponent,
     FormInputComponent,

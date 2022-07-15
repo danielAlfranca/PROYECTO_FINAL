@@ -1,0 +1,23 @@
+
+
+$form-floating-height:            2.5rem;
+$form-floating-line-height:       1.25;
+$form-floating-padding-y:         0.5rem;
+$form-floating-input-padding-t:   1.625rem;
+$form-floating-input-padding-b:   1rem;
+$form-floating-label-opacity:     .75;
+$form-floating-label-transform:   scale(.85) translateY(-.5rem) translateX(.15rem);
+$form-floating-transition:        opacity .1s ease-in-out, transform .1s ease-in-out;
+
+.form-floating>.form-control, 
+.form-floating>.form-control:focus{
+
+    border-left:0;
+    border-right:0;
+    border-top:0;
+    border-radius: 0;
+    background: transparent;
+    height: 3rem;
+    box-shadow: none;
+}
+

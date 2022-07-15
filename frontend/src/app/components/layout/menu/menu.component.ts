@@ -18,7 +18,7 @@ export class MenuComponent implements OnInit {
 
       const last = this.appConfig.canvas.last;
 
-      if(last.type=='main') { this.active = last.title}
+      if(last.type=='primary') { this.active = last.title}
 
     });
   }
@@ -41,7 +41,7 @@ export class MenuComponent implements OnInit {
 
   public changeSection(section:string){
 
-    this.appConfig.canvas.changeSection(section as AppSections);    
+    this.appConfig.canvas.open(section as AppSections);    
   }
 
 

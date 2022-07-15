@@ -7,18 +7,18 @@ import { salidasRoutes } from './salidas';
 
 export const welcomeSection = 'reservas';
 
-const routes: Routes = [
+const routes = [
   
-  { path: '', redirectTo: '/'+welcomeSection, pathMatch: 'full' },
+  { path: '', redirectTo: '/'+welcomeSection, pathMatch: 'full', data:null },
    ...reservasRoutes, 
    ...salidasRoutes, 
    ...pagosRoutes, 
    ...inventarioRoutes
   
-  ];
+  ]
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes as Routes)],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

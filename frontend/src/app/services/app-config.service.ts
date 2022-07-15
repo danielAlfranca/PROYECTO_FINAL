@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CanvasService } from './canvas.service';
+import { CanvasService } from './canvas-service/canvas.service';
 import { DataConfigService } from './data-config/data-config.service';
 import { DataService } from './data-queries/data.service';
 import { UserConfigService } from './user-config.service';

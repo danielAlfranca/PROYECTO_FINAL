@@ -4,7 +4,6 @@ export const inventarioRoutes = [
 
     { path: 'inventario', component: InventarioSectionComponent, data:{
 
-        index:0,
         title:'inventario',
         icon:'bi bi-archive',
         type:'main',

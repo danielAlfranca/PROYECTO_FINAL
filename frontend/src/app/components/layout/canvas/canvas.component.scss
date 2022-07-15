@@ -56,3 +56,41 @@ aside.aside-hidden{
     max-height: 0;
     
 }
+
+/*** SLIDER ***/
+
+.slider{  position: relative; overflow: hidden;}
+
+.slider-inner{
+
+    position: absolute;
+    display:flex;
+    align-items: stretch;
+    left:0;
+    top:0;
+    transition: left 0.5s;
+}
+
+/*** SIZES INNER ***/
+
+.slider-inner.slides-3{
+    
+    width:300%;
+}
+
+/*** SIZES SLIDE  ***/
+
+.slides-3>.slide{
+
+    width:33.3333%;
+}
+
+/*** POSITION SLIDES  ***/
+
+.slides-3.slide1{  left:0; }
+
+.slides-3.slide1.slide2{  left:-100%; }
+
+.slides-3.slide1.slide2.slide3{  left:-200%; }
+
+

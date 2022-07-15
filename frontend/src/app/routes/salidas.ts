@@ -4,7 +4,6 @@ export const salidasRoutes = [
 
     { path: 'salidas', component: SalidasSectionComponent, data:{
 
-        index:0,
         title:'salidas',
         icon:'bi bi-truck',
         type:'main',

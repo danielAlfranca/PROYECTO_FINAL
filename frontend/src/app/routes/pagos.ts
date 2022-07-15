@@ -4,7 +4,6 @@ export const pagosRoutes = [
 
     { path: 'pagos', component: PagosSectionComponent,  data:{
 
-        index:0,
         title:'pagos',
         icon:'bi bi-credit-card',
         type:'main',

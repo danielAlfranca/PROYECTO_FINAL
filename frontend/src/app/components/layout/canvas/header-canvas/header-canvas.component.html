@@ -1,1 +1,13 @@
-<p>header-canvas works!</p>
+<div class="header-canvas d-flex align-items-stretch justify-content-between bg-primary">
+
+    <div class="text-light p-2 me-3 d-flex justify-content-center align-items-center border-right">
+        <i class="fs-2 {{config?.icon}}"></i>
+    </div>
+
+    <div class="text-light d-flex justify-content-center align-items-center">{{config?.title}}</div> 
+
+    <div class="mx-3 d-flex justify-content-center align-items-center">
+        <button type="button" class="btn-close" aria-label="Close" (click)="close()"></button>
+    </div> 
+
+</div>
