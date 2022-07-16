@@ -1,3 +1,16 @@
+<div class="table-header d-flex justify-content-between">
+  <div class="table-sections">
+    <div class="table-title" *ngIf="config.title">{{config.title}}</div>
+    <div class="tabs" *ngIf="config.sections.length>1">
+      <app-tabs-header [titles]="sections"></app-tabs-header>
+    </div>
+  </div>
+
+  <div class="search-container">
+    <app-search [data]="data" [config]="config" (filtered)="filter($event)"></app-search>
+  </div>
+  
+</div>
 <table class="table table-striped table-hover">
     <thead>
     <tr>
@@ -8,23 +21,10 @@
     </tr>
     </thead>
     <tbody>
-  <tr>
-    <th scope="row">1</th>
-    <td>Mark</td>
-    <td>Otto</td>
-    <td>@mdo</td>
+  <tr *ngFor="let item of filtered | pagination:currentPage">
+    <td *ngFor="let column of config.columns"></td>
   </tr>
-  <tr>
-    <th scope="row">2</th>
-    <td>Jacob</td>
-    <td>Thornton</td>
-    <td>@fat</td>
-  </tr>
-  <tr>
-    <th scope="row">3</th>
-    <td colspan="2">Larry the Bird</td>
-    <td>@twitter</td>
-  </tr>
+  
 </tbody>
 
 </table>

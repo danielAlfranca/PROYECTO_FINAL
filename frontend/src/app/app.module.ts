@@ -30,6 +30,7 @@ import { ReservasSectionComponent } from './components/sections/reservas/reserva
 import { InventarioSectionComponent } from './components/sections/inventario/inventario-section/inventario-section.component';
 import { SalidasSectionComponent } from './components/sections/salidas/salidas-section/salidas-section.component';
 import { PagosSectionComponent } from './components/sections/pagos/pagos-section/pagos-section.component';
+import { TabsHeaderComponent } from './components/shared/tabs/tabs-header/tabs-header.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +61,8 @@ import { PagosSectionComponent } from './components/sections/pagos/pagos-section
     ReservasSectionComponent,
     InventarioSectionComponent,
     SalidasSectionComponent,
-    PagosSectionComponent
+    PagosSectionComponent,
+    TabsHeaderComponent
   ],
   imports: [
     BrowserModule,

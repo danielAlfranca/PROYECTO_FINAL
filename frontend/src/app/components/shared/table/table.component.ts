@@ -15,7 +15,6 @@ export class TableComponent implements OnChanges {
 
   currentSection:number = 0;
   currentPage:number = 1;
-  searchTerm:string = '';
 
   private list!:any[]; // filtered data
   
