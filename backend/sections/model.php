@@ -5,7 +5,7 @@ require '../shared/database.php';
 class section{   
     
     private $connection;
-    
+ 
     public function __constructor($user){
 
         $this->connection = new Database($user);
@@ -16,6 +16,8 @@ class section{
     public function save($data){}
 
     public function update($data){}
+
+    public function select($data){}
 
     public function delete($data){}
     

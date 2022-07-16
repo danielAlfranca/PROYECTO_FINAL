@@ -55,7 +55,7 @@ class Database {
 
             $this->connection = new PDO($data_source_name, $user, self::PASSWORD);
 
-            $this->setAttribute(PDO::ATTRR_ERRMODE, PDO::ERRMODE_WARNING); // para que te avise del error y no solo lo registre en el log
+            $this->setAttribute(PDO::ATTRR_ERRMODE, PDO::ERRMODE_EXCEPTION); // para que te avise del error y no solo lo registre en el log
 
         } catch (PDOException $e) {
 

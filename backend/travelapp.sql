@@ -97,6 +97,7 @@ CREATE TABLE inventory_items (
     agent INT,
     item_type TINYINT NOT NULL,
     data JSON,
+    hidden BOOLEAN,
     FOREIGN KEY (agent) REFERENCES agents(id)
 );
 
