@@ -8,10 +8,10 @@ USE travelapp;
 CREATE TABLE agents (
 
     id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(150) NOT NULL,
-    document VARCHAR(150),
-    type TINYINT NOT NULL,
-    data JSON
+    type ENUM('0','1','2') NOT NULL,
+    # 0 - SIN AGENTE
+    # 1 - INVENTARIO
+    # 2 - RESERVAS     
 );
 
 CREATE TABLE activity_group(
@@ -95,9 +95,14 @@ CREATE TABLE inventory_items (
 
     id INT AUTO_INCREMENT PRIMARY KEY ,
     agent INT,
-    item_type TINYINT NOT NULL,
+    type ENUM('1','2','3','4', '5') NOT NULL,
+    # 1 - EMPRESA
+    # 2 - TRABAJADOR
+    # 3 - HOTEL  
+    # 4 - TOUR
+    # 5 - PAQUETE   
     data JSON,
-    hidden BOOLEAN,
+    hidden BOOLEAN DEFAULT FALSE,
     FOREIGN KEY (agent) REFERENCES agents(id)
 );
 

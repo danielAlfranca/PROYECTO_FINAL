@@ -75,4 +75,4 @@ import { TableHeaderComponent } from './components/shared/table/table-header/tab
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
