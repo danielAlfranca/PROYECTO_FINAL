@@ -31,6 +31,8 @@ import { InventarioSectionComponent } from './components/sections/inventario/inv
 import { SalidasSectionComponent } from './components/sections/salidas/salidas-section/salidas-section.component';
 import { PagosSectionComponent } from './components/sections/pagos/pagos-section/pagos-section.component';
 import { TabsHeaderComponent } from './components/shared/tabs/tabs-header/tabs-header.component';
+import { PaginatePipe } from './pipes/paginate.pipe';
+import { TableHeaderComponent } from './components/shared/table/table-header/table-header.component';
 
 @NgModule({
   declarations: [
@@ -62,7 +64,9 @@ import { TabsHeaderComponent } from './components/shared/tabs/tabs-header/tabs-h
     InventarioSectionComponent,
     SalidasSectionComponent,
     PagosSectionComponent,
-    TabsHeaderComponent
+    TabsHeaderComponent,
+    PaginatePipe,
+    TableHeaderComponent
   ],
   imports: [
     BrowserModule,

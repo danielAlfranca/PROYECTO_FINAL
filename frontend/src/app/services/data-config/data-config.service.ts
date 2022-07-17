@@ -5,9 +5,17 @@ import { Injectable } from '@angular/core';
 })
 export class DataConfigService {
 
+  private types:any;
+
   constructor() { }
 
-  public getValue(object:any, propertyName:string, dataType:string){
+  public setValue(object:any, propertyName:string, dataType:string, value:any):any{
 
+    return ''
+  }
+
+  public getValue(object:any, propertyName:string, dataType:string):any{
+
+    return ''
   }
 }

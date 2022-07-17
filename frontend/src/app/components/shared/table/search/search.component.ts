@@ -7,10 +7,12 @@ import { AppConfigService } from 'src/app/services/app-config.service';
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss']
 })
-export class SearchComponent implements OnInit {
+export class SearchComponent {
 
   @Input() data!:any[];
-  @Input() config!:TableConfig  
+  @Input() dataType!:string;
+  @Input() searchProperties!:string[] 
+
   @Output() filtered =  new EventEmitter<any[]>();
 
   active= false;
@@ -19,14 +21,11 @@ export class SearchComponent implements OnInit {
 
   private filter(term:string){
 
-    let concatenated, 
-        list = this.config.search, 
-        dataType = this.config.dataType,
-        dataConfig = this.appConfig.dataConfig;
+    let concatenated, dataConfig = this.appConfig.dataConfig;
 
     return this.data.filter(item=>{
 
-      concatenated = list.map(property=> dataConfig.getValue(item,property, dataType) ).join(' ')
+      concatenated = this.searchProperties.map(property=> dataConfig.getValue(item,property, this.dataType) ).join(' ')
 
       return concatenated.indexOf(term)!=-1
 

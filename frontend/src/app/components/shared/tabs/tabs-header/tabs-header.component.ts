@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-tabs-header',
@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./tabs-header.component.scss']
 })
 export class TabsHeaderComponent implements OnInit {
+
+  @Input() titles!:string[];
 
   constructor() { }
 
