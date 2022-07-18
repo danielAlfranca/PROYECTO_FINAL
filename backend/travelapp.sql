@@ -1,4 +1,4 @@
--- Active: 1657547555018@@127.0.0.1@3306@plantes
+-- Active: 1658128211047@@127.0.0.1@3306@travelapp
 DROP DATABASE IF EXISTS travelapp;
 
 CREATE DATABASE travelapp DEFAULT CHARSET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -7,22 +7,26 @@ USE travelapp;
 
 CREATE TABLE agents (
 
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    type ENUM('0','1','2') NOT NULL,
+    id INT AUTO_INCREMENT,
+    agent_type ENUM('0','1','2') NOT NULL,
+    PRIMARY KEY (id)
     # 0 - SIN AGENTE
     # 1 - INVENTARIO
-    # 2 - RESERVAS     
+    # 2 - RESERVAS   
 );
+
+  
 
 CREATE TABLE activity_group(
 
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    id INT AUTO_INCREMENT,
     type TINYINT NOT NULL,
     date_start DATE NOT NULL,
     date_end DATE NOT NULL,
     time_start TIME,
     time_end TIME,
-    data JSON
+    data JSON,
+    PRIMARY KEY (id)
 );
 
 CREATE TABLE activities(
@@ -44,15 +48,13 @@ CREATE TABLE activities(
 CREATE TABLE passengers(
 
     group_id INT,
-    activity_index TINYINT,
-    activity_type TINYINT,
-    event_ref INT,
+    activity_index TINYINT NOT NULL,
+    activity_type TINYINT NOT NULL,
+    event_ref INT NOT NULL,
     pax JSON,
-    PRIMARY KEY (group_id,activity_index,activity_type, event_ref),
-    FOREIGN KEY (group_id) REFERENCES activities(group_id),
-    FOREIGN KEY (activity_index) REFERENCES activities(activity_index),
-    FOREIGN KEY (activity_type) REFERENCES activities(activity_type),
-    FOREIGN KEY (event_ref) REFERENCES activity_group(id)
+    FOREIGN KEY (group_id, activity_index, activity_type) REFERENCES activities (group_id, activity_index, activity_type),
+    FOREIGN KEY (event_ref) REFERENCES activity_group (id),
+    PRIMARY KEY (group_id,activity_index,activity_type, event_ref)
     
 );
 
@@ -84,10 +86,9 @@ CREATE TABLE concept_invoice(
     amount FLOAT NOT NULL,
     concept VARCHAR(70),
     details JSON,
-    FOREIGN KEY (group_id) REFERENCES activities(group_id),
-    FOREIGN KEY (activity_index) REFERENCES activities(activity_index),
-    FOREIGN KEY (activity_type) REFERENCES activities(activity_type),
+    FOREIGN KEY (group_id, activity_index, activity_type) REFERENCES activities (group_id, activity_index, activity_type),
     FOREIGN KEY (invoice) REFERENCES invoices(id)
+
 );
 
 

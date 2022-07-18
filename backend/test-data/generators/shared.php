@@ -27,5 +27,10 @@
         return $arr;
     }
 
+    function randomAddress($direccion,$destinos,$paises){
+
+        return randomPick($direccion). ", ".randomPick($destinos).", ".randomPick($paises);
+    }
+
  
 ?>

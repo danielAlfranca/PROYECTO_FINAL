@@ -1,7 +1,7 @@
 <?php 
 
 
-    //http://localhost/PROYECTO_FINAL/backend/test-data/insert-data.php
+    //http://localhost/PROYECTO_FINAL-1/backend/test-data/insert-data.php
 
 
     include_once './lists/emails.php';
@@ -11,35 +11,48 @@
     include_once './generators/inventory.php';
     include_once './generators/agents.php';
 
-    $inventory = build_inventory();
-    $agents = build_agents($inventory);
+    include_once '../shared/database.php';
+
+    
+
+    $empresas = 10;
+    $trabajadores = 6;
+    $reservas = 12;
+
+    $agents = build_agents($empresas,$trabajadores,$reservas);  
+    $inventory = build_inventory($empresas,$trabajadores,$emails, $names);
 
     $user='root';
     $host='localhost';
     $password='';
-    $dbName = 'travelapp';
+    $dbname = 'travelapp';
 
-    $conection = mysqli_connect($host, $user, $password); 
+    $dsn = "mysql:host=localhost;dbname=$dbname";
+    $connection =  new PDO($dsn, $user, $password);
 
-    if (!$conection) {
 
-        die('Hubo un error en la conexion a la base de datos: ' . mysqli_error());
+    try{    
+        foreach ($agents as $agent) {
+     
+            $statement = $connection->prepare("INSERT INTO agents (agent_type)  VALUES(:agent_type)");
+            $statement->bindParam(":agent_type", $agent[1]);
+            $statement->execute();            
+        }
 
-    }else{
+        foreach ($inventory as $item) {
+     
+            $statement = $connection->prepare("INSERT INTO inventory_items( agent, type, data, hidden)  VALUES(:agent, :type, :data, :hidden)");
+            $statement->bindParam(":agent", $item[1]);
+            $statement->bindParam(":type", $item[2]);
+            $statement->bindParam(":data", $item[3]);
+            $statement->bindParam(":hidden", $item[4]);
+            $statement->execute();            
+        }
+      
+        echo 'success ';
 
-        $sql = "USE $dbName;";
-        $sql .= build_agents_SQL($agents);  
+    }catch( PDOException $e) {   echo $e->getMessage();  } 
 
- 
-      if ($conection->multi_query($sql)===TRUE) { // no funciona
-          
-            echo "agents creados";
-
-            $conection->next_result();
-
-        } else { echo "Error en la creacion agents: " . $conection->error; } 
-
-    }    
-
+    
 ?>
 

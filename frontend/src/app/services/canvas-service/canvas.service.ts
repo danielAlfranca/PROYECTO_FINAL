@@ -68,9 +68,9 @@ export class CanvasService {
 
   private initRouteLists(){
 
-    this.routes = (this.router.config).filter(e=>!e.redirectTo); // TODAS LAS RUTAS MENOS LAS REDIRECCIONES
+    this.routes = (this.router.config).filter((e:Route)=>!e.redirectTo); // TODAS LAS RUTAS MENOS LAS REDIRECCIONES
 
-    this.routes.forEach(route=>{
+    this.routes.forEach((route:Route)=>{
 
       const data = route.data as CanvasConfig;
 
@@ -80,7 +80,7 @@ export class CanvasService {
     })
   }
 
-  private parseRootTree(tree:UrlTree){ // PILLA EL URL TREE DEL ROUUTER Y LO CONVIERTE EN UN ARRAY DE CANVAS CONFIG
+  private parseRootTree(tree:UrlTree){ // PILLA EL URL TREE DEL ROUTER Y LO CONVIERTE EN UN ARRAY DE CANVAS CONFIG
 
     const outlets = tree.root.children, primary = outlets['primary'].segments[0];
 
@@ -115,7 +115,7 @@ export class CanvasService {
 
   private getPathRoute(path:string){
 
-    return this.routes.find(e=>e.path==path);
+    return this.routes.find((e:Route)=>e.path==path);
 
   }
 
@@ -135,7 +135,7 @@ export class CanvasService {
 
   private isClosing(newCanvasStatus:CanvasConfig[]){    
 
-    return newCanvasStatus.length < this.canvasStatus.length;
+    return newCanvasStatus.length < this.canvasStatus.length; // el nuevo valor tiene menos rutas que el anterior
 
   }
 

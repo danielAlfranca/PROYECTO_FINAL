@@ -7,11 +7,11 @@ $action = $_POST['action'];
 $data = $_POST['data'];
 
 
-if(isset($_SESSION['usertapp']) && !empty($_SESSION['usertapp']) ){
+if( true /* isset($_SESSION['usertapp']) && !empty($_SESSION['usertapp'])  */){
 
-    $user = $_SESSION['usertapp'];
+    //$user = $_SESSION['usertapp'];
 
-    $controller = get_section($section, $user);
+    $controller = get_section($section);
    
     if($controller->validate($data)){ 
 

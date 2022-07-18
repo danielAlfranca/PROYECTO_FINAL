@@ -1,12 +1,10 @@
 <?php
 
 
-include_once './columns.php';
-
 class Database {
 
     const HOST = 'localhost';
-    const DATABASE = 'travelApp';
+    const DATABASE = 'travelapp';
     const PASSWORD = '';
 
     public $connection = null;

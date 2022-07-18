@@ -1,20 +1,7 @@
 <?php 
 
-    /* 
 
-    ESTRUCTURA TABLA
-    
-    id INT AUTO_INCREMENT PRIMARY KEY ,
-    agent INT,
-    item_type TINYINT NOT NULL,
-    data JSON,
-    FOREIGN KEY (agent) REFERENCES agents(id) 
-    
-    */
-
-
-
-    function build_inventory(){        
+    function build_inventory($num_empresas,$num_trabajadores,$emails, $names){        
 
         $inventory_array = [];
 
@@ -26,26 +13,58 @@
         $direccion = builListNames('direccion',10);
         $paises = builListNames('pais',5);
 
-        $empresas = buildIdLisT(1,15);
+        $empresas = buildIdLisT(1,$num_empresas);
         $empresasHoteleras = randomPick($empresas, 4 );
-        $tours = buildIdLisT(15,30);
-        $hoteles = buildIdLisT(30,42);
-        $paquetes = buildIdLisT(42,50);
+        $tours = buildIdLisT(1,15);
+        $hoteles = buildIdLisT(1,8);
+        $paquetes = buildIdLisT(1,10);       
 
         // EMPRESAS 
 
-        foreach ($empresas as $id) {
+        for ($id=1; $id <= $num_empresas ; $id++) { 
+            
+            $data = [
+                'empresa '.$id, // name
+                rand(111111,999999),// doc
+                randomAddress($direccion,$destinos,$paises),// address
+                [rand(600000000,699999999)], // phones 
+                [randomPick($emails), randomPick($emails)], // emails 
+            ];
         
             $inventory_array[] =  [
 
-                'id'=> $id,
-                'agent'=>$id,
-                'item_type'=>1,
-                'data'=>NULL
+                $id,// id
+                $id+1,// agent !!!!!! + 1 porque el id 1 en agents es para sin agente
+                1,// type
+                json_encode($data),
+                FALSE,// hidden
             ];       
         }
-    
-        // TOURS
+
+        // trabajadores 
+
+        for ($id=$num_empresas+1; $id <=$num_empresas+1+$num_trabajadores ; $id++) { 
+
+            $data = [
+                randomPick($names) . 'apellido 1 apellido 2', // name
+                rand(111111,999999),// doc
+                randomAddress($direccion,$destinos,$paises),// address
+                [rand(600000000,699999999)], // phones 
+                [randomPick($emails), randomPick($emails)], // emails 
+            ];
+        
+            $inventory_array[] =  [
+
+                $id,// id
+                $id+1,// agent !!!!!! + 1 porque el id 1 en agents es para sin agente
+                1,// type
+                json_encode($data), //data
+                FALSE,// hidden
+            ];       
+           
+        }
+       
+        // TOURS        
 
         foreach ($tours as $id) {
         
@@ -60,11 +79,12 @@
 
             $inventory_array[] =  [
 
-                'id'=> $id,
-                'agent'=>NULL,
-                'item_type'=>2,
-                'data'=>json_encode($data)
-            ];        
+                $id,// id
+                1,// agent
+                4,// type
+                json_encode($data),
+                FALSE,// hidden
+            ];                
         }
 
         // HOTELES
@@ -79,16 +99,18 @@
                 $type, // tipo
                 ($type == 1 ? randomPick([1,2,3,4,5]):null), // categoria
                 randomPick($hotel_services,randomPick([1,2,3,4])), // services
-                randomPick($direccion). ', '.randomPick($destinos).', '.randomPick($paises) // address
+                randomAddress($direccion,$destinos,$paises) // address
             ];
 
             $inventory_array[] =  [
 
-                'id'=> $id,
-                'agent'=>randomPick($empresasHoteleras),
-                'item_type'=>3,
-                'data'=>json_encode($data)
-            ];               
+                $id,// id
+                randomPick($empresasHoteleras) +1 ,// agent !!!!!! + 1 porque el id 1 en agents es para sin agente
+                3,// type
+                json_encode($data),
+                FALSE,// hidden
+            ];     
+             
         }
 
         // PAQUETES
@@ -100,18 +122,19 @@
 
                 "paquete $id", // nombre paquete
                 $duracion_paquete, // duracion dias
-                randomPick($destinos,randomPick([1,2])), // categoria
+                randomPick($destinos,randomPick([1,2])), // destino
 
                 // FALTAN LOS SERVICIOS !!!!!!!!!!!!!!!!!!
             ];
 
             $inventory_array[] =  [
 
-                'id'=> $id,
-                'agent'=>NULL,
-                'item_type'=>4,
-                'data'=>json_encode($data)
-            ];               
+                $id,// id
+                1,// agent
+                5,// type
+                json_encode($data),
+                FALSE,// hidden
+            ];                          
         }
 
         return $inventory_array;

@@ -12,24 +12,16 @@
     
     */
 
-    function build_agents($inventario){
+    function build_agents($empresas, $trabajadores,$reservas){
 
-       $agents = [];
-       $empresas = array_filter($inventario, fn($e) => $e['item_type']==1);
+       $agents = [[null,0]];
+      
+       for ($i=0; $i <$empresas ; $i++) {   $agents[]=[null,1]; }  
+       for ($i=0; $i <$trabajadores ; $i++) {  $agents[]=[null,1]; }
+       for ($i=0; $i <$reservas ; $i++) { $agents[]=[null,1];  }
 
-       foreach($empresas as $value){
-
-            $agents[] = [
-
-                'id'=>$value['id'],
-                'name'=>'empresa '.$value['id']. ' s.a.',
-                'document'=>random_int(1111111, 9999999),
-                'data'=>null
-            ];
-       }
-
-       return $agents;        
-
+       return $agents;
+       
     }
 
     function build_agents_SQL($arr){
