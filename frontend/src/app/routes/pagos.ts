@@ -6,8 +6,7 @@ export const pagosRoutes = [
 
         title:'pagos',
         icon:'bi bi-credit-card',
-        type:'main',
-        data:null,
-        discardAll:false
+        type:'primary',
+        query:null
     } }
 ];

@@ -12,10 +12,10 @@ export class EmpresaConfig extends DataConfig{
             validations:['valid_index'], 
             required:true,
         },
-        nombre:{
+        agent:{
 
             private:1, 
-            validations:['string'], 
+            validations:['reference_exists', 'is_agent'], 
             required:true,
         }, 
         agente:{
@@ -25,10 +25,10 @@ export class EmpresaConfig extends DataConfig{
             required:true,
         }                      
     }
-    constructor(dataQueries:DataService){
+    constructor(private dataQueries:DataService){
 
         super();
-        this.dataQueries = dataQueries;
+       
     }
 
 }

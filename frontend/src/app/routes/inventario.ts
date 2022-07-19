@@ -6,9 +6,8 @@ export const inventarioRoutes = [
 
         title:'inventario',
         icon:'bi bi-archive',
-        type:'main',
-        data:null,
-        discardAll:false
+        type:'primary',
+        query:null
         
     } }
 ];

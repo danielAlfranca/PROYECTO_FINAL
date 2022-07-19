@@ -17,11 +17,9 @@ export class CanvasService {
   public get last():CanvasConfig{ return [...this.canvasStatus].pop() as CanvasConfig}
 
 
-
   private _routesChanges = new Subject<CanvasConfig[]>();
 
   private canvasStatus:CanvasConfig[] = [];
-
 
   private routes!:Routes
 

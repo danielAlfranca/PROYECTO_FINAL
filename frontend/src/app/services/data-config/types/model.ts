@@ -19,13 +19,26 @@ export abstract class DataConfig{
 
     /* VALIDACIONES */
 
-    protected validations!:{[key:string]:(value:string)=>boolean}; // VALIDACIONES COMUNES
+    protected validations:{[key:string]:(obj:any, key:string)=>boolean} = {
+
+        is_boolean:(obj:any, key:string) => typeof obj[key] == "boolean",
+
+        is_string:(obj:any, key:string) => typeof obj[key]  == "string",
+
+        is_number:(obj:any, key:string) => typeof obj[key]  == "number",
+
+        valid_index:(obj:any, key:string) => typeof obj[key]  == "number" || obj[key]  == 'nuevo',
+
+        agent_exists:(obj:any, key:string) => /* FALTA */ true
+
+
+    }; // VALIDACIONES 
 
     protected globalValidations!:((obj:any)=>boolean)[]; // VALIDACIONES ESPECIFICAS PARA EL CONJUNTO DEL OBJETO, NO SOLO UNA PROPIEDAD
 
     /* para solicitudes de datos, opcional */ 
 
-    protected dataQueries!:DataService;    
+    //protected dataQueries!:DataService;    
 
     constructor(){}  
 
@@ -48,7 +61,7 @@ export abstract class DataConfig{
 
         return !propConfig.validations || propConfig.validations.every(validation=>{ // SI NO REQUIERE VALIDACION O TODAS LAS VALIDACIONES OK
 
-            return (this.validations[validation])(value); // SE BUSCA EN VALIDACIONES ESPECIFICAS DE LA CLASE
+            return (this.validations[validation])(obj,key); // SE BUSCA EN VALIDACIONES ESPECIFICAS DE LA CLASE
         });
     }
 

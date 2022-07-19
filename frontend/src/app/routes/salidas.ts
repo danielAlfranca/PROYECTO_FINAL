@@ -6,8 +6,7 @@ export const salidasRoutes = [
 
         title:'salidas',
         icon:'bi bi-truck',
-        type:'main',
-        data:null,
-        discardAll:false
-    }  }
+        type:'primary',
+        query:null
+    }}
 ];

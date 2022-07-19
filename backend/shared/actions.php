@@ -1,13 +1,27 @@
 <?php 
+header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
+header('Access-Control-Allow-Origin: *');
 
-session_start();
+require '../sections/appData.php';
 
-$section = $_POST['section'];
+//session_start();
+
+/* $section = $_POST['section'];
 $action = $_POST['action'];
 $data = $_POST['data'];
+ */
 
+if(strcasecmp($_SERVER['REQUEST_METHOD'], 'POST') != 0){
+    throw new Exception('Request method must be POST!');
+}
 
-if( true /* isset($_SESSION['usertapp']) && !empty($_SESSION['usertapp'])  */){
+$query = json_decode(trim(file_get_contents('php://input')),true);
+
+$section = $query['section'];
+$action = $query['action'];
+$data = $query['data'];
+
+ if( true /* isset($_SESSION['usertapp']) && !empty($_SESSION['usertapp']) */ ){
 
     //$user = $_SESSION['usertapp'];
 
@@ -15,17 +29,17 @@ if( true /* isset($_SESSION['usertapp']) && !empty($_SESSION['usertapp'])  */){
    
     if($controller->validate($data)){ 
 
-        return $controller->$action($data);
+        echo json_encode($controller->$action($data));
 
-    } else{ return false ; }
-}
+    } else{ echo false ; }
+} 
 
 
-function get_section($name,$user){
+function get_section($name){
 
-    $classSection = new ucfirst($name);
+    $classSection = ucfirst($name);
 
-    return new $classSection($user) ;
+    return new $classSection();
 }
 
 

@@ -4,7 +4,7 @@ import {HttpClient} from "@angular/common/http";
 import { Observable, Subject } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root' 
 })
 export class DataService {
 
@@ -13,7 +13,7 @@ export class DataService {
     return this.$_dataSets as Observable<any>;
   };
 
-  private URI = "http://localhost/PROYECTO_FINAL-1/"
+  private URI = "http://localhost/PROYECTO_FINAL/"
 
   private $_dataSets:Observable<any> = new Subject<any>();
 
@@ -23,11 +23,17 @@ export class DataService {
 
     return this.http.post(  this.URI + 'backend/shared/actions.php',{
 
-      section:'dataApp',
+      section:'appData',
       action:'dataSet',
-      data:[start,end]
+      data:{}
 
-    }).subscribe((e:any)=>console.log(e))
+    },{headers:{ 'content-type':'application/json'}} ).subscribe(response=>{
+
+      
+    }
+
+
+    )
   }
 
   getItem(section:string, id:string){}

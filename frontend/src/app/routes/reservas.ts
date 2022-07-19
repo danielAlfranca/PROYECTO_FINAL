@@ -8,9 +8,8 @@ export const reservasRoutes = [
 
             title: 'reservas',
             icon: 'bi bi-bookmark',
-            type: 'main',
-            data: null,
-            discardAll: false
+            type: 'primary',
+            query: null
 
         }
     }
