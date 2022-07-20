@@ -1,1 +1,7 @@
-<p>tabs works!</p>
+<div class="d-flex justify-content-center align-items-center flex-column">
+    <h4 class="py-5" *ngIf="nextlink else nolinks">Next Route {{nextlink}}</h4>
+    <button class="btn btn-warning btn-lg" (click)="open()" [ngClass]="{'d-none':!nextlink}"> SIGUIENTE</button>
+</div>
+<ng-template #nolinks>
+    <h4 class="py-5">No more routes</h4>
+</ng-template>

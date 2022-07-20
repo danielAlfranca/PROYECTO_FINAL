@@ -14,7 +14,7 @@ class AppData{
         $query->setFetchMode(PDO::FETCH_NUM);
         $query->execute(); 
 
-        return $query->fetchAll();
+        return ["inventario"=>$query->fetchAll()];
     }
 
     public function update($data){}

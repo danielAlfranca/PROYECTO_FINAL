@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { DataTypes } from 'src/app/interfaces/types/data-config';
 import { DataConfigService } from '../data-config/data-config.service';
 
 @Injectable({
@@ -8,32 +9,53 @@ export class DataStoreService {
 
   private _store:any;
 
-  get empresas(){
 
-    return this.filterObject(this._store.inventario, (val:any)=>this.dataConfig.getValue(val,'es_empresa','inventario'))
+  get inventario(){
+
+    return this.filterObject(this._store.inventario, (val:any)=>true)
   }
 
-  get tours(){
+  get empresa(){
 
-    return this.filterObject(this._store.inventario, (val:any)=>this.dataConfig.getValue(val,'es_tour','inventario'))
+    return this.filterObject(this._store.inventario, (val:any)=>this.dataConfig.getValue(val,'is_empresa','inventario'))
   }
 
-  get hoteles(){
+  get tour(){
 
-    return this.filterObject(this._store.inventario, (val:any)=>this.dataConfig.getValue(val,'es_tour','inventario'))
+    return this.filterObject(this._store.inventario, (val:any)=>this.dataConfig.getValue(val,'is_tour','inventario'))
   }
 
-  get paquetes(){
+  get hotel(){
 
-    return this.filterObject(this._store.inventario, (val:any)=>this.dataConfig.getValue(val,'es_tour','inventario'))
+    return this.filterObject(this._store.inventario, (val:any)=>this.dataConfig.getValue(val,'is_hotel','inventario'))
   }
+
+  get paquete(){
+
+    return this.filterObject(this._store.inventario, (val:any)=>this.dataConfig.getValue(val,'es_paquete','inventario'))
+  }
+
+  get salida(){
+
+    return this.filterObject(this._store.inventario, (val:any)=>this.dataConfig.getValue(val,'es_paquete','inventario'))
+  }
+
+  get reserva(){
+
+    return this.filterObject(this._store.inventario, (val:any)=>this.dataConfig.getValue(val,'es_paquete','inventario'))
+  }
+  get pago(){
+
+    return this.filterObject(this._store.inventario, (val:any)=>this.dataConfig.getValue(val,'es_paquete','inventario'))
+  }
+
 
 
   constructor(private dataConfig:DataConfigService) { }
 
-  store(data:any){
+  save(data:any){
 
-    this._store = this.createIndexedObject(data);
+    this._store = this.createIndexedObject(data);    
   }
 
   private createIndexedObject(data:any){
@@ -52,6 +74,8 @@ export class DataStoreService {
   
       }, {} as any);
 
+      return sections;
+
     }, {} as any);
 
   }
@@ -59,11 +83,12 @@ export class DataStoreService {
 
   private filterObject(obj:any,func:Function){
 
-    return Object.keys(obj||{}).filter(key=>func(obj[key])).reduce((newObj:any,key:string)=>{
+    return Object.keys(obj||{}).filter(key=>func(obj[key])).reduce((newObj:any,key:string,index:number)=>{
 
-        newObj[key] = obj[key];
+        newObj[index] = obj[key];
+        
         return newObj
-    },{})
+    },[])
   }
 
 

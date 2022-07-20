@@ -14,7 +14,7 @@ export class HeaderComponent {
 
   constructor(private appConfig:AppConfigService) { 
 
-    this.appConfig.canvas.routesChanges.subscribe(e=>{
+    this.appConfig.canvas.routesChanges.subscribe((e:any)=>{
 
       const last = this.appConfig.canvas.last;
 

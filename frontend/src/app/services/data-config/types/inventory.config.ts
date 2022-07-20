@@ -1,7 +1,10 @@
+import { Injectable } from "@angular/core";
 import { DataService } from "../../data-queries/data.service";
 import { DataConfig  } from "./model";
 
-
+@Injectable({
+    providedIn: 'root'
+  })
 
 export class InventoryConfig extends DataConfig{
 
@@ -60,7 +63,7 @@ export class InventoryConfig extends DataConfig{
 
     };
 
-    constructor(private dataQueries:DataService){ super();  }
+    constructor(){ super();  }
 
 
     private validInventoryData(obj:any, key:string){
@@ -69,17 +72,17 @@ export class InventoryConfig extends DataConfig{
 
        switch (Number(type)) {
 
-        case 1: return this.validEmpresaData(data);
+            case 1: return this.validEmpresaData(data);
 
-        case 2: return this.validTrabajadorData(data);
+            case 2: return this.validTrabajadorData(data);
 
-        case 3: return this.validHotelData(data);
+            case 3: return this.validHotelData(data);
 
-        case 4: return this.validTourData(data);
-        
-        case 5:return this.validPaqueteData(data);
+            case 4: return this.validTourData(data);
+            
+            case 5:return this.validPaqueteData(data);
 
-        default: return false;
+            default: return false;
 
        }
       

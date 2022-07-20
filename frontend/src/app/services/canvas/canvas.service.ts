@@ -3,26 +3,22 @@ import { Injectable } from '@angular/core';
 import { ActivationEnd, Event, Route, Router, Routes, UrlTree } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
 import { CanvasConfig } from '../../interfaces/canvas';
-import { Deferred } from './deferred';
 
 @Injectable({
   providedIn: 'root'
 })
 
-export class CanvasService {
-  
+export class CanvasService {  
 
   public get routesChanges(){ return this._routesChanges as Observable<CanvasConfig[]>; };
 
-  public get last():CanvasConfig{ return [...this.canvasStatus].pop() as CanvasConfig}
-
+  public get last():CanvasConfig{ return [...this.canvasStatus].pop() as CanvasConfig }
 
   private _routesChanges = new Subject<CanvasConfig[]>();
 
-  private canvasStatus:CanvasConfig[] = [];
+  public canvasStatus!:CanvasConfig[];
 
-  private routes!:Routes
-
+  private routes!:Routes;
 
   constructor(private router:Router, private location: Location){
 
@@ -30,37 +26,48 @@ export class CanvasService {
 
     this.router.events.subscribe((event: Event) => {
 
-      if (event instanceof ActivationEnd) { 
-        
-        const newStatus = this.parseRootTree(this.router.parseUrl(this.router.url));
-
-        if(this.isClosing(newStatus)) this.answerLastQuery()
-
-        this.canvasStatus  = newStatus;
-        this._routesChanges.next(this.canvasStatus);
-      }
+      if (event instanceof ActivationEnd) {  this.update();  }
           
     });
   }
 
 
-  public open(data:string){  
+  public open(data:string){  // se solicita la ruta y se devuelve un observable para emitir respuesta
 
-    const config = this.getRouteConfig(data);
+    const response = new Subject<any>(), config = this.getRouteConfig(data, response);
 
-    if(config) { this.router.navigate([config ]); }    
-
+    if(config) { this.router.navigate([config ]); }  
+    
+    return response as Observable<any>;
   }
 
   public close(data?:any){ 
 
     const last = this.last;
 
-    console.log(last)
-
-    last._response.data = data; // SE GUARDAN AQUI LOS DATOS QUE LUEGOS SE PASARAN A TRAVES DE LA PROMISE
+    if(last?._response) last._responseData = data; // SE GUARDAN AQUI LOS DATOS QUE LUEGOS SE PASARAN A TRAVES DE LA PROMISE
 
     this.location.back();
+
+  }
+
+  
+  private update(){
+
+    const newStatus = this.parseRootTree(this.router.parseUrl(this.router.url));
+
+    if(!this.canvasStatus) { // AL RECARGAR SE RESETEA A RUTA PRIMARIA  
+      
+      this.canvasStatus = [];
+      this.router.navigateByUrl(newStatus[0].path);      
+
+    }else{
+
+      if(this.isClosing(newStatus)) this.answerLastQuery();
+
+      this.canvasStatus  = newStatus;
+      this._routesChanges.next(this.canvasStatus);
+    }
 
   }
 
@@ -74,30 +81,39 @@ export class CanvasService {
 
       data.type = this.getOutletType(route);
       data.path = route.path || ''; 
+      data.outlet = route.outlet || 'primary'; 
      
-    })
+    });
   }
 
   private parseRootTree(tree:UrlTree){ // PILLA EL URL TREE DEL ROUTER Y LO CONVIERTE EN UN ARRAY DE CANVAS CONFIG
 
-    const outlets = tree.root.children, primary = outlets['primary'].segments[0];
+    let outlets = tree.root.children, route, path, all, asides, popUps, primary;
 
-    let route, path, sorted = Object.keys(outlets).sort((a,b)=>a.localeCompare(b));
-
-    return sorted.map(outletName=>{
+    all = Object.keys(outlets).map(outletName=>{
 
       path = outlets[outletName].segments[0].path;
       route = this.getPathRoute(path);
 
       return route?.data as CanvasConfig;
 
-    })
+    });
+
+    primary = all.find(e=>e.type=='primary') as CanvasConfig;
+    asides = all.filter(e=>e.type=='aside').sort((a,b)=>a.outlet>b.outlet ? 1:-1);
+    popUps = all.filter(e=>e.type=='popUp').sort((a,b)=>a.outlet>b.outlet ? 1:-1);
+
+    return [
+      primary,
+      ...asides,
+      ...popUps
+    ];
   }
 
 
    // METODOS PARA PETICION DE NUEVA RUTA
 
-  private getRouteConfig(path:string){ // CONFIGURA DATOS ASOCIADOS A LA RUTA
+  private getRouteConfig(path:string, response:Subject<any>){ // CONFIGURA DATOS ASOCIADOS A LA RUTA
 
     const route = this.getPathRoute(path); 
 
@@ -105,7 +121,7 @@ export class CanvasService {
 
     const data =  route.data as CanvasConfig;      
 
-    data._response = new Deferred();    
+    data._response = response;    
 
     return {outlets: { [route.outlet|| 'primary']: path}}; 
  
@@ -114,7 +130,6 @@ export class CanvasService {
   private getPathRoute(path:string){
 
     return this.routes.find((e:Route)=>e.path==path);
-
   }
 
   private getOutletType(route:Route){
@@ -141,9 +156,11 @@ export class CanvasService {
 
     const data = this.last;
 
-    if(data._response.data) { data._response.resolve(data._response.data)}
-    else{ data._response.reject() }
+    if(data._response){
 
+       data._response.next(data._responseData||null); data._responseData = null; 
+
+    }
   }
 
 

@@ -1,5 +1,5 @@
 
-import { Deferred } from '../services/canvas-service/deferred';
+import { Subject } from 'rxjs';
 
 export type AppSections = 'reservas'|'salidas'|'pagos'|'inventario'|'usuario';
 export type CanvasType = 'primary'|'aside'|'popUp';
@@ -12,7 +12,9 @@ export interface CanvasConfig{
     type:CanvasType
     query:any,
     path:string,
-    _response:Deferred   
+    outlet:string,
+    _responseData:any,
+    _response:Subject<any>   
 
 }
 

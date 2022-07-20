@@ -1,0 +1,1 @@
+export type DataTypes = 'inventario'|'empresa'|'tour'|'hotel'|'paquete'|'salida'|'reserva'|'pago';

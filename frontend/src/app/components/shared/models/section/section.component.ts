@@ -1,15 +1,25 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { DataTypes } from 'src/app/interfaces/types/data-config';
+import { AppConfigService } from 'src/app/services/app-config.service';
 
 @Component({
   selector: 'app-section',
-  templateUrl: './section.component.html',
-  styleUrls: ['./section.component.scss']
+  template: '',
+  styles: ['']
 })
-export class SectionComponent implements OnInit {
+export class SectionComponent {
 
-  constructor() { }
+  protected section!:DataTypes;
+  protected subscription!:Subscription;
 
-  ngOnInit(): void {
+  constructor(protected appConfig:AppConfigService) {
+
+    this.subscription = this.appConfig.queries.$dataUpdates.subscribe(e=>this.getSectionData());
   }
 
+  protected getSectionData(){
+
+    this.appConfig.queries.section(this.section);
+  }
 }

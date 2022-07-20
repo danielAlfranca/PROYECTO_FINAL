@@ -69,11 +69,13 @@ export abstract class DataConfig{
 
     public getValue(obj:any, property:string){
 
-        const configKey = this.keys[property];
-
+        const configKey = this.keys[property];         
+       
         if(!configKey) return undefined;
 
-        if(!configKey.getter) return configKey.private ? obj[configKey.private] : undefined
+        if(!configKey.getter) return configKey.private !== undefined ? obj[configKey.private] : undefined
+
+        console.log(property)
 
         return configKey.getter(obj)
     }

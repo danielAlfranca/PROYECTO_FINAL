@@ -7,8 +7,5 @@ import { AppConfigService } from './services/app-config.service';
 })
 export class AppComponent {
 
-  constructor(private appConfig:AppConfigService){
-
-    this.appConfig.queries.dataSet();
-  }
+  constructor(){}
 }

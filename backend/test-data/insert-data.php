@@ -1,7 +1,6 @@
 <?php 
 
-
-    //http://localhost/PROYECTO_FINAL-1/backend/test-data/insert-data.php
+    //http://localhost/PROYECTO_FINAL/backend/test-data/insert-data.php
 
 
     include_once './lists/emails.php';
@@ -11,9 +10,7 @@
     include_once './generators/inventory.php';
     include_once './generators/agents.php';
 
-    include_once '../shared/database.php';
-
-    
+    include_once '../shared/database.php';    
 
     $empresas = 10;
     $trabajadores = 6;
