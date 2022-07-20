@@ -1,94 +1,61 @@
-import { Injectable } from '@angular/core';
-import { DataTypes } from 'src/app/interfaces/types/data-config';
+import { Injectable, Injector } from '@angular/core';
+import * as _ from 'lodash';
 import { DataConfigService } from '../data-config/data-config.service';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataStoreService {
 
-  private _store:any;
-
-
-  get inventario(){
-
-    return this.filterObject(this._store.inventario, (val:any)=>true)
-  }
+  private _store:any = {};
 
   get empresa(){
+   
+    return this._store.empresa 
+  }
 
-    return this.filterObject(this._store.inventario, (val:any)=>this.dataConfig.getValue(val,'is_empresa','inventario'))
+  get trabajador(){
+
+    return this._store.trabajador 
   }
 
   get tour(){
 
-    return this.filterObject(this._store.inventario, (val:any)=>this.dataConfig.getValue(val,'is_tour','inventario'))
+    return this._store.tour 
   }
 
   get hotel(){
 
-    return this.filterObject(this._store.inventario, (val:any)=>this.dataConfig.getValue(val,'is_hotel','inventario'))
+    return this._store.hotel 
   }
 
   get paquete(){
 
-    return this.filterObject(this._store.inventario, (val:any)=>this.dataConfig.getValue(val,'es_paquete','inventario'))
+    return this._store.paquete 
   }
 
   get salida(){
 
-    return this.filterObject(this._store.inventario, (val:any)=>this.dataConfig.getValue(val,'es_paquete','inventario'))
+    return this._store.salida 
   }
 
   get reserva(){
 
-    return this.filterObject(this._store.inventario, (val:any)=>this.dataConfig.getValue(val,'es_paquete','inventario'))
+    return this._store.reserva  
   }
   get pago(){
 
-    return this.filterObject(this._store.inventario, (val:any)=>this.dataConfig.getValue(val,'es_paquete','inventario'))
+    return this._store.pago 
   }
 
+  constructor(private injector:Injector) { }
 
+  save(data:any){ this._store = data; }
 
-  constructor(private dataConfig:DataConfigService) { }
+  private filter(obj:any,func:Function){ 
 
-  save(data:any){
-
-    this._store = this.createIndexedObject(data);    
-  }
-
-  private createIndexedObject(data:any){
-
-    let id:number;
-
-    return Object.keys(data).reduce((sections, sectionName)=>{
-
-      sections[sectionName] = data[sectionName].reduce((section:any,item:any)=>{
-
-        id = this.dataConfig.getValue(item,'id',sectionName);
-
-        section[id] = item;
-
-        return section;
-  
-      }, {} as any);
-
-      return sections;
-
-    }, {} as any);
-
-  }
-
-
-  private filterObject(obj:any,func:Function){
-
-    return Object.keys(obj||{}).filter(key=>func(obj[key])).reduce((newObj:any,key:string,index:number)=>{
-
-        newObj[index] = obj[key];
-        
-        return newObj
-    },[])
+    return _.pickBy(obj, func)
   }
 
 

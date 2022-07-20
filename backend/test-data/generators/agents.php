@@ -17,8 +17,8 @@
        $agents = [[null,0]];
       
        for ($i=0; $i <$empresas ; $i++) {   $agents[]=[null,1]; }  
-       for ($i=0; $i <$trabajadores ; $i++) {  $agents[]=[null,1]; }
-       for ($i=0; $i <$reservas ; $i++) { $agents[]=[null,1];  }
+       for ($i=0; $i <$trabajadores ; $i++) {  $agents[]=[null,2]; }
+       for ($i=0; $i <$reservas ; $i++) { $agents[]=[null,3];  }
 
        return $agents;
        

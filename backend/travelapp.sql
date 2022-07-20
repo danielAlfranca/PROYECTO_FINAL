@@ -11,8 +11,9 @@ CREATE TABLE agents (
     agent_type ENUM('0','1','2') NOT NULL,
     PRIMARY KEY (id)
     # 0 - SIN AGENTE
-    # 1 - INVENTARIO
-    # 2 - RESERVAS   
+    # 1 - EMPRESAS
+    # 2 - TRABAJADORES   
+    # 3 - CLIENTES DE RESERVA   
 );
 
   

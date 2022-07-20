@@ -32,7 +32,7 @@ export class CanvasService {
   }
 
 
-  public open(data:string){  // se solicita la ruta y se devuelve un observable para emitir respuesta
+  public open(data:string, meta?:any){  // se solicita la ruta y se devuelve un observable para emitir respuesta
 
     const response = new Subject<any>(), config = this.getRouteConfig(data, response);
 

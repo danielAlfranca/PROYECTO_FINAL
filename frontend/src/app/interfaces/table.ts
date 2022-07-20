@@ -3,7 +3,7 @@ import { TemplateRef } from "@angular/core"
 
 export interface TableConfig{
 
-    title:string,
+    title?:string,
     dataType?:string,
     hidePlusButton?:boolean,
     hideSearchButton?:boolean,
@@ -18,7 +18,7 @@ export interface TableSection{
 
     title:string,
     name:string,
-    filter:(datum:any)=>boolean,
+    data?:any,
     dataType?:string,
     columns?:ColumnTable[],
     search?:string[]
@@ -27,7 +27,6 @@ export interface TableSection{
 export interface ColumnTable{
 
     title:string,
-    name:string,
     order?:number,
     sort?:string
 }

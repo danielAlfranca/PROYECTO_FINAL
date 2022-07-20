@@ -5,10 +5,13 @@ import { DataConfig } from "../models/data-config";
 
 @Injectable({
     providedIn: 'root' 
-  })
-export class EmpresaConfig extends DataConfig{
+})
+
+export class HotelConfig extends DataConfig{
 
     protected override readonly keys:any = {
+
+        ...InventoryConfig.keys,
 
         nombre:{ 
             
@@ -16,39 +19,46 @@ export class EmpresaConfig extends DataConfig{
             validations:['is_string'], 
             required:true,        
         },
-        documento:{ 
+        tipo:{ 
             
             private:InventoryConfig.keys.data.private+'.1', 
             validations:['is_string'], 
             required:false,        
         },
-        telefonos:{ 
+        propietario:{ 
             
-            private:InventoryConfig.keys.data.private+'.3', 
+            private:InventoryConfig.keys.agent.private, 
             //validations:(), 
             required:false,        
         },
-        emails:{ 
-            
-            private:InventoryConfig.keys.data.private+'.4', 
-            //validations:(), 
-            required:false,        
-        },
-        direccion:{ 
+        categoria:{ 
             
             private:InventoryConfig.keys.data.private+'.2', 
-            validations:['is_string'], 
+            //validations:(), 
             required:false,        
         },
-        lista_telefonos:{ 
+       
+        nombre_tipo:{ 
             
-            getter:(obj:any)=>(this.getValue(obj,'telefonos')|| [] ).join(', ')          
+            getter:(obj:any)=>  this.getValue(obj, 'is_hotel')    ?   'hotel' :    
+                                this.getValue(obj, 'is_lodge')    ?   'lodge' : 
+                                this.getValue(obj, 'is_alojamiento')    ?   'alojamiento' :  false  
         },
-        lista_emails:{ 
+        
+        is_hotel:{ getter:(obj:any)=> this.getValue(obj,'type') == 1 },
+
+        is_lodge:{ getter:(obj:any)=> this.getValue(obj,'type') == 2 },
+
+        is_alojamiento:{ getter:(obj:any)=> this.getValue(obj,'type') == 3 },
+
+        nombre_propietario:{ 
             
-            getter:(obj:any)=>(this.getValue(obj,'emails')|| [] ).join(', ')        
+            getter:(obj:any)=> 'FALTA'     
         }
+
     }
+    
+    constructor(){ super(); }
 
     protected override validations = {
 
@@ -56,6 +66,5 @@ export class EmpresaConfig extends DataConfig{
         ...InventoryConfig.validations,        
 
     }
-    constructor(){ super(); }
 
 }

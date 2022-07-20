@@ -1,8 +1,8 @@
-import { DataService } from "../../data-queries/data.service";
+import * as _ from 'lodash';
 
 interface PropertyConfig{
 
-    private?:string|number, // PRIVATE KEY SEGUN LA ESTRUCTURA QUE TIENE EL DATO DESCARGADO DEL SERVIDOR
+    private?:string|number, // PRIVATE KEY o O PATH ("PROP1.PROP2") SEGUN LA ESTRUCTURA QUE TIENE EL DATO DESCARGADO DEL SERVIDOR
 
     validations?:string[], // LISTADO DE VALIDACIONES PARA EL VALOR QUE SE INTRODUCE 
 
@@ -73,7 +73,7 @@ export abstract class DataConfig{
        
         if(!configKey) return undefined;
 
-        if(!configKey.getter) return configKey.private !== undefined ? obj[configKey.private] : undefined
+        if(!configKey.getter) return configKey.private !== undefined ? _.get(obj,configKey.private,undefined) : undefined
 
         console.log(property)
 
@@ -90,7 +90,7 @@ export abstract class DataConfig{
 
             case !configKey || !this.valueIsValid(value,property): return false;
 
-            case !configKey.setter: return configKey.private ? ((obj[configKey.private] = value) || true) : false;
+            case !configKey.setter: return configKey.private ? _.set(obj,configKey.private,value) : false;
 
             default: return (configKey.setter as Function )(obj, value )
         }

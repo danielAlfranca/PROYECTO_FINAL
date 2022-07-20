@@ -6,9 +6,12 @@ import { DataConfig } from "../models/data-config";
 @Injectable({
     providedIn: 'root' 
   })
-export class EmpresaConfig extends DataConfig{
+
+export class TourConfig extends DataConfig{
 
     protected override readonly keys:any = {
+
+        ...InventoryConfig.keys,
 
         nombre:{ 
             
@@ -16,39 +19,43 @@ export class EmpresaConfig extends DataConfig{
             validations:['is_string'], 
             required:true,        
         },
-        documento:{ 
+        inicio:{ 
             
             private:InventoryConfig.keys.data.private+'.1', 
             validations:['is_string'], 
             required:false,        
         },
-        telefonos:{ 
+        fin:{ 
+            
+            private:InventoryConfig.keys.data.private+'.2', 
+            //validations:(), 
+            required:false,        
+        },
+        duracion:{ 
             
             private:InventoryConfig.keys.data.private+'.3', 
             //validations:(), 
             required:false,        
         },
-        emails:{ 
+        destino:{ 
             
             private:InventoryConfig.keys.data.private+'.4', 
             //validations:(), 
             required:false,        
         },
-        direccion:{ 
+        horario_completo:{ 
             
-            private:InventoryConfig.keys.data.private+'.2', 
-            validations:['is_string'], 
-            required:false,        
-        },
-        lista_telefonos:{ 
-            
-            getter:(obj:any)=>(this.getValue(obj,'telefonos')|| [] ).join(', ')          
-        },
-        lista_emails:{ 
-            
-            getter:(obj:any)=>(this.getValue(obj,'emails')|| [] ).join(', ')        
+            getter:(obj:any)=>{
+
+                const   inicioFin = [this.getValue(obj, 'inicio') ,this.getValue(obj, 'fin')].join(' - '),
+                        duracion = this.getValue(obj, 'duracion');
+
+                return inicioFin + (duracion && duracion> 1 ? ' ( +'+(duracion-1)+')':'' );
+            }     
         }
     }
+    
+    constructor(){ super(); }
 
     protected override validations = {
 
@@ -56,6 +63,5 @@ export class EmpresaConfig extends DataConfig{
         ...InventoryConfig.validations,        
 
     }
-    constructor(){ super(); }
 
 }

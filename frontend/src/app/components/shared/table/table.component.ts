@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges, SimpleChanges,  ContentChildren, TemplateRef, QueryList, AfterContentInit } from '@angular/core';
-import { ColumnTable, TableConfig, TableSection } from 'src/app/interfaces/table';
+import { ColumnTable, TableConfig } from 'src/app/interfaces/table';
 import { AppConfigService } from 'src/app/services/app-config.service';
 
 @Component({
@@ -10,7 +10,6 @@ import { AppConfigService } from 'src/app/services/app-config.service';
 export class TableComponent implements OnChanges, AfterContentInit {
 
   @Input() config!:TableConfig
-  @Input() data!:any[];
 
   @ContentChildren(TemplateRef) rowTemplates!:QueryList<TemplateRef<any>>;
 
@@ -21,6 +20,7 @@ export class TableComponent implements OnChanges, AfterContentInit {
   currentSort = {column:0, sort:0}
   numOfEntries = 15;
 
+  data:any[] = [];
   dataType!:string;
   entries:any[] = []; // filtered data
   columns:ColumnTable[] = []; // columns
@@ -33,12 +33,8 @@ export class TableComponent implements OnChanges, AfterContentInit {
 
   ngOnChanges(changes: SimpleChanges): void {
 
-    if(this.rowTemplates){
-
-      if(changes['config']){ this.initSection(0); }
-
-      if(changes['data']){ this.updateEntries(this.data) }
-    }      
+    if(this.rowTemplates){ this.initSection(this.currentSection); }
+   
   }
 
   ngAfterContentInit(): void {
@@ -58,7 +54,9 @@ export class TableComponent implements OnChanges, AfterContentInit {
 
     this.dataType  = section.dataType || this.config.dataType as string;
 
-    this.rowTemplate = this.get_template()
+    this.data = section.data;
+
+    this.rowTemplate = this.get_template();    
 
     this.updateEntries(this.data);    
   }
@@ -68,7 +66,7 @@ export class TableComponent implements OnChanges, AfterContentInit {
 
     const section = this.config.sections[this.currentSection];
 
-    this.entries = this.sort_data(this.data.filter(datum=>section.filter(datum)));
+    this.entries = this.sort_data(data);
 
     this.currentPage = 1; 
     
@@ -110,7 +108,8 @@ export class TableComponent implements OnChanges, AfterContentInit {
  
   private calculate_pages(data:any[]){
 
-    const numOfPages = Math.ceil(this.data.length/this.numOfEntries);
+    
+    const numOfPages = Math.ceil(data.length/this.numOfEntries);
 
     return  new Array(numOfPages).fill(1).map((e,index)=>e+index); 
 

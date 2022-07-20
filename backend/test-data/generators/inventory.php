@@ -36,7 +36,7 @@
                 $id,// id
                 $id+1,// agent !!!!!! + 1 porque el id 1 en agents es para sin agente
                 1,// type
-                json_encode($data),
+                $data,
                 FALSE,// hidden
             ];       
         }
@@ -57,8 +57,8 @@
 
                 $id,// id
                 $id+1,// agent !!!!!! + 1 porque el id 1 en agents es para sin agente
-                1,// type
-                json_encode($data), //data
+                2,// type
+                $data, //data
                 FALSE,// hidden
             ];       
            
@@ -70,11 +70,11 @@
         
             $data = [
 
-                "tour $id", // nombre tour
-                randomPick($time_start), // horario inicio
-                randomPick($time_end), // horario fin
-                randomPick([1,2]), // duracion
-                randomPick($destinos) // destino
+                "tour $id", // nombre tour 0
+                randomPick($time_start), // horario inicio 1
+                randomPick($time_end), // horario fin 2
+                randomPick([1,2]), // duracion 3
+                randomPick($destinos) // destino 4
             ];
 
             $inventory_array[] =  [
@@ -82,7 +82,7 @@
                 $id,// id
                 1,// agent
                 4,// type
-                json_encode($data),
+                $data,
                 FALSE,// hidden
             ];                
         }
@@ -95,11 +95,11 @@
 
             $data = [
 
-                "hotel $id", // nombre hotel
-                $type, // tipo
-                ($type == 1 ? randomPick([1,2,3,4,5]):null), // categoria
-                randomPick($hotel_services,randomPick([1,2,3,4])), // services
-                randomAddress($direccion,$destinos,$paises) // address
+                "hotel $id", // nombre hotel 0
+                $type, // tipo 1
+                ($type == 1 ? randomPick([1,2,3,4,5]):null), // categoria 2
+                randomPick($hotel_services,randomPick([1,2,3,4])), // services 3
+                randomAddress($direccion,$destinos,$paises) // address 4
             ];
 
             $inventory_array[] =  [
@@ -107,7 +107,7 @@
                 $id,// id
                 randomPick($empresasHoteleras) +1 ,// agent !!!!!! + 1 porque el id 1 en agents es para sin agente
                 3,// type
-                json_encode($data),
+                $data,
                 FALSE,// hidden
             ];     
              
