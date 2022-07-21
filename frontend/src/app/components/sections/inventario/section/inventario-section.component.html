@@ -37,6 +37,10 @@
             <td>{{data | show:'hotel':'nombre'}} </td>
             <td>{{data | show:'hotel':'tipo_categoria'}} </td>
             <td>{{data | show:'hotel':'direccion'}} </td>
+            <td> 
+                <div><i class="bi bi-telephone me-2"></i> {{data | show:'hotel':'lista_telefonos'}}</div>
+                <div><i class="bi bi-envelope me-2"></i> {{data | show:'hotel':'lista_emails'}} </div>  
+            </td>
             <td>{{data | show:'hotel':'nombre_propietario'}} </td>
         </tr>
     </ng-template>

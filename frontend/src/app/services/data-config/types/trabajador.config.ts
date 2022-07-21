@@ -1,4 +1,3 @@
-import { DataService } from "../../data-queries/data.service";
 import { InventoryConfig } from "../models/inventory";
 import { DataConfig } from "../models/data-config";
 import { Injectable, Injector } from "@angular/core";

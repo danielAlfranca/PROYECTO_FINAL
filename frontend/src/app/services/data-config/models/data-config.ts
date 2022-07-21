@@ -98,14 +98,11 @@ export abstract class DataConfig{
         }
     }
 
-    protected find(section:DataTypes, value:any){
+    protected getRef(section:DataTypes, id:string, prop:string){ // SELECCIONA UNA REFERENCIA A OTRA TABLA DE OTRO TIPO DE DATO Y DEVUELVE PROPIEDAD 
 
-       return this.injector.get(DataService).find(section,value);
+        const element = this.injector.get(DataService).find(section,id);
+
+       return this.injector.get(DataConfigService).getValue(element,prop,section);
     }
-
-    protected read(object:any, property:string, section:DataTypes){
-
-        return this.injector.get(DataConfigService).getValue(object,property,section);
-     }
 
 }

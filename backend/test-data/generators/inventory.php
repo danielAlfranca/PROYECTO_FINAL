@@ -100,13 +100,16 @@
                 $type, // tipo 1
                 ($type == 1 ? randomPick([1,2,3,4,5]):null), // categoria 2
                 randomPick($hotel_services,randomPick([1,2,3,4])), // services 3
-                randomAddress($direccion,$destinos,$paises) // address 4
+                randomAddress($direccion,$destinos,$paises), // address 4
+                randomPick($empresasHoteleras), // propietario 5
+                [rand(600000000,699999999)], // phones 6
+                [randomPick($emails)], // emails 7
             ];
 
             $inventory_array[] =  [
 
                 $id,// id
-                randomPick($empresasHoteleras) +1 ,// agent !!!!!! + 1 porque el id 1 en agents es para sin agente
+                1 ,// agent !!!!!! + 1 porque el id 1 en agents es para sin agente
                 3,// type
                 json_encode($data),
                 FALSE,// hidden

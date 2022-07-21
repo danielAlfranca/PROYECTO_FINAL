@@ -153,6 +153,9 @@ export class InventarioSectionComponent extends SectionComponent implements OnIn
           sort:'direccion'
         },
         { 
+          title:'contacto',
+        },
+        { 
           title:'Empresa asociada',
           sort:'nombre_propietario'
         },
@@ -161,7 +164,7 @@ export class InventarioSectionComponent extends SectionComponent implements OnIn
       ],
       search:[
 
-        'nombre', 'direccion', 'estrellas', 'nombre_tipo' ,'nombre_propietario'
+        'nombre', 'direccion', 'estrellas', 'nombre_tipo' ,'nombre_propietario' ,'lista_emails','lista_telefonos'
       ]
     };
 

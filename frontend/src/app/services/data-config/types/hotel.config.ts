@@ -1,8 +1,7 @@
 import { Injectable, Injector } from "@angular/core";
 import { InventoryConfig } from "../models/inventory";
 import { DataConfig } from "../models/data-config";
-import { DataService } from "../../data-queries/data.service";
-import { DataConfigService } from "../data-config.service";
+
 
 @Injectable({
     providedIn: 'root' 
@@ -28,7 +27,7 @@ export class HotelConfig extends DataConfig{
         },
         propietario:{ 
             
-            private:InventoryConfig.keys.agent.private, 
+            private:InventoryConfig.keys.data.private+'.5', 
             //validations:(), 
             required:false,        
         },
@@ -43,6 +42,26 @@ export class HotelConfig extends DataConfig{
             private:InventoryConfig.keys.data.private+'.4', 
             //validations:(), 
             required:false,        
+        },
+        telefonos:{ 
+            
+            private:InventoryConfig.keys.data.private+'.6', 
+            //validations:(), 
+            required:false,        
+        },
+        emails:{  
+            
+            private:InventoryConfig.keys.data.private+'.7', 
+            //validations:(), 
+            required:false,        
+        },
+        lista_telefonos:{ 
+            
+            getter:(obj:any)=>(this.getValue(obj,'telefonos')|| [] ).join(', ')          
+        },
+        lista_emails:{ 
+            
+            getter:(obj:any)=>(this.getValue(obj,'emails')|| [] ).join(', ')        
         },
        
         nombre_tipo:{ 
@@ -81,10 +100,9 @@ export class HotelConfig extends DataConfig{
 
         nombre_propietario:{  getter:(obj:any)=> {
 
-            const propietarioRef = this.getValue(obj,'propietario'),
-                  empresa = this.find('empresa',propietarioRef);
+            const propietarioRef = this.getValue(obj,'propietario');
 
-            return this.read(empresa,'nombre','empresa');
+            return this.getRef('empresa',propietarioRef , 'nombre');
         } }
 
     }

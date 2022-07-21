@@ -44,6 +44,7 @@ import { EmpresaFormComponent } from './components/sections/inventario/form/empr
 import { TrabajadorFormComponent } from './components/sections/inventario/form/trabajador/trabajador-form.component';
 import { TourFormComponent } from './components/sections/inventario/form/tour/tour-form.component';
 import { HotelFormComponent } from './components/sections/inventario/form/hotel/hotel-form.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -93,7 +94,8 @@ import { HotelFormComponent } from './components/sections/inventario/form/hotel/
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    HttpClientJsonpModule
+    HttpClientJsonpModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

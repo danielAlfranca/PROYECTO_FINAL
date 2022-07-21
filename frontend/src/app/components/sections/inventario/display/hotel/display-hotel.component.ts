@@ -18,10 +18,16 @@ export class DisplayHotelComponent extends DisplayAdminComponent implements OnIn
     this.dataDisplay = [
 
       {title:'Nombre', value: this.value('nombre'), icon:'house'}, 
+
       {title:'Tipo', value: this.value('tipo_categoria'), icon:'asterisk'}, 
+
       {title:'Direccion', value: this.value('direccion'), icon:'map'}, 
-      {title:'telefonos', value: this.value('nombre_propietario'), icon:'briefcase'}
+
+      {title:'telefonos', value: this.value('lista_telefonos'), icon:'telephone'},
+
+      {title:'emails', value: this.value('lista_emails'), icon:'envelope'},
       
+      {title:'propietario', value: this.value('nombre_propietario'), icon:'briefcase'}      
     ]
   
   }
