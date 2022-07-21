@@ -34,7 +34,10 @@ export class DataService {
     return this.dataStore[section]
   }
 
-  getItem(section:string, id:string){}
+ find(section:DataTypes, value:string, property:string = 'id'){
+
+    return this.dataStore.find(section, value,property);
+ }
 
   save(section:string, item:any){}
 

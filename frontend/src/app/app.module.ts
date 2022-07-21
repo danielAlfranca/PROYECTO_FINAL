@@ -28,16 +28,22 @@ import { FooterComponent } from './components/layout/footer/footer.component';
 import { ShowPipe } from './pipes/show.pipe';
 import { SelectDataDatesComponent } from './components/layout/header/select-data-dates/select-data-dates.component';
 import { ReservasSectionComponent } from './components/sections/reservas/reservas-section/reservas-section.component';
-import { InventarioSectionComponent } from './components/sections/inventario/inventario-section/inventario-section.component';
+import { InventarioSectionComponent } from './components/sections/inventario/section/inventario-section.component';
 import { SalidasSectionComponent } from './components/sections/salidas/salidas-section/salidas-section.component';
 import { PagosSectionComponent } from './components/sections/pagos/pagos-section/pagos-section.component';
 import { TabsHeaderComponent } from './components/shared/tabs/tabs-header/tabs-header.component';
 import { PaginatePipe } from './pipes/paginate.pipe';
 import { TableHeaderComponent } from './components/shared/table/table-header/table-header.component';
-import { NewInventarioComponent } from './components/sections/inventario/new-inventario/new-inventario.component';
-import { DisplayInventarioComponent } from './components/sections/inventario/display-inventario/display-inventario.component';
-import { DisplayEmpresaComponent } from './components/sections/inventario/display-inventario/display-empresa/display-empresa.component';
-import { DisplayTrabajadorComponent } from './components/sections/inventario/display-inventario/display-trabajador/display-trabajador.component';
+import { NewInventarioComponent } from './components/sections/inventario/form/new-inventario.component';
+import { DisplayEmpresaComponent } from './components/sections/inventario/display/empresa/display-empresa.component';
+import { DisplayTrabajadorComponent } from './components/sections/inventario/display/trabajador/display-trabajador.component';
+import { DisplayAdminComponent } from './components/shared/models/display-admin/display-admin.component';
+import { DisplayHotelComponent } from './components/sections/inventario/display/hotel/display-hotel.component';
+import { DisplayTourComponent } from './components/sections/inventario/display/tour/display-tour.component';
+import { EmpresaFormComponent } from './components/sections/inventario/form/empresa/empresa-form.component';
+import { TrabajadorFormComponent } from './components/sections/inventario/form/trabajador/trabajador-form.component';
+import { TourFormComponent } from './components/sections/inventario/form/tour/tour-form.component';
+import { HotelFormComponent } from './components/sections/inventario/form/hotel/hotel-form.component';
 
 @NgModule({
   declarations: [
@@ -73,9 +79,15 @@ import { DisplayTrabajadorComponent } from './components/sections/inventario/dis
     PaginatePipe,
     TableHeaderComponent,
     NewInventarioComponent,
-    DisplayInventarioComponent,
     DisplayEmpresaComponent,
-    DisplayTrabajadorComponent
+    DisplayTrabajadorComponent,
+    DisplayAdminComponent,
+    DisplayHotelComponent,
+    DisplayTourComponent,
+    EmpresaFormComponent,
+    TrabajadorFormComponent,
+    TourFormComponent,
+    HotelFormComponent
   ],
   imports: [
     BrowserModule,

@@ -12,7 +12,7 @@ export class SalidasSectionComponent extends SectionComponent  {
 
   protected override section = 'salida' as DataTypes;
   
-  constructor(protected override appConfig:AppConfigService) { super(appConfig)}
+  constructor(protected override appConfig:AppConfigService) { super(appConfig) }
 
   
 

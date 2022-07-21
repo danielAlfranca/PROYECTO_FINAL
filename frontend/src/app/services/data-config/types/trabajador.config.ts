@@ -1,7 +1,7 @@
 import { DataService } from "../../data-queries/data.service";
 import { InventoryConfig } from "../models/inventory";
 import { DataConfig } from "../models/data-config";
-import { Injectable } from "@angular/core";
+import { Injectable, Injector } from "@angular/core";
 
 @Injectable({
     providedIn: 'root' 
@@ -86,7 +86,7 @@ export class TrabajadorConfig extends DataConfig{
         es_autonomo:{ getter:(obj:any)=>(this.getValue(obj, 'regimen') == 2 ) }, 
     }
     
-    constructor(){ super(); }
+    constructor(protected override injector:Injector){ super(injector); }
 
     protected override validations = {
 

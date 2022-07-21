@@ -1,4 +1,4 @@
--- Active: 1658128211047@@127.0.0.1@3306@travelapp
+-- Active: 1657547555018@@127.0.0.1@3306@travelapp
 DROP DATABASE IF EXISTS travelapp;
 
 CREATE DATABASE travelapp DEFAULT CHARSET utf8mb4 COLLATE utf8mb4_unicode_ci;

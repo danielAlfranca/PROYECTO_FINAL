@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core";
+import { Injectable, Injector } from "@angular/core";
 import { DataService } from "../../data-queries/data.service";
 import { InventoryConfig } from "../models/inventory";
 import { DataConfig } from "../models/data-config";
@@ -55,7 +55,7 @@ export class TourConfig extends DataConfig{
         }
     }
     
-    constructor(){ super(); }
+    constructor(protected override injector:Injector){ super(injector); }
 
     protected override validations = {
 

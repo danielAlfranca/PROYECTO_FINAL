@@ -32,9 +32,9 @@ export class CanvasService {
   }
 
 
-  public open(data:string, meta?:any){  // se solicita la ruta y se devuelve un observable para emitir respuesta
+  public open(data:string, query?:any){  // se solicita la ruta y se devuelve un observable para emitir respuesta
 
-    const response = new Subject<any>(), config = this.getRouteConfig(data, response);
+    const response = new Subject<any>(), config = this.getRouteConfig(data, response, query);
 
     if(config) { this.router.navigate([config ]); }  
     
@@ -113,7 +113,7 @@ export class CanvasService {
 
    // METODOS PARA PETICION DE NUEVA RUTA
 
-  private getRouteConfig(path:string, response:Subject<any>){ // CONFIGURA DATOS ASOCIADOS A LA RUTA
+  private getRouteConfig(path:string, response:Subject<any>, query:any){ // CONFIGURA DATOS ASOCIADOS A LA RUTA
 
     const route = this.getPathRoute(path); 
 
@@ -121,6 +121,7 @@ export class CanvasService {
 
     const data =  route.data as CanvasConfig;      
 
+    data.query = query;
     data._response = response;    
 
     return {outlets: { [route.outlet|| 'primary']: path}}; 

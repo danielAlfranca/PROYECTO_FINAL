@@ -1,6 +1,7 @@
 <app-table [config]="tableConfig" (buttonClick)="form()">
+
     <ng-template let-data="data" #empresas>
-        <tr (click)="display(data, 'empresa')" class="pointer">
+        <tr (click)="display(data,false,'empresa')" class="pointer">
             <td>{{data | show:'empresa':'nombre'}} </td>
             <td>{{data | show:'empresa':'documento'}} </td>
             <td>{{data | show:'empresa':'direccion'}} </td>
@@ -10,8 +11,9 @@
             </td>
         </tr>
     </ng-template>
+
     <ng-template let-data="data" #trabajadores>
-        <tr (click)="display(data,'trabajador')" class="pointer">
+        <tr (click)="display(data,false,'trabajador')" class="pointer">
             <td>{{data | show:'trabajador':'nombre_completo'}} </td>
             <td>{{data | show:'trabajador':'documento'}} </td>
             <td>{{data | show:'trabajador':'nombre_tipo'}} <small><em>({{data | show:'trabajador':'nombre_regimen'}} ) </em></small></td>
@@ -21,4 +23,22 @@
             </td>         
         </tr>
     </ng-template>
+
+    <ng-template let-data="data" #tours>
+        <tr (click)="display(data,false,'tour')" class="pointer">
+            <td>{{data | show:'tour':'nombre'}} </td>
+            <td>{{data | show:'tour':'destino'}} </td>
+            <td>{{data | show:'tour':'horario_completo'}} </td>
+         </tr>
+    </ng-template>
+
+    <ng-template let-data="data" #hoteles>
+        <tr (click)="display(data,false,'hotel')" class="pointer">
+            <td>{{data | show:'hotel':'nombre'}} </td>
+            <td>{{data | show:'hotel':'tipo_categoria'}} </td>
+            <td>{{data | show:'hotel':'direccion'}} </td>
+            <td>{{data | show:'hotel':'nombre_propietario'}} </td>
+        </tr>
+    </ng-template>
+
 </app-table>

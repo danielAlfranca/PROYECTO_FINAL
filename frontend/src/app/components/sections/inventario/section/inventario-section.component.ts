@@ -21,17 +21,15 @@ export class InventarioSectionComponent extends SectionComponent implements OnIn
   constructor(protected override appConfig:AppConfigService) { 
     
     super(appConfig);
+    
     this.subscription = this.appConfig.queries.$dataUpdates.subscribe(e=>{
       
-      //console.log(this.createTableSections());
-
       this.tableConfig = {
         sections:this.createTableSections(),
         sectionsStyle:'select'
-      }; 
-    
+      };     
     }) 
-  
+
   } 
 
    ngOnInit(): void {
@@ -39,30 +37,17 @@ export class InventarioSectionComponent extends SectionComponent implements OnIn
       this.tableConfig = {
         sections:this.createTableSections(),
         sectionsStyle:'select'
-      };  
-      
+      };       
   }
-
-  protected override display(item:any, section:string){
-
-    const id = this.appConfig.dataConfig.getValue(item,'id',section);
-
-    this.appConfig.canvas.open('display-'+section, id);
-
-  
-  }
-
 
   protected createTableSections(): TableSection|any {
       
-    const queries = this.appConfig.queries;
-
     const empresas = {
 
       title:'Empresas',
       name:'empresas',
       dataType:'empresa',
-      data:queries.section('empresa'),
+      data:this.getData('empresa'),
       columns:[
 
        { 
@@ -92,7 +77,7 @@ export class InventarioSectionComponent extends SectionComponent implements OnIn
       title:'Trabajadores',
       name:'trabajadores',
       dataType:'trabajador',
-      data:queries.section('trabajador'),
+      data:this.getData('trabajador'),
       columns:[
 
        { 
@@ -124,7 +109,7 @@ export class InventarioSectionComponent extends SectionComponent implements OnIn
       title:'Tours',
       name:'tours',
       dataType:'tour',
-      data:queries.section('tour'),
+      data:this.getData('tour'),
       columns:[
 
        { 
@@ -152,7 +137,7 @@ export class InventarioSectionComponent extends SectionComponent implements OnIn
       title:'Hoteles',
       name:'hoteles',
       dataType:'hotel',
-      data:queries.section('hotel'),
+      data:this.getData('hotel'),
       columns:[
 
        { 
@@ -168,10 +153,6 @@ export class InventarioSectionComponent extends SectionComponent implements OnIn
           sort:'direccion'
         },
         { 
-          title:'contacto',
-          sort:'lista_emails'
-        },
-        { 
           title:'Empresa asociada',
           sort:'nombre_propietario'
         },
@@ -180,11 +161,11 @@ export class InventarioSectionComponent extends SectionComponent implements OnIn
       ],
       search:[
 
-        'nombre', 'lista_emails', 'direccion', 'lista_telefonos', 'nombre_tipo' ,'nombre_propietario'
+        'nombre', 'direccion', 'estrellas', 'nombre_tipo' ,'nombre_propietario'
       ]
     };
 
-    return [ empresas, trabajadores ];
+    return [ empresas, trabajadores, tours, hoteles ];
 
   }
 

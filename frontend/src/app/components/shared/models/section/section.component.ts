@@ -21,23 +21,21 @@ export class SectionComponent implements OnDestroy{
 
   constructor(protected appConfig:AppConfigService) {}
 
-  protected getSectionData(){
+  protected getData(section?:DataTypes){
 
-    return this.appConfig.queries.section(this.section);
+    return this.appConfig.queries.section(section || this.section);
   }
 
   protected form(data:any = {}){
 
-    this.appConfig.canvas.open('new-'+this.section, data);
+    this.appConfig.canvas.open('form-'+this.section, data);
 
     //.pipe(take(1)).subscribe(data=>this.display(data))
   }
 
-  protected display(item:any, data:any = {}){
+  protected display(item:any, data:any = {}, section?:string){
 
-    const id = this.appConfig.dataConfig.getValue(item,'id',this.section);
-
-    this.appConfig.canvas.open('display-'+this.section, {...{id:id},...data});
+    this.appConfig.canvas.open('display-'+(section||this.section), {...{displayItem:item},...data});
   }
 
 

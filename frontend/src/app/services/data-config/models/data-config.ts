@@ -1,4 +1,8 @@
+import { Injector } from '@angular/core';
 import * as _ from 'lodash';
+import { DataTypes } from 'src/app/interfaces/types/data-config';
+import { DataService } from '../../data-queries/data.service';
+import { DataConfigService } from '../data-config.service';
 
 interface PropertyConfig{
 
@@ -40,7 +44,7 @@ export abstract class DataConfig{
 
     //protected dataQueries!:DataService;    
 
-    constructor(){}  
+    constructor(protected injector:Injector){}  
 
      /* METODOS VALIDACION */
 
@@ -93,4 +97,15 @@ export abstract class DataConfig{
             default: return (configKey.setter as Function )(obj, value )
         }
     }
+
+    protected find(section:DataTypes, value:any){
+
+       return this.injector.get(DataService).find(section,value);
+    }
+
+    protected read(object:any, property:string, section:DataTypes){
+
+        return this.injector.get(DataConfigService).getValue(object,property,section);
+     }
+
 }

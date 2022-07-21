@@ -1,5 +1,6 @@
 import { Injectable, Injector } from '@angular/core';
 import * as _ from 'lodash';
+import { DataTypes } from 'src/app/interfaces/types/data-config';
 import { DataConfigService } from '../data-config/data-config.service';
 
 
@@ -51,13 +52,20 @@ export class DataStoreService {
 
   constructor(private injector:Injector) { }
 
-  save(data:any){ console.log(data); this._store = data; }
+  save(data:any){ this._store = data; }
 
-  private filter(obj:any,func:Function){ 
+  find(section:DataTypes, value:string|number, path:string){
 
-    return _.pickBy(obj, func)
+    if(this.isID(path)) return this[section][value]
+
+    return _.find(this[section],path)
   }
 
+  private isID(path:string){
+
+    return !path.includes('.')
+
+  }
 
 
 
