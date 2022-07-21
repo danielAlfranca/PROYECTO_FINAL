@@ -15,9 +15,9 @@ export class ShowPipe implements PipeTransform {
   }
 
 
-  transform(value: unknown, dataType:string, property:string): unknown {
+  transform(value: any, dataType:string, property:string): unknown {
 
-    return null;
+    return this.appConfig.dataConfig.getValue(value, property, dataType);
   }
 
 }

@@ -1,0 +1,28 @@
+.button-table{
+
+    border-radius:50%;
+}
+
+.input-container{
+
+    margin-left: 0;
+    overflow: hidden;
+    width: 0;
+    transition: width 0.3s, margin-left 0.3s;
+}
+.input-container.active{
+
+    margin-left: -1.2rem;
+    width: 15rem;
+}
+
+
+.search-input{
+
+    padding-left: 1.5rem;
+    border-width:0;
+    outline: 0;
+
+    border-bottom:solid  2px rgb(13, 110, 253);
+    height: 100%;
+}

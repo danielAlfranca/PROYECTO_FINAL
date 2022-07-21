@@ -51,7 +51,7 @@ export class DataStoreService {
 
   constructor(private injector:Injector) { }
 
-  save(data:any){ this._store = data; }
+  save(data:any){ console.log(data); this._store = data; }
 
   private filter(obj:any,func:Function){ 
 

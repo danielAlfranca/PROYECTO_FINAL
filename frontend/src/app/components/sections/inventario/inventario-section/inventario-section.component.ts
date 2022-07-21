@@ -12,11 +12,25 @@ import { AppConfigService } from 'src/app/services/app-config.service';
 export class InventarioSectionComponent extends SectionComponent implements OnInit {
 
   protected override section = 'inventario' as DataTypes;
+
+  empresas:any;
+  hoteles:any;
+  tours:any;
+  trabajadores:any;
   
   constructor(protected override appConfig:AppConfigService) { 
     
     super(appConfig);
-    this.subscription = this.appConfig.queries.$dataUpdates.subscribe(e=>console.log(this.createTableSections())) 
+    this.subscription = this.appConfig.queries.$dataUpdates.subscribe(e=>{
+      
+      //console.log(this.createTableSections());
+
+      this.tableConfig = {
+        sections:this.createTableSections(),
+        sectionsStyle:'select'
+      }; 
+    
+    }) 
   
   } 
 
@@ -25,8 +39,19 @@ export class InventarioSectionComponent extends SectionComponent implements OnIn
       this.tableConfig = {
         sections:this.createTableSections(),
         sectionsStyle:'select'
-      };    
-   }
+      };  
+      
+  }
+
+  protected override display(item:any, section:string){
+
+    const id = this.appConfig.dataConfig.getValue(item,'id',section);
+
+    this.appConfig.canvas.open('display-'+section, id);
+
+  
+  }
+
 
   protected createTableSections(): TableSection|any {
       
@@ -36,7 +61,7 @@ export class InventarioSectionComponent extends SectionComponent implements OnIn
 
       title:'Empresas',
       name:'empresas',
-      dataType:'empresas',
+      dataType:'empresa',
       data:queries.section('empresa'),
       columns:[
 
@@ -66,7 +91,7 @@ export class InventarioSectionComponent extends SectionComponent implements OnIn
 
       title:'Trabajadores',
       name:'trabajadores',
-      dataType:'trabajadores',
+      dataType:'trabajador',
       data:queries.section('trabajador'),
       columns:[
 
@@ -83,10 +108,6 @@ export class InventarioSectionComponent extends SectionComponent implements OnIn
           sort:'nombre_tipo'
         },
         { 
-          title:'Direccion',
-          sort:'direccion'
-        },
-        { 
           title:'Contacto',
           name:'contacto'
         },
@@ -94,7 +115,7 @@ export class InventarioSectionComponent extends SectionComponent implements OnIn
       ],
       search:[
 
-        'nombre','documento', 'lista_emails', 'direccion', 'lista_telefonos', 'nombre_tipo' , 'nombre_regimen'
+        'nombre','documento', 'lista_emails', 'lista_telefonos', 'nombre_tipo' , 'nombre_regimen'
       ]
     };
 
@@ -102,7 +123,7 @@ export class InventarioSectionComponent extends SectionComponent implements OnIn
 
       title:'Tours',
       name:'tours',
-      dataType:'tours',
+      dataType:'tour',
       data:queries.section('tour'),
       columns:[
 
@@ -130,7 +151,7 @@ export class InventarioSectionComponent extends SectionComponent implements OnIn
 
       title:'Hoteles',
       name:'hoteles',
-      dataType:'hoteles',
+      dataType:'hotel',
       data:queries.section('hotel'),
       columns:[
 
@@ -163,13 +184,7 @@ export class InventarioSectionComponent extends SectionComponent implements OnIn
       ]
     };
 
-    return [
-
-      empresas, 
-      trabajadores,
-      tours, 
-      hoteles
-    ];
+    return [ empresas, trabajadores ];
 
   }
 

@@ -27,27 +27,31 @@ export class TrabajadorConfig extends DataConfig{
         },
         telefonos:{ 
             
-            private:InventoryConfig.keys.data.private+'.3', 
+            private:InventoryConfig.keys.data.private+'.2', 
             //validations:(), 
             required:false,        
         },
-        emails:{ 
+        emails:{  
             
-            private:InventoryConfig.keys.data.private+'.4', 
+            private:InventoryConfig.keys.data.private+'.3', 
             //validations:(), 
             required:false,        
         },
         tipo:{ 
             
-            private:InventoryConfig.keys.data.private+'.5', 
+            private:InventoryConfig.keys.data.private+'.4', 
             //validations:(), 
             required:false,        
         },
         regimen:{ 
             
-            private:InventoryConfig.keys.data.private+'.6', 
+            private:InventoryConfig.keys.data.private+'.5', 
             //validations:(), 
             required:false,        
+        },
+        nombre_completo:{ 
+            
+            getter:(obj:any)=>(this.getValue(obj,'nombre')|| [] ).split(',').join("")          
         },
         lista_telefonos:{ 
             

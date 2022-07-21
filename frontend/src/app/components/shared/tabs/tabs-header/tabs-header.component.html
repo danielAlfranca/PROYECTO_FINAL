@@ -1,1 +1,5 @@
-<p>tabs-header works!</p>
+<ul class="nav nav-tabs">
+    <li class="nav-item" *ngFor="let title of titles; let i = index;" (click)="change(i)">
+      <a class="nav-link " [ngClass]="{active:i==selected}">{{title}}</a>
+    </li>    
+</ul>

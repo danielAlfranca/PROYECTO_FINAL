@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, SimpleChanges,  ContentChildren, TemplateRef, QueryList, AfterContentInit } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges,  ContentChildren, TemplateRef, QueryList, AfterContentInit, Output, EventEmitter } from '@angular/core';
 import { ColumnTable, TableConfig } from 'src/app/interfaces/table';
 import { AppConfigService } from 'src/app/services/app-config.service';
 
@@ -9,7 +9,8 @@ import { AppConfigService } from 'src/app/services/app-config.service';
 })
 export class TableComponent implements OnChanges, AfterContentInit {
 
-  @Input() config!:TableConfig
+  @Input() config!:TableConfig;
+  @Output() buttonClick: EventEmitter<string> = new EventEmitter();
 
   @ContentChildren(TemplateRef) rowTemplates!:QueryList<TemplateRef<any>>;
 
@@ -20,7 +21,7 @@ export class TableComponent implements OnChanges, AfterContentInit {
   currentSort = {column:0, sort:0}
   numOfEntries = 15;
 
-  data:any[] = [];
+  data:any = [];
   dataType!:string;
   entries:any[] = []; // filtered data
   columns:ColumnTable[] = []; // columns
@@ -33,7 +34,7 @@ export class TableComponent implements OnChanges, AfterContentInit {
 
   ngOnChanges(changes: SimpleChanges): void {
 
-    if(this.rowTemplates){ this.initSection(this.currentSection); }
+    if(this.rowTemplates){ this.initSection(this.currentSection); }   
    
   }
 
@@ -48,23 +49,23 @@ export class TableComponent implements OnChanges, AfterContentInit {
 
     this.currentSection = sectionIndex;
 
+    this.sections = this.config.sections.map(section => section.title);
+
     this.columns =( section.columns || this.config.columns) as ColumnTable[];
 
     this.searchProperties = (section.search || this.config.search) as string[];
 
     this.dataType  = section.dataType || this.config.dataType as string;
 
-    this.data = section.data;
+    this.data = Object.values(section.data);
 
-    this.rowTemplate = this.get_template();    
-
+    this.rowTemplate = this.get_template();      
+   
     this.updateEntries(this.data);    
   }
 
 
   updateEntries(data:any[]){
-
-    const section = this.config.sections[this.currentSection];
 
     this.entries = this.sort_data(data);
 
@@ -81,8 +82,13 @@ export class TableComponent implements OnChanges, AfterContentInit {
       if(index==this.currentSort.column) this.currentSort.sort = this.currentSort.sort == -1 ? 1:-1
 
       else { this.currentSort.column = index;  this.currentSort.sort = 1 }
+      
+      column.state = this.currentSort.sort;
 
-      this.entries = this.sort_data(this.entries);
+      this.columns = [...this.columns];
+
+      this.entries = this.sort_data([...this.entries || []]);
+
     }   
     
   }
@@ -96,12 +102,13 @@ export class TableComponent implements OnChanges, AfterContentInit {
 
     if( !property || this.currentSort.sort == 0 ) return data;
 
+
     return data.sort((a,b)=>  {
       
-      valueA = dataConfig.getValue(a,property, this.dataType);
-      valueB = dataConfig.getValue(b,property, this.dataType);
-
-      return valueA.localCompare(valueB) * this.currentSort.sort 
+      valueA = dataConfig.getValue(a,property, this.dataType) +'';
+      valueB = dataConfig.getValue(b,property, this.dataType)+'';
+  
+      return valueA.localeCompare(valueB) * this.currentSort.sort 
 
     }) 
   }

@@ -28,7 +28,8 @@ export interface ColumnTable{
 
     title:string,
     order?:number,
-    sort?:string
+    sort?:string,
+    state?:number
 }
 
 

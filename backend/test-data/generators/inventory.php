@@ -36,21 +36,22 @@
                 $id,// id
                 $id+1,// agent !!!!!! + 1 porque el id 1 en agents es para sin agente
                 1,// type
-                $data,
+                json_encode($data),
                 FALSE,// hidden
             ];       
         }
 
-        // trabajadores 
+        // trabajadores  
 
         for ($id=$num_empresas+1; $id <=$num_empresas+1+$num_trabajadores ; $id++) { 
 
             $data = [
-                randomPick($names) . 'apellido 1 apellido 2', // name
+                randomPick($names) . ', apellido 1 apellido 2', // name
                 rand(111111,999999),// doc
-                randomAddress($direccion,$destinos,$paises),// address
                 [rand(600000000,699999999)], // phones 
-                [randomPick($emails), randomPick($emails)], // emails 
+                [randomPick($emails)], // emails 
+                randomPick([1,2,3]), // tipo
+                randomPick([1,2])//regimen
             ];
         
             $inventory_array[] =  [
@@ -58,7 +59,7 @@
                 $id,// id
                 $id+1,// agent !!!!!! + 1 porque el id 1 en agents es para sin agente
                 2,// type
-                $data, //data
+                json_encode($data), //data
                 FALSE,// hidden
             ];       
            
@@ -82,7 +83,7 @@
                 $id,// id
                 1,// agent
                 4,// type
-                $data,
+                json_encode($data),
                 FALSE,// hidden
             ];                
         }
@@ -107,7 +108,7 @@
                 $id,// id
                 randomPick($empresasHoteleras) +1 ,// agent !!!!!! + 1 porque el id 1 en agents es para sin agente
                 3,// type
-                $data,
+                json_encode($data),
                 FALSE,// hidden
             ];     
              

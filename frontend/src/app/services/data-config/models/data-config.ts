@@ -75,8 +75,6 @@ export abstract class DataConfig{
 
         if(!configKey.getter) return configKey.private !== undefined ? _.get(obj,configKey.private,undefined) : undefined
 
-        console.log(property)
-
         return configKey.getter(obj)
     }
 
