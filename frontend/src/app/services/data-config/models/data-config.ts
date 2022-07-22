@@ -88,9 +88,11 @@ export abstract class DataConfig{
 
         const configKey = this.keys[property];
 
+        console.log(this.keys,property)
+
         switch(true){
 
-            case !configKey || !this.valueIsValid(value,property): return false;
+            case !configKey as boolean: return false;
 
             case !configKey.setter: return configKey.private ? _.set(obj,configKey.private,value) : false;
 
@@ -98,11 +100,34 @@ export abstract class DataConfig{
         }
     }
 
-    protected getRef(section:DataTypes, id:string, prop:string){ // SELECCIONA UNA REFERENCIA A OTRA TABLA DE OTRO TIPO DE DATO Y DEVUELVE PROPIEDAD 
+    public getModel(){ // devuelve un objeto vacio segun la estructura del tipo
+
+        return 
+    }
+
+    public getErrorsList(obj:any, key:string){ // devuelve lista de errores
+
+        const propConfig:PropertyConfig = this.keys[key], value = this.getValue(obj, key);
+        
+        let errors:any = {};
+
+        if(propConfig.required && value === undefined) errors = {required:true};
+
+        (propConfig.validations || []).forEach(validation=>{ 
+
+            if (!((this.validations[validation])(obj,key))){ errors = {...errors, [validation]:true}}; 
+        });
+
+        return errors
+    }
+
+    protected getRef(section:DataTypes, id:string, prop:string){ // (solo uso interno) SELECCIONA UNA REFERENCIA A OTRA TABLA DE OTRO TIPO DE DATO Y DEVUELVE PROPIEDAD 
 
         const element = this.injector.get(DataService).find(section,id);
 
        return this.injector.get(DataConfigService).getValue(element,prop,section);
     }
+
+    
 
 }

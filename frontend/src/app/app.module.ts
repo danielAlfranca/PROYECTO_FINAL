@@ -44,7 +44,12 @@ import { EmpresaFormComponent } from './components/sections/inventario/form/empr
 import { TrabajadorFormComponent } from './components/sections/inventario/form/trabajador/trabajador-form.component';
 import { TourFormComponent } from './components/sections/inventario/form/tour/tour-form.component';
 import { HotelFormComponent } from './components/sections/inventario/form/hotel/hotel-form.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsComponent } from './components/shared/forms/forms.component';
+import { FormComponent } from './components/shared/form/form.component';
+import { InputComponent } from './components/shared/form/input/input.component';
+import { FormAdminComponent } from './components/shared/models/form-admin/form-admin.component';
+import { ErrorsPipe } from './pipes/errors.pipe';
 
 @NgModule({
   declarations: [
@@ -88,14 +93,20 @@ import { FormsModule } from '@angular/forms';
     EmpresaFormComponent,
     TrabajadorFormComponent,
     TourFormComponent,
-    HotelFormComponent
+    HotelFormComponent,
+    FormsComponent,
+    FormComponent,
+    InputComponent,
+    FormAdminComponent,
+    ErrorsPipe
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     HttpClientJsonpModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

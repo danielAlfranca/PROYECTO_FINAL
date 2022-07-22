@@ -56,4 +56,11 @@ export class InventoryConfig {
         }[obj[InventoryConfig.keys.type.private ] as string]
     }
 
+    public static defaultModel(){
+
+        const model = [null,null,null,[],false]
+
+        return [...model]
+    }
+
 }

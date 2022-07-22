@@ -63,5 +63,9 @@ export class TourConfig extends DataConfig{
         ...InventoryConfig.validations,        
 
     }
+    public override getModel() {
+        
+        return InventoryConfig.defaultModel()
+    }
 
 }

@@ -57,7 +57,7 @@ export class TableComponent implements OnChanges, AfterContentInit {
 
     this.dataType  = section.dataType || this.config.dataType as string;
 
-    this.data = Object.values(section.data);
+    this.data = Object.values(section.data || {});
 
     this.rowTemplate = this.get_template();      
    

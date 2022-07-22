@@ -19,7 +19,7 @@ export class NewInventarioComponent  {
 
   open(path:string){
 
-    this.appConfig.canvas.open(path);
+    this.appConfig.canvas.open(path, {formItem:null});
   }
 
 }

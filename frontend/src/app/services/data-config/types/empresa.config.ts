@@ -58,4 +58,9 @@ export class EmpresaConfig extends DataConfig{
     }
     constructor(protected override injector:Injector){ super(injector); }
 
+    public override getModel() {
+        
+        return InventoryConfig.defaultModel()
+    }
+
 }

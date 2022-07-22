@@ -116,4 +116,9 @@ export class HotelConfig extends DataConfig{
 
     }
 
+    public override getModel() {
+        
+        return InventoryConfig.defaultModel()
+    }
+
 }

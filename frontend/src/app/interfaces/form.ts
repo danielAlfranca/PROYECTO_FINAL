@@ -2,6 +2,18 @@ import { EventEmitter, TemplateRef } from "@angular/core";
 
 export type InputsTypes = 'text'|'number'|'radio'|'checkbox'|'select'|'hidden'|'custom';
 
+export interface FormItem{
+
+  title:string,
+  name:string,
+  input:string,
+  valid?:boolean,
+  touched?:boolean,
+  columns?: number,
+  value?:any,
+  template:TemplateRef<any>;
+}
+
 export interface FormField {
 
   name:string; 

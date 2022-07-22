@@ -93,4 +93,9 @@ export class TrabajadorConfig extends DataConfig{
         ...InventoryConfig.validations
     }
 
+    public override getModel() {
+        
+        return InventoryConfig.defaultModel()
+    }
+
 }

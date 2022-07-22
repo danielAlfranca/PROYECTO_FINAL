@@ -5,7 +5,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
   templateUrl: './card-display.component.html',
   styleUrls: ['./card-display.component.scss']
 })
-export class CardDisplayComponent implements OnInit {
+export class CardDisplayComponent  {
 
   @Input() title!:string;
   @Input() data!:{title:string, value:string, icon:string}[];
@@ -15,8 +15,5 @@ export class CardDisplayComponent implements OnInit {
   @Output() edit = new EventEmitter<true>()
 
   constructor() { }
-
-  ngOnInit(): void {
-  }
-
+  
 }

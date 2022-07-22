@@ -1,0 +1,11 @@
+<ng-container
+   [ngTemplateOutlet]="template"
+        [ngTemplateOutletContext]="{input:this, name: name, value:value}"></ng-container> 
+        
+
+
+
+<ng-template let-name="name" let-value="value" let-valid="valid" #text>
+    <label>{{name}}</label><input type="text" class="form-control" [value]="value" (input)="update($any($event.target).value)">
+</ng-template>
+
