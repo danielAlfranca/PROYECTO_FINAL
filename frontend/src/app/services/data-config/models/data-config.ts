@@ -31,6 +31,8 @@ export abstract class DataConfig{
 
         is_number:(obj:any, key:string) => typeof obj[key]  == "number",
 
+        is_string_array:(obj:any, key:string) => Array.isArray(obj[key]) && obj[key].every((e:any)=>typeof e  == "string"),
+
         valid_index:(obj:any, key:string) => typeof obj[key]  == "number" || obj[key]  == 'nuevo',
 
         agent_exists:(obj:any, key:string) => /* FALTA */ true
@@ -73,13 +75,18 @@ export abstract class DataConfig{
 
     public getValue(obj:any, property:string){
 
-        const configKey = this.keys[property];         
-       
+        const configKey = this.keys[property]; 
+        
         if(!configKey) return undefined;
 
-        if(!configKey.getter) return configKey.private !== undefined ? _.get(obj,configKey.private,undefined) : undefined
+        if(!configKey.getter) return configKey.private !== undefined ? this.getByPath(obj,configKey) : undefined
 
         return configKey.getter(obj)
+    }
+
+    protected getByPath(obj:any, configKey:PropertyConfig){ // pilla el valor de la propiedad a traves del path determinado en la private key
+     
+        return _.get(obj,configKey.private as string, undefined)
     }
 
     // SETTER DE PROPIEDAD DE OBJETO
@@ -88,16 +95,20 @@ export abstract class DataConfig{
 
         const configKey = this.keys[property];
 
-        console.log(this.keys,property)
-
         switch(true){
 
             case !configKey as boolean: return false;
 
-            case !configKey.setter: return configKey.private ? _.set(obj,configKey.private,value) : false;
+            case !configKey.setter: return configKey.private ? this.setByPath(obj,configKey,value) : false;
 
             default: return (configKey.setter as Function )(obj, value )
         }
+    }
+
+    
+    protected setByPath(obj:any, configKey:PropertyConfig, value:any){ // establece el valor de la propiedad a traves del path determinado en la private key
+
+          return _.set(obj,configKey.private as string, value) || false
     }
 
     public getModel(){ // devuelve un objeto vacio segun la estructura del tipo
@@ -120,6 +131,7 @@ export abstract class DataConfig{
 
         return errors
     }
+   
 
     protected getRef(section:DataTypes, id:string, prop:string){ // (solo uso interno) SELECCIONA UNA REFERENCIA A OTRA TABLA DE OTRO TIPO DE DATO Y DEVUELVE PROPIEDAD 
 

@@ -10,36 +10,61 @@ export class EmpresaConfig extends DataConfig{
 
     protected override readonly keys:any = {
 
+        id:{
+            private:0, 
+            validations:['valid_index'], 
+            required:true,
+        },
+        agent:{
+
+            private:1, 
+            validations:['valid_agent'], 
+            required:true,
+            setter:(obj:any, value:any)=>false // solo asignable desde servidor aunque presente aqui para busquedas por referencia
+        }, 
+        type:{
+
+            private:2, 
+            validations:['valid_inventory_type'], 
+            required:true,
+        },
         nombre:{ 
             
-            private:InventoryConfig.keys.data.private+'.0', 
+            private:'3.0', 
             validations:['is_string'], 
             required:true,        
         },
         documento:{ 
             
-            private:InventoryConfig.keys.data.private+'.1', 
+            private:'3.1', 
             validations:['is_string'], 
             required:false,        
         },
         telefonos:{ 
             
-            private:InventoryConfig.keys.data.private+'.3', 
-            //validations:(), 
+            private:'3.3', 
+            validations:['is_string_array'], 
             required:false,        
         },
         emails:{ 
             
-            private:InventoryConfig.keys.data.private+'.4', 
-            //validations:(), 
+            private:'3.4', 
+            validations:['is_string_array'], 
             required:false,        
         },
         direccion:{ 
             
-            private:InventoryConfig.keys.data.private+'.2', 
+            private:'3.2', 
             validations:['is_string'], 
             required:false,        
         },
+        hidden:{
+
+            private:4, 
+            validations:['is_boolean'], 
+            required:true,
+        }, 
+        
         lista_telefonos:{ 
             
             getter:(obj:any)=>(this.getValue(obj,'telefonos')|| [] ).join(', ')          
@@ -53,14 +78,33 @@ export class EmpresaConfig extends DataConfig{
     protected override validations = {
 
         ...super.validations,
-        ...InventoryConfig.validations,        
+        valid_inventory_type: (obj:any, key:string) => obj[key] == 1,
+        valid_agent:(obj:any, key:string) => this.valid_agent(obj)     
 
     }
     constructor(protected override injector:Injector){ super(injector); }
 
+    public override valueIsValid(obj:any,key:string):boolean{ // VALIDA PROPIEDAD
+
+        // como hay otros objetos de inventario con la misma estructura primero siempre comprobar que sea una empresa
+
+       if(!this.validations.valid_inventory_type(obj,'type')) return false
+
+       return super.valueIsValid(obj,key)
+    }
+
     public override getModel() {
         
-        return InventoryConfig.defaultModel()
+        const model = ['nuevo',null,1,[],false]
+
+        return [...model]
     }
+
+    private valid_agent(obj:any){
+
+        const agent = this.getValue(obj,'agent');
+        return (this.getValue(obj,'id') == 'nuevo' && agent === null) || typeof agent == 'number';
+    }
+
 
 }

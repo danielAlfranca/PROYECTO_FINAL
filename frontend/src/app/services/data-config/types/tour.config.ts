@@ -1,6 +1,4 @@
 import { Injectable, Injector } from "@angular/core";
-import { DataService } from "../../data-queries/data.service";
-import { InventoryConfig } from "../models/inventory";
 import { DataConfig } from "../models/data-config";
 
 @Injectable({
@@ -11,36 +9,53 @@ export class TourConfig extends DataConfig{
 
     protected override readonly keys:any = {
 
-        ...InventoryConfig.keys,
+        id:{
+            private:0, 
+            validations:['valid_index'], 
+            required:true,
+        },
+        agent:{
+
+            private:1, 
+            validations:['valid_agent'], 
+            required:true,
+            setter:(obj:any, value:any)=>false // solo asignable desde servidor aunque presente aqui para busquedas por referencia
+        }, 
+        type:{
+
+            private:2, 
+            validations:['valid_inventory_type'],
+            required:true, 
+        },
 
         nombre:{ 
             
-            private:InventoryConfig.keys.data.private+'.0', 
+            private:'3.0', 
             validations:['is_string'], 
             required:true,        
         },
         inicio:{ 
             
-            private:InventoryConfig.keys.data.private+'.1', 
+            private:'3.1', 
             validations:['is_string'], 
             required:false,        
         },
         fin:{ 
             
-            private:InventoryConfig.keys.data.private+'.2', 
-            //validations:(), 
+            private:'3.2', 
+            validations:['is_string'], 
             required:false,        
         },
         duracion:{ 
             
-            private:InventoryConfig.keys.data.private+'.3', 
-            //validations:(), 
+            private:'3.3', 
+            validations:['is_number'], 
             required:false,        
         },
         destino:{ 
             
-            private:InventoryConfig.keys.data.private+'.4', 
-            //validations:(), 
+            private:'3.4', 
+            validations:['is_string'], 
             required:false,        
         },
         horario_completo:{ 
@@ -60,12 +75,15 @@ export class TourConfig extends DataConfig{
     protected override validations = {
 
         ...super.validations,
-        ...InventoryConfig.validations,        
+        valid_inventory_type: (obj:any, key:string) => obj[key] == 2, 
+        valid_agent:(obj:any, key:string) => obj[key] == 1      
 
     }
     public override getModel() {
         
-        return InventoryConfig.defaultModel()
+        const model = ['nuevo',1,4,[],false];
+
+        return [...model]
     }
 
 }

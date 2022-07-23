@@ -27,7 +27,7 @@ export class DisplayHotelComponent extends DisplayAdminComponent implements OnIn
 
       {title:'emails', value: this.value('lista_emails'), icon:'envelope'},
       
-      {title:'propietario', value: this.value('nombre_propietario'), icon:'briefcase'}      
+      {title:'propietario', value: this.value('propietario'), icon:'briefcase'}      
     ]
   
   }

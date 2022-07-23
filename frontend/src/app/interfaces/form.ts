@@ -11,6 +11,7 @@ export interface FormItem{
   touched?:boolean,
   columns?: number,
   value?:any,
+  options?:{name:string, value?:string, selected?:boolean}[]
   template:TemplateRef<any>;
 }
 

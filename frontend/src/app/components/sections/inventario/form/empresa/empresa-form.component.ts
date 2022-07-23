@@ -32,7 +32,16 @@ export class EmpresaFormComponent extends FormAdminComponent implements OnInit {
         name:'direccion',
         input:'text'
       },
-
+      {
+        title:'Telefonos',
+        name:'telefonos',
+        input:'text'
+      },
+      {
+        title:'Emails',
+        name:'telefonos',
+        input:'text'
+      }
 
     ] as FormItem[];
   }

@@ -58,7 +58,7 @@ export class InventoryConfig {
 
     public static defaultModel(){
 
-        const model = [null,null,null,[],false]
+        const model = ['nuevo',null,null,[],false]
 
         return [...model]
     }

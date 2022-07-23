@@ -21,8 +21,8 @@ export class DisplayTrabajadorComponent extends DisplayAdminComponent implements
     this.dataDisplay = [
 
       {title:'Documento', value: this.value('documento'), icon:'file-text'}, 
-      {title:'Tipo', value: this.value('nombre_tipo'), icon:'asterisk'}, 
-      {title:'regimen', value: this.value('nombre_regimen'), icon:'cone-striped'}, 
+      {title:'Tipo', value: this.value('tipo'), icon:'asterisk'}, 
+      {title:'regimen', value: this.value('regimen'), icon:'cone-striped'}, 
       {title:'Direccion', value: this.value('direccion'), icon:'map'}, 
       {title:'telefonos', value: this.value('lista_telefonos'), icon:'telephone'}, 
       {title:'emails', value: this.value('lista_emails'), icon:'envelope'}, 

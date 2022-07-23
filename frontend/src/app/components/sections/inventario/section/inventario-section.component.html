@@ -16,7 +16,7 @@
         <tr (click)="display(data,false,'trabajador')" class="pointer">
             <td>{{data | show:'trabajador':'nombre_completo'}} </td>
             <td>{{data | show:'trabajador':'documento'}} </td>
-            <td>{{data | show:'trabajador':'nombre_tipo'}} <small><em>({{data | show:'trabajador':'nombre_regimen'}} ) </em></small></td>
+            <td>{{data | show:'trabajador':'tipo'}} <small><em>({{data | show:'trabajador':'regimen'}} ) </em></small></td>
             <td> 
                 <div><i class="bi bi-telephone me-2"></i> {{data | show:'trabajador':'lista_telefonos'}}</div>
                 <div><i class="bi bi-envelope me-2"></i> {{data | show:'trabajador':'lista_emails'}} </div>  
@@ -41,7 +41,7 @@
                 <div><i class="bi bi-telephone me-2"></i> {{data | show:'hotel':'lista_telefonos'}}</div>
                 <div><i class="bi bi-envelope me-2"></i> {{data | show:'hotel':'lista_emails'}} </div>  
             </td>
-            <td>{{data | show:'hotel':'nombre_propietario'}} </td>
+            <td>{{data | show:'hotel':'propietario'}} </td>
         </tr>
     </ng-template>
 

@@ -90,7 +90,7 @@ export class InventarioSectionComponent extends SectionComponent implements OnIn
         },
         { 
           title:'Tipo',
-          sort:'nombre_tipo'
+          sort:'tipo'
         },
         { 
           title:'Contacto',
@@ -100,7 +100,7 @@ export class InventarioSectionComponent extends SectionComponent implements OnIn
       ],
       search:[
 
-        'nombre','documento', 'lista_emails', 'lista_telefonos', 'nombre_tipo' , 'nombre_regimen'
+        'nombre','documento', 'lista_emails', 'lista_telefonos', 'tipo' , 'regimen'
       ]
     };
 
@@ -146,7 +146,7 @@ export class InventarioSectionComponent extends SectionComponent implements OnIn
         },
         { 
           title:'Tipo',
-          sort:'nombre_tipo'
+          sort:'tipo'
         },
         { 
           title:'direccion',
@@ -157,14 +157,14 @@ export class InventarioSectionComponent extends SectionComponent implements OnIn
         },
         { 
           title:'Empresa asociada',
-          sort:'nombre_propietario'
+          sort:'propietario'
         },
 
 
       ],
       search:[
 
-        'nombre', 'direccion', 'estrellas', 'nombre_tipo' ,'nombre_propietario' ,'lista_emails','lista_telefonos'
+        'nombre', 'direccion', 'estrellas', 'tipo' ,'propietario' ,'lista_emails','lista_telefonos'
       ]
     };
 

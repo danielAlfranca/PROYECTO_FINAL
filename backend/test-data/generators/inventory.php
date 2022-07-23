@@ -109,7 +109,7 @@
             $inventory_array[] =  [
 
                 $id,// id
-                1 ,// agent !!!!!! + 1 porque el id 1 en agents es para sin agente
+                1 ,// agent !!!!!!  el id 1 en agents es para sin agente
                 3,// type
                 json_encode($data),
                 FALSE,// hidden

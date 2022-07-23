@@ -1,6 +1,7 @@
 import { Injectable, Injector } from "@angular/core";
 import { InventoryConfig } from "../models/inventory";
 import { DataConfig } from "../models/data-config";
+import * as _ from "lodash";
 
 
 @Injectable({
@@ -11,48 +12,96 @@ export class HotelConfig extends DataConfig{
 
     protected override readonly keys:any = {
 
-        ...InventoryConfig.keys,
+        id:{
+            private:0, 
+            validations:['valid_index'], 
+            required:true,
+        },
+        agent:{
+
+            private:1, 
+            validations:['valid_agent'], 
+            required:true,
+            setter:(obj:any, value:any)=>false // solo asignable desde servidor aunque presente aqui para busquedas por referencia
+        }, 
+        type:{
+
+            private:2, 
+            validations:['valid_inventory_type'], 
+            required:true,
+        },
+        hidden:{
+
+            private:4, 
+            validations:['is_boolean'], 
+            required:true,
+        }, 
 
         nombre:{ 
             
-            private:InventoryConfig.keys.data.private+'.0', 
+            private:'3.0', 
             validations:['is_string'], 
-            required:true,        
+            required:true           
         },
         tipo:{ 
             
-            private:InventoryConfig.keys.data.private+'.1', 
-            validations:['is_string'], 
-            required:false,        
+            private:'3.1', 
+            validations:['valid_tipo_hotel'], 
+            required:true,
+
+            getter: (obj: any) =>   this.getValue(obj, 'is_hotel') ? 'hotel' :
+                                    this.getValue(obj, 'is_lodge') ? 'lodge' :
+                                    this.getValue(obj, 'is_alojamiento') ? 'alojamiento' : false,
+
+            setter: (obj: any, value: string) => {
+                
+                const   key = this.keys.nombre, 
+                        index = ['hotel','lodge','alojamiento'].findIndex(e=>e==value);
+                
+                if(index==-1) return false;
+
+                return Boolean(this.setByPath(obj,key,index+1));                
+            }                 
         },
         propietario:{ 
             
-            private:InventoryConfig.keys.data.private+'.5', 
-            //validations:(), 
-            required:false,        
+            private:'3.5', 
+            validations:['valid_propietario'],  
+            required:false,
+            getter:(obj: any)=>this.getRef('empresa',this.getByPath(obj,this.keys.propietario),'nombre'), // DEVUELVE SOLO NOMBRE
+            setter: (obj: any, value: any) => { // EL VALOR ESPERADO PARA INTRODUCIR ES UN OBJETO EMPRESA
+
+                if(this.getRef('empresa',value,'is_empresa')){
+
+                    const key = this.keys.propietario, id = this.getRef('empresa',value,'id');
+
+                    return Boolean(this.setByPath(obj,key,id));
+
+                } else return false
+            }         
         },
         categoria:{ 
             
-            private:InventoryConfig.keys.data.private+'.2', 
-            //validations:(), 
+            private:'3.2', 
+            validations:['valid_categoria'],  
             required:false,        
         },
         direccion:{ 
             
-            private:InventoryConfig.keys.data.private+'.4', 
-            //validations:(), 
+            private:'3.4', 
+            validations:['is_string'], 
             required:false,        
         },
         telefonos:{ 
             
-            private:InventoryConfig.keys.data.private+'.6', 
-            //validations:(), 
+            private:'3.6', 
+            validations:['is_string_array'], 
             required:false,        
         },
         emails:{  
             
-            private:InventoryConfig.keys.data.private+'.7', 
-            //validations:(), 
+            private:'3.7', 
+            validations:['is_string_array'], 
             required:false,        
         },
         lista_telefonos:{ 
@@ -62,23 +111,16 @@ export class HotelConfig extends DataConfig{
         lista_emails:{ 
             
             getter:(obj:any)=>(this.getValue(obj,'emails')|| [] ).join(', ')        
-        },
-       
-        nombre_tipo:{ 
-            
-            getter:(obj:any)=>  this.getValue(obj, 'is_hotel')    ?   'hotel' :    
-                                this.getValue(obj, 'is_lodge')    ?   'lodge' : 
-                                this.getValue(obj, 'is_alojamiento')    ?   'alojamiento' :  false  
-        },
+        },       
         estrellas:{ 
             
             getter:(obj:any)=>  {
 
-                const tipo = this.getValue(obj,'nombre_tipo'), categoria = this.getValue(obj,'categoria');
+                const categoria = this.getValue(obj,'categoria');
 
-                if(tipo!='hotel' || !categoria) return '';
+                if( !(this.getValue(obj,'is_hotel')) || !categoria) return '';
 
-                return new Array(categoria).fill('*').join()
+                return new Array(categoria).fill('*').join('')
             } 
         },
 
@@ -86,24 +128,17 @@ export class HotelConfig extends DataConfig{
             
             getter:(obj:any)=>  {
 
-                const tipo = this.getValue(obj,'nombre_tipo')
+                const tipo = this.getValue(obj,'tipo')
 
-                return tipo + (tipo=='hotel' ? '(' + this.getValue(obj,'estrellas')+')':'')
+                return tipo + (this.getValue(obj,'is_hotel') ? '(' + this.getValue(obj,'estrellas')+')':'')
             } 
         },
         
-        is_hotel:{ getter:(obj:any)=> this.getValue(obj,'type') == 1 },
+        is_hotel:{ getter:(obj:any)=> this.getByPath(obj,this.keys.tipo)  == 1 },
 
-        is_lodge:{ getter:(obj:any)=> this.getValue(obj,'type') == 2 },
+        is_lodge:{ getter:(obj:any)=> this.getByPath(obj,this.keys.tipo) == 2 },
 
-        is_alojamiento:{ getter:(obj:any)=> this.getValue(obj,'type') == 3 },
-
-        nombre_propietario:{  getter:(obj:any)=> {
-
-            const propietarioRef = this.getValue(obj,'propietario');
-
-            return this.getRef('empresa',propietarioRef , 'nombre');
-        } }
+        is_alojamiento:{ getter:(obj:any)=> this.getByPath(obj,this.keys.tipo)  == 3 }
 
     }
     
@@ -112,13 +147,28 @@ export class HotelConfig extends DataConfig{
     protected override validations = {
 
         ...super.validations,
-        ...InventoryConfig.validations,        
+        valid_inventory_type: (obj:any, key:string) => obj[key] == 3,
+        valid_agent:(obj:any, key:string) => obj[key] == 1 , 
+        valid_propietario:(obj:any, key:string) =>  this.getRef('empresa',obj[key],'id'),
+        valid_tipo_hotel:  (obj:any, key:string) =>  [1,2,3].includes( obj[key]),
+        valid_categoria:  (obj:any, key:string) => !this.getValue(obj,'is_hotel') || [1,2,3,4,5].includes( obj[key])
+    }
 
+    public override valueIsValid(obj:any,key:string):boolean{ // VALIDA PROPIEDAD
+
+        // como hay otros objetos de inventario con la misma estructura primero siempre comprobar que sea un hotel
+
+       if(!this.validations.valid_inventory_type(obj,'type')) return false
+
+       return super.valueIsValid(obj,key)
     }
 
     public override getModel() {
         
-        return InventoryConfig.defaultModel()
+        const model = ['nuevo',1,3,[],false]
+
+        return [...model]
     }
+   
 
 }
