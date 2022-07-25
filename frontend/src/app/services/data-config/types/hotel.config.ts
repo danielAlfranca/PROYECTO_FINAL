@@ -146,12 +146,12 @@ export class HotelConfig extends DataConfig{
 
     protected override validations = {
 
-        ...super.validations,
-        valid_inventory_type: (obj:any, key:string) => obj[key] == 3,
-        valid_agent:(obj:any, key:string) => obj[key] == 1 , 
-        valid_propietario:(obj:any, key:string) =>  this.getRef('empresa',obj[key],'id'),
-        valid_tipo_hotel:  (obj:any, key:string) =>  [1,2,3].includes( obj[key]),
-        valid_categoria:  (obj:any, key:string) => !this.getValue(obj,'is_hotel') || [1,2,3,4,5].includes( obj[key])
+        ...this.common_validations,
+        valid_inventory_type: (obj:any, key:string) => this.getValue(obj,key) == 3,
+        valid_agent:(obj:any, key:string) => this.getValue(obj,key) == 1 , 
+        valid_propietario:(obj:any, key:string) =>  this.getRef('empresa',this.getValue(obj,key),'id'),
+        valid_tipo_hotel:  (obj:any, key:string) =>  [1,2,3].includes( this.getValue(obj,key)),
+        valid_categoria:  (obj:any, key:string) => !this.getValue(obj,'is_hotel') || [1,2,3,4,5].includes( this.getValue(obj,key))
     }
 
     public override valueIsValid(obj:any,key:string):boolean{ // VALIDA PROPIEDAD

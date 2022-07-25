@@ -5,7 +5,7 @@ import { pagosRoutes } from './pagos';
 import { reservasRoutes } from './reservas';
 import { salidasRoutes } from './salidas';
 
-export const welcomeSection = 'reservas';
+export const welcomeSection = 'inventario';
 
 const routes = [
   

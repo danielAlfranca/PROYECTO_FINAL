@@ -23,17 +23,19 @@ export abstract class DataConfig{
 
     /* VALIDACIONES */
 
-    protected validations:{[key:string]:(obj:any, key:string)=>boolean} = {
+    protected validations:{[key:string]:(obj:any, key:string)=>boolean} = {}
 
-        is_boolean:(obj:any, key:string) => typeof obj[key] == "boolean",
+    protected common_validations:{[key:string]:(obj:any, key:string)=>boolean} = {
 
-        is_string:(obj:any, key:string) => typeof obj[key]  == "string",
+        is_boolean:(obj:any, key:string) => typeof this.getValue(obj,key) == "boolean",
 
-        is_number:(obj:any, key:string) => typeof obj[key]  == "number",
+        is_string:(obj:any, key:string) => typeof this.getValue(obj,key) == "string",
 
-        is_string_array:(obj:any, key:string) => Array.isArray(obj[key]) && obj[key].every((e:any)=>typeof e  == "string"),
+        is_number:(obj:any, key:string) => typeof this.getValue(obj,key) == "number",
 
-        valid_index:(obj:any, key:string) => typeof obj[key]  == "number" || obj[key]  == 'nuevo',
+        is_string_array:(obj:any, key:string) =>{ let value = this.getValue(obj,key); return Array.isArray(value) && value.every((e:any)=>typeof e  == "string")},
+
+        valid_index:(obj:any, key:string) => { let value = this.getValue(obj,key); return typeof value  == "number" || value  == 'nuevo'},
 
         agent_exists:(obj:any, key:string) => /* FALTA */ true
 
@@ -122,7 +124,7 @@ export abstract class DataConfig{
         
         let errors:any = {};
 
-        if(propConfig.required && value === undefined) errors = {required:true};
+        if(propConfig.required && value === undefined) errors = {required:true};        
 
         (propConfig.validations || []).forEach(validation=>{ 
 

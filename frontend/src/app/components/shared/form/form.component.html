@@ -2,13 +2,14 @@
     <div class="row">   
         <div *ngFor="let field of fields; let i = index" class="col-{{ fields[i].columns }}">
             <div class="form-group mb-3 text-center">                     
-               <app-input [field]="field" [item]="item" [type]="type" (change)="setFields($event); field.touched = true"></app-input>
-               <div  class="invalid-feedback d-block" *ngIf="field.touched && !field.valid">
-                    {{ item | errors:type:field.name }}
-                </div>
-            </div>
-           
+               <app-input [field]="field" [item]="item" [type]="type" (change)="setFields($event); field.touched = true"></app-input>       
+            </div>           
         </div>    
+    </div>
+    <hr>
+
+    <div class="py-3 text-center">
+        <button class="btn btn-primary" (click)="onSave()">Guardar</button>
     </div>
 </div>
 <ng-content></ng-content>

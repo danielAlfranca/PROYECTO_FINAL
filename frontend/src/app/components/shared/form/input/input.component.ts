@@ -19,11 +19,11 @@ export class InputComponent implements OnChanges, AfterViewInit {
   name!:string;
   value!:any;
   title!:string;
+  options?:{name:string, value?:string, selected?:boolean}[] = [];
 
   @ViewChildren(TemplateRef) templates!:QueryList<TemplateRef<any>>;
 
   template!:TemplateRef<any>;
-
 
   constructor(private appConfig:AppConfigService) { }
 
@@ -33,16 +33,24 @@ export class InputComponent implements OnChanges, AfterViewInit {
 
   init(){
 
+   
+
     this.value = this.appConfig.dataConfig.getValue(this.item,this.name,this.type) || '';
 
-    this.name = this.field.name;
+    this.title ||= this.field.title;
 
-    if(this.templates){
+    this.name ||= this.field.name;
+
+    this.options = this.field.options || [];
+
+    if(this.templates && !this.template){
 
       const templates = this.templates.toArray();
   
-      this.template = this.field.template || templates[['text','number', 'select'].findIndex(e=>e==this.field.input)];    
+      this.template = this.field.template || templates[['text','number', 'select','array','time'].findIndex(e=>e==this.field.input)];    
     }
+
+    this.field = {...this.field}
 
   }
 
@@ -50,7 +58,7 @@ export class InputComponent implements OnChanges, AfterViewInit {
   update(value:any){
 
     this.value = value;
-    
+
     this.change.emit({[this.name]:this.value});
     
   }

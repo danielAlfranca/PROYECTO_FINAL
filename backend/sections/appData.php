@@ -1,6 +1,6 @@
 <?php 
 
-require '../shared/database.php';
+require_once '../shared/database.php';
 
 class AppData{   
     

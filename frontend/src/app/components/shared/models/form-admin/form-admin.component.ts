@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { take } from 'rxjs';
 import { FormItem } from 'src/app/interfaces/form';
 import { DataTypes } from 'src/app/interfaces/types/data-config';
 import { AppConfigService } from 'src/app/services/app-config.service';
@@ -12,7 +13,9 @@ export class FormAdminComponent {
 
   item!:any;
   type!:DataTypes;
-  fields!:FormItem[] // FormField[]
+  fields!:FormItem[];
+
+  touched = false;  
 
   constructor(protected appConfig:AppConfigService) { }
 
@@ -20,6 +23,17 @@ export class FormAdminComponent {
 
     this.item = this.appConfig.canvas.last.query.formItem;
     this.type = type;
+  }
+
+  save(item:any){
+
+    this.appConfig.queries.save(this.type,item).pipe(take(1)).subscribe(response=>{
+      console.log(response);
+      if(response) {alert('Salvado con exito'); this.appConfig.canvas.close(response)}
+      else (alert('hubo un error'))
+
+      
+    });
   }
 
   close(){

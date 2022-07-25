@@ -6,9 +6,9 @@ class section{
     
     private $connection;
  
-    public function __constructor($user){
+    public function __constructor(){
 
-        $this->connection = new Database($user);
+        $this->connection = new Database();
     }
 
     public function save($data){}

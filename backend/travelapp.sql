@@ -8,7 +8,7 @@ USE travelapp;
 CREATE TABLE agents (
 
     id INT AUTO_INCREMENT,
-    agent_type ENUM('0','1','2') NOT NULL,
+    agent_type ENUM('0','1','2','3') NOT NULL,
     PRIMARY KEY (id)
     # 0 - SIN AGENTE
     # 1 - EMPRESAS

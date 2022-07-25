@@ -40,12 +40,12 @@ export class HotelFormComponent extends FormAdminComponent implements OnInit {
       {
         title:'Emails',
         name:'telefonos',
-        input:'text'
+        input:'array'
       },
       {
         title:'Propietario',
         name:'propietario',
-        input:'custom'
+        input:'array'
       }
 
     ] as FormItem[];

@@ -77,7 +77,7 @@ export class EmpresaConfig extends DataConfig{
 
     protected override validations = {
 
-        ...super.validations,
+        ...this.common_validations,
         valid_inventory_type: (obj:any, key:string) => obj[key] == 1,
         valid_agent:(obj:any, key:string) => this.valid_agent(obj)     
 

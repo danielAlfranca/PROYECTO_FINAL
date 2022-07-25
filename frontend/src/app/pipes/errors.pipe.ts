@@ -7,11 +7,21 @@ import { AppConfigService } from '../services/app-config.service';
 })
 export class ErrorsPipe implements PipeTransform {
 
-  constructor(private appConfig:AppConfigService){}
+  constructor(private appConfig: AppConfigService) { }
 
-  transform(item: any, type:DataTypes, field:string): unknown {
+  transform(item: any, type: DataTypes, field: string): any {
 
-    return Object.keys(this.appConfig.dataConfig.getValidations(item,field, type)).join(', ')
+
+
+      const errors = Object.keys(this.appConfig.dataConfig.getValidations(item, field, type));
+
+      console.log(this.appConfig.dataConfig.getValue(item,field,type))
+
+      if (errors.includes('required')) return 'Este campo es requerido';
+      else if (errors.length) return 'Este campo contiene errores';
+      return ''
+
+
   }
 
 }

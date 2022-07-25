@@ -118,13 +118,13 @@ export class TrabajadorConfig extends DataConfig{
     
     constructor(protected override injector:Injector){ super(injector); }
 
-    protected override validations = {
+    protected  override validations = {
 
-        ...super.validations,
-        valid_inventory_type: (obj:any, key:string) => obj[key] == 2,
+        ...this.common_validations,
+        valid_inventory_type: (obj:any, key:string) => this.getValue(obj,key) == 2,
         valid_agent:(obj:any, key:string) => this.valid_agent(obj),
-        is_valid_trabajador_tipo: (obj:any, key:string) => [1,2,3].includes( obj[key]*1),
-        is_valid_regimen: (obj:any, key:string) => [1,2].includes( obj[key]*1)
+        is_valid_trabajador_tipo: (obj:any, key:string) => [1,2,3].includes( this.getValue(obj,key) *1),
+        is_valid_regimen: (obj:any, key:string) => [1,2].includes( this.getValue(obj,key) *1)
     }
 
     public override valueIsValid(obj:any,key:string):boolean{ // VALIDA PROPIEDAD

@@ -25,7 +25,7 @@ export class DisplayAdminComponent  {
 
   edit(){
 
-    this.appConfig.canvas.open(this.editPath, {editItem:this.item});
+    this.appConfig.canvas.open(this.editPath, {formItem:this.item});
   }
 
   delete(){

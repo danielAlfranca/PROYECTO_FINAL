@@ -1,6 +1,9 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import {HttpClientJsonpModule, HttpClientModule} from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { TagInputModule } from 'ngx-chips'; // PARA INPUT ARRAY
+import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker'; // PARA TIME PICKER
 
 import { AppRoutingModule } from './routes/app-routing.module';
 import { AppComponent } from './app.component';
@@ -50,6 +53,10 @@ import { FormComponent } from './components/shared/form/form.component';
 import { InputComponent } from './components/shared/form/input/input.component';
 import { FormAdminComponent } from './components/shared/models/form-admin/form-admin.component';
 import { ErrorsPipe } from './pipes/errors.pipe';
+import { StringArrayComponent } from './components/shared/form/custom-fields/string-array/string-array.component';
+import { CustomFieldComponent } from './components/shared/form/custom-fields/model/custom-field.component';
+import { TimePickerComponent } from './components/shared/form/custom-fields/time-picker/time-picker.component';
+
 
 @NgModule({
   declarations: [
@@ -98,15 +105,21 @@ import { ErrorsPipe } from './pipes/errors.pipe';
     FormComponent,
     InputComponent,
     FormAdminComponent,
-    ErrorsPipe
+    ErrorsPipe,
+    StringArrayComponent,
+    CustomFieldComponent,
+    TimePickerComponent
   ],
   imports: [
+    TagInputModule, 
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     HttpClientJsonpModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    NgxMaterialTimepickerModule.setLocale('es')
   ],
   providers: [],
   bootstrap: [AppComponent]

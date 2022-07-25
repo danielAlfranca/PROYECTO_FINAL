@@ -25,13 +25,13 @@ export class TourFormComponent extends FormAdminComponent implements OnInit {
       {
         title:'inicio',
         name:'inicio',
-        input:'custom',
+        input:'time',
         columns:6,
       },
       {
         title:'fin',
         name:'fin',
-        input:'custom',
+        input:'time',
         columns:6,
       },
       {

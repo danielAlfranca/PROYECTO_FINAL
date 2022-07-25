@@ -61,6 +61,20 @@ export class DataStoreService {
     return _.find(this[section],path)
   }
 
+  addItem(section:DataTypes, item:any){
+
+    const id = this.injector.get(DataConfigService).getValue(item,'id',section);
+
+    this[section][id]= item;
+  }
+
+  removeItem(section:DataTypes, item:any){
+
+    const id = this.injector.get(DataConfigService).getValue(item,'id',section);
+
+    
+  }
+
   private isID(path:string){
 
     return !path.includes('.')

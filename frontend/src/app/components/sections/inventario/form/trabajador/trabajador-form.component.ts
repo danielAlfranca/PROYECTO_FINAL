@@ -42,12 +42,12 @@ export class TrabajadorFormComponent extends FormAdminComponent implements OnIni
       {
         title:'telefonos',
         name:'telefonos',
-        input:'text'
+        input:'array'
       },
       {
         title:'emails',
         name:'emails',
-        input:'text'
+        input:'array'
       }
       
 

@@ -74,9 +74,9 @@ export class TourConfig extends DataConfig{
 
     protected override validations = {
 
-        ...super.validations,
-        valid_inventory_type: (obj:any, key:string) => obj[key] == 2, 
-        valid_agent:(obj:any, key:string) => obj[key] == 1      
+        ...this.common_validations,
+        valid_inventory_type: (obj:any, key:string) => this.getValue(obj,key) == 2, 
+        valid_agent:(obj:any, key:string) => this.getValue(obj,key) == 1      
 
     }
     public override getModel() {

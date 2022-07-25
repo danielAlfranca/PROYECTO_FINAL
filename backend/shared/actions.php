@@ -3,6 +3,7 @@ header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Ac
 header('Access-Control-Allow-Origin: *');
 
 require '../sections/appData.php';
+require '../sections/empresa.php';
 
 //session_start();
 
@@ -21,17 +22,18 @@ $section = $query['section'];
 $action = $query['action'];
 $data = $query['data'];
 
+
  if( true /* isset($_SESSION['usertapp']) && !empty($_SESSION['usertapp']) */ ){
 
-    //$user = $_SESSION['usertapp'];
+    //$user = $_SESSION['usertapp']; 
 
-    $controller = get_section($section);
+    $controller = get_section($section);  
    
-    if($controller->validate($data)){ 
+   if($controller->validate($data)){ 
 
         echo json_encode($controller->$action($data));
 
-    } else{ echo false ; }
+    } else{ return false; }  
 } 
 
 
