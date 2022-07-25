@@ -1,16 +1,19 @@
 <?php 
 
-require_once '../shared/database.php';
+require '../shared/database.php';
 
 class AppData{   
     
- 
-    public function __constructor(){}
-    
-    public function dataSet(){
+    private $connection;
 
-        $connection = Database::connect();
-        $query = $connection->prepare("SELECT * FROM inventory_items");
+    public function __construct(){
+
+        $this->connection = Database::connect();
+    }
+    
+    public function dataSet($data){
+
+        $query = $this->connection->prepare("SELECT * FROM inventory_items");
         $query->setFetchMode(PDO::FETCH_NUM);
         $query->execute();
 
@@ -44,15 +47,16 @@ class AppData{
         }
 
         return ["empresa"=>$empresas, "trabajador"=>$trabajadores, "hotel"=>$hoteles, "tour"=>$tours, "paquete"=>$paquetes];
+    } 
+    
+    public function validate($data){
+        
+        if(!$data)  return true;    
     }
-    
 
-    public function update($data){}
+    public function sanitize($data){
 
-    public function select($data){}
-
-    public function delete($data){}
-    
-    public function validate($data){ return true;}
+        if(!$data)  return $data;
+    }
 
 }

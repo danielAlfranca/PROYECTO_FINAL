@@ -3,7 +3,10 @@ header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Ac
 header('Access-Control-Allow-Origin: *');
 
 require '../sections/appData.php';
+require '../sections/inventario.php'; // necesario para empresa, trabajador, hotel, tour y paquete
 require '../sections/empresa.php';
+require '../sections/hotel.php';
+
 
 //session_start();
 
@@ -27,9 +30,11 @@ $data = $query['data'];
 
     //$user = $_SESSION['usertapp']; 
 
-    $controller = get_section($section);  
+    $controller = get_section($section); 
+    
+    $sanitized = $controller->sanitize($data);
    
-   if($controller->validate($data)){ 
+   if($controller->validate($sanitized)){ 
 
         echo json_encode($controller->$action($data));
 

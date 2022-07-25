@@ -41,7 +41,9 @@ export class DataService {
     const notification = new Subject();
 
     this.connect(section,'save',item).subscribe((data:any)=>{ 
-  
+      
+      console.log(data);
+
       if(data){  this.addItem(section,data);  notification.next(data) } else notification.next(false); 
     
     })
@@ -65,7 +67,7 @@ export class DataService {
 
   private connect(section:string, action:string, data?:any){
 
-    return this.http.post(  this.URI + 'backend/shared/actions.php',{
+    return this.http.post(  this.URI + 'backend/shared/controller.php',{
  
       section:section,
       action:action,

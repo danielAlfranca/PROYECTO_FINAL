@@ -1,6 +1,6 @@
 <?php 
 
-class Empresa extends Inventario{   
+class Hotel extends Inventario{   
     
     public static $type = 1;
 
@@ -14,10 +14,11 @@ class Empresa extends Inventario{
         'data'=>3, 
         'hidden'=>4, 
         'nombre'=>'3.0',
-        'documento'=>'3.1',
-        'telefonos'=>'3.3',
-        'emails'=>'3.4',
-        'direccion'=>'3.2'
+        'tipo'=>'3.1',
+        'categoria'=>'3.2',
+        'telefonos'=>'3.6',
+        'emails'=>'3.7',
+        'direccion'=>'3.4'
     ]; 
 
    
@@ -29,9 +30,15 @@ class Empresa extends Inventario{
         if(($id!='nuevo' && !$exists)) return false;
 
         $agent = self::get_property($data,'agent');
-        $exists = $this->select($agent);    
+        $exists = $this->select($agent);  
 
         if( $id!='nuevo' && !$exists ) return false;
+
+        $tipo = self::get_property($data,'tipo');
+        $categoria = self::get_property($data,'categoria');
+        
+        if($tipo!=1 &&$tipo!=2&&$tipo!=3) return false;
+        if($tipo==1&&$categoria!=1 &&$categoria!=2&&$categoria!=3&&$categoria!=4&&$categoria!=5) return false;        
 
         if(!is_string(self::get_property($data,'nombre'))) return false;
         if(!is_string(self::get_property($data,'documento'))) return false;
