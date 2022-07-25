@@ -3,6 +3,7 @@ header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Ac
 header('Access-Control-Allow-Origin: *');
 
 require '../sections/appData.php';
+require '../sections/model.php';
 require '../sections/inventario.php'; // necesario para empresa, trabajador, hotel, tour y paquete
 require '../sections/empresa.php';
 require '../sections/hotel.php';
@@ -36,7 +37,7 @@ $data = $query['data'];
    
    if($controller->validate($sanitized)){ 
 
-        echo json_encode($controller->$action($data));
+        echo  json_encode($controller->$action($data));
 
     } else{ return false; }  
 } 

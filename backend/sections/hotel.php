@@ -2,23 +2,31 @@
 
 class Hotel extends Inventario{   
     
-    public static $type = 1;
-
-    public static $defaultAgent = false;
+    public static $fixed_constants = ['type'=>3, 'agent'=>1];// para valores fijos
 
     public static $indexes = [
 
-        'id'=>0, 
-        'agent'=>1, 
-        'type'=>2, 
-        'data'=>3, 
-        'hidden'=>4, 
-        'nombre'=>'3.0',
-        'tipo'=>'3.1',
-        'categoria'=>'3.2',
-        'telefonos'=>'3.6',
-        'emails'=>'3.7',
-        'direccion'=>'3.4'
+        'id'=>['private'=>0, 'validations'=>['index_valid'], 'required'=>true], 
+
+        'agent'=>['private'=>1, 'validations'=>['agent_valid'], 'required'=>true],  
+
+        'type'=>['private'=>2, 'validations'=>['type_valid'], 'required'=>true],
+
+        'data'=>['private'=>3, 'validations'=>[], 'required'=>true],
+
+        'hidden'=>['private'=>4, 'validations'=>['is_boolean'], 'required'=>true], 
+
+        'nombre'=>['private'=>'3.0', 'validations'=>['is_string'], 'required'=>true], 
+
+        'tipo'=>['private'=>'3.1', 'validations'=>['tipo_valid'], 'required'=>true], 
+
+        'categoria'=>['private'=>'3.2', 'validations'=>['categoria_valid'], 'required'=>true], 
+
+        'telefonos'=>['private'=>'3.6', 'validations'=>['is_string_array'], 'required'=>true], 
+
+        'emails'=>['private'=>'3.7', 'validations'=>['is_string_array'], 'required'=>true],
+         
+        'direccion'=>['private'=>'3.4', 'validations'=>['is_string'], 'required'=>true], 
     ]; 
 
    

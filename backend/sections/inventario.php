@@ -3,74 +3,15 @@
 <?php 
 
 
-class Inventario {
+class Inventario extends Section{
 
-    protected $connection; // BASE DE DATOS;
-
-    public static $type; // 1 PARA EMPRESA, 2 PARA TRABAJADOR ...;
-
-    public static $defaultAgent ;// SOLO EN EMPRESA NO HAY DEFAULT;
-
-    public static $indexes = []; // PATHS DE LAS PROPIEDADES;
- 
     public function __construct(){
 
-        $this->connection = Database::connect();       
-    }
+        $this->connection = Database::connect();
 
-    public static function get_property($data, $name){
+        $this->init_validations();        
+    } 
 
-        switch ($name) {
-
-            case 'agent': return self::$defaultAgent ? self::$defaultAgent : self::get_prop_by_path($data,$name);// SI TIENE AGENTE POR DEFECTO EL VALOR SIEMPRE HA DE SER ESE
-            case 'type': return self::$type;// SE FUERZA A QUE EL OBJETO SIEMPRE SEA DEL TIPO ASOCIADO A  LA CLASE
-            default: return self::get_prop_by_path($data,$name);              
-        }
-
-    }
-
-    public static function set_property($data, $value, $name){
-
-        switch ($name) {
-
-            case 'agent':{ 
-                
-                $agent = self::$defaultAgent ? self::defaultAgent  : $value; // SI TIENE AGENTE POR DEFECTO EL VALOR SIEMPRE HA DE SER ESE
-                return self::set_prop_by_path($data,$name,$agent );
-            }
-            case 'type':return self::set_prop_by_path($data,$name,self::type);  // SE FUERZA A QUE EL OBJETO SIEMPRE SEA DEL TIPO ASOCIADO A  LA CLASE
-
-            default:  return self::set_prop_by_path($data,$name,$value);          
-        }
-
-    }
-
-    protected static function get_prop_by_path($data, $name){  // LOS OBJETOS SON ARRAYS ANIDADOS. EN INDEXES SE DEFINEN LOS PATH Y AQUI SE OBTIENEN LOS VALORES A TRAVES DE ESOS PATHS
-
-        $indexes  = self::$indexes[$name];
-        $arr = array_map(fn($e)=>intval($e), explode(".", $indexes ));
-
-        return array_reduce($arr, fn($carry, $prop)=>$carry[$prop],$data);
-    }
-
-    protected static function set_prop_by_path($data, $name, $value) { 
-        
-        // LOS OBJETOS SON ARRAYS ANIDADOS. EN INDEXES SE DEFINEN LOS PATH Y AQUI SE ESTABLECEN  LOS VALORES A TRAVES DE ESOS PATHS
-
-        $indexes = self::$indexes[$name];
-        $path = array_map(fn($e)=>intval($e), explode(".", $indexes));
-        $len = count($path);
- 
-        $temp = &$data; // CARACTER & ES NECESARIO PARA INDICAR QUE ES UNA REFERENCIA Y NO SOLO UNA VARIABLE TEMPORAL
-
-        foreach($path as $key) {
-            $temp = &$temp[$key];
-        }
-        $temp = $value;
-        unset($temp);
-        
-        return $data ;
-    }
 
     protected function newAgent(){
 
@@ -176,9 +117,13 @@ class Inventario {
         return $query->execute();
     }
     
-    public function validate($data){ }
-
     public function sanitize($data){}
+
+    protected function init_validations(){ // php no permite asignarlo directamente en la propiedad 
+
+        parent::init_validations();         
+        $this->validations['type_valid']  = fn($data, $name) => in_array( static::get_property($data,$name), range(1,5));
+    }
 
    
 

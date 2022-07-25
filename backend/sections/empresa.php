@@ -2,54 +2,32 @@
 
 class Empresa extends Inventario{   
     
-    public static $type = 1;
-
-    public static $defaultAgent = false;
+    public static $fixed_constants = ['type'=>1];// para valores fijos
 
     public static $indexes = [
 
-        'id'=>0, 
-        'agent'=>1, 
-        'type'=>2, 
-        'data'=>3, 
-        'hidden'=>4, 
-        'nombre'=>'3.0',
-        'documento'=>'3.1',
-        'telefonos'=>'3.3',
-        'emails'=>'3.4',
-        'direccion'=>'3.2'
+        'id'=>['private'=>0, 'validations'=>['id_valid'], 'required'=>true], 
+
+        'agent'=>['private'=>1, 'validations'=>['agent_valid'], 'required'=>true],  
+
+        'type'=>['private'=>2, 'validations'=>['type_valid'], 'required'=>true],
+
+        'data'=>['private'=>3, 'validations'=>[], 'required'=>true],
+
+        'hidden'=>['private'=>4, 'validations'=>['is_boolean'], 'required'=>true], 
+
+        'nombre'=>['private'=>'3.0', 'validations'=>['is_string'], 'required'=>true], 
+
+        'documento'=>['private'=>'3.1', 'validations'=>['is_string'], 'required'=>true], 
+
+        'telefonos'=>['private'=>'3.3', 'validations'=>['is_string_array'], 'required'=>true], 
+
+        'emails'=>['private'=>'3.4', 'validations'=>['is_string_array'], 'required'=>true],
+
+        'direccion'=>['private'=>'3.2', 'validations'=>['is_string'], 'required'=>true], 
     ]; 
 
    
-    public function validate($data){ 
-
-        $id = self::get_property($data,'id');
-        $exists = $this->select($id);
-
-        if(($id!='nuevo' && !$exists)) return false;
-
-        $agent = self::get_property($data,'agent');
-        $exists = $this->select($agent);    
-
-        if( $id!='nuevo' && !$exists ) return false;
-
-        if(!is_string(self::get_property($data,'nombre'))) return false;
-        if(!is_string(self::get_property($data,'documento'))) return false;
-        if(!is_string(self::get_property($data,'direccion'))) return false; 
-      
-        $telefonos = self::get_property($data,'telefonos');
-        $emails = self::get_property($data,'emails');
-
-        if(!is_array($telefonos) ) return false;
-        if(!is_array($emails) ) return false;
-
-       foreach ($telefonos as $value) { if(!is_string($value)) return false;}
-
-        foreach ($emails as $value) { if(!is_string($value)) return false; }
-
-        return true;
-
-    }
 
     public function sanitize($data){
 
