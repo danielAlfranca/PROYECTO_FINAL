@@ -7,7 +7,7 @@ class Tour extends Inventario{
     public static $model = ['nuevo',1,4,[],false];
     public static $indexes = [
 
-        'id'=>['private'=>0, 'validations'=>['index_valid'], 'required'=>true], 
+        'id'=>['private'=>0, 'validations'=>['id_valid'], 'required'=>true], 
 
         'agent'=>['private'=>1, 'validations'=>['agent_valid'], 'required'=>true],  
 

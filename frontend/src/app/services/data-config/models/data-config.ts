@@ -28,17 +28,23 @@ export abstract class DataConfig{
 
     protected common_validations:{[key:string]:(obj:any, key:string)=>boolean} = {
 
-        is_boolean:(obj:any, key:string) => typeof this.getValue(obj,key) == "boolean",
+        is_boolean:(obj:any, key:string) => {
+            
+            const value = this.getByPath(obj,this.getKey(key));
 
-        is_string:(obj:any, key:string) => typeof this.getValue(obj,key) == "string",
+            return typeof value == "boolean" || value == 1 || value == 0
+        
+        },
 
-        is_number:(obj:any, key:string) => typeof this.getValue(obj,key) == "number",
+        is_string:(obj:any, key:string) => typeof String(this.getByPath(obj,this.getKey(key))) == "string",
 
-        is_string_array:(obj:any, key:string) =>{ let value = this.getValue(obj,key); return Array.isArray(value) && value.every((e:any)=>typeof e  == "string")},
+        is_number:(obj:any, key:string) => !isNaN(this.getByPath(obj,this.getKey(key))),
 
-        valid_index:(obj:any, key:string) => { let value = this.getValue(obj,key); return typeof value  == "number" || value  == 'nuevo'},
+        is_string_array:(obj:any, key:string) =>{ let value = this.getByPath(obj,this.getKey(key)); return Array.isArray(value) && value.every((e:any)=>typeof (e+'')  == "string")},
 
-        agent_exists:(obj:any, key:string) => /* FALTA */ true
+        id_valid:(obj:any, key:string) => { let value = this.getByPath(obj,this.getKey(key)); return typeof value  == "number" || value  == 'nuevo'},
+
+        agent_valid:(obj:any, key:string) => true
 
 
     }; // VALIDACIONES 
@@ -53,12 +59,14 @@ export abstract class DataConfig{
 
     public valueIsValid(obj:any,key:string):boolean{ // VALIDA PROPIEDAD
 
-        const propConfig:PropertyConfig = this.getKey(key), value = this.getValue(obj, key);
-
+        const propConfig:PropertyConfig = this.getKey(key), value = this.getByPath(obj, propConfig);
+        console.log(key,value);
         if(propConfig.required && value === undefined) return false;
 
-        return !propConfig.validations || propConfig.validations.every(validation=>{ // SI NO REQUIERE VALIDACION O TODAS LAS VALIDACIONES OK
+        if(!propConfig.required && value === undefined) return true;
 
+        return !propConfig.validations || propConfig.validations.every(validation=>{ // SI NO REQUIERE VALIDACION O TODAS LAS VALIDACIONES OK
+            console.log(key, (this.validations[validation])(obj,key),value);  
             return (this.validations[validation])(obj,key); // SE BUSCA EN VALIDACIONES ESPECIFICAS DE LA CLASE
         });
     }
@@ -69,7 +77,7 @@ export abstract class DataConfig{
 
         const configKey = this.getKey(property);
 
-        if(property=="lista_emails") console.log(configKey,obj)
+        //if(property=="lista_emails") console.log(configKey,obj)
 
         if(!configKey && !this.getters[property]) return false;
 
@@ -145,7 +153,7 @@ export abstract class DataConfig{
 
             let closure = model;
 
-            return [...closure]
+            return JSON.parse(JSON.stringify(closure))
         }
 
         this.objectIsValid = (obj:any) =>{ // VALIDA OBJETO

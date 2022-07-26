@@ -1,0 +1,15 @@
+<app-table [config]="tableConfig" (buttonClick)="form()">
+
+    <ng-template let-data="data" #empresas>
+        <tr (click)="pick(data)" class="pointer">
+            <td>{{data | show:'empresa':'nombre'}} </td>
+            <td>{{data | show:'empresa':'documento'}} </td>
+            <td>{{data | show:'empresa':'direccion'}} </td>
+            <td> 
+                <div><i class="bi bi-telephone me-2"></i> {{data | show:'empresa':'lista_telefonos'}}</div>
+                <div><i class="bi bi-envelope me-2"></i> {{data | show:'empresa':'lista_emails'}} </div>  
+            </td>
+        </tr>
+    </ng-template>   
+
+</app-table>

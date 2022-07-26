@@ -14,7 +14,10 @@ export class DisplayHotelComponent extends DisplayAdminComponent implements OnIn
   ngOnInit(): void { 
 
     this.init('hotel');  
-    
+  }
+
+  override updateDisplayData(item: any): void {
+      
     this.dataDisplay = [
 
       {title:'Nombre', value: this.value('nombre'), icon:'house'}, 
@@ -29,6 +32,5 @@ export class DisplayHotelComponent extends DisplayAdminComponent implements OnIn
       
       {title:'propietario', value: this.value('propietario'), icon:'briefcase'}      
     ]
-  
   }
 }

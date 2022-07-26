@@ -10,8 +10,8 @@ export class EmpresaConfig extends DataConfig{
     protected override validations = {
 
         ...this.common_validations,
-        valid_inventory_type: (obj:any, key:string) => obj[key] == 1,
-        valid_agent:(obj:any, key:string) => this.valid_agent(obj)     
+        type_valid: (obj:any, key:string) => this.getValue(obj,key) == 1,
+        agent_valid:(obj:any, key:string) => this.valid_agent(obj)     
 
     }
     constructor(protected override injector:Injector){ super(injector); }
@@ -32,7 +32,7 @@ export class EmpresaConfig extends DataConfig{
 
         // como hay otros objetos de inventario con la misma estructura primero siempre comprobar que sea una empresa
 
-       if(!this.validations.valid_inventory_type(obj,'type')) return false
+       if(!this.validations.type_valid(obj,'type')) return false
 
        return super.valueIsValid(obj,key)
     }

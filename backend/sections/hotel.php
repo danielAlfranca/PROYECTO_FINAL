@@ -7,7 +7,7 @@ class Hotel extends Inventario{
     public static $model = ['nuevo',1,3,[],false];
     public static $indexes = [
 
-        'id'=>['private'=>0, 'validations'=>['index_valid'], 'required'=>true], 
+        'id'=>['private'=>0, 'validations'=>['id_valid'], 'required'=>true], 
 
         'agent'=>['private'=>1, 'validations'=>['agent_valid'], 'required'=>true],  
 
@@ -21,15 +21,15 @@ class Hotel extends Inventario{
 
         'tipo'=>['private'=>'3.1', 'validations'=>['tipo_valid'], 'required'=>true], 
 
-        'propietario'=>['private'=>'3.5', 'validations'=>['is_string'], 'required'=>true], // FALTA VALIDACION
+        'propietario'=>['private'=>'3.5', 'validations'=>['is_string'], 'required'=>false], // FALTA VALIDACION
 
-        'categoria'=>['private'=>'3.2', 'validations'=>['categoria_valid'], 'required'=>true], 
+        'categoria'=>['private'=>'3.2', 'validations'=>['categoria_valid'], 'required'=>false], 
 
-        'telefonos'=>['private'=>'3.6', 'validations'=>['is_string_array'], 'required'=>true], 
+        'telefonos'=>['private'=>'3.6', 'validations'=>['is_string_array'], 'required'=>false], 
 
-        'emails'=>['private'=>'3.7', 'validations'=>['is_string_array'], 'required'=>true],
+        'emails'=>['private'=>'3.7', 'validations'=>['is_string_array'], 'required'=>false],
          
-        'direccion'=>['private'=>'3.4', 'validations'=>['is_string'], 'required'=>true], 
+        'direccion'=>['private'=>'3.4', 'validations'=>['is_string'], 'required'=>false], 
     ]; 
 
    
@@ -47,9 +47,9 @@ class Hotel extends Inventario{
         };
     }
 
-    protected function init_sanitize_func(){ // php no permite asignarlo directamente en la propiedad 
+    protected function init_sanitize_funcs(){ // php no permite asignarlo directamente en la propiedad 
 
-        parent::init_sanitize_func();  
+        parent::init_sanitize_funcs();  
 
         $this->sanitize_funcs['tipo_valid']  =fn($data, $name)=>filter_var(self::get_property($data,$name),FILTER_VALIDATE_INT);
 

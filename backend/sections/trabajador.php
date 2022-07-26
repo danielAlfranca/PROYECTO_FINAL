@@ -1,13 +1,14 @@
 <?php 
 
 class Trabajador extends Inventario{   
+
     
     public static $fixed_constants = ['type'=>2];// para valores fijos
 
-    public static $model =  ['nuevo',null,2,[],false];
+    public static $model =  ['nuevo',1,2,[],false];
     public static $indexes = [
 
-        'id'=>['private'=>0, 'validations'=>['index_valid'], 'required'=>true], 
+        'id'=>['private'=>0, 'validations'=>['id_valid'], 'required'=>true], 
 
         'agent'=>['private'=>1, 'validations'=>['agent_valid'], 'required'=>true],  
 
@@ -19,15 +20,15 @@ class Trabajador extends Inventario{
 
         'nombre'=>['private'=>'3.0', 'validations'=>['is_string'], 'required'=>true], 
 
-        'documento'=>['private'=>'3.1', 'validations'=>['is_string'], 'required'=>true], 
+        'documento'=>['private'=>'3.1', 'validations'=>['is_string'], 'required'=>false], 
 
         'tipo'=>['private'=>'3.4', 'validations'=>['tipo_valid'], 'required'=>true], 
 
         'regimen'=>['private'=>'3.5', 'validations'=>['regimen_valid'], 'required'=>true], 
 
-        'telefonos'=>['private'=>'3.2', 'validations'=>['is_string_array'], 'required'=>true], 
+        'telefonos'=>['private'=>'3.2', 'validations'=>['is_string_array'], 'required'=>false], 
 
-        'emails'=>['private'=>'3.3', 'validations'=>['is_string_array'], 'required'=>true],
+        'emails'=>['private'=>'3.3', 'validations'=>['is_string_array'], 'required'=>false],
    
     ]; 
 
@@ -39,11 +40,11 @@ class Trabajador extends Inventario{
        
     }
 
-    protected function init_sanitize_func(){ // php no permite asignarlo directamente en la propiedad 
+    protected function init_sanitize_funcs(){ // php no permite asignarlo directamente en la propiedad 
 
-        parent::init_sanitize_func();  
+        parent::init_sanitize_funcs();  
 
-        $this->sanitize_funcs['tipo_valid']  =fn($data, $name)=>filter_var(self::get_property($data,$name),FILTER_VALIDATE_INT);
+        $this->sanitize_funcs['tipo_valid']  = fn($data, $name)=>filter_var(self::get_property($data,$name),FILTER_VALIDATE_INT);
         $this->sanitize_funcs['regimen_valid']  = fn($data, $name)=>filter_var(self::get_property($data,$name),FILTER_VALIDATE_INT);
     }
 

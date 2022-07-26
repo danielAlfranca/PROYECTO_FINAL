@@ -26,11 +26,13 @@ export class SectionComponent implements OnDestroy{
     return this.appConfig.queries.section(section || this.section);
   }
 
-  protected form(data:any = {}){
+  protected form(data?:any){
 
-    this.appConfig.canvas.open('form-'+this.section, data);
-
-    //.pipe(take(1)).subscribe(data=>this.display(data))
+    this.appConfig.canvas.open('form-'+this.section, data).pipe(take(1)).subscribe(response=>{
+      
+      if(response) this.display(response, null)
+    
+    }) ;
   }
 
   protected display(item:any, data:any = {}, section?:string){

@@ -13,8 +13,12 @@ export class DisplayEmpresaComponent extends DisplayAdminComponent implements On
 
   ngOnInit(): void { 
     
-    this.init('empresa');  
+    this.init('empresa');
+  
+  }
 
+  override updateDisplayData(item: any): void {
+      
     this.dataDisplay = [
 
       {title:'Nombre', value: this.value('nombre'), icon:'briefcase'}, 
@@ -22,7 +26,6 @@ export class DisplayEmpresaComponent extends DisplayAdminComponent implements On
       {title:'Direccion', value: this.value('direccion'), icon:'file-text'}, 
       {title:'telefonos', value: this.value('lista_telefonos'), icon:'telephone'}, 
       {title:'emails', value: this.value('lista_emails'), icon:'envelope'}      
-    ]
-  
+    ];
   }
 }

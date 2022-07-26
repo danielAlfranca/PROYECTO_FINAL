@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { take } from 'rxjs';
 import { SectionComponent } from 'src/app/components/shared/models/section/section.component';
 import { TableSection } from 'src/app/interfaces/table';
 import { DataTypes } from 'src/app/interfaces/types/data-config';
@@ -157,19 +158,28 @@ export class InventarioSectionComponent extends SectionComponent implements OnIn
         },
         { 
           title:'Empresa asociada',
-          sort:'propietario'
+          sort:'nombre_propietario'
         },
 
 
       ],
       search:[
 
-        'nombre', 'direccion', 'estrellas', 'tipo' ,'propietario' ,'lista_emails','lista_telefonos'
+        'nombre', 'direccion', 'estrellas', 'tipo' ,'nombre_propietario' ,'lista_emails','lista_telefonos'
       ]
     };
 
     return [ empresas, trabajadores, tours, hoteles ];
 
+  }
+
+  protected override form(data?:any){
+
+    this.appConfig.canvas.open('form-'+this.section, data).pipe(take(1)).subscribe(response=>{
+      
+      if(response) this.display(response.item, null, response.type)
+    
+    });
   }
 
 

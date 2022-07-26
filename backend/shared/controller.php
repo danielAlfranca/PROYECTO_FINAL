@@ -33,13 +33,13 @@ $data = $query['data'];
     $controller = get_section($section); 
     
     $sanitized = $controller->sanitize($data);
-    $valid = $controller->validate($sanitized);
+    $errors = $controller->validate($sanitized);
    
-   if(  $valid ){ 
+   if(  count($errors) == 0 ){ 
 
         echo json_encode($controller->$action($data)) /* $controller->$action($data) */;
 
-    } else{ echo json_encode(['error'=>$controller->sanitize_funcs]); }  
+    } else{ echo json_encode($errors); /*  throw new Exception('json_encode($errors)'); */ }  
 } 
 
 

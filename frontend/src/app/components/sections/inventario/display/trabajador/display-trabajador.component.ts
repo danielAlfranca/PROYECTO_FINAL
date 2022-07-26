@@ -14,8 +14,10 @@ export class DisplayTrabajadorComponent extends DisplayAdminComponent implements
 
   ngOnInit(): void { 
     
-    this.init('trabajador');  
+    this.init('trabajador');  }
 
+  override updateDisplayData(item: any): void {
+      
     this.nombre = this.value('nombre_completo');
     
     this.dataDisplay = [
@@ -27,8 +29,7 @@ export class DisplayTrabajadorComponent extends DisplayAdminComponent implements
       {title:'telefonos', value: this.value('lista_telefonos'), icon:'telephone'}, 
       {title:'emails', value: this.value('lista_emails'), icon:'envelope'}, 
       
-    ]
-  
+    ] 
   }
 }
 

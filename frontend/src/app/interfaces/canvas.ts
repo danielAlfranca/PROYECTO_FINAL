@@ -11,6 +11,7 @@ export interface CanvasConfig{
     icon:string,
     type:CanvasType
     query:any,
+    data?:any,
     path:string,
     outlet:string,
     _responseData:any,

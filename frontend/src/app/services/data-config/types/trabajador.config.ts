@@ -14,10 +14,10 @@ export class TrabajadorConfig extends DataConfig{
     protected  override validations = {
 
         ...this.common_validations,
-        valid_inventory_type: (obj:any, key:string) => this.getValue(obj,key) == 2,
-        valid_agent:(obj:any, key:string) => this.valid_agent(obj),
-        valid_tipo: (obj:any, key:string) => [1,2,3].includes( this.getValue(obj,key) *1),
-        valid_regimen: (obj:any, key:string) => [1,2].includes( this.getValue(obj,key) *1)
+        type_valid: (obj:any, key:string) =>this.getValue(obj,key) ==  2,
+        agent_valid:(obj:any, key:string) => this.valid_agent(obj),
+        tipo_valid: (obj:any, key:string) => [1,2,3].includes( this.getByPath(obj,this.getKey(key))  *1),
+        regimen_valid: (obj:any, key:string) => [1,2].includes( this.getByPath(obj,this.getKey(key)) *1)
     }
 
     protected override getters = {
@@ -28,7 +28,6 @@ export class TrabajadorConfig extends DataConfig{
                     this.getValue(obj, 'es_chofer')          ?   'chofer' :
                     this.getValue(obj, 'es_administrativo')  ?   'administrativo' : false;      
         },
-
         regimen: (obj:any)=>{
 
             return  this.getValue(obj, 'esta_en_plantilla')      ?   'en plantilla' :
@@ -76,7 +75,7 @@ export class TrabajadorConfig extends DataConfig{
 
         // como hay otros objetos de inventario con la misma estructura primero siempre comprobar que sea una empresa
 
-       if(!this.validations.valid_inventory_type(obj,'type')) return false
+       if(!this.validations.type_valid(obj,'type')) return false
 
        return super.valueIsValid(obj,key)
     }
@@ -84,6 +83,7 @@ export class TrabajadorConfig extends DataConfig{
     private valid_agent(obj:any){
 
         const agent = this.getValue(obj,'agent');
+
         return (this.getValue(obj,'id') == 'nuevo' && agent === null) || typeof agent == 'number';
     }
 

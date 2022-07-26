@@ -77,9 +77,8 @@ export class FormComponent implements AfterContentInit{
     }
   } 
 
-  onSave(){
+  onSave(){   this.save.emit(this.item); }
 
-    this.save.emit(this.item);
-  }
+ 
 
 }

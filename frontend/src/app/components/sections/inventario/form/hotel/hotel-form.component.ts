@@ -25,7 +25,8 @@ export class HotelFormComponent extends FormAdminComponent implements OnInit {
       {
         title:'Tipo',
         name:'tipo',
-        input:'custom'
+        input:'select',
+        options:[{name:'hotel'},{name:'lodge'},{name:'alojamiento'}]
       },
       {
         title:'Direccion',
@@ -35,7 +36,7 @@ export class HotelFormComponent extends FormAdminComponent implements OnInit {
       {
         title:'Telefonos',
         name:'telefonos',
-        input:'text'
+        input:'array'
       },
       {
         title:'Emails',
@@ -45,7 +46,8 @@ export class HotelFormComponent extends FormAdminComponent implements OnInit {
       {
         title:'Propietario',
         name:'propietario',
-        input:'array'
+        input:'itemPicker',
+        options:{type:'empresa'}
       }
 
     ] as FormItem[];

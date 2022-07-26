@@ -51,7 +51,7 @@ class AppData{
     
     public function validate($data){
         
-        if(!$data)  return true;    
+        if(!$data)  return [];    
     }
 
     public function sanitize($data){

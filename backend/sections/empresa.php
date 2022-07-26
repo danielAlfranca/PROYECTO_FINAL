@@ -4,7 +4,7 @@ class Empresa extends Inventario{
     
     public static $fixed_constants = ['type'=>1];// para valores fijos
 
-    public static $model =['nuevo',null,1,[],false]; 
+    public static $model =['nuevo',1,1,[],false]; 
 
     public static $indexes = [
 

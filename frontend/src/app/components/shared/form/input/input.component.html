@@ -26,9 +26,14 @@
       <app-string-array [value]="value" [title]="title" (inputChange)="update($event)"></app-string-array>
 </ng-template>
 
-<ng-template let-name="name" let-value="value" let-title="title"   let-options="options"  #array>
+<ng-template let-name="name" let-value="value" let-title="title"   let-options="options"  #time>
     <label>{{title}}</label>
     <app-time-picker [value]="value" [title]="title" (inputChange)="update($event)"></app-time-picker>
+</ng-template>
+
+<ng-template let-name="name" let-value="value" let-title="title" let-options="options"  #itemPicker>
+    <label>{{title}}</label>
+    <app-item-picker [value]="value" [title]="title" [options]="options" (inputChange)="update($event)"></app-item-picker>
 </ng-template>
 
 <!-- VALIDACION  -->

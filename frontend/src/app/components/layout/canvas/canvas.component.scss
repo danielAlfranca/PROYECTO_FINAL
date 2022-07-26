@@ -40,8 +40,8 @@ aside.aside-hidden{
 .pop-up{
 
     width: 100%;
-    max-width: 30rem;
-    max-height: 30rem;
+    max-width: 50rem;
+    max-height: 40rem;
     height: 100vh;
     z-index:150;
     transition: max-width 0.5s, max-height 0.5;
@@ -67,6 +67,11 @@ aside.aside-hidden{
     left:0;
     top:0;
     transition: left 0.5s;
+}
+
+.slide{
+
+    overflow: auto;
 }
 
 /*** SIZES INNER ***/

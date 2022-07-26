@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { take } from 'rxjs';
 import { AppConfigService } from 'src/app/services/app-config.service';
 
 @Component({
@@ -21,12 +22,20 @@ export class DisplayAdminComponent  {
     this.editPath = editPath || 'editar-'+this.section;
 
     this.item = this.appConfig.canvas.last.query.displayItem;
+
+    this.updateDisplayData(this.item)
   }
 
   edit(){
 
-    this.appConfig.canvas.open(this.editPath, {formItem:this.item});
+    this.appConfig.canvas.open(this.editPath, {formItem:this.item}).pipe(take(1)).subscribe(response=>{
+
+      if(response) {this.item = response; this.updateDisplayData(response) }
+
+    });
   }
+
+  updateDisplayData(item:any){}  
 
   delete(){
 

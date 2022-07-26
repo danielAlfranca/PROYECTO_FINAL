@@ -11,10 +11,4 @@ export class TimePickerComponent extends CustomFieldComponent  {
   constructor() { super(); }
 
 
-  override onChange(e:any){
-
-    this.inputChange.emit(e)
-
-  }
-
 }

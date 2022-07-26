@@ -5,15 +5,16 @@
 
 class Inventario extends Section{
 
-    public function __construct(){
+    protected function newAgent($data){
 
-        parent::__construct();
-    } 
+        $type = static::$fixed_constants['type'];
+        $id = static::get_property($data,'id');
+        $agent = static::get_property($data,'agent');
 
+        if($type!=1 && $type!=2 ) return static::$fixed_constants['agent']; // SI NO ES NI EMPRESA NI TRABAJADOR NO TIENE AGENTE Y SE LE ASIGNA LA ID 1 QUE ES SIN AGENTE
 
-    protected function newAgent(){
+        if($id!=='nuevo') return $agent; // SI NO ES NUEVO NO SE LE PUEDE ASIGNAR UN AGENTE NUEVO
 
-        $type = self::$type;
         $query = $this->connection->prepare("INSERT INTO agents (agent_type) VALUES($type)");
         $query->execute();
 
@@ -24,10 +25,10 @@ class Inventario extends Section{
 
         $query = $this->connection->prepare("UPDATE inventory_items SET agent=:agent, type=:item_type, data=:data WHERE id=:id");
 
-        $id = self::get_property($data,'id');
-        $agent = self::get_property($data,'agent');
-        $type = self::get_property($data,'type');
-        $datajson = json_encode(self::get_property($data,'data'));
+        $id = static::get_property($data,'id');
+        $agent = static::get_property($data,'agent');
+        $type = static::get_property($data,'type');
+        $datajson = json_encode(static::get_property($data,'data'));
         // $hidden = json_encode($this->get_property($data,'hidden'));  !!! No se actualiza . Solo se hace por delete llegado el caso
   
         $query->bindValue(':agent', $agent);
@@ -37,11 +38,11 @@ class Inventario extends Section{
      
         if($query->execute()){
 
-            $item = $this->select(self::get_property($data,'id'));
+            $item = $this->select(static::get_property($data,'id'));
 
-            $datajson = json_decode(self::get_property($item,'data'));
+            $datajson = json_decode(static::get_property($item,'data'));
 
-            $item = self::set_property($item, $datajson,'data');           
+            $item = static::set_property($item, $datajson,'data');           
 
             return $item;
         }
@@ -65,7 +66,7 @@ class Inventario extends Section{
 
     public function save($data){
 
-        $id = self::get_property($data,'id');
+        $id = static::get_property($data,'id');
        
         if($id!='nuevo') return $this->update($data);
 
@@ -73,9 +74,11 @@ class Inventario extends Section{
 
             $this->connection->beginTransaction();
 
-            $agent = $this->newAgent();   
-            $type = self::get_property($data,'type');
-            $datajson = json_encode(self::get_property($data,'data'));
+            $type = static::get_property($data,'type');
+
+            $agent = $this->newAgent($data);   
+            $type = static::get_property($data,'type');
+            $datajson = json_encode(static::get_property($data,'data'));
             $hidden = false; 
     
             $query = $this->connection->prepare("INSERT INTO inventory_items (agent, type, data, hidden) VALUES(:agent, :type, :data, :hidden)");
@@ -91,9 +94,9 @@ class Inventario extends Section{
     
                 $item  = $this->select( $lastID );
 
-                $datajson = json_decode(self::get_property($item,'data'));
+                $datajson = json_decode(static::get_property($item,'data'));
 
-                $item = self::set_property($item, $datajson,'data');   
+                $item = static::set_property($item, $datajson,'data');   
 
                 $this->connection->commit();
         
@@ -108,7 +111,7 @@ class Inventario extends Section{
     public function delete($data){
 
         $query = $this->connection->prepare("UPDATE inventory_items SET hidden=TRUE  , WHERE id=:id");
-        $query->bindValue(':id', self::get_property($data,'id'));
+        $query->bindValue(':id', static::get_property($data,'id'));
 
         return $query->execute();
     }

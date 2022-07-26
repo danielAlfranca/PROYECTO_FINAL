@@ -41,7 +41,13 @@ class Section{
         $indexes  = static::$indexes[$name]['private'];
         $arr = array_map(fn($e)=>intval($e), explode(".", $indexes ));
 
-        return array_reduce($arr, fn($carry, $prop)=>$carry[$prop],$data);
+        return array_reduce($arr, function($carry, $prop){
+            
+            if($carry && isset($carry[$prop])) return $carry[$prop];
+
+            return false;
+        
+        },$data);
     }
 
     protected static function set_prop_by_path($data, $name, $value) { 
@@ -76,18 +82,25 @@ class Section{
 
         $keys = static::$indexes;
         $obj_is_valid = true;
+        $errors =[];
 
         foreach ($keys as $name => $field) {
             
             $validations = $field['validations'];
+            $value = self::get_property($data, $name);
 
             foreach ($validations as $validation) {
                 
-               if(!($this->validations[$validation]($data,$name)) ){ $obj_is_valid = false;}
+               if( ($field['required'] && empty($value) && $value !==false) || 
+               (!empty($value) && !$this->validations[$validation]($data,$name))){ 
+                
+                    $obj_is_valid = false;
+                    $errors[$name] = $value ;            
+                }
             }
         }
 
-        return $obj_is_valid;
+        return $errors;
     }
 
     public function sanitize($data){ // sanitiza datos segun las validaciones especificadas en keys
@@ -113,7 +126,9 @@ class Section{
 
     protected function init_validations(){ // php no permite asignarlo directamente en la propiedad asi que hay que hacerlo por este metodo
 
-        $this->validations['is_string'] = fn($data, $name)=>fn($data, $name)=>is_string(static::get_property($data,$name)); 
+        $this->validations['is_string'] = fn($data, $name)=>is_string(static::get_property($data,$name)); 
+
+        $this->validations['is_number'] = fn($data, $name)=>is_numeric(static::get_property($data,$name)); 
 
         $this->validations['is_boolean'] =  function($data, $name) {
             
@@ -150,6 +165,8 @@ class Section{
 
         $this->sanitize_funcs['is_boolean'] =  fn($data, $name)=>filter_var(self::get_property($data,$name),FILTER_VALIDATE_INT);
 
+        $this->sanitize_funcs['is_number'] =  fn($data, $name)=>filter_var(self::get_property($data,$name),FILTER_VALIDATE_INT);
+
         $this->sanitize_funcs['agent_valid'] = fn($data, $name)=>filter_var(strval(self::get_property($data,$name)),FILTER_SANITIZE_STRING);
 
         $this->sanitize_funcs['id_valid'] = fn($data, $name)=>filter_var(strval(self::get_property($data,$name)),FILTER_SANITIZE_STRING);
@@ -158,8 +175,9 @@ class Section{
         
         $this->sanitize_funcs['is_string_array'] = function ($data, $name){
 
-            $value = array_map(fn($item)=>strval($item), self::get_property($data,$name));
-            return array_map(fn($item)=>filter_var($item,FILTER_SANITIZE_STRING), $value);
+            $value = self::get_property($data,$name);
+            $value = $value ? $value : [];
+            return array_map(fn($item)=>filter_var(strval($item),FILTER_SANITIZE_STRING), $value);
         }; 
             
     }

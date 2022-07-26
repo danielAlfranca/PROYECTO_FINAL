@@ -15,14 +15,18 @@ export class DisplayTourComponent extends DisplayAdminComponent implements OnIni
     
     this.init('tour');  
 
+   
+  }
+
+  override updateDisplayData(item: any): void {
+      
     this.dataDisplay = [
 
       {title:'nombre', value: this.value('nombre'), icon:'file-text'}, 
       {title:'inicio', value: this.value('inicio'), icon:'clock'}, 
       {title:'fin', value: this.value('fin'), icon:'clock'}, 
       {title:'duracion', value: this.value('duracion') + ' dias', icon:'span'}, 
-      {title:'destino', value: this.value('destino'), icon:'map'}     
-      
+      {title:'destino', value: this.value('destino'), icon:'map'}        
     ]
   
   }

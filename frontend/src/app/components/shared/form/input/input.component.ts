@@ -19,6 +19,7 @@ export class InputComponent implements OnChanges, AfterViewInit {
   name!:string;
   value!:any;
   title!:string;
+  touched!:boolean;
   options?:{name:string, value?:string, selected?:boolean}[] = [];
 
   @ViewChildren(TemplateRef) templates!:QueryList<TemplateRef<any>>;
@@ -43,11 +44,13 @@ export class InputComponent implements OnChanges, AfterViewInit {
 
     this.options = this.field.options || [];
 
+    this.touched = this.field.touched as boolean
+
     if(this.templates && !this.template){
 
       const templates = this.templates.toArray();
   
-      this.template = this.field.template || templates[['text','number', 'select','array','time'].findIndex(e=>e==this.field.input)];    
+      this.template = this.field.template || templates[['text','number', 'select','array','time','itemPicker'].findIndex(e=>e==this.field.input)];    
     }
 
     this.field = {...this.field}

@@ -43,12 +43,15 @@ export class CanvasService {
 
   public close(data?:any){ 
 
-    const last = this.last;
+    setTimeout(()=>{ // necesario settimeout para casos donde se encadenan varios cierres de rutas
+                      // si no se hace asi last equivale a la primera ruta no la ultima
+      const last = this.last;
 
-    if(last?._response) last._responseData = data; // SE GUARDAN AQUI LOS DATOS QUE LUEGOS SE PASARAN A TRAVES DE LA PROMISE
+      if(last?._response) last._responseData = data; // SE GUARDAN AQUI LOS DATOS QUE LUEGOS SE PASARAN A TRAVES DE LA PROMISE
 
-    this.location.back();
+      this.location.back();
 
+    })
   }
 
   
@@ -159,7 +162,9 @@ export class CanvasService {
 
     if(data._response){
 
-       data._response.next(data._responseData||null); data._responseData = null; 
+       data._response.next(data._responseData||null); 
+
+       setTimeout(()=>data._responseData = null ); 
 
     }
   }

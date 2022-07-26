@@ -16,12 +16,6 @@ import { SectionComponent } from './components/shared/models/section/section.com
 import { TableComponent } from './components/shared/table/table.component';
 import { TabsComponent } from './components/shared/tabs/tabs.component';
 import { SearchComponent } from './components/shared/table/search/search.component';
-import { DataConfigFormComponent } from './components/shared/forms/data-config-form/data-config-form.component';
-import { FormCreatorComponent } from './components/shared/forms/form-creator/form-creator.component';
-import { FormInputComponent } from './components/shared/forms/form-input/form-input.component';
-import { DateTimePickerComponent } from './components/shared/forms/date-time-picker/date-time-picker.component';
-import { ItemPickerComponent } from './components/shared/forms/item-picker/item-picker.component';
-import { SelectComponent } from './components/shared/forms/select/select.component';
 import { CardDisplayComponent } from './components/shared/display/card-display/card-display.component';
 import { CardHeaderComponent } from './components/shared/display/card-display/card-header/card-header.component';
 import { DataItemDisplayComponent } from './components/shared/display/card-display/data-item-display/data-item-display.component';
@@ -48,7 +42,6 @@ import { TrabajadorFormComponent } from './components/sections/inventario/form/t
 import { TourFormComponent } from './components/sections/inventario/form/tour/tour-form.component';
 import { HotelFormComponent } from './components/sections/inventario/form/hotel/hotel-form.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { FormsComponent } from './components/shared/forms/forms.component';
 import { FormComponent } from './components/shared/form/form.component';
 import { InputComponent } from './components/shared/form/input/input.component';
 import { FormAdminComponent } from './components/shared/models/form-admin/form-admin.component';
@@ -56,6 +49,9 @@ import { ErrorsPipe } from './pipes/errors.pipe';
 import { StringArrayComponent } from './components/shared/form/custom-fields/string-array/string-array.component';
 import { CustomFieldComponent } from './components/shared/form/custom-fields/model/custom-field.component';
 import { TimePickerComponent } from './components/shared/form/custom-fields/time-picker/time-picker.component';
+import { ItemPickerComponent } from './components/shared/form/custom-fields/item-picker/item-picker.component';
+import { EmpresaListComponent } from './components/shared/form/custom-fields/item-picker/lists/empresa-list/empresa-list.component';
+import { ListPickerAdminComponent } from './components/shared/models/list-picker-admin/list-picker-admin.component';
 
 
 @NgModule({
@@ -70,12 +66,6 @@ import { TimePickerComponent } from './components/shared/form/custom-fields/time
     TableComponent,
     TabsComponent,
     SearchComponent,
-    DataConfigFormComponent,
-    FormCreatorComponent,
-    FormInputComponent,
-    DateTimePickerComponent,
-    ItemPickerComponent,
-    SelectComponent,
     CardDisplayComponent,
     CardHeaderComponent,
     DataItemDisplayComponent,
@@ -101,14 +91,16 @@ import { TimePickerComponent } from './components/shared/form/custom-fields/time
     TrabajadorFormComponent,
     TourFormComponent,
     HotelFormComponent,
-    FormsComponent,
     FormComponent,
     InputComponent,
     FormAdminComponent,
     ErrorsPipe,
     StringArrayComponent,
     CustomFieldComponent,
-    TimePickerComponent
+    TimePickerComponent,
+    ItemPickerComponent,
+    EmpresaListComponent,
+    ListPickerAdminComponent
   ],
   imports: [
     TagInputModule, 

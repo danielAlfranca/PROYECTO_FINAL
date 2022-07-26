@@ -10,6 +10,7 @@ export class CustomFieldComponent {
   @Input() name!:string;
   @Input() title!:string;
   @Input() value!:any;
+  @Input() options!:any;
   @Input() control:any;
 
   @Output() inputChange = new EventEmitter()

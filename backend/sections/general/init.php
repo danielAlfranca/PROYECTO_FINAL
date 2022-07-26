@@ -30,7 +30,7 @@ class AppConfig{
     
     public function validate($data){
         
-        return true;    
+        return [];    
     }
 
     public function sanitize($data){
