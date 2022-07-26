@@ -26,11 +26,16 @@ export class AppConfigService {
     private dataQueries:DataService, 
     private userConfig:UserConfigService,
     private dataConfigs:DataConfigService,
-    private canvasAdmin:CanvasService) { 
+    private canvasAdmin:CanvasService) {
       
-      this.dataQueries.dataSet();
+      this.dataQueries.connect('AppConfig','initData').pipe(take(1)).subscribe((response) => { 
+        
+        this.dataConfigs.initConfig(response);
+        
+        this.dataQueries.dataSet();
       
-      this.dataQueries.$dataUpdates.pipe(take(1)).subscribe((e:any)=>this._appInit=true);
-
+        this.dataQueries.$dataUpdates.pipe(take(1)).subscribe((e:any)=>this._appInit=true);
+      
+      });
     }
 }

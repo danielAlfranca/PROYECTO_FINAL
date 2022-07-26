@@ -8,10 +8,18 @@ class Section{
     public static $fixed_constants = [];// para valores fijos
 
     public static $indexes = []; // PATHS DE LAS PROPIEDADES;
+
+    public static $model = []; 
+
+    public $validations = []; // lista de validaciones para datos
+
+    public $sanitize_funcs = []; // lista de sanitizaciones para datos desde cliente
  
     public function __construct(){
 
         $this->connection = Database::connect();
+
+        $this->init_sanitize_funcs(); 
 
         $this->init_validations();        
     } 
@@ -64,7 +72,7 @@ class Section{
 
     public function delete($data){}
     
-    public function validate($data){
+    public function validate($data){ // validada datos segun las validaciones especificadas en keys
 
         $keys = static::$indexes;
         $obj_is_valid = true;
@@ -74,7 +82,7 @@ class Section{
             $validations = $field['validations'];
 
             foreach ($validations as $validation) {
-
+                
                if(!($this->validations[$validation]($data,$name)) ){ $obj_is_valid = false;}
             }
         }
@@ -82,15 +90,38 @@ class Section{
         return $obj_is_valid;
     }
 
-    public function sanitize($data){}
+    public function sanitize($data){ // sanitiza datos segun las validaciones especificadas en keys
 
-    public $validations = []; // lista de validaciones para datos
+        $keys = static::$indexes;
+        $sanitized = $data;
+
+        foreach ($keys as $name => $field) {
+            
+            $validations = $field['validations'];
+
+            foreach ($validations as $validation) {            
+               
+               $value = $this->sanitize_funcs[$validation]($sanitized,$name);
+               $sanitized = self::set_property($sanitized,$value,$name);              
+            }
+        }
+
+        return $sanitized;
+    }
+
+
 
     protected function init_validations(){ // php no permite asignarlo directamente en la propiedad asi que hay que hacerlo por este metodo
 
-        $this->validations['is_string'] = fn($data, $name)=>is_string(static::get_property($data,$name)); 
+        $this->validations['is_string'] = fn($data, $name)=>fn($data, $name)=>is_string(static::get_property($data,$name)); 
 
-        $this->validations['is_boolean'] = fn($data, $name)=> static::get_property($data,$name);// FALTA; 
+        $this->validations['is_boolean'] =  function($data, $name) {
+            
+            $value = intval(static::get_property($data,$name));
+
+            return $value == 1 || $value == 0;
+        
+        };
 
         $this->validations['agent_valid'] = fn($data, $name)=>$this->select(static::get_property($data,$name));
         
@@ -111,6 +142,26 @@ class Section{
 
             return $id=='nuevo' || $exists;
         };        
+    }
+
+    protected function init_sanitize_funcs(){ // php no permite asignarlo directamente en la propiedad asi que hay que hacerlo por este metodo
+
+        $this->sanitize_funcs['is_string'] = fn($data, $name)=>filter_var(self::get_property($data,$name),FILTER_SANITIZE_STRING); 
+
+        $this->sanitize_funcs['is_boolean'] =  fn($data, $name)=>filter_var(self::get_property($data,$name),FILTER_VALIDATE_INT);
+
+        $this->sanitize_funcs['agent_valid'] = fn($data, $name)=>filter_var(strval(self::get_property($data,$name)),FILTER_SANITIZE_STRING);
+
+        $this->sanitize_funcs['id_valid'] = fn($data, $name)=>filter_var(strval(self::get_property($data,$name)),FILTER_SANITIZE_STRING);
+
+        $this->sanitize_funcs['type_valid'] = fn($data, $name)=>filter_var(strval(self::get_property($data,$name)),FILTER_SANITIZE_STRING);
+        
+        $this->sanitize_funcs['is_string_array'] = function ($data, $name){
+
+            $value = array_map(fn($item)=>strval($item), self::get_property($data,$name));
+            return array_map(fn($item)=>filter_var($item,FILTER_SANITIZE_STRING), $value);
+        }; 
+            
     }
     
 

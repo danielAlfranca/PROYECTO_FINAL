@@ -65,13 +65,13 @@ export class DataService {
   }
 
 
-  private connect(section:string, action:string, data?:any){
+  public connect(section:string, action:string, data?:any){
 
     return this.http.post(  this.URI + 'backend/shared/controller.php',{
  
       section:section,
       action:action,
-      data:data
+      data:data || {}
 
     },{headers:{ 'content-type':'application/json'}} ).pipe(take(1))
   }

@@ -7,9 +7,7 @@ class Inventario extends Section{
 
     public function __construct(){
 
-        $this->connection = Database::connect();
-
-        $this->init_validations();        
+        parent::__construct();
     } 
 
 
@@ -107,8 +105,6 @@ class Inventario extends Section{
        
     }
 
-
-
     public function delete($data){
 
         $query = $this->connection->prepare("UPDATE inventory_items SET hidden=TRUE  , WHERE id=:id");
@@ -117,13 +113,13 @@ class Inventario extends Section{
         return $query->execute();
     }
     
-    public function sanitize($data){}
-
     protected function init_validations(){ // php no permite asignarlo directamente en la propiedad 
 
         parent::init_validations();         
         $this->validations['type_valid']  = fn($data, $name) => in_array( static::get_property($data,$name), range(1,5));
     }
+
+
 
    
 

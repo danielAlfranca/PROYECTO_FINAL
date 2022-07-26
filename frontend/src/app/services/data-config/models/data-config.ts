@@ -1,3 +1,4 @@
+import { ThisReceiver } from '@angular/compiler';
 import { Injector } from '@angular/core';
 import * as _ from 'lodash';
 import { DataTypes } from 'src/app/interfaces/types/data-config';
@@ -6,20 +7,20 @@ import { DataConfigService } from '../data-config.service';
 
 interface PropertyConfig{
 
+    name:string, //NOMBRE PUBLICO
+
     private?:string|number, // PRIVATE KEY o O PATH ("PROP1.PROP2") SEGUN LA ESTRUCTURA QUE TIENE EL DATO DESCARGADO DEL SERVIDOR
 
     validations?:string[], // LISTADO DE VALIDACIONES PARA EL VALOR QUE SE INTRODUCE 
 
-    required?:boolean, // SI ES IMPRESCINDIBLE O NO 
-
-    getter?:(obj:any)=>any,   // FUNCION PARA PROCESAR EL VALOR PRIVADO DEL OBJETO ANTES DE RETORNARLO.
-
-    setter?:(obj:any, value:any)=>boolean,  // FUNCION PARA PROCESAR EL VALOR PRIVADO DEL OBJETO ANTES DE INTRODUCIRLO.                          
+    required?:boolean, // SI ES IMPRESCINDIBLE O NO                      
 }
 
 export abstract class DataConfig{
 
-    protected readonly keys:{[key:string]:PropertyConfig}  = {}; // LISTADO DE GETTERS Y SETTERS SEGUN EL TIPO DE DATO    
+    protected getters:{[key:string]:(obj:any)=>any} = {}; // GETTERS PARA PROPIEDADES DEL OBJETO
+
+    protected setters:{[key:string]:(obj:any, value:any)=>any} = {}; // SETTERS PARA PROPIEDADES DEL OBJETO
 
     /* VALIDACIONES */
 
@@ -44,26 +45,15 @@ export abstract class DataConfig{
 
     protected globalValidations!:((obj:any)=>boolean)[]; // VALIDACIONES ESPECIFICAS PARA EL CONJUNTO DEL OBJETO, NO SOLO UNA PROPIEDAD
 
-    /* para solicitudes de datos, opcional */ 
-
-    //protected dataQueries!:DataService;    
-
     constructor(protected injector:Injector){}  
 
      /* METODOS VALIDACION */
 
-    public objectIsValid(obj:any):boolean{ // VALIDA OBJETO
-        
-        const propertiesAreValid = Object.keys(this.keys).every( key=> this.valueIsValid(obj,key) ),
-
-              globalIsvalid = !this.globalValidations || this.globalValidations.every(method=>method(obj));
-
-        return  propertiesAreValid && globalIsvalid;
-    }
+    public objectIsValid!:(obj:any)=>boolean;
 
     public valueIsValid(obj:any,key:string):boolean{ // VALIDA PROPIEDAD
 
-        const propConfig:PropertyConfig = this.keys[key], value = this.getValue(obj, key);
+        const propConfig:PropertyConfig = this.getKey(key), value = this.getValue(obj, key);
 
         if(propConfig.required && value === undefined) return false;
 
@@ -77,13 +67,15 @@ export abstract class DataConfig{
 
     public getValue(obj:any, property:string){
 
-        const configKey = this.keys[property]; 
-        
-        if(!configKey) return undefined;
+        const configKey = this.getKey(property);
 
-        if(!configKey.getter) return configKey.private !== undefined ? this.getByPath(obj,configKey) : undefined
+        if(property=="lista_emails") console.log(configKey,obj)
 
-        return configKey.getter(obj)
+        if(!configKey && !this.getters[property]) return false;
+
+        if(!this.getters[property]) return configKey.private !== undefined ? this.getByPath(obj,configKey) : undefined
+
+        return this.getters[property](obj);
     }
 
     protected getByPath(obj:any, configKey:PropertyConfig){ // pilla el valor de la propiedad a traves del path determinado en la private key
@@ -95,15 +87,15 @@ export abstract class DataConfig{
 
     public setValue(obj:any, value:any, property:string){
 
-        const configKey = this.keys[property];
+        const configKey = this.getKey(property);
 
         switch(true){
 
             case !configKey as boolean: return false;
 
-            case !configKey.setter: return configKey.private ? this.setByPath(obj,configKey,value) : false;
+            case !this.setters[property] as boolean: return configKey.private ? this.setByPath(obj,configKey,value) : false;
 
-            default: return (configKey.setter as Function )(obj, value )
+            default: return this.setters[property](obj,value )
         }
     }
 
@@ -113,14 +105,9 @@ export abstract class DataConfig{
           return _.set(obj,configKey.private as string, value) || false
     }
 
-    public getModel(){ // devuelve un objeto vacio segun la estructura del tipo
-
-        return 
-    }
-
     public getErrorsList(obj:any, key:string){ // devuelve lista de errores
 
-        const propConfig:PropertyConfig = this.keys[key], value = this.getValue(obj, key);
+        const propConfig:PropertyConfig = this.getKey(key), value = this.getValue(obj, key);
         
         let errors:any = {};
 
@@ -135,13 +122,41 @@ export abstract class DataConfig{
     }
    
 
-    protected getRef(section:DataTypes, id:string, prop:string){ // (solo uso interno) SELECCIONA UNA REFERENCIA A OTRA TABLA DE OTRO TIPO DE DATO Y DEVUELVE PROPIEDAD 
+    protected getRef(section:DataTypes, id:string|number, prop:string){ // (solo uso interno) SELECCIONA UNA REFERENCIA A OTRA TABLA DE OTRO TIPO DE DATO Y DEVUELVE PROPIEDAD 
 
-        const element = this.injector.get(DataService).find(section,id);
+        const element = this.injector.get(DataService).find(section,id as string);
 
        return this.injector.get(DataConfigService).getValue(element,prop,section);
     }
 
+    public getKey!:(keyName:string)=>PropertyConfig; 
+
+    public getModel!:()=>any
+
+    public init(dataConfig:any){ // SE GUARDAN EN FORMA DE CLOSURE LA LISTA DE PATHS A PROPIEDADES ,el MODELO DEFAULT Y LA VALIDACION DEL
+
+        const model = dataConfig.model, keys =  dataConfig.indexes;
+
+        Object.keys(keys).forEach(key=>keys[key].name=key);
+
+        this.getKey = (keyName:string)=> keys[keyName];
+
+        this.getModel = ()=> {
+
+            let closure = model;
+
+            return [...closure]
+        }
+
+        this.objectIsValid = (obj:any) =>{ // VALIDA OBJETO
+        
+            const propertiesAreValid = Object.keys(keys).every( key=> this.valueIsValid(obj,key) ),
     
+                  globalIsvalid = !this.globalValidations || this.globalValidations.every(method=>method(obj));
+    
+            return  propertiesAreValid && globalIsvalid;
+        }
+        
+    }
 
 }

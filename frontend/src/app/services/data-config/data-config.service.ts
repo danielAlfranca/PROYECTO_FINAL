@@ -3,6 +3,7 @@ import { EmpresaConfig } from './types/empresa.config';
 import { TourConfig } from './types/tour.config';
 import { HotelConfig } from './types/hotel.config';
 import { TrabajadorConfig } from './types/trabajador.config';
+import { DataTypes } from 'src/app/interfaces/types/data-config';
 
 @Injectable({
   providedIn: 'root'
@@ -53,6 +54,11 @@ export class DataConfigService {
   public getValidations(obj:any, key:string, type:string){
 
     return this.types[type].getErrorsList(obj, key)
+  }
+
+  public initConfig(keys:any){
+
+    (Object.keys(keys)).forEach((key) => this.types[key].init(keys[key])); 
   }
 
   
