@@ -42,7 +42,7 @@ export abstract class DataConfig{
 
         is_string_array:(obj:any, key:string) =>{ let value = this.getByPath(obj,this.getKey(key)); return Array.isArray(value) && value.every((e:any)=>typeof (e+'')  == "string")},
 
-        id_valid:(obj:any, key:string) => { let value = this.getByPath(obj,this.getKey(key)); return typeof value  == "number" || value  == 'nuevo'},
+        id_valid:(obj:any, key:string) => { let value = this.getByPath(obj,this.getKey(key)); return !isNaN(value) || value  == 'nuevo'},
 
         agent_valid:(obj:any, key:string) => true
 

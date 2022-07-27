@@ -40,7 +40,7 @@ export class EmpresaConfig extends DataConfig{
     private valid_agent(obj:any){
 
         const agent = this.getValue(obj,'agent');
-        return (this.getValue(obj,'id') == 'nuevo' && agent === null) || typeof agent == 'number';
+        return (this.getValue(obj,'id') == 'nuevo' && agent === 1) || !isNaN(agent);
     }
 
 

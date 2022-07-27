@@ -14,7 +14,7 @@ export class TourConfig extends DataConfig{
 
         ...this.common_validations,
         type_valid: (obj:any, key:string) => this.getValue(obj,key) == 4,
-        agent_valid:(obj:any, key:string) => this.valid_agent(obj)     
+        agent_valid:(obj:any, key:string) => this.getValue(obj,key) == 1   
 
     }
     
@@ -25,12 +25,6 @@ export class TourConfig extends DataConfig{
        if(!this.validations.type_valid(obj,'type')) return false
 
        return super.valueIsValid(obj,key)
-    }
-
-    private valid_agent(obj:any){
-
-        const agent = this.getValue(obj,'agent');
-        return (this.getValue(obj,'id') == 'nuevo' && agent === null) || typeof agent == 'number';
     }
 
     protected override getters = {
