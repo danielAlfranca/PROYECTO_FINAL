@@ -8,19 +8,38 @@ import { AppConfigService } from 'src/app/services/app-config.service';
 })
 export class ModalComponent implements OnInit {
 
+  type = "";
   message = "";
   button = "aceptar";
+
+  icon!:string
   constructor(private appConfig:AppConfigService) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void { this.config(); }
 
-    this.message = this.appConfig.canvas.last.data.message;
-    this.button = this.appConfig.canvas.last.data.button || this.button;
+  config(){
+
+    const config = this.appConfig.canvas.last.query;
+
+    this.message = config.message;
+    this.type = config.type;
+    this.icon = this.getIcon(this.type) as string
   }
 
-  back(){
+  getIcon(type:string){
 
-    this.appConfig.canvas.close();
+    return {
+
+      info: 'text-primary bi-info-circle-fill',
+      success:'text-success bi-check-circle-fill',
+      warning:'text-warning bi-exclamation-circle-fill',
+      error:'text-danger bi-x-circle-fill',
+      question:'text-dark bi-question-circle-fill'
+
+    }[type];
+    
   }
+
+  back(response?:boolean){  this.appConfig.canvas.close(response); }
 
 }

@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { take } from 'rxjs';
-import { SectionComponent } from 'src/app/components/shared/models/section/section.component';
-import { TableSection } from 'src/app/interfaces/table';
-import { DataTypes } from 'src/app/interfaces/types/data-config';
+import { SectionAdminComponent } from 'src/app/components/shared/models/section-admin/section-admin.component';
+import { empresaTable } from 'src/app/fields/empresa';
+import { hotelTable } from 'src/app/fields/hotel';
+import { tourTable } from 'src/app/fields/tour';
+import { trabajadorTable } from 'src/app/fields/trabajador';
 import { AppConfigService } from 'src/app/services/app-config.service';
 
 @Component({
@@ -10,180 +12,22 @@ import { AppConfigService } from 'src/app/services/app-config.service';
   templateUrl: './inventario-section.component.html',
   styleUrls: ['./inventario-section.component.scss']
 })
-export class InventarioSectionComponent extends SectionComponent implements OnInit {
+export class InventarioSectionComponent extends SectionAdminComponent implements OnInit {
 
-  protected override section = 'inventario' as DataTypes;
-
-  empresas:any;
-  hoteles:any;
-  tours:any;
-  trabajadores:any;
   
-  constructor(protected override appConfig:AppConfigService) { 
-    
-    super(appConfig);
-    
-    this.subscription = this.appConfig.queries.$dataUpdates.subscribe(e=>{
-      
-      this.tableConfig = {
-        sections:this.createTableSections(),
-        sectionsStyle:'select'
-      };     
-    }) 
+  constructor(protected override appConfig:AppConfigService) {  super(appConfig); } 
 
-  } 
-
-   ngOnInit(): void {
-
-      this.tableConfig = {
-        sections:this.createTableSections(),
-        sectionsStyle:'select'
-      };       
-  }
-
-  protected createTableSections(): TableSection|any {
-      
-    const empresas = {
-
-      title:'Empresas',
-      name:'empresas',
-      dataType:'empresa',
-      data:this.getData('empresa'),
-      columns:[
-
-       { 
-          title:'Nombre',
-          sort:'nombre'
-        },
-        { 
-          title:'Documento',
-          sort:'documento'
-        },
-        { 
-          title:'Direccion',
-          sort:'direccion'
-        },
-        { 
-          title:'Contacto',
-        }
-      ],
-      search:[
-
-        'nombre','documento', 'lista_emails', 'direccion', 'lista_telefonos'
-      ]
-    };
-
-    const trabajadores = {
-
-      title:'Trabajadores',
-      name:'trabajadores',
-      dataType:'trabajador',
-      data:this.getData('trabajador'),
-      columns:[
-
-       { 
-          title:'Nombre',
-          sort:'nombre_completo'
-        },
-        { 
-          title:'Documento',
-          sort:'documento'
-        },
-        { 
-          title:'Tipo',
-          sort:'tipo'
-        },
-        { 
-          title:'Contacto',
-          name:'contacto'
-        },
-
-      ],
-      search:[
-
-        'nombre','documento', 'lista_emails', 'lista_telefonos', 'tipo' , 'regimen'
-      ]
-    };
-
-    const tours = {
-
-      title:'Tours',
-      name:'tours',
-      dataType:'tour',
-      data:this.getData('tour'),
-      columns:[
-
-       { 
-          title:'Nombre',
-          sort:'nombre'
-        },
-        { 
-          title:'Destino',
-          sort:'destino'
-        },
-        { 
-          title:'horario',
-          sort:'horario_completo'
-        }       
-
-      ],
-      search:[
-
-        'nombre','destino', 'horario_completo'
-      ]
-    };
-
-    const hoteles = {
-
-      title:'Hoteles',
-      name:'hoteles',
-      dataType:'hotel',
-      data:this.getData('hotel'),
-      columns:[
-
-       { 
-          title:'Nombre',
-          sort:'nombre'
-        },
-        { 
-          title:'Tipo',
-          sort:'tipo'
-        },
-        { 
-          title:'direccion',
-          sort:'direccion'
-        },
-        { 
-          title:'contacto',
-        },
-        { 
-          title:'Empresa asociada',
-          sort:'nombre_propietario'
-        },
+   ngOnInit(): void { this.init([empresaTable,trabajadorTable,tourTable,hotelTable])}
 
 
-      ],
-      search:[
+  protected override form(){
 
-        'nombre', 'direccion', 'estrellas', 'tipo' ,'nombre_propietario' ,'lista_emails','lista_telefonos'
-      ]
-    };
-
-    return [ empresas, trabajadores, tours, hoteles ];
-
-  }
-
-  protected override form(data?:any){
-
-    this.appConfig.canvas.open('form-'+this.section, data).pipe(take(1)).subscribe(response=>{
+    this.appConfig.canvas.open('form-inventario').pipe(take(1)).subscribe(response=>{
       
       if(response) this.display(response.item, null, response.type)
     
     });
-  }
-
-
-    
+  }  
 
 
 }

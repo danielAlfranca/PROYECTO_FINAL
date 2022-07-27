@@ -3,11 +3,12 @@ import { take } from 'rxjs';
 import { FormItem } from 'src/app/interfaces/form';
 import { DataTypes } from 'src/app/interfaces/types/data-config';
 import { AppConfigService } from 'src/app/services/app-config.service';
+import { formAdminTemplate } from './template';
 
 @Component({
   selector: 'app-form-admin',
-  templateUrl: './form-admin.component.html',
-  styleUrls: ['./form-admin.component.scss']
+  template: formAdminTemplate,
+  styles: ['']
 })
 export class FormAdminComponent {
 
@@ -26,22 +27,22 @@ export class FormAdminComponent {
 
   constructor(protected appConfig:AppConfigService) { }
 
-  init(type:DataTypes): void {
+  init(type:DataTypes, fields:FormItem[] = []): void {
 
-    const data = this.appConfig.canvas.last.data || {};
-
- 
+    const data = this.appConfig.canvas.last.data || {}; 
 
     this.item = this.appConfig.canvas.last.query?.formItem || this.appConfig.dataConfig.getModel(type);
 
     this.type = type;
+
+    this.fields = fields;
 
     this.form_error_path = data.form_error_path || 'form-error';
     this.save_success_path = data.save_success_path || 'save-success';
     this.update_success_path = data.save_success_path ||  'update-success';
     this.save_error_path = data.save_error_path ||  'save-error';
 
-    console.log(this.form_error_path ,  this.save_success_path , this.update_success_path ,  this.save_error_path)
+
   }
 
   save(item:any):any{

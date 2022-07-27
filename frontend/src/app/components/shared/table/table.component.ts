@@ -57,7 +57,7 @@ export class TableComponent implements OnChanges, AfterContentInit {
 
     this.dataType  = section.dataType || this.config.dataType as string;
 
-    this.data = Object.values(section.data || {}).filter(e=>this.appConfig.dataConfig.getValue(e,"hidden", this.dataType)); // TEMPORAL A MEJORAR . SE FILTRAN LOS HIDDEN (DELETE)
+    this.data = Object.values(section.data || {}).filter(e=>!(this.appConfig.dataConfig.getValue(e,"hidden", this.dataType)*1)); // TEMPORAL A MEJORAR . SE FILTRAN LOS HIDDEN (DELETE)
 
     this.rowTemplate = this.get_template();      
    

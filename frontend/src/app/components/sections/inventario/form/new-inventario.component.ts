@@ -5,7 +5,7 @@ import { AppConfigService } from 'src/app/services/app-config.service';
 @Component({
   selector: 'app-new-inventario',
   templateUrl: './new-inventario.component.html',
-  styleUrls: ['./new-inventario.component.scss']
+  styles: ['']
 })
 export class NewInventarioComponent  {
 

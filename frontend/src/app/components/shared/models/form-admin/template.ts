@@ -1,0 +1,1 @@
+export const  formAdminTemplate = '<app-form [fields]="fields" [type]="type" [item]="item" (save)="save($event)"></app-form>';

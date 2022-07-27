@@ -12,7 +12,6 @@ import { MenuComponent } from './components/layout/menu/menu.component';
 import { HeaderComponent } from './components/layout/header/header.component';
 import { CanvasComponent } from './components/layout/canvas/canvas.component';
 import { HeaderCanvasComponent } from './components/layout/canvas/header-canvas/header-canvas.component';
-import { SectionComponent } from './components/shared/models/section/section.component';
 import { TableComponent } from './components/shared/table/table.component';
 import { TabsComponent } from './components/shared/tabs/tabs.component';
 import { SearchComponent } from './components/shared/table/search/search.component';
@@ -52,6 +51,7 @@ import { TimePickerComponent } from './components/shared/form/custom-fields/time
 import { ItemPickerComponent } from './components/shared/form/custom-fields/item-picker/item-picker.component';
 import { EmpresaListComponent } from './components/shared/form/custom-fields/item-picker/lists/empresa-list/empresa-list.component';
 import { ListPickerAdminComponent } from './components/shared/models/list-picker-admin/list-picker-admin.component';
+import { SectionAdminComponent } from './components/shared/models/section-admin/section-admin.component';
 
 
 @NgModule({
@@ -62,7 +62,6 @@ import { ListPickerAdminComponent } from './components/shared/models/list-picker
     HeaderComponent,
     CanvasComponent,
     HeaderCanvasComponent,
-    SectionComponent,
     TableComponent,
     TabsComponent,
     SearchComponent,
@@ -100,7 +99,8 @@ import { ListPickerAdminComponent } from './components/shared/models/list-picker
     TimePickerComponent,
     ItemPickerComponent,
     EmpresaListComponent,
-    ListPickerAdminComponent
+    ListPickerAdminComponent,
+    SectionAdminComponent
   ],
   imports: [
     TagInputModule, 

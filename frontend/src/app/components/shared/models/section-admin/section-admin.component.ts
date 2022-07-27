@@ -1,15 +1,15 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Observable, Subscription, take } from 'rxjs';
-import { TableConfig } from 'src/app/interfaces/table';
+import { Component, OnInit } from '@angular/core';
+import { Subscription, take } from 'rxjs';
+import { TableConfig, TableSection } from 'src/app/interfaces/table';
 import { DataTypes } from 'src/app/interfaces/types/data-config';
 import { AppConfigService } from 'src/app/services/app-config.service';
 
 @Component({
-  selector: 'app-section',
+  selector: 'app-section-admin',
   template: '',
   styles: ['']
 })
-export class SectionComponent implements OnDestroy{
+export class SectionAdminComponent  {
 
   protected section!:DataTypes;
   protected tableConfig!:TableConfig;
@@ -20,6 +20,28 @@ export class SectionComponent implements OnDestroy{
   public tableSection!:string;
 
   constructor(protected appConfig:AppConfigService) {}
+
+  protected init(sections:TableSection[]){
+
+    this.tableConfig = this.createTable(sections);
+
+    this.subscription = this.appConfig.queries.$dataUpdates.subscribe(e=>{
+      
+      this.tableConfig = this.createTable(sections);
+
+    }) 
+  }
+
+  protected createTable(sections:TableSection[]){
+  
+    sections.forEach((tableSection:TableSection) => {
+
+      tableSection.data = this.getData(tableSection.dataType as DataTypes);
+
+    });
+
+    return {sections:sections}
+  }
 
   protected getData(section?:DataTypes){
 
@@ -32,13 +54,13 @@ export class SectionComponent implements OnDestroy{
       
       if(response) this.display(response, null)
     
-    }) ;
+    });
   }
 
   protected display(item:any, data:any = {}, section?:string){
 
     this.appConfig.canvas.open('display-'+(section||this.section), {...{displayItem:item},...data});
-  }
+  } 
 
 
   ngOnDestroy(){
@@ -46,8 +68,4 @@ export class SectionComponent implements OnDestroy{
     if (this.subscription) this.subscription.unsubscribe();
   }
 
-
-
-
-  
 }
