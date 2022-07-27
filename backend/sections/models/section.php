@@ -91,7 +91,7 @@ class Section{
 
             foreach ($validations as $validation) {
                 
-               if( ($field['required'] && empty($value) && $value !==false) || 
+               if( ($field['required'] && empty($value) && $value !==false && $value !==0) || 
                (!empty($value) && !$this->validations[$validation]($data,$name))){ 
                 
                     $obj_is_valid = false;

@@ -19,7 +19,6 @@ export class InputComponent implements OnChanges, AfterViewInit {
   name!:string;
   value!:any;
   title!:string;
-  touched!:boolean;
   options?:{name:string, value?:string, selected?:boolean}[] = [];
 
   @ViewChildren(TemplateRef) templates!:QueryList<TemplateRef<any>>;
@@ -43,8 +42,6 @@ export class InputComponent implements OnChanges, AfterViewInit {
     this.name ||= this.field.name;
 
     this.options = this.field.options || [];
-
-    this.touched = this.field.touched as boolean
 
     if(this.templates && !this.template){
 

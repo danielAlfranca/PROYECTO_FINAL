@@ -37,9 +37,9 @@ $data = $query['data'];
    
    if(  count($errors) == 0 ){ 
 
-        echo json_encode($controller->$action($data)) /* $controller->$action($data) */;
+        echo json_encode($controller->$action($data)) ;
 
-    } else{ echo json_encode($errors); /*  throw new Exception('json_encode($errors)'); */ }  
+    } else{ echo json_encode(['errors'=>$errors]);  }  
 } 
 
 

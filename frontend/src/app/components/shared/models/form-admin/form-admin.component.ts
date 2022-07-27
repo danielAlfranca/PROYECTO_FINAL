@@ -52,11 +52,9 @@ export class FormAdminComponent {
    
     this.appConfig.queries.save(this.type,item).pipe(take(1)).subscribe(response=>{
 
-      if(response) {
-        
-        this.server_success_message().pipe(take(1)).subscribe(e=>this.appConfig.canvas.close(response))      
-      }
-      else (this.server_error_message())
+      if(!response || response.errors) { this.server_error_message() }
+
+      else{ this.server_success_message().pipe(take(1)).subscribe(e=>this.appConfig.canvas.close(response)) }
       
     });
   }
