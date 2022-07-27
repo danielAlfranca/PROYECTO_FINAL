@@ -13,6 +13,9 @@ export class DisplayAdminComponent  {
   section!:string;
   editPath!:string;
   dataDisplay:any;
+
+  deleteSuccess ='delete-success';
+  deleteError ='delete-error';
   
   constructor(protected appConfig:AppConfigService) { }
 
@@ -39,12 +42,32 @@ export class DisplayAdminComponent  {
 
   delete(){
 
-    this.appConfig.queries.delete(this.section,this.item);
+    this.appConfig.queries.delete(this.section,this.item).pipe(take(1)).subscribe(response=>{
+
+      if(response && !response.errors){ this.successDelete(); } else  { this.errorDelete(); }
+      
+    });
   }
 
   value(prop:string){
 
     return this.appConfig.dataConfig.getValue(this.item,prop,this.section);
+  }
+
+  successDelete(){
+
+    this.appConfig.canvas.open(this.deleteSuccess).pipe(take(1)).subscribe(response=>{
+
+      this.appConfig.canvas.close();
+    })
+  }
+
+  errorDelete(){
+
+    this.appConfig.canvas.open(this.deleteError).pipe(take(1)).subscribe(response=>{
+
+      this.appConfig.canvas.close();
+    })
   }
 
 

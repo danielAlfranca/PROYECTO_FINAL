@@ -110,7 +110,7 @@ class Inventario extends Section{
 
     public function delete($data){
 
-        $query = $this->connection->prepare("UPDATE inventory_items SET hidden=TRUE  , WHERE id=:id");
+        $query = $this->connection->prepare("UPDATE inventory_items SET hidden=TRUE WHERE id=:id");
         $query->bindValue(':id', static::get_property($data,'id'));
 
         return $query->execute();

@@ -41,7 +41,24 @@ export const comunesRoutes = [
         },
         
     },
+    {
+        path: 'delete-success', component: ModalComponent, outlet:'popUp-1', data: {
 
+            title: 'Operacion exitosa',
+            icon: 'bi bi-pencil-square',
+            data:{  message:'El elemento fue eliminado correctamente' }
+        },
+        
+    },
+    {
+        path: 'delete-error', component: ModalComponent, outlet:'popUp-1', data: {
+
+            title: 'error',
+            icon: 'bi bi-pencil-square',
+            data:{  message:'El elemento no pudo ser eliminado' }
+        },
+        
+    },
     {
         path: 'form-picker-error', component: ModalComponent, outlet:'popUp-3', data: {
 
