@@ -121,41 +121,6 @@ export const inventarioRoutes = [
             icon: 'bi bi-pencil-square'
         },
         
-    },
-    {
-        path: 'form-error', component: ModalComponent, outlet:'popUp-1', data: {
-
-            title: 'Error',
-            icon: 'bi bi-pencil-square',
-            data:{  message:'El formulario esta incompleto o tiene errores' }
-        },
-        
-    },
-    {
-        path: 'save-error', component: ModalComponent, outlet:'popUp-1', data: {
-
-            title: 'Error de servidor',
-            icon: 'bi bi-pencil-square',
-            data:{  message:'El servidor comunico un error y no se pudieron guardar los cambios' }
-        },
-        
-    },
-    {
-        path: 'save-success', component: ModalComponent, outlet:'popUp-1', data: {
-
-            title: 'Item guardado',
-            icon: 'bi bi-pencil-square',
-            data:{  message:'El elemento fue guardado correctamente' }
-        },
-        
-    },
-    {
-        path: 'update-success', component: ModalComponent, outlet:'popUp-1', data: {
-
-            title: 'Item actualizado',
-            icon: 'bi bi-pencil-square',
-            data:{  message:'El elemento fue actualizado correctamente' }
-        },
-        
-    },
+    }
+    
 ];

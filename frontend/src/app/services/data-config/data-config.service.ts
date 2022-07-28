@@ -26,6 +26,7 @@ export class DataConfigService {
     private hotel:HotelConfig, 
     private trabajador:TrabajadorConfig ) {}
 
+
   public setValue(object:any, propertyName:string, dataType:string, value:any):any{
 
     return this.types[dataType].setValue(object,value,propertyName)
@@ -56,10 +57,16 @@ export class DataConfigService {
     return this.types[type].getErrorsList(obj, key)
   }
 
+  public isNewItem(object:any,dataType:string):any{
+
+    return this.getValue(object,'id', dataType) == 'nuevo'
+  }
+
   public initConfig(keys:any){
 
     (Object.keys(keys)).forEach((key) => this.types[key].init(keys[key])); 
   }
+
 
   
 }

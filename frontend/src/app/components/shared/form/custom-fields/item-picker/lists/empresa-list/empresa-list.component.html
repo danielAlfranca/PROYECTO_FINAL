@@ -1,7 +1,7 @@
 <app-table [config]="tableConfig" (buttonClick)="form()">
 
     <ng-template let-data="data" #empresas>
-        <tr (click)="pick(data)" class="pointer">
+        <tr (click)="display(data)" class="pointer">
             <td>{{data | show:'empresa':'nombre'}} </td>
             <td>{{data | show:'empresa':'documento'}} </td>
             <td>{{data | show:'empresa':'direccion'}} </td>

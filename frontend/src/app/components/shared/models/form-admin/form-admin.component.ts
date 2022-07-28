@@ -18,30 +18,15 @@ export class FormAdminComponent {
 
   touched = false; 
 
-  // PATHS PARA MODAL
-  
-  form_error_path!:string;
-  save_success_path!:string;
-  update_success_path!:string;
-  save_error_path!:string;
-
   constructor(protected appConfig:AppConfigService) { }
 
   init(type:DataTypes, fields:FormItem[] = []): void {
 
-    const data = this.appConfig.canvas.last.data || {}; 
-
-    this.item = this.appConfig.canvas.last.query?.formItem || this.appConfig.dataConfig.getModel(type);
+     this.item = this.appConfig.canvas.last.query?.formItem || this.appConfig.dataConfig.getModel(type);
 
     this.type = type;
 
     this.fields = fields;
-
-    this.form_error_path = data.form_error_path || 'form-error';
-    this.save_success_path = data.save_success_path || 'save-success';
-    this.update_success_path = data.save_success_path ||  'update-success';
-    this.save_error_path = data.save_error_path ||  'save-error';
-
 
   }
 
@@ -55,7 +40,10 @@ export class FormAdminComponent {
 
       if(!response || response.errors) { this.server_error_message() }
 
-      else{ this.server_success_message().pipe(take(1)).subscribe(e=>this.appConfig.canvas.close(response)) }
+      else{
+        
+        this.server_success_message().pipe(take(1)).subscribe(e=>this.appConfig.canvas.close(response)) 
+      }
       
     });
   }
@@ -72,23 +60,32 @@ export class FormAdminComponent {
 
   form_error_message(){
 
-    return this.appConfig.canvas.open(this.form_error_path);
+    return this.appConfig.canvas.open(this.get_modal_path('error'),{message:"Hay errores en el formulario", type:'error'});
   }
 
   server_success_message(){
 
-    const path = this.is_new_element() ? this.save_success_path:this.update_success_path;
+    let action = this.is_new_element() ? "guardado":"actualizado";
 
-    return this.appConfig.canvas.open(path);
+    return this.appConfig.canvas.open(this.get_modal_path('success'),{message:`El elemento se ha ${action} con éxito`, type:'success'});
   }
 
   server_error_message(){
 
-    return this.appConfig.canvas.open(this.save_error_path);
+     return this.appConfig.canvas.open(this.get_modal_path('error'),{message:`Hubo un error en el servidor y no se pudo guardar`, type:'success'});
   }
 
   is_new_element(){
 
-    return this.appConfig.dataConfig.getValue(this.item,'id', this.type) == 'nuevo'
+    return this.appConfig.dataConfig.isNewItem(this.item,this.type)
+  }
+
+  get_modal_path(result:string){
+
+    // si el form esta como elemento de form item ya esta en popUp y los mensajes se muestran en la posicion 3
+
+    const index = this.appConfig.canvas.last.path == 'form-item' ? 3:1;
+
+    return  `modal-${result}-${index}`;
   }
 }

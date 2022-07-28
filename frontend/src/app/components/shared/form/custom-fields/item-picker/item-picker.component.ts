@@ -11,7 +11,6 @@ import { CustomFieldComponent } from '../model/custom-field.component';
 })
 export class ItemPickerComponent extends CustomFieldComponent implements OnChanges {
 
-  path!:string;
   type!:DataTypes;
   propertyForDisplay!:string
   renderedValue!:string;
@@ -21,14 +20,13 @@ export class ItemPickerComponent extends CustomFieldComponent implements OnChang
   ngOnChanges(changes: SimpleChanges): void{
       
     this.type = this.options.type;
-    this.path = this.options.path || 'pick-'+ this.type ;
     this.propertyForDisplay = this.options.propertForDisplay || 'nombre';
     this.renderedValue = this.getRenderedValue();
   }
 
   open(){
 
-    this.appConfig.canvas.open(this.path, {selected:this.value, type:this.type}).pipe(take(1)).subscribe(response=>{
+    this.appConfig.canvas.open('lista-item', {selected:this.value, type:this.type}).pipe(take(1)).subscribe(response=>{
 
       if(response){
 
@@ -44,10 +42,9 @@ export class ItemPickerComponent extends CustomFieldComponent implements OnChang
     
     const item = this.appConfig.queries.find(this.type,this.value, 'id');
 
-    return this.appConfig.dataConfig.getValue(item,this.propertyForDisplay,this.type)
+    return item ? this.appConfig.dataConfig.getValue(item,this.propertyForDisplay,this.type):'error';
 
   }
- 
 
 
 }

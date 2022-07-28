@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { take } from 'rxjs';
-import { TableConfig } from 'src/app/interfaces/table';
+import { TableConfig, TableSection } from 'src/app/interfaces/table';
 import { DataTypes } from 'src/app/interfaces/types/data-config';
 import { AppConfigService } from 'src/app/services/app-config.service';
 
@@ -24,17 +24,17 @@ export class ListPickerAdminComponent {
     const data = this.appConfig.canvas.last.query;
 
     this.type = data.type;
-    this.path = data.path || this.type + '-form-picker';
+    this.path = 'form-item';
     this.selected = data.selected;
-
-    this.createTable();
+    
   }
 
   form(){
 
-    this.appConfig.canvas.open(this.path).pipe(take(1)).subscribe((response)=>{
+    this.appConfig.canvas.open('form-item', {type:this.type}).pipe(take(1)).subscribe((response)=>{
 
       if(response) this.pick(response);
+
     })
   }
 
@@ -48,6 +48,13 @@ export class ListPickerAdminComponent {
     return this.appConfig.dataConfig.getValue(response,'id',this.type);
   }
 
-  createTable(){}
+  protected createTable(section:TableSection){
+
+    section.data = this.appConfig.queries.section(this.type);  
+  
+    return {sections:section}
+  }
+
+  
 
 }

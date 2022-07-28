@@ -52,6 +52,9 @@ import { ItemPickerComponent } from './components/shared/form/custom-fields/item
 import { EmpresaListComponent } from './components/shared/form/custom-fields/item-picker/lists/empresa-list/empresa-list.component';
 import { ListPickerAdminComponent } from './components/shared/models/list-picker-admin/list-picker-admin.component';
 import { SectionAdminComponent } from './components/shared/models/section-admin/section-admin.component';
+import { ItemListComponent } from './components/shared/form/custom-fields/item-picker/item-list/item-list.component';
+import { ItemFormComponent } from './components/shared/form/custom-fields/item-picker/item-form/item-form.component';
+import { TableAdminComponent } from './components/shared/models/table-admin/table-admin.component';
 
 
 @NgModule({
@@ -100,7 +103,10 @@ import { SectionAdminComponent } from './components/shared/models/section-admin/
     ItemPickerComponent,
     EmpresaListComponent,
     ListPickerAdminComponent,
-    SectionAdminComponent
+    SectionAdminComponent,
+    ItemListComponent,
+    ItemFormComponent,
+    TableAdminComponent
   ],
   imports: [
     TagInputModule, 

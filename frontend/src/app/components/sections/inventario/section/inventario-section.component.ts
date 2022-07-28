@@ -17,7 +17,7 @@ export class InventarioSectionComponent extends SectionAdminComponent implements
   
   constructor(protected override appConfig:AppConfigService) {  super(appConfig); } 
 
-   ngOnInit(): void { this.init([empresaTable,trabajadorTable,tourTable,hotelTable])}
+   ngOnInit(): void { this.init([empresaTable,trabajadorTable,tourTable,hotelTable]); }
 
 
   protected override form(){
