@@ -48,9 +48,9 @@ export const reservaForm2 = [ // datos paquete
     input:'text'
   },
   {
-    title:'Passengers',
+    title:'Pasajeros',
     name:'pax',
-    input:'array'
+    input:'passengersList'
   },
   {
     title:'Services',

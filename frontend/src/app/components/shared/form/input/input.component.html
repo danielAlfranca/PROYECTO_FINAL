@@ -40,6 +40,10 @@
     <label>{{title}}</label>
     <app-date-time-picker [value]="value[0]" [time]="value[1]" [title]="title" (inputChange)="update($event)" (timeChange)="update($event,1)"></app-date-time-picker>
 </ng-template>
+<ng-template let-name="name" let-value="value" let-title="title" let-options="options"  #paxList>
+    <label>{{title}}</label>
+    <app-passengers-list [value]="value[0]" [title]="title" (inputChange)="update($event)"></app-passengers-list>
+</ng-template>
 
 
 <!-- VALIDACION  -->

@@ -45,7 +45,9 @@ export class InputComponent implements OnChanges, AfterViewInit {
 
       const templates = this.templates.toArray();
   
-      this.template = this.field.template || templates[['text','number', 'select','array','time','itemPicker','dateTime'].findIndex(e=>e==this.field.input)];    
+      this.template = this.field.template || templates[[
+        
+        'text','number', 'select','array','time','itemPicker','dateTime', 'passengersList', 'activitiesList'].findIndex(e=>e==this.field.input)];    
     }
 
     this.field = {...this.field}

@@ -49,9 +49,9 @@ export class TableAdminComponent {
     return this.appConfig.queries.section(section || this.type);
   }
 
-  protected form(data?:any){
+  protected form(data?:any, formName?:string){
 
-    this.appConfig.canvas.open('form-'+this.type, data).pipe(take(1)).subscribe(response=>{
+    this.appConfig.canvas.open('form-'+ (formName||this.type), data).pipe(take(1)).subscribe(response=>{
       
       if(response) this.display(response, null);
     

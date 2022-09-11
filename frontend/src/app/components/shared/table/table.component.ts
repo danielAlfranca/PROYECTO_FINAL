@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges, SimpleChanges,  ContentChildren, TemplateRef, QueryList, AfterContentInit, Output, EventEmitter } from '@angular/core';
-import { ColumnTable, TableConfig } from 'src/app/interfaces/table';
+import { ColumnTable, TableConfig, TableSection } from 'src/app/interfaces/table';
 import { AppConfigService } from 'src/app/services/app-config.service';
 
 @Component({
@@ -59,7 +59,7 @@ export class TableComponent implements OnChanges, AfterContentInit {
 
     this.data = Object.values(section.data || {}).filter(e=>!(this.appConfig.dataConfig.getValue(e,"hidden", this.dataType)*1)); // TEMPORAL A MEJORAR . SE FILTRAN LOS HIDDEN (DELETE)
 
-    this.rowTemplate = this.get_template();      
+    this.rowTemplate = this.get_template(section);      
    
     this.updateEntries(this.data);    
   }
@@ -122,13 +122,13 @@ export class TableComponent implements OnChanges, AfterContentInit {
 
   }
 
-  private get_template(){ 
+  private get_template(section:TableSection){ 
     
     // LAS TEMPLATEREF SE PROYECTAN EN NGCONTENT 
     // EN CASO DE HABER UNA POR CADA SECCION SE COLOCAN EN EL MISMO ORDEN QUE LA SECCION QUE CORRESPONDA 
 
-    return this.rowTemplates.get(this.currentSection) // SEGUN EL INDICE DE LA SECCION (EL MISMO ORDEN EN QUE DEBERIA HABER SIDO COLOCADA LA TEMPLATE)
-          || this.rowTemplates.get(0) as TemplateRef<any>
+    return    this.rowTemplates.get(this.currentSection) ||  // SEGUN EL INDICE DE LA SECCION (EL MISMO ORDEN EN QUE DEBERIA HABER SIDO COLOCADA LA TEMPLATE)
+              this.rowTemplates.get(0) as TemplateRef<any>
 
   }
 

@@ -22,6 +22,7 @@ export interface TableSection{
     dataType?:string,
     columns?:ColumnTable[],
     search?:string[]
+    template?:TemplateRef<any>
 }
 
 export interface ColumnTable{

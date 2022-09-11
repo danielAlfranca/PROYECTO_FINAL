@@ -66,6 +66,8 @@ import { StepFormComponent } from './components/shared/form/step-form/step-form.
 import { DateTimePickerComponent } from './components/shared/form/custom-fields/date-time-picker/date-time-picker.component';
 import { DatePickerComponent } from './components/shared/form/custom-fields/date-time-picker/date-picker/date-picker.component';
 import { PassengersListComponent } from './components/shared/form/custom-fields/passengers-list/passengers-list.component';
+import { ActivitiesListComponent } from './components/shared/form/custom-fields/activities-list/activities-list.component';
+import { DisplayListComponent } from './components/shared/form/custom-fields/activities-list/display-list/display-list.component';
 
 
 
@@ -132,6 +134,8 @@ import { PassengersListComponent } from './components/shared/form/custom-fields/
     DateTimePickerComponent,
     DatePickerComponent,
     PassengersListComponent,
+    ActivitiesListComponent,
+    DisplayListComponent,
 
 
   ],
