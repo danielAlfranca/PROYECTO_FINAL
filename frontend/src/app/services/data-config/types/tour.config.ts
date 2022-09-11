@@ -1,5 +1,5 @@
 import { Injectable, Injector } from "@angular/core";
-import { DataConfig } from "../models/data-config";
+import { DataConfig } from "../model";
 
 @Injectable({
     providedIn: 'root' 

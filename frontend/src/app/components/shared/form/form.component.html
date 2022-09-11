@@ -6,10 +6,10 @@
             </div>           
         </div>    
     </div>
-    <hr>
+    <!-- <hr> -->
 
     <div class="py-3 text-center">
-        <button class="btn btn-primary" (click)="onSave()">Guardar</button>
+        <button class="btn btn-primary" (click)="onSave()"> {{ btnText || 'Guardar'}}</button>
     </div>
 </div>
 <ng-content></ng-content>

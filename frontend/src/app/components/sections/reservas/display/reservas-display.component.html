@@ -1,0 +1,24 @@
+<div class="p-4">
+    <app-card-display title="Cliente" [editButton]="true" (edit)="edit()">
+        <li app-data-item-display *ngFor="let data of dataDisplay" [icon]="data.icon" [title]="data.title" >
+            {{data.value}}        
+        </li>
+    </app-card-display>
+    <app-card-display title="Paquete" [editButton]="true" (edit)="edit()">
+        <li app-data-item-display *ngFor="let data of dataPaquete" [icon]="data.icon" [title]="data.title" >
+            {{data.value}}        
+        </li>
+        <app-reserva-services-table [data]="item" display-table></app-reserva-services-table>
+    </app-card-display>
+    <br>   
+    
+    <app-card-display title="Precio" [editButton]="true" >
+        <em featured-data>FALTA</em>
+    </app-card-display>
+    <footer>
+        <br>
+        <div class="text-left">
+            <button class="btn btn-outline-secondary" (click)="delete()">eliminar</button>
+        </div>
+    </footer>    
+</div>

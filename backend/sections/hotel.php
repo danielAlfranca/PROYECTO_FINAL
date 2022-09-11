@@ -2,20 +2,21 @@
 
 class Hotel extends Inventario{   
     
-    public static $fixed_constants = ['type'=>3, 'agent'=>1];// para valores fijos
+   /*  public static $fixed_constants = ['type'=>3, 'agent'=>1];
 
-    public static $model = ['nuevo',1,3,[],false];
+    public static $model = ['nuevo',1,3,[],false]; */
+
     public static $indexes = [
 
-        'id'=>['private'=>0, 'validations'=>['id_valid'], 'required'=>true], 
+        'id'=>['private'=>0, 'validations'=>['id_valid'], 'required'=>true, 'default'=>'nuevo'], 
 
-        'agent'=>['private'=>1, 'validations'=>['agent_valid'], 'required'=>true],  
+        'agent'=>['private'=>1, 'validations'=>['agent_valid'], 'required'=>true , 'default'=>1, 'fixed'=>true],  
 
-        'type'=>['private'=>2, 'validations'=>['type_valid'], 'required'=>true],
+        'type'=>['private'=>2, 'validations'=>['type_valid'], 'required'=>true, 'default'=>3 , 'fixed'=>true],
 
-        'data'=>['private'=>3, 'validations'=>[], 'required'=>true],
+        'data'=>['private'=>3, 'validations'=>[], 'required'=>true, 'default'=>[]],
 
-        'hidden'=>['private'=>4, 'validations'=>['is_boolean'], 'required'=>true], 
+        'hidden'=>['private'=>4, 'validations'=>['is_boolean'], 'required'=>true, 'default'=>false], 
 
         'nombre'=>['private'=>'3.0', 'validations'=>['is_string'], 'required'=>true], 
 
@@ -25,11 +26,11 @@ class Hotel extends Inventario{
 
         'categoria'=>['private'=>'3.2', 'validations'=>['categoria_valid'], 'required'=>false], 
 
-        'telefonos'=>['private'=>'3.6', 'validations'=>['is_string_array'], 'required'=>false], 
+        'telefonos'=>['private'=>'3.6', 'validations'=>['is_string_array'], 'required'=>false, 'default'=>[]], 
 
-        'emails'=>['private'=>'3.7', 'validations'=>['is_string_array'], 'required'=>false],
+        'emails'=>['private'=>'3.7', 'validations'=>['is_string_array'], 'required'=>false, 'default'=>[]],
          
-        'direccion'=>['private'=>'3.4', 'validations'=>['is_string'], 'required'=>false], 
+        'direccion'=>['private'=>'3.4', 'validations'=>['is_string'], 'required'=>false, 'default'=>''], 
     ]; 
 
    
@@ -55,9 +56,5 @@ class Hotel extends Inventario{
 
         $this->sanitize_funcs['categoria_valid']  = fn($data, $name)=>filter_var(self::get_property($data,$name),FILTER_VALIDATE_INT);
     }
-
-
-
-
 
 }

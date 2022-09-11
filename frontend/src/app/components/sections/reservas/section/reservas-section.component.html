@@ -1,0 +1,33 @@
+<app-table [config]="tableConfig" (buttonClick)="form()">
+
+    <ng-template let-data="data" #reservas>
+        <tr (click)="display(data,false)" class="pointer">
+            <td> 
+                
+                {{ data | show:'reserva':'full_name' }} <br>
+                <small class="text-secondary"><i class="bi bi-phone me-2"></i>{{ data | show:'reserva':'phones' }}</small> <br>
+                <small class="text-secondary"><i class="bi bi-envelope me-2"></i>{{ data | show:'reserva':'emails' }} </small>
+            
+            </td>
+            <td>
+                {{data | show:'reserva':'paquete_name'}} <br>
+                <small class="text-secondary"><i class="bi bi-people-fill me-2"></i>{{data | show:'reserva':'passengers_list'}}</small> <br>
+                <small>
+                    <i class="text-secondary me-1 bi bi-camera" *ngIf="data | show:'reserva':'has_tours'"></i>
+                    <i class="text-secondary me-1 bi bi-moon-stars" *ngIf="data | show:'reserva':'has_hotels'"></i>
+                    <i class="me-1 bi bi-minecart"  *ngIf="data | show:'reserva':'has_traslados'"></i>
+                </small>
+                
+            </td>
+            <td>
+                <i class="bi bi-chevron-right me-2"></i> {{ data | show:'reserva':'date_start'}}  <br> 
+                <i class="bi bi-chevron-left me-2"></i> {{ data | show:'reserva':'date_end' }} 
+            </td>
+            <td></td>
+            <td>{{data | show:'reserva':'provider_name'}} </td>
+        </tr>
+    </ng-template>
+
+   
+
+</app-table>

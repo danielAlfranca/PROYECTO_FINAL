@@ -18,9 +18,9 @@ export class TableAdminComponent {
 
   constructor(protected appConfig:AppConfigService) {}
 
-  protected init(sections:TableSection[]){
+  protected init(sections:TableSection[], extraconfig:any = {}){
 
-    this.tableConfig = this.createTable(sections);
+    this.tableConfig = this.createTable(sections,extraconfig);
 
     this.subscription = this.appConfig.queries.$dataUpdates.subscribe(e=>{
       
@@ -29,7 +29,7 @@ export class TableAdminComponent {
     }) 
   }
 
-  protected createTable(sections:TableSection[], hidePlusButton:boolean = false, hideSearchButton:boolean = false, extraButton={}){
+  protected createTable(sections:TableSection[], extraconfig:any = {}){
   
     sections.forEach((tableSection:TableSection) => {
 
@@ -39,9 +39,7 @@ export class TableAdminComponent {
 
     return {
 
-      ...extraButton,
-      hidePlusButton,
-      hideSearchButton,
+      ...extraconfig,
       sections:sections
     }
   }
@@ -55,7 +53,7 @@ export class TableAdminComponent {
 
     this.appConfig.canvas.open('form-'+this.type, data).pipe(take(1)).subscribe(response=>{
       
-      if(response) this.display(response, null)
+      if(response) this.display(response, null);
     
     });
   }

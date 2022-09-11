@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { SectionAdminComponent } from 'src/app/components/shared/models/section-admin/section-admin.component';
+import { TableAdminComponent } from 'src/app/components/shared/models/table-admin/table-admin.component';
 import { DataTypes } from 'src/app/interfaces/types/data-config';
 import { AppConfigService } from 'src/app/services/app-config.service';
 
@@ -8,9 +8,9 @@ import { AppConfigService } from 'src/app/services/app-config.service';
   templateUrl: './pagos-section.component.html',
   styleUrls: ['./pagos-section.component.scss']
 })
-export class PagosSectionComponent extends SectionAdminComponent implements OnInit {
+export class PagosSectionComponent extends TableAdminComponent implements OnInit {
 
-  protected override section = 'pago' as DataTypes;
+  protected override type = 'pago' as DataTypes;
   
   constructor(protected override appConfig:AppConfigService) { super(appConfig)} 
 

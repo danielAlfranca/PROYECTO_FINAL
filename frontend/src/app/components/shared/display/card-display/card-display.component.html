@@ -8,17 +8,10 @@
        
     </div>
     <div class="card-body">
-        <ng-container *ngIf="data">
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item d-flex justify-content-between align-items-center border-0 mt-3" *ngFor="let item of data">
-                    <div class="d-flex me-3">
-                        <i class="me-2 bi bi-{{item.icon}}"></i>
-                        <div class="text-capitalize">{{item.title}}:</div>
-                    </div>
-                    <small class="text-end">{{item.value || ' - '}}</small>
-                </li>                
-              </ul>
-        </ng-container>
-        <ng-content></ng-content>
+        <ul class="list-group list-group-flush">
+            <ng-content select="[app-data-item-display]"></ng-content>           
+        </ul>        
+        <ng-content select="[featured-data]"></ng-content>
+        <ng-content select="[display-table]"></ng-content>
     </div>
 </div>

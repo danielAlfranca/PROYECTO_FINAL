@@ -1,0 +1,12 @@
+<div class="p-4">
+    <app-card-display [editButton]="true" (edit)="edit()" [title]="title">   
+        <li app-data-item-display icon="calendar" title="Fechas">{{item | show:'hotelActivity':'full_dates'}}</li> 
+        <li app-data-item-display icon="bookmark-star" title="Habitaciones">{{item | show:'hotelActivity':'rooms_list'}}</li>        
+    </app-card-display>
+    <footer>
+        <br>
+        <div class="text-left">
+            <button class="btn btn-outline-secondary" (click)="delete()">eliminar</button>
+        </div>
+    </footer>
+</div>

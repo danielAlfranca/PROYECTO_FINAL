@@ -3,7 +3,9 @@ import { EmpresaConfig } from './types/empresa.config';
 import { TourConfig } from './types/tour.config';
 import { HotelConfig } from './types/hotel.config';
 import { TrabajadorConfig } from './types/trabajador.config';
-import { DataTypes } from 'src/app/interfaces/types/data-config';
+import { ReservaConfig } from './types/reserva.config';
+import { TourActivityConfig } from './types/tourActivity.config';
+import { HotelActivityConfig } from './types/hotelActivity.config';
 
 @Injectable({
   providedIn: 'root'
@@ -16,15 +18,22 @@ export class DataConfigService {
     empresa:this.empresa,
     tour:this.tour,
     hotel:this.hotel,
-    trabajador:this.trabajador 
-
+    trabajador:this.trabajador,
+    reserva:this.reserva,
+    tourActivity:this.tourActivity,
+    hotelActivity:this.hotelActivity,
+    
   };
 
   constructor(
     private empresa:EmpresaConfig,
     private tour:TourConfig, 
     private hotel:HotelConfig, 
-    private trabajador:TrabajadorConfig ) {}
+    private trabajador:TrabajadorConfig,
+    private reserva:ReservaConfig,
+    private tourActivity:TourActivityConfig,
+    private hotelActivity:HotelActivityConfig
+  ) {}
 
 
   public setValue(object:any, propertyName:string, dataType:string, value:any):any{

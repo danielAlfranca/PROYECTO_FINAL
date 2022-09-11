@@ -1,5 +1,5 @@
-import { InventoryConfig } from "../models/inventory";
-import { DataConfig } from "../models/data-config";
+
+import { DataConfig } from "../model";
 import { Injectable, Injector } from "@angular/core";
 
 @Injectable({

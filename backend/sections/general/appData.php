@@ -18,8 +18,14 @@ class AppData{
         $query->execute();
 
         $inventario = $this->prepare_sections_inventario($query->fetchAll());
+
+        $query = $this->connection->prepare("SELECT * FROM activity_group");
+        $query->setFetchMode(PDO::FETCH_NUM);
+        $query->execute();
+
+        $reservas = ["reserva"=>$this->prepare_reservas($query->fetchAll())];
        
-        return $inventario;
+        return array_merge($inventario, $reservas);
     }
 
     public function prepare_sections_inventario($inventario){
@@ -48,6 +54,20 @@ class AppData{
 
         return ["empresa"=>$empresas, "trabajador"=>$trabajadores, "hotel"=>$hoteles, "tour"=>$tours, "paquete"=>$paquetes];
     } 
+
+    public function prepare_reservas($reservas){
+
+        $parsed = [];
+
+        foreach ($reservas as $key => $value) {
+            
+            $value[6] = json_decode($value[6]); // data
+
+            $parsed[$value[0]] = $value;            
+        }
+
+        return $parsed;
+    }
     
     public function validate($data){
         

@@ -16,8 +16,8 @@ export class InputComponent implements OnChanges, AfterViewInit {
 
   @Output() change = new EventEmitter<any>()
 
-  name!:string;
-  value!:any;
+  names!:string[];
+  values!:any;
   title!:string;
   options?:{name:string, value?:string, selected?:boolean}[] = [];
 
@@ -31,23 +31,21 @@ export class InputComponent implements OnChanges, AfterViewInit {
 
   ngAfterViewInit(): void { setTimeout(() => { this.init();  }); }
 
-  init(){
-
-   
-
-    this.value = this.appConfig.dataConfig.getValue(this.item,this.name,this.type) || '';
+  init(){     
 
     this.title ||= this.field.title;
 
-    this.name ||= this.field.name;
+    this.names ||= Array.isArray(this.field.name) ? this.field.name:[this.field.name];
 
+    this.values = this.names.map(name=>this.appConfig.dataConfig.getValue(this.item,name,this.type) )
+    
     this.options = this.field.options || [];
 
     if(this.templates && !this.template){
 
       const templates = this.templates.toArray();
   
-      this.template = this.field.template || templates[['text','number', 'select','array','time','itemPicker'].findIndex(e=>e==this.field.input)];    
+      this.template = this.field.template || templates[['text','number', 'select','array','time','itemPicker','dateTime'].findIndex(e=>e==this.field.input)];    
     }
 
     this.field = {...this.field}
@@ -55,11 +53,11 @@ export class InputComponent implements OnChanges, AfterViewInit {
   }
 
 
-  update(value:any){
+  update(value:any, index = 0){
 
-    this.value = value;
+    this.values[index] = value;
 
-    this.change.emit({[this.name]:this.value});
+    this.change.emit(this.values);
     
   }
 

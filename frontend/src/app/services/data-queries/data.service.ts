@@ -20,7 +20,7 @@ export class DataService {
 
   public section(section:DataTypes){
 
-    return this.dataStore[section]
+    return this.dataStore[section as keyof DataStoreService];
   }
 
  public find(section:DataTypes, value:string, property:string = 'id'){
@@ -40,9 +40,7 @@ export class DataService {
 
     const notification = new Subject();  
 
-    this.connect(section,'save',item).subscribe((data:any)=>{ 
-      
-      console.log(data);
+    this.connect(section,'save',item).subscribe((data:any)=>{       
 
       if(data){  this.addItem(section,data);  notification.next(data) } else notification.next(false); 
     
@@ -79,6 +77,8 @@ export class DataService {
   private store(data:any){
 
     this.dataStore.save(data);
+
+    console.log(data);
     this.$_dataUpdates.next(undefined);
 
   }

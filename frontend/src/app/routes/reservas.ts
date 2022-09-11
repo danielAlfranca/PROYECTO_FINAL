@@ -1,7 +1,10 @@
 
-import { ReservasSectionComponent } from "../components/sections/reservas/reservas-section/reservas-section.component";
-import { TabsHeaderComponent } from "../components/shared/tabs/tabs-header/tabs-header.component";
-import { TabsComponent } from "../components/shared/tabs/tabs.component";
+import { ReservasDisplayComponent } from "../components/sections/reservas/display/reservas-display.component";
+import { HotelActivityDisplayComponent } from "../components/sections/reservas/display/activities/hotel/hotel-activity-display.component";
+import { TourActivityDisplayComponent } from "../components/sections/reservas/display/activities/tour/tour-activity-display.component";
+import { ReservasSectionComponent } from "../components/sections/reservas/section/reservas-section.component";
+import { ReservaFormComponent } from "../components/sections/reservas/form/reserva/reserva-form.component";
+
 
 export const reservasRoutes = [
 
@@ -12,36 +15,40 @@ export const reservasRoutes = [
             icon: 'bi bi-bookmark'
         }
     },
+    
     {
-        path: 'ejemplo-1', component: TabsComponent, outlet:'aside-1', data: {
+        path: 'display-reserva', component: ReservasDisplayComponent, outlet:'aside-1', data: {
 
-            title: 'Ejemplo 1 - Aside',
-            icon: 'bi bi-bookmark'
-        },
+            title: 'Detalles Reserva',
+            icon: 'bi bi-binoculars'
+        },        
         
     },
     {
-        path: 'ejemplo-2', component: TabsComponent, outlet:'aside-2', data: {
 
-            title: 'Ejemplo 2 - Aside',
-            icon: 'bi bi-bookmark'
-        },        
-    },
+        path: 'display-tourActivity', component: TourActivityDisplayComponent, outlet:'popUp-1', data: {
 
-    {
-        path: 'ejemplo-3', component: TabsComponent, outlet:'popUp-1', data: {
-
-            title: 'Ejemplo 3 - popUp',
-            icon: 'bi bi-bookmark'
-        },        
+            title: 'Detalles Tour',
+            icon: 'bi bi-binoculars'
+        },
     },
     {
-        path: 'ejemplo-4', component: TabsComponent, outlet:'popUp-2', data: {
 
-            title: 'Ejemplo 4 - popUp',
-            icon: 'bi bi-bookmark'
-        },        
+        path: 'display-hotelActivity', component: HotelActivityDisplayComponent, outlet:'popUp-1', data: {
+
+            title: 'Detalles Hotel',
+            icon: 'bi bi-binoculars'
+        },
     },
+    {
+        path: 'form-reserva', component: ReservaFormComponent, outlet:'aside-1', data: {
+
+            title: 'Nueva Reserva',
+            icon: 'bi bi-file-plus'
+        },        
+        
+    },
+
 
 
 

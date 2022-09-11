@@ -7,7 +7,7 @@ import { AppConfigService } from 'src/app/services/app-config.service';
 
 @Component({
   selector: 'app-tour-form',
-  template: formAdminTemplate,
+  template: '<div class="m-3">'+formAdminTemplate+"</div>",
   styles: ['']
 })
 export class TourFormComponent extends FormAdminComponent implements OnInit {

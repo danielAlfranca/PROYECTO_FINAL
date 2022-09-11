@@ -54,25 +54,24 @@ export class DataStoreService {
 
   save(data:any){ this._store = data; }
 
-  find(section:DataTypes, value:string|number, path:string){
+  find(section:string, value:string|number, path:string){
 
-    if(this.isID(path)) return this[section][value]
+    if(this.isID(path)) return this[section as keyof DataStoreService][value]
 
-    return _.find(this[section],path)
+    return _.find(this[section as keyof DataStoreService],path)
   }
 
   addItem(section:DataTypes, item:any){
 
     const id = this.injector.get(DataConfigService).getValue(item,'id',section);
 
-    this[section][id]= item;
+    this[section as keyof DataStoreService][id]= item;
   }
 
   removeItem(section:DataTypes, item:any){
 
     const id = this.injector.get(DataConfigService).getValue(item,'id',section);
-
-    
+        
   }
 
   private isID(path:string){

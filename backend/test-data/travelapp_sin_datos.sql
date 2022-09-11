@@ -20,13 +20,16 @@ CREATE TABLE agents (
 
 CREATE TABLE activity_group(
 
-    id INT AUTO_INCREMENT,
-    type TINYINT NOT NULL,
-    date_start DATE NOT NULL,
-    date_end DATE NOT NULL,
-    time_start TIME,
-    time_end TIME,
-    data JSON,
+    id INT AUTO_INCREMENT, # 0 
+    type TINYINT NOT NULL, # 1
+    # 1 - RESERVA
+    # 2 - SALIDA
+    # 3 - OTROS
+    date_start DATE NOT NULL,# 2
+    date_end DATE NOT NULL,# 3 
+    time_start TIME,# 4
+    time_end TIME,# 5
+    data JSON,# 6
     PRIMARY KEY (id)
 );
 

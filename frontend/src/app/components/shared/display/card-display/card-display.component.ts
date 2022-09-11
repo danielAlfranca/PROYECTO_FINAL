@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, ContentChild, ContentChildren, EventEmitter, Input, Output, QueryList } from '@angular/core';
+import { DataItemDisplayComponent } from './data-item-display/data-item-display.component';
 
 @Component({
   selector: 'app-card-display',
@@ -14,6 +15,16 @@ export class CardDisplayComponent  {
 
   @Output() edit = new EventEmitter<true>()
 
+
+
   constructor() { }
+
+  ngAfterViewInit() {
+    
+    setTimeout(()=>{
+
+
+    })
+  }
   
 }

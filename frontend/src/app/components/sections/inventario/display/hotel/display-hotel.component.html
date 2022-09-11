@@ -1,5 +1,10 @@
 <div class="p-4">
-    <app-card-display title="Datos Hotel" [editButton]="true" [data]="dataDisplay" (edit)="edit()"></app-card-display>
+    <app-card-display title="Hotel" [editButton]="true" (edit)="edit()">
+        <li app-data-item-display *ngFor="let data of dataDisplay" [icon]="data.icon" [title]="data.title" >
+            {{data.value}}        
+        </li>
+    </app-card-display>
+
     <app-card-display title="Reservas Asociadas" >
         <em>FALTA</em>
     </app-card-display>

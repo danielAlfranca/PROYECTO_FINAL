@@ -7,10 +7,14 @@ require '../sections/general/init.php';
 require '../sections/general/appData.php';
 require '../sections/models/section.php';
 require '../sections/models/inventario.php'; // necesario para empresa, trabajador, hotel, tour y paquete
+require '../sections/models/activity.php';
 require '../sections/empresa.php';
 require '../sections/hotel.php';
 require '../sections/tour.php';
 require '../sections/trabajador.php';
+require '../sections/reservas.php';
+require '../sections/tourActivity.php';
+require '../sections/hotelActivity.php';
 
 
 if(strcasecmp($_SERVER['REQUEST_METHOD'], 'POST') != 0){

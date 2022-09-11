@@ -1,6 +1,10 @@
 
 <div class="p-4">
-    <app-card-display title="Datos Empresa" [editButton]="true" [data]="dataDisplay" (edit)="edit()"></app-card-display>
+    <app-card-display title="Empresa" [editButton]="true" (edit)="edit()">
+        <li app-data-item-display *ngFor="let data of dataDisplay" [icon]="data.icon" [title]="data.title" >
+            {{data.value}}        
+        </li>
+    </app-card-display>
     <app-card-display title="Pagos" [addButton]="true" >
         <em>FALTA</em>
     </app-card-display>
@@ -8,7 +12,6 @@
         <em>FALTA</em>
     </app-card-display>
     <footer>
-        <hr>
         <br>
         <div class="text-left">
             <button class="btn btn-outline-secondary" (click)="delete()">eliminar</button>

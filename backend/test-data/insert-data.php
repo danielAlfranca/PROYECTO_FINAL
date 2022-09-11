@@ -9,15 +9,20 @@
     include_once './generators/shared.php';
     include_once './generators/inventory.php';
     include_once './generators/agents.php';
+    include_once './generators/reservas.php';
 
     include_once '../shared/database.php';    
 
     $empresas = 10;
     $trabajadores = 6;
-    $reservas = 12;
+    $reservas = 24;
+    $reservasAgents = $reservas -12;
 
-    $agents = build_agents($empresas,$trabajadores,$reservas);  
-    $inventory = build_inventory($empresas,$trabajadores,$emails, $names);
+    $agents = build_agents($empresas,$trabajadores,$reservasAgents);  
+    $inventory = build_inventory($empresas,$trabajadores,$emails, $names,$last_names);
+    $tours = array_filter($inventory, fn($e)=>$e[2]==4);
+    $hotels = array_filter($inventory, fn($e)=>$e[2]==3);
+    $reservas = build_reservas($reservas, [ $empresas , $trabajadores , $reservasAgents ], $names, $last_names, $emails, $tours, $hotels);
 
     $user='root';
     $host='localhost';
@@ -43,6 +48,17 @@
             $statement->bindParam(":type", $item[2]);
             $statement->bindParam(":data", $item[3]);
             $statement->bindParam(":hidden", $item[4]);
+            $statement->execute();            
+        }
+
+        foreach ($reservas as $item) {
+     
+            $statement = $connection->prepare("INSERT INTO activity_group( type, date_start, date_end, data)  VALUES(:type, :date_start, :date_end, :data)");
+            $statement->bindParam(":type", $item[1]);
+            $statement->bindParam(":date_start", $item[2]);
+            $statement->bindParam(":date_end", $item[3]);
+            $statement->bindParam(":data", $item[6]);
+          
             $statement->execute();            
         }
       

@@ -22,7 +22,7 @@ export class FormAdminComponent {
 
   init(type:DataTypes, fields:FormItem[] = []): void {
 
-     this.item = this.appConfig.canvas.last.query?.formItem || this.appConfig.dataConfig.getModel(type);
+    this.item = this.appConfig.canvas.last.query?.formItem || this.appConfig.dataConfig.getModel(type);
 
     this.type = type;
 
@@ -32,16 +32,14 @@ export class FormAdminComponent {
 
   save(item:any):any{
 
-
     if(!this.is_valid(item)) return this.form_error_message();
-
    
     this.appConfig.queries.save(this.type,item).pipe(take(1)).subscribe(response=>{
 
       if(!response || response.errors) { this.server_error_message() }
 
-      else{
-        
+      else{        
+       
         this.server_success_message().pipe(take(1)).subscribe(e=>this.appConfig.canvas.close(response)) 
       }
       
@@ -84,7 +82,7 @@ export class FormAdminComponent {
 
     // si el form esta como elemento de form item ya esta en popUp y los mensajes se muestran en la posicion 3
 
-    const index = this.appConfig.canvas.last.path == 'form-item' ? 3:1;
+    const index = this.appConfig.canvas.last.path == 'pop-up-form' ? 3:1;
 
     return  `modal-${result}-${index}`;
   }

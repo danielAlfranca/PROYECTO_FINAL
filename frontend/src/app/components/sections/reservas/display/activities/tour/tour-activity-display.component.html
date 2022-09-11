@@ -1,0 +1,27 @@
+<div class="p-4">
+    <app-card-display [editButton]="true" (edit)="edit()">   
+        <li app-data-item-display icon="calendar" title="Fecha">
+            <ng-container *ngIf="(item | show:'tourActivity':'duracion') == 1 else fullDates">
+                {{item | show:'tourActivity':'date_start'}}</ng-container>           
+        </li> 
+        <li app-data-item-display icon="clock" title="Horario">
+            {{item | show:'tourActivity':'time_start'}} - {{item | show:'tourActivity':'time_end'}}
+        </li>
+        <li app-data-item-display  icon="people" title="Pasajeros">
+            {{item | show:'tourActivity':'passengers_list'}}
+        </li>
+        <li app-data-item-display  icon="truck" title="Salida">
+            FALTA
+        </li>
+    </app-card-display>
+    <footer>
+        <br>
+        <div class="text-left">
+            <button class="btn btn-outline-secondary" (click)="delete()">eliminar</button>
+        </div>
+    </footer>
+</div>
+
+<ng-template #fullDates>
+    {{item | show:'tourActivity':'full_dates'}}
+</ng-template>

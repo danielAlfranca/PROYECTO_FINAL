@@ -14,6 +14,7 @@ export class FormComponent implements AfterContentInit{
   @Input() type!:DataTypes;
   @Input() item!:any;
   @Input() fields!:FormItem[];
+  @Input() btnText?:string;
 
   @Output() change = new EventEmitter<{item:any,valid:boolean}>();
   @Output() save = new EventEmitter<{item:any}>();
@@ -59,6 +60,8 @@ export class FormComponent implements AfterContentInit{
   update(notificate?:boolean){
 
     this.fields.forEach(field=>{
+
+      console.log(field.name, this.type);
 
       field.valid = this.appConfig.dataConfig.validateProperty(this.item,field.name, this.type);
       

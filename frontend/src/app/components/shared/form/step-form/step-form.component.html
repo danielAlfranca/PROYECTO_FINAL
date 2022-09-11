@@ -1,0 +1,19 @@
+<div id="stepper1" class="bs-stepper">
+    <div class="bs-stepper-header">
+    <ng-container *ngFor="let step of fields; let i = index" >
+        <div class="step" attr.data-target="#stepForm{{i}}">
+            <button class="step-trigger">
+                <span class="bs-stepper-circle">{{i+1}}</span>
+                <span class="bs-stepper-label">{{step.title}}</span>
+            </button>
+            </div>
+            <div class="line" *ngIf="i < steps-1"></div>
+    </ng-container>      
+    </div>
+    <div class="bs-stepper-content">       
+    <div *ngFor="let step of fields; let i = index" id="stepForm{{i}}" class="content" > 
+        <app-form [fields]="step.fields" [type]="type" [item]="item" (save)="onSave($event)" [btnText]="btnNames[i]"></app-form>
+        <br>
+    </div>                        
+    </div>
+</div>

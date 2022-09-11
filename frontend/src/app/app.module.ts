@@ -23,7 +23,7 @@ import { FooterDisplayComponent } from './components/shared/display/footer-displ
 import { FooterComponent } from './components/layout/footer/footer.component';
 import { ShowPipe } from './pipes/show.pipe';
 import { SelectDataDatesComponent } from './components/layout/header/select-data-dates/select-data-dates.component';
-import { ReservasSectionComponent } from './components/sections/reservas/reservas-section/reservas-section.component';
+import { ReservasSectionComponent } from './components/sections/reservas/section/reservas-section.component';
 import { InventarioSectionComponent } from './components/sections/inventario/section/inventario-section.component';
 import { SalidasSectionComponent } from './components/sections/salidas/salidas-section/salidas-section.component';
 import { PagosSectionComponent } from './components/sections/pagos/pagos-section/pagos-section.component';
@@ -47,14 +47,29 @@ import { FormAdminComponent } from './components/shared/models/form-admin/form-a
 import { ErrorsPipe } from './pipes/errors.pipe';
 import { StringArrayComponent } from './components/shared/form/custom-fields/string-array/string-array.component';
 import { CustomFieldComponent } from './components/shared/form/custom-fields/model/custom-field.component';
-import { TimePickerComponent } from './components/shared/form/custom-fields/time-picker/time-picker.component';
+import { TimePickerComponent } from './components/shared/form/custom-fields/date-time-picker/time-picker/time-picker.component';
 import { ItemPickerComponent } from './components/shared/form/custom-fields/item-picker/item-picker.component';
-import { EmpresaListComponent } from './components/shared/form/custom-fields/item-picker/lists/empresa-list/empresa-list.component';
-import { ListPickerAdminComponent } from './components/shared/models/list-picker-admin/list-picker-admin.component';
-import { SectionAdminComponent } from './components/shared/models/section-admin/section-admin.component';
-import { ItemListComponent } from './components/shared/form/custom-fields/item-picker/item-list/item-list.component';
-import { ItemFormComponent } from './components/shared/form/custom-fields/item-picker/item-form/item-form.component';
+import { EmpresaListComponent } from './components/shared/form/custom-fields/item-picker/list/lists/empresas/empresa-list.component';
+import { ItemListComponent } from './components/shared/form/custom-fields/item-picker/list/item-list.component';
+import { ItemFormComponent } from './components/shared/form/custom-fields/item-picker/form/item-form.component';
 import { TableAdminComponent } from './components/shared/models/table-admin/table-admin.component';
+import { ModelItemListComponent } from './components/shared/form/custom-fields/item-picker/list/lists/model/model-item-list.component';
+import { DatePipe } from '@angular/common';
+import { ReservasDisplayComponent } from './components/sections/reservas/display/reservas-display.component';
+import { ReservaServicesTableComponent } from './components/sections/reservas/display/reserva-services-table/reserva-services-table.component';
+import { TourActivityDisplayComponent } from './components/sections/reservas/display/activities/tour/tour-activity-display.component';
+import { HotelActivityDisplayComponent } from './components/sections/reservas/display/activities/hotel/hotel-activity-display.component';
+import { ReservaFormComponent } from './components/sections/reservas/form/reserva/reserva-form.component';
+import { TourActivityFormComponent } from './components/sections/reservas/form/activities/tour-activity-form/tour-activity-form.component';
+import { HotelActivityFormComponent } from './components/sections/reservas/form/activities/hotel-activity-form/hotel-activity-form.component';
+import { StepFormComponent } from './components/shared/form/step-form/step-form.component';
+import { DateTimePickerComponent } from './components/shared/form/custom-fields/date-time-picker/date-time-picker.component';
+import { DatePickerComponent } from './components/shared/form/custom-fields/date-time-picker/date-picker/date-picker.component';
+import { PassengersListComponent } from './components/shared/form/custom-fields/passengers-list/passengers-list.component';
+
+
+
+
 
 
 @NgModule({
@@ -102,11 +117,23 @@ import { TableAdminComponent } from './components/shared/models/table-admin/tabl
     TimePickerComponent,
     ItemPickerComponent,
     EmpresaListComponent,
-    ListPickerAdminComponent,
-    SectionAdminComponent,
     ItemListComponent,
     ItemFormComponent,
-    TableAdminComponent
+    TableAdminComponent,
+    ModelItemListComponent,
+    ReservasDisplayComponent,
+    ReservaServicesTableComponent,
+    TourActivityDisplayComponent,
+    HotelActivityDisplayComponent,
+    ReservaFormComponent,
+    TourActivityFormComponent,
+    HotelActivityFormComponent,
+    StepFormComponent,
+    DateTimePickerComponent,
+    DatePickerComponent,
+    PassengersListComponent,
+
+
   ],
   imports: [
     TagInputModule, 
@@ -117,9 +144,9 @@ import { TableAdminComponent } from './components/shared/models/table-admin/tabl
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    NgxMaterialTimepickerModule.setLocale('es')
+   
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

@@ -7,7 +7,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 })
 export class CustomFieldComponent {
 
-  @Input() name!:string;
+  @Input() name!:string; 
   @Input() title!:string;
   @Input() value!:any;
   @Input() options!:any;
@@ -17,9 +17,6 @@ export class CustomFieldComponent {
 
   constructor() { }
 
-  onChange(value:any){
-
-      this.inputChange.emit(value)
-  }
+  onChange(value:any){ this.inputChange.emit(value) }
 
 }

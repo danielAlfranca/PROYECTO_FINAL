@@ -9,21 +9,32 @@ class AppConfig{
 
         return [
 
+            'reserva'=>[
+                'indexes'=>Reserva::$indexes,
+
+            ],
+            'tourActivity'=>[
+                'indexes'=>TourActivity::$indexes,
+
+            ],
+            'hotelActivity'=>[
+                'indexes'=>HotelActivity::$indexes,
+            ],
             'empresa'=>[
                 'indexes'=>Empresa::$indexes,
-                'model'=>Empresa::$model
+              
             ],
             'hotel'=>[
                 'indexes'=>Hotel::$indexes,
-                'model'=>Hotel::$model
+            
             ], 
              'tour'=>[
                 'indexes'=>Tour::$indexes,
-                'model'=>Tour::$model
+               
             ], 
             'trabajador'=>[
                 'indexes'=>Trabajador::$indexes,
-                'model'=>Trabajador::$model
+               
             ] 
         ];
     } 

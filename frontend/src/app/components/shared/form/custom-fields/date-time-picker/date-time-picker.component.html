@@ -1,0 +1,22 @@
+<div class="input-group mb-3 position-relative">
+    <ng-container *ngIf="!dateHidden">
+        <span class="input-group-text bg-light pointer btnDate" (click)="calendarOpen=!calendarOpen; timeOpen=false"><i class="bi bi-calendar"></i></span>
+    </ng-container>
+    
+    <input class="form-control bg-white text-center" [disabled]="true" [value]="date_time_string" >
+
+    <ng-container *ngIf="!timeHidden">
+        <span class="input-group-text bg-light pointer" (click)="timeOpen=!timeOpen; calendarOpen=false;" ><i class="bi bi-clock"></i></span>
+    </ng-container>
+   
+    <div class="calendar-container w-100 position-absolute top-0" style="height:0;">
+        <div class="picker-container bg-light pb-2 shadow"  *ngIf="calendarOpen">
+            <app-date-picker [date]="value" (newDate)="changeDate($event);calendarOpen=false"></app-date-picker>
+         </div>
+        <div class="picker-container bg-light shadow" *ngIf="timeOpen">
+            <app-time-picker [time]="time" (newTime)="changeTime($event);timeOpen=false"></app-time-picker>           
+        </div>
+    </div>
+</div>
+
+

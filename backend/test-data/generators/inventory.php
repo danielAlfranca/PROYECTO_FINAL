@@ -1,7 +1,7 @@
 <?php 
 
 
-    function build_inventory($num_empresas,$num_trabajadores,$emails, $names){        
+    function build_inventory($num_empresas,$num_trabajadores,$emails, $names, $last_names){        
 
         $inventory_array = [];
 
@@ -14,10 +14,14 @@
         $paises = builListNames('pais',5);
 
         $empresas = buildIdLisT(1,$num_empresas);
+        $trabajadores = buildIdLisT($num_empresas+1,$num_empresas+$num_trabajadores+1);
         $empresasHoteleras = randomPick($empresas, 4 );
-        $tours = buildIdLisT(1,15);
-        $hoteles = buildIdLisT(1,8);
-        $paquetes = buildIdLisT(1,10);       
+        $initTours = $trabajadores[count($trabajadores)-1]+1;
+        $tours = buildIdLisT($initTours,$initTours+16);
+        $initHoteles = $tours[count($tours)-1]+1;
+        $hoteles = buildIdLisT($initHoteles, $initHoteles+14);
+        $initPaquetes = $hoteles[count($hoteles)-1]+1;
+        $paquetes = buildIdLisT($initPaquetes, $initPaquetes+12);
 
         // EMPRESAS 
 
@@ -43,10 +47,10 @@
 
         // trabajadores  
 
-        for ($id=$num_empresas+1; $id <=$num_empresas+1+$num_trabajadores ; $id++) { 
+        foreach ($trabajadores as $id)  { 
 
             $data = [
-                randomPick($names) . ', apellido 1 apellido 2', // name
+                randomPick($names) . ', '. randomPick($last_names). " ".randomPick($last_names), // name
                 rand(111111,999999),// doc
                 [rand(600000000,699999999)], // phones 
                 [randomPick($emails)], // emails 

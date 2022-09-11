@@ -6,7 +6,7 @@ import { AppConfigService } from 'src/app/services/app-config.service';
 
 @Component({
   selector: 'app-hotel-form',
-  template: formAdminTemplate,
+  template: '<div class="m-3">'+formAdminTemplate+"</div>",
   styles: ['']
 })
 export class HotelFormComponent extends FormAdminComponent implements OnInit {

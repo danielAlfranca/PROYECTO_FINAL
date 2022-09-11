@@ -1,4 +1,4 @@
-<div class="table-header d-flex justify-content-between">
+<div class="table-header d-flex justify-content-between" [ngClass]="{'table-header-sm':config.sectionsStyle == 'small'}">
   <div class="table-sections">
     <div class="table-title" *ngIf="config.title">{{config.title}}</div>
     <div class="tabs" *ngIf="config.sections.length>1">
@@ -9,12 +9,13 @@
   <div class="header-table-buttons-container d-flex justify-content-end">
     <app-search *ngIf="!config.hideSearchButton" [data]="data" [dataType]="dataType" [searchProperties]="searchProperties" (filtered)="updateEntries($event)"></app-search>
     <button *ngIf="config.extraButton" class="btn btn-{{config.extraButton.color}}" ><i class="{{config.extraButton.icon}}"></i></button>
-    <button class="btn btn-warning button-table btn-sm" *ngIf="!config.hidePlusButton" (click)="buttonClick.emit('nuevo')"><i class="bi bi-plus h3"></i></button>    
+    <button class="btn btn-warning button-table btn-sm" 
+      *ngIf="!config.hidePlusButton" (click)="buttonClick.emit('nuevo')"><i class="bi bi-plus {{ config.sectionsStyle != 'small' ? 'h3':'h5' }}"></i></button>    
   </div>  
 </div>
 
 
-<table class="table table-striped table-hover">
+<table class="table table-striped table-hover align-middle" [ngClass]="{'table-sm':config.sectionsStyle == 'small'}">
     <thead>
       <tr>
           <th *ngFor="let column of columns; let i = index" (click)="updateSort(column, i)" > 
