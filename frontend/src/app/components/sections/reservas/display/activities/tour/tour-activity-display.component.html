@@ -1,5 +1,5 @@
 <div class="p-4">
-    <app-card-display [editButton]="true" (edit)="edit()">   
+    <app-card-display [editButton]="true" (edit)="edit()" [title]="title">   
         <li app-data-item-display icon="calendar" title="Fecha">
             <ng-container *ngIf="(item | show:'tourActivity':'duracion') == 1 else fullDates">
                 {{item | show:'tourActivity':'date_start'}}</ng-container>           

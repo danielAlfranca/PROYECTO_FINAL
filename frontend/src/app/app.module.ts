@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import {HttpClientJsonpModule, HttpClientModule} from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TagInputModule } from 'ngx-chips'; // PARA INPUT ARRAY
-import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker'; // PARA TIME PICKER
 
 import { AppRoutingModule } from './routes/app-routing.module';
 import { AppComponent } from './app.component';
@@ -29,7 +28,6 @@ import { SalidasSectionComponent } from './components/sections/salidas/salidas-s
 import { PagosSectionComponent } from './components/sections/pagos/pagos-section/pagos-section.component';
 import { TabsHeaderComponent } from './components/shared/tabs/tabs-header/tabs-header.component';
 import { PaginatePipe } from './pipes/paginate.pipe';
-import { TableHeaderComponent } from './components/shared/table/table-header/table-header.component';
 import { NewInventarioComponent } from './components/sections/inventario/form/new-inventario.component';
 import { DisplayEmpresaComponent } from './components/sections/inventario/display/empresa/display-empresa.component';
 import { DisplayTrabajadorComponent } from './components/sections/inventario/display/trabajador/display-trabajador.component';
@@ -56,21 +54,19 @@ import { TableAdminComponent } from './components/shared/models/table-admin/tabl
 import { ModelItemListComponent } from './components/shared/form/custom-fields/item-picker/list/lists/model/model-item-list.component';
 import { DatePipe } from '@angular/common';
 import { ReservasDisplayComponent } from './components/sections/reservas/display/reservas-display.component';
-import { ReservaServicesTableComponent } from './components/sections/reservas/display/reserva-services-table/reserva-services-table.component';
+
 import { TourActivityDisplayComponent } from './components/sections/reservas/display/activities/tour/tour-activity-display.component';
 import { HotelActivityDisplayComponent } from './components/sections/reservas/display/activities/hotel/hotel-activity-display.component';
 import { ReservaFormComponent } from './components/sections/reservas/form/reserva/reserva-form.component';
-import { TourActivityFormComponent } from './components/sections/reservas/form/activities/tour-activity-form/tour-activity-form.component';
-import { HotelActivityFormComponent } from './components/sections/reservas/form/activities/hotel-activity-form/hotel-activity-form.component';
+import { TourActivityFormComponent } from './components/sections/reservas/form/activities/tour/tour-activity-form.component';
+import { HotelActivityFormComponent } from './components/sections/reservas/form/activities/hotel/hotel-activity-form.component';
 import { StepFormComponent } from './components/shared/form/step-form/step-form.component';
 import { DateTimePickerComponent } from './components/shared/form/custom-fields/date-time-picker/date-time-picker.component';
 import { DatePickerComponent } from './components/shared/form/custom-fields/date-time-picker/date-picker/date-picker.component';
 import { PassengersListComponent } from './components/shared/form/custom-fields/passengers-list/passengers-list.component';
-import { ActivitiesListComponent } from './components/shared/form/custom-fields/activities-list/activities-list.component';
-import { DisplayListComponent } from './components/shared/form/custom-fields/activities-list/display-list/display-list.component';
-
-
-
+import { ActivitiesListComponent } from './components/shared/display/activities-list/activities-list.component';
+import { ActivitiesListFormAdminComponent } from './components/shared/form/custom-fields/activities-list-form-admin/activities-list-form-admin.component';
+import { NewReservaActivityComponent } from './components/sections/reservas/form/activities/new-activity/new-reserva-activity.component';
 
 
 
@@ -99,7 +95,6 @@ import { DisplayListComponent } from './components/shared/form/custom-fields/act
     PagosSectionComponent,
     TabsHeaderComponent,
     PaginatePipe,
-    TableHeaderComponent,
     NewInventarioComponent,
     DisplayEmpresaComponent,
     DisplayTrabajadorComponent,
@@ -124,7 +119,6 @@ import { DisplayListComponent } from './components/shared/form/custom-fields/act
     TableAdminComponent,
     ModelItemListComponent,
     ReservasDisplayComponent,
-    ReservaServicesTableComponent,
     TourActivityDisplayComponent,
     HotelActivityDisplayComponent,
     ReservaFormComponent,
@@ -135,8 +129,8 @@ import { DisplayListComponent } from './components/shared/form/custom-fields/act
     DatePickerComponent,
     PassengersListComponent,
     ActivitiesListComponent,
-    DisplayListComponent,
-
+    ActivitiesListFormAdminComponent,
+    NewReservaActivityComponent,
 
   ],
   imports: [

@@ -34,7 +34,7 @@ class Reserva extends Section{
 
         'provider_type'=>['private'=>"6.4.1", 'validations'=>['is_string'], 'required'=>true, 'default'=>null],
 
-        'services'=>['private'=>"6.5", 'validations'=>['is_string'], 'required'=>true, 'default'=>['1'=>[],'2'=>[],'3'=>[]]] ,
+        'activities'=>['private'=>"6.5", 'validations'=>['is_string'], 'required'=>true, 'default'=>['1'=>[],'2'=>[],'3'=>[]]] ,
 
         'tours'=>['private'=>"6.5.1", 'validations'=>['is_string'], 'required'=>false, 'default'=>[]] ,
 

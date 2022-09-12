@@ -4,6 +4,9 @@ import { HotelActivityDisplayComponent } from "../components/sections/reservas/d
 import { TourActivityDisplayComponent } from "../components/sections/reservas/display/activities/tour/tour-activity-display.component";
 import { ReservasSectionComponent } from "../components/sections/reservas/section/reservas-section.component";
 import { ReservaFormComponent } from "../components/sections/reservas/form/reserva/reserva-form.component";
+import { NewReservaActivityComponent } from "../components/sections/reservas/form/activities/new-activity/new-reserva-activity.component";
+import { TourActivityFormComponent } from "../components/sections/reservas/form/activities/tour/tour-activity-form.component";
+import { HotelActivityFormComponent } from "../components/sections/reservas/form/activities/hotel/hotel-activity-form.component";
 
 
 export const reservasRoutes = [
@@ -26,7 +29,7 @@ export const reservasRoutes = [
     },
     {
 
-        path: 'display-tourActivity', component: TourActivityDisplayComponent, outlet:'popUp-1', data: {
+        path: 'display-tourActivity', component: TourActivityDisplayComponent, outlet:'aside-2', data: {
 
             title: 'Detalles Tour',
             icon: 'bi bi-binoculars'
@@ -34,7 +37,7 @@ export const reservasRoutes = [
     },
     {
 
-        path: 'display-hotelActivity', component: HotelActivityDisplayComponent, outlet:'popUp-1', data: {
+        path: 'display-hotelActivity', component: HotelActivityDisplayComponent, outlet:'aside-2', data: {
 
             title: 'Detalles Hotel',
             icon: 'bi bi-binoculars'
@@ -46,6 +49,31 @@ export const reservasRoutes = [
             title: 'Nueva Reserva',
             icon: 'bi bi-file-plus'
         },        
+        
+    },
+    {
+        path: 'form-reserva-activity', component: NewReservaActivityComponent, outlet:'aside-2', data: {
+
+            title: 'Nueva actividad',
+            icon: 'bi bi-file-plus'
+        },
+        
+    },
+    {
+        path: 'form-tour-activity', component: TourActivityFormComponent, outlet:'aside-3', data: {
+
+            title: 'Nuevo Tour',
+            icon: 'bi bi-file-plus'
+        },
+        
+    },
+
+    {
+        path: 'form-hotel-activity', component: HotelActivityFormComponent, outlet:'aside-3', data: {
+
+            title: 'Nuevo Hotel',
+            icon: 'bi bi-file-plus'
+        },
         
     },
 

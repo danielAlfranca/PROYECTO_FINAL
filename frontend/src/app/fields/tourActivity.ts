@@ -1,31 +1,29 @@
 import { FormItem } from "../interfaces/form";
 
-export const reservaForm = [
+export const tourActivityForm = [
+  
     {
-      title:'Nombre',
-      name:'nombre',
-      input:'text'
+      title:'Tour',
+      name:'tour_id',
+      input:'itemPicker',
+      options:{type:'tour'}
     },
     {
-      title:'Documento',
-      name:'documento',
-      input:'text'
+      title:'Fecha Inicio',
+      name:'date_start',
+      input:'dateTime'
     },
     {
-      title:'Direccion',
-      name:'direccion',
-      input:'text'
+      title:'Fecha Fin',
+      name:'date_end',
+      input:'dateTime'
     },
     {
-      title:'Telefonos',
-      name:'telefonos',
-      input:'array'
+      title:'Pasajeros',
+      name:'pax',
+      input:'passengersList'
     },
-    {
-      title:'Emails',
-      name:'emails',
-      input:'array'
-    }
+    
 ] as FormItem[];
 
 export const tourActivityTable = {

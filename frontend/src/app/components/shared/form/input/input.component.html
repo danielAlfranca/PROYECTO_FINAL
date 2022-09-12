@@ -44,6 +44,12 @@
     <label>{{title}}</label>
     <app-passengers-list [value]="value[0]" [title]="title" (inputChange)="update($event)"></app-passengers-list>
 </ng-template>
+<ng-template let-name="name" let-value="value" let-title="title" let-options="options" #activitiesList>
+    <label>{{title}}</label>
+    <app-activities-list-form-admin 
+        [value]="value[0]" [title]="title" [title]="title" [activitiesGroupItem]="item" [type]="type" (inputChange)="update($event)">
+    </app-activities-list-form-admin>
+</ng-template>
 
 
 <!-- VALIDACION  -->

@@ -8,7 +8,8 @@
         <li app-data-item-display *ngFor="let data of dataPaquete" [icon]="data.icon" [title]="data.title" >
             {{data.value}}        
         </li>
-        <app-reserva-services-table [data]="item" display-table></app-reserva-services-table>
+        <app-activities-list display-table type="reserva" [data]="item" >          
+        </app-activities-list>      
     </app-card-display>
     <br>   
     

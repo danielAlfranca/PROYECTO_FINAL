@@ -32,5 +32,7 @@ export class ReservasDisplayComponent extends DisplayAdminComponent implements O
       {title:'Pasajeros', value: this.value('passengers_list'), icon:'people'}, 
     ];
   }
+
+
 }
 

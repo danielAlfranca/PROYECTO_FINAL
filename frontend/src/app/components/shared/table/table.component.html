@@ -7,12 +7,15 @@
   </div>
 
   <div class="header-table-buttons-container d-flex justify-content-end">
-    <app-search *ngIf="!config.hideSearchButton" [data]="data" [dataType]="dataType" [searchProperties]="searchProperties" (filtered)="updateEntries($event)"></app-search>
+    <app-search *ngIf="!config.hideSearchButton && entries.length>0" [data]="data" [dataType]="dataType" [searchProperties]="searchProperties" (filtered)="updateEntries($event)"></app-search>
     <button *ngIf="config.extraButton" class="btn btn-{{config.extraButton.color}}" ><i class="{{config.extraButton.icon}}"></i></button>
     <button class="btn btn-warning button-table btn-sm" 
       *ngIf="!config.hidePlusButton" (click)="buttonClick.emit('nuevo')"><i class="bi bi-plus {{ config.sectionsStyle != 'small' ? 'h3':'h5' }}"></i></button>    
   </div>  
 </div>
+<ng-container *ngIf="entries.length==0"> 
+  <small><em class="border-0" class="text-secondary">No hay elementos en esta lista</em></small>
+</ng-container>
 
 
 <table class="table table-striped table-hover align-middle" [ngClass]="{'table-sm':config.sectionsStyle == 'small'}">
@@ -35,6 +38,7 @@
             [ngTemplateOutlet]="rowTemplate"
             [ngTemplateOutletContext]="{data: entry}"></ng-container>    
     </ng-container >
+    
   
 </tbody>
 

@@ -16,7 +16,7 @@
     $empresas = 10;
     $trabajadores = 6;
     $reservas = 24;
-    $reservasAgents = $reservas -12;
+    $reservasAgents = $reservas - 12;
 
     $agents = build_agents($empresas,$trabajadores,$reservasAgents);  
     $inventory = build_inventory($empresas,$trabajadores,$emails, $names,$last_names);

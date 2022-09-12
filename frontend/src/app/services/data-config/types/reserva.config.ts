@@ -28,11 +28,11 @@ export class ReservaConfig extends DataConfig{
 
         passengers_list:(obj:any)=>this.get_passengers_list(obj),
 
-        has_tours:(obj:any)=>this.has_service(obj,1),
+        has_tours:(obj:any)=>this.has_activity(obj,1),
 
-        has_hotels:(obj:any)=>this.has_service(obj,2),
+        has_hotels:(obj:any)=>this.has_activity(obj,2),
 
-        has_traslados:(obj:any)=>this.has_service(obj,3),
+        has_traslados:(obj:any)=>this.has_activity(obj,3),
 
         agent_type_name: (obj:any) => {
 
@@ -133,9 +133,9 @@ export class ReservaConfig extends DataConfig{
 
     }
 
-    private has_service(obj:any, typeNum:number){
+    private has_activity(obj:any, typeNum:number){
 
-        const services = this.getValue(obj, 'services') || {1:[],2:[],3:[]}; 
+        const services = this.getValue(obj, 'activities') || {1:[],2:[],3:[]}; 
         
         return Array.isArray (services[typeNum]) &&  services[typeNum].length > 0;
     }

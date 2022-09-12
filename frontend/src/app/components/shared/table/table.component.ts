@@ -40,26 +40,26 @@ export class TableComponent implements OnChanges, AfterContentInit {
 
   ngAfterContentInit(): void {
       
-    setTimeout(()=>this.initSection(this.currentSection))
+    setTimeout(()=>{this.initSection(this.currentSection); console.log(this.rowTemplates)})
   }
 
   initSection(sectionIndex:number){
 
-    const section = this.config.sections[sectionIndex];
+    const section = this.config.sections[sectionIndex] || {};
 
     this.currentSection = sectionIndex;
 
     this.sections = this.config.sections.map(section => section.title);
 
-    this.columns =( section.columns || this.config.columns) as ColumnTable[];
+    this.columns = ( section.columns || this.config.columns || []) as ColumnTable[];
 
-    this.searchProperties = (section.search || this.config.search) as string[];
+    this.searchProperties = (section.search || this.config.search || []) as string[];
 
-    this.dataType  = section.dataType || this.config.dataType as string;
+    this.dataType  = (section.dataType || this.config.dataType || "") as string;
 
     this.data = Object.values(section.data || {}).filter(e=>!(this.appConfig.dataConfig.getValue(e,"hidden", this.dataType)*1)); // TEMPORAL A MEJORAR . SE FILTRAN LOS HIDDEN (DELETE)
 
-    this.rowTemplate = this.get_template(section);      
+    this.rowTemplate = this.get_template();      
    
     this.updateEntries(this.data);    
   }
@@ -97,20 +97,27 @@ export class TableComponent implements OnChanges, AfterContentInit {
 
     let valueA, valueB;
 
-    const property = this.columns[this.currentSort.column].sort,
-          dataConfig = this.appConfig.dataConfig;
+    if(data && data.length){
 
-    if( !property || this.currentSort.sort == 0 ) return data;
+        const property = this.columns[this.currentSort.column].sort,
+            dataConfig = this.appConfig.dataConfig;
+
+      if( !property || this.currentSort.sort == 0 ) return data;
 
 
-    return data.sort((a,b)=>  {
-      
-      valueA = dataConfig.getValue(a,property, this.dataType) +'';
-      valueB = dataConfig.getValue(b,property, this.dataType)+'';
-  
-      return valueA.localeCompare(valueB) * this.currentSort.sort 
+      return data.sort((a,b)=>  {
+        
+        valueA = dataConfig.getValue(a,property, this.dataType) +'';
+        valueB = dataConfig.getValue(b,property, this.dataType)+'';
+    
+        return valueA.localeCompare(valueB) * this.currentSort.sort 
 
-    }) 
+      }) 
+
+    }
+
+    return []
+    
   }
  
   private calculate_pages(data:any[]){
@@ -122,7 +129,7 @@ export class TableComponent implements OnChanges, AfterContentInit {
 
   }
 
-  private get_template(section:TableSection){ 
+  private get_template(){ 
     
     // LAS TEMPLATEREF SE PROYECTAN EN NGCONTENT 
     // EN CASO DE HABER UNA POR CADA SECCION SE COLOCAN EN EL MISMO ORDEN QUE LA SECCION QUE CORRESPONDA 
