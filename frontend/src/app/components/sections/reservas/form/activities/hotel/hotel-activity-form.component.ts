@@ -1,15 +1,19 @@
 import { Component, OnInit } from '@angular/core';
+import { FormAdminComponent } from 'src/app/components/shared/models/form-admin/form-admin.component';
+import { formAdminTemplate } from 'src/app/components/shared/models/form-admin/template';
+import { hotelActivityForm } from 'src/app/fields/hotelActivity';
+import { AppConfigService } from 'src/app/services/app-config.service';
 
 @Component({
   selector: 'app-hotel-activity-form',
-  templateUrl: './hotel-activity-form.component.html',
-  styleUrls: ['./hotel-activity-form.component.scss']
+  template: '<div class="m-3">'+formAdminTemplate+"</div>",
+  styles: ['']
 })
-export class HotelActivityFormComponent implements OnInit {
+export class HotelActivityFormComponent extends FormAdminComponent implements OnInit {
 
-  constructor() { }
+  constructor(protected override appConfig:AppConfigService) { super(appConfig) }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { this.init('hotelActivity', hotelActivityForm); }
+
 
 }

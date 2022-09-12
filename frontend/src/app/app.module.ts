@@ -47,11 +47,10 @@ import { StringArrayComponent } from './components/shared/form/custom-fields/str
 import { CustomFieldComponent } from './components/shared/form/custom-fields/model/custom-field.component';
 import { TimePickerComponent } from './components/shared/form/custom-fields/date-time-picker/time-picker/time-picker.component';
 import { ItemPickerComponent } from './components/shared/form/custom-fields/item-picker/item-picker.component';
-import { EmpresaListComponent } from './components/shared/form/custom-fields/item-picker/list/lists/empresas/empresa-list.component';
 import { ItemListComponent } from './components/shared/form/custom-fields/item-picker/list/item-list.component';
 import { ItemFormComponent } from './components/shared/form/custom-fields/item-picker/form/item-form.component';
 import { TableAdminComponent } from './components/shared/models/table-admin/table-admin.component';
-import { ModelItemListComponent } from './components/shared/form/custom-fields/item-picker/list/lists/model/model-item-list.component';
+
 import { DatePipe } from '@angular/common';
 import { ReservasDisplayComponent } from './components/sections/reservas/display/reservas-display.component';
 
@@ -67,6 +66,9 @@ import { PassengersListComponent } from './components/shared/form/custom-fields/
 import { ActivitiesListComponent } from './components/shared/display/activities-list/activities-list.component';
 import { ActivitiesListFormAdminComponent } from './components/shared/form/custom-fields/activities-list-form-admin/activities-list-form-admin.component';
 import { NewReservaActivityComponent } from './components/sections/reservas/form/activities/new-activity/new-reserva-activity.component';
+import { RoomsListComponent } from './components/shared/form/custom-fields/rooms-list/rooms-list.component';
+import { RoomListPopUpComponent } from './components/shared/form/custom-fields/rooms-list/room-list-pop-up/room-list-pop-up.component';
+import { RoomPipe } from './pipes/room.pipe';
 
 
 
@@ -113,11 +115,9 @@ import { NewReservaActivityComponent } from './components/sections/reservas/form
     CustomFieldComponent,
     TimePickerComponent,
     ItemPickerComponent,
-    EmpresaListComponent,
     ItemListComponent,
     ItemFormComponent,
     TableAdminComponent,
-    ModelItemListComponent,
     ReservasDisplayComponent,
     TourActivityDisplayComponent,
     HotelActivityDisplayComponent,
@@ -131,6 +131,9 @@ import { NewReservaActivityComponent } from './components/sections/reservas/form
     ActivitiesListComponent,
     ActivitiesListFormAdminComponent,
     NewReservaActivityComponent,
+    RoomsListComponent,
+    RoomListPopUpComponent,
+    RoomPipe,
 
   ],
   imports: [

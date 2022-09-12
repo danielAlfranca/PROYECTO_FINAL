@@ -124,7 +124,7 @@
             null, // time_end,
             [
                 $hotel[0], //  hotel id
-                ['1'=>1] // habitaciones
+                [[1,1]] // habitaciones
             ]
 
             ];

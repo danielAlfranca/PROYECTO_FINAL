@@ -8,8 +8,8 @@ import { CustomFieldComponent } from '../model/custom-field.component';
   selector: 'app-item-picker',
   template: `
     <div class="input-group">
-      <input type="text" class="form-control" disabled [value]="renderedValue">
-      <button class="btn btn-warning"  type="button" (click)="open()"><i class=" bi bi-plus h-3"></i></button>
+      <input type="text" disabled class="text-center form-control bg-white" [value]="renderedValue">
+      <span class="input-group-text pointer" (click)="open()"><i class=" bi bi-plus h-3"></i></span>
     </div>
   `,
   styles: ['']

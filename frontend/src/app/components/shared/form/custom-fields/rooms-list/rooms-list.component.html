@@ -1,0 +1,8 @@
+
+<div class="form-group ">
+    <div class="input-group mb-3">        
+        <input type="text" disabled class="text-center form-control bg-white" placeholder="Anade una habitacion" value="{{value.length ? (value | room_string:true):'' }}" >
+        <span class="input-group-text pointer"   (click)="openRooms()" ><i class="bi bi-plus"></i></span>
+    </div>   
+</div>
+

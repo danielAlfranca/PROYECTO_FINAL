@@ -7,6 +7,7 @@ import { ReservaFormComponent } from "../components/sections/reservas/form/reser
 import { NewReservaActivityComponent } from "../components/sections/reservas/form/activities/new-activity/new-reserva-activity.component";
 import { TourActivityFormComponent } from "../components/sections/reservas/form/activities/tour/tour-activity-form.component";
 import { HotelActivityFormComponent } from "../components/sections/reservas/form/activities/hotel/hotel-activity-form.component";
+import { RoomListPopUpComponent } from "../components/shared/form/custom-fields/rooms-list/room-list-pop-up/room-list-pop-up.component";
 
 
 export const reservasRoutes = [
@@ -77,6 +78,15 @@ export const reservasRoutes = [
         
     },
 
+    {
+        path: 'rooms-list', component: RoomListPopUpComponent, outlet:'popUp-1', data: {
+
+            title: 'Lista de habitaciones',
+            icon: 'bi bi-home',
+            size:'modal'           
+        }
+        
+    },
 
 
 
