@@ -32,18 +32,7 @@ export class ReservaConfig extends DataConfig{
 
         has_hotels:(obj:any)=>this.has_activity(obj,2),
 
-        has_traslados:(obj:any)=>this.has_activity(obj,3),
-
-        agent_type_name: (obj:any) => {
-
-            const agentType = this.getValue(obj,'provider_type');
-
-            switch (true) {
-                case agentType == 1: return 'empresa';
-                case agentType == 2: return 'trabajador';
-                default: return 'false'
-            }
-        },
+        has_traslados:(obj:any)=>this.has_activity(obj,3),       
 
         date_start:(obj:any)=>  this.datePipe.transform(this.getByPath(obj,this.getKey('date_start') ), 'dd/MM/yy'),
         
@@ -94,17 +83,14 @@ export class ReservaConfig extends DataConfig{
 
     private get_provider_name(obj:any){
 
-        const   agentID = this.getValue(obj,'provider'),
-                agentTypeName= this.getValue(obj,'agent_type_name');
+        const   agentID = this.getValue(obj,'provider_id');
 
         
         switch (true) {
 
             case agentID==2:return 'cliente propio';
-            case agentTypeName=='empresa': return this.getRef('empresa',agentID,'nombre','agent');
-            case agentTypeName=='trabajador': return this.getRef('trabajador',agentID,'nombre_completo','agent');
-                 
-            default: return '-';
+                            
+            default: return this.getRef('empresa',agentID,'nombre','agent');
         }        
     }
 

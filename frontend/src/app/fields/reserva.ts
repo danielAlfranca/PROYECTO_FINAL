@@ -24,9 +24,9 @@ export const reservaForm = [ // datos cliente
     },
     {
       title:'Proveedor',
-      name:'provider',
+      name:'provider_id',
       input:'itemPicker',
-      options:{type:'empresa'}
+      options:{listType:'empresa',propertyForDisplay:'provider_name'}
     },
 
 ] as FormItem[];
@@ -60,9 +60,6 @@ export const reservaForm2 = [ // datos paquete
 
 ]as FormItem[];
 
-export const reservaForm3 = [
- ];
-
 export const reservaTable = {
 
   title:'Reservas',
@@ -83,15 +80,12 @@ export const reservaTable = {
       title:'Fechas',
       sort:'date_start'
     },
-    { 
-      title:'Precio',
-    },
-    { 
+   { 
       title:'Proveedor',
     }
   ],
   search:[
 
-    'name','surname', 'destination', 'date_start', 'date_end'
+    'name','surname', 'destination', 'date_start', 'date_end', 'provider_name'
   ]
 };

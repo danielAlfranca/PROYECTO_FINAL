@@ -15,7 +15,7 @@
         <ng-template let-data="data" #hotelActivity>
             <tr (click)="display(data,false,'hotelActivity')" class="pointer">
                 <td>{{data | show:'hotelActivity':'hotel_name'}} </td>
-                <td>{{data | show:'hotelActivity':'rooms_list'}} </td>
+                <td>{{data | show:'hotelActivity':'rooms' | room_string:true}} </td>
                 <td>
                     <i class="bi bi-chevron-right me-2"></i> {{ data | show:'hotelActivity':'date_start'}}  <br> 
                     <i class="bi bi-chevron-left me-2"></i> {{ data | show:'hotelActivity':'date_end' }} 

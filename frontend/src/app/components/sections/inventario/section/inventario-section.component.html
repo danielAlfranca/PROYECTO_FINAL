@@ -2,24 +2,36 @@
 
     <ng-template let-data="data" #empresas>
         <tr (click)="display(data,false,'empresa')" class="pointer">
-            <td>{{data | show:'empresa':'nombre'}} </td>
+            <td>
+                
+                {{data | show:'empresa':'nombre'}} 
+                <div>
+                    <small class="text-secondary"><i class="bi bi-telephone me-2"></i> {{data | show:'empresa':'lista_telefonos'}}</small><br>
+                    <small class="text-secondary"><i class="bi bi-envelope me-2"></i> {{data | show:'empresa':'lista_emails'}} </small>
+                </div>
+            
+            </td>
             <td>{{data | show:'empresa':'documento'}} </td>
             <td>{{data | show:'empresa':'direccion'}} </td>
             <td> 
-                <div><i class="bi bi-telephone me-2"></i> {{data | show:'empresa':'lista_telefonos'}}</div>
-                <div><i class="bi bi-envelope me-2"></i> {{data | show:'empresa':'lista_emails'}} </div>  
+             
             </td>
         </tr>
     </ng-template>
 
     <ng-template let-data="data" #trabajadores>
         <tr (click)="display(data,false,'trabajador')" class="pointer">
-            <td>{{data | show:'trabajador':'nombre_completo'}} </td>
+            <td>
+                {{data | show:'trabajador':'nombre_completo'}} 
+                <div>
+                    <small class="text-secondary"><i class="bi bi-telephone me-2"></i> {{data | show:'trabajador':'lista_telefonos'}}</small><br>
+                    <small class="text-secondary"><i class="bi bi-envelope me-2"></i> {{data | show:'trabajador':'lista_emails'}} </small>
+                </div>           
+            </td>
             <td>{{data | show:'trabajador':'documento'}} </td>
             <td>{{data | show:'trabajador':'tipo'}} <small><em>({{data | show:'trabajador':'regimen'}} ) </em></small></td>
             <td> 
-                <div><i class="bi bi-telephone me-2"></i> {{data | show:'trabajador':'lista_telefonos'}}</div>
-                <div><i class="bi bi-envelope me-2"></i> {{data | show:'trabajador':'lista_emails'}} </div>  
+                  
             </td>         
         </tr>
     </ng-template>
@@ -34,12 +46,18 @@
 
     <ng-template let-data="data" #hoteles>
         <tr (click)="display(data,false,'hotel')" class="pointer">
-            <td>{{data | show:'hotel':'nombre'}} </td>
+            <td>
+                {{data | show:'hotel':'nombre'}} 
+                <div>
+                    <small class="text-secondary"><i class="bi bi-telephone me-2"></i> {{data | show:'hotel':'lista_telefonos'}}</small><br>
+                    <small class="text-secondary"><i class="bi bi-envelope me-2"></i> {{data | show:'hotel':'lista_emails'}} </small>
+                </div>
+            
+            </td>
             <td>{{data | show:'hotel':'tipo_categoria'}} </td>
             <td>{{data | show:'hotel':'direccion'}} </td>
             <td> 
-                <div><i class="bi bi-telephone me-2"></i> {{data | show:'hotel':'lista_telefonos'}}</div>
-                <div><i class="bi bi-envelope me-2"></i> {{data | show:'hotel':'lista_emails'}} </div>  
+             
             </td>
             <td>{{data | show:'hotel':'propietario_nombre'}} </td>
         </tr>

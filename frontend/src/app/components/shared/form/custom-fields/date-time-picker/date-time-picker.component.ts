@@ -23,7 +23,7 @@ export class DateTimePickerComponent extends CustomFieldComponent implements OnC
 
   constructor() { super(); }  
 
-  ngOnChanges(changes: SimpleChanges): void { this.update(); console.log(this.time)}
+  ngOnChanges(changes: SimpleChanges): void { this.update(); console.log(this.value)}
 
   changeDate(date?:string){
 
@@ -37,7 +37,7 @@ export class DateTimePickerComponent extends CustomFieldComponent implements OnC
 
   changeTime(time?:string){
 
-    this.time = time||'';
+    this.time = time ||'';
 
     console.log(this.time)
 

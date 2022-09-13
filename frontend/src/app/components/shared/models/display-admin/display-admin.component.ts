@@ -29,9 +29,9 @@ export class DisplayAdminComponent  {
     this.updateDisplayData(this.item)
   }
 
-  edit(){
+  edit(data?:any){
 
-    this.appConfig.canvas.open(this.editPath, {formItem:this.item}).pipe(take(1)).subscribe(response=>{
+    this.appConfig.canvas.open(this.editPath, {formItem:this.item, editData:data}).pipe(take(1)).subscribe(response=>{
 
       if(response) {this.item = response; this.updateDisplayData(response) }
 

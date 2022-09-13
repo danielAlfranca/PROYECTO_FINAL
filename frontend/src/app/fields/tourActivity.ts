@@ -6,7 +6,7 @@ export const tourActivityForm = [
       title:'Tour',
       name:'tour_id',
       input:'itemPicker',
-      options:{type:'tour'}
+      options:{listType:'tour',propertyForDisplay:'tour_name'}
     },
     {
       title:'Fecha Inicio',

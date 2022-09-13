@@ -30,9 +30,7 @@ class Reserva extends Section{
 
         'pax'=>['private'=>"6.3", 'validations'=>['is_string'], 'required'=>true, 'default'=>[0,0,0]], // falta validacion
 
-        'provider'=>['private'=>"6.4.0", 'validations'=>['is_string'], 'required'=>true, 'default'=>null],
-
-        'provider_type'=>['private'=>"6.4.1", 'validations'=>['is_string'], 'required'=>true, 'default'=>null],
+        'provider_id'=>['private'=>"6.4", 'validations'=>[], 'required'=>true, 'default'=>null],       
 
         'activities'=>['private'=>"6.5", 'validations'=>['is_string'], 'required'=>true, 'default'=>['1'=>[],'2'=>[],'3'=>[]]] ,
 

@@ -23,12 +23,9 @@
             $end_date = date("Y-m-d", strtotime($start_date. ' + '.strval($span) .' days'));
             $pasajeros = [randomPick(buildIdLisT(1, 5)), randomPick([0,0,0,0,1,2]), randomPick([0,0,0,0,0,1])];
             
-            $type = randomPick([0,0,1,1,2]);
-            $agent = randomPick([[2],$empresas,$trabajadores][$type]); 
+            $type = randomPick([0,0,1,1,0,1]);
+            $agent = randomPick([[2],$empresas][$type]); 
             // 2 es la propia agencia osea una empresa
-
-            if($type==0 || $type==1) $agent = [$agent, 1];
-            if($type==2) $agent = [$agent, 2];
 
             $data = [
 

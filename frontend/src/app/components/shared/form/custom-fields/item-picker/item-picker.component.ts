@@ -1,4 +1,4 @@
-import { Component, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { take } from 'rxjs';
 import { DataTypes } from 'src/app/interfaces/types/data-config';
 import { AppConfigService } from 'src/app/services/app-config.service';
@@ -8,44 +8,46 @@ import { CustomFieldComponent } from '../model/custom-field.component';
   selector: 'app-item-picker',
   template: `
     <div class="input-group">
-      <input type="text" disabled class="text-center form-control bg-white" [value]="renderedValue">
+      <input type="text" disabled class="text-center form-control bg-white" value="{{item | show:type:propertyForDisplay}}">
       <span class="input-group-text pointer" (click)="open()"><i class=" bi bi-plus h-3"></i></span>
     </div>
   `,
   styles: ['']
 })
 
-export class ItemPickerComponent extends CustomFieldComponent implements OnChanges {
+export class ItemPickerComponent extends CustomFieldComponent implements OnChanges, OnInit {
 
-  type!:DataTypes;
+  @Input() item:any;
+  @Input() type!:DataTypes;
+  listType!:DataTypes;
   propertyForDisplay!:string
-  renderedValue!:string;
 
   constructor(private appConfig:AppConfigService) { super(); }
 
-  ngOnChanges(changes:SimpleChanges): void{
-      
-    this.type = this.options.type;
-    this.propertyForDisplay = this.options.propertForDisplay || 'nombre';
-    this.renderedValue = this.getRenderedValue();
+  ngOnInit(): void {
+    
+    this.listType = this.options.listType;
+    this.propertyForDisplay = this.options.propertyForDisplay;
   }
+
+  ngOnChanges(changes:SimpleChanges): void{ this.item = [...(this.item||[])]; console.log('cambio',this.item)}
 
   open(){
 
-    this.appConfig.canvas.open('pop-up-list', {selected:this.value, type:this.type}).pipe(take(1)).subscribe(response=>{
+    this.appConfig.canvas.open('pop-up-list', {selected:this.value, type:this.listType}).pipe(take(1)).subscribe(response=>{
 
-      if(response){ this.onChange(response);  }
+      if(response){ console.log('response',response); this.onChange(response);  }
 
     })
   }
 
-  getRenderedValue(){
+  /* getRenderedValue(){
 
     if(!this.value) return '';
     
     return this.appConfig.dataConfig.getValue(this.value,this.propertyForDisplay,this.type);
 
   }
-
+ */
 
 }

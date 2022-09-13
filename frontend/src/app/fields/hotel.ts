@@ -32,7 +32,7 @@ export const hotelForm =  [
       title:'Propietario',
       name:'propietario',
       input:'itemPicker',
-      options:{type:'empresa'}
+      options:{listType:'empresa',propertyForDisplay:'propietario_nombre'}
     }
 
   ] as FormItem[];

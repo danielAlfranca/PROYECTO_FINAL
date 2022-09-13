@@ -59,8 +59,14 @@ export class InputComponent implements OnChanges, AfterViewInit {
 
     this.values[index] = value;
 
-    this.change.emit(this.values);
+    this.change.emit(this.parseUpdate(this.values));
     
+  }
+
+  parseUpdate(values:any[]){
+
+    return values.reduce((obj:any,val:any, index:number)=>({...obj,[this.names[index]]:val}),{})
+
   }
 
 }

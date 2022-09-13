@@ -8,23 +8,23 @@ class TourActivity extends Activity{
 
     public static $indexes = [
 
-        'id'=>['private'=>0, 'validations'=>['id_valid'], 'required'=>true], 
+        'id'=>['private'=>0, 'validations'=>[], 'required'=>true], 
 
-        'activity_index'=>['private'=>1, 'validations'=>['activity_index_valid'], 'required'=>true],
+        'activity_index'=>['private'=>1, 'validations'=>[], 'required'=>true],
 
-        'activity_type'=>['private'=>2, 'validations'=>['activity_type_valid'], 'required'=>true],
+        'activity_type'=>['private'=>2, 'validations'=>[], 'required'=>true],
 
-        'agent'=>['private'=>3, 'validations'=>['agent_valid'], 'required'=>true],
+        'agent'=>['private'=>3, 'validations'=>[], 'required'=>true],
 
-        'date_start'=>['private'=>4, 'validations'=>['date_valid'], 'required'=>false],
+        'date_start'=>['private'=>4, 'validations'=>[], 'required'=>false],
 
-        'date_end'=>['private'=>5, 'validations'=>['date_valid'], 'required'=>false],
+        'date_end'=>['private'=>5, 'validations'=>[], 'required'=>false],
 
-        'time_start'=>['private'=>6, 'validations'=>['time_valid'], 'required'=>true],
+        'time_start'=>['private'=>6, 'validations'=>[], 'required'=>true],
 
-        'time_end'=>['private'=>7, 'validations'=>['time_valid'], 'required'=>true],
+        'time_end'=>['private'=>7, 'validations'=>[], 'required'=>true],
 
-        'data'=>['private'=>8, 'validations'=>[], 'required'=>true],
+        'data'=>['private'=>8, 'validations'=>[], 'required'=>true, 'default'=>[]],
 
         'tour_id'=>['private'=>"8.0", 'validations'=>['is_number'], 'required'=>true], // falta
 

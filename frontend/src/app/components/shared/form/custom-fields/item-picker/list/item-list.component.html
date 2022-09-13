@@ -22,6 +22,21 @@
              </tr>
         </ng-template>      
     </app-table>
+
+    <app-table *ngSwitchCase="'hotel'" [config]="tableConfig" (buttonClick)="form()">
+        <ng-template let-data="data" #hoteles>
+            <tr (click)="display(data,false,'hotel')" class="pointer">
+                <td>{{data | show:'hotel':'nombre'}} </td>
+                <td>{{data | show:'hotel':'tipo_categoria'}} </td>
+                <td>{{data | show:'hotel':'direccion'}} </td>
+                <td> 
+                    <div><i class="bi bi-telephone me-2"></i> {{data | show:'hotel':'lista_telefonos'}}</div>
+                    <div><i class="bi bi-envelope me-2"></i> {{data | show:'hotel':'lista_emails'}} </div>  
+                </td>
+                <td>{{data | show:'hotel':'propietario_nombre'}} </td>
+            </tr>
+        </ng-template>   
+    </app-table>
    
 </div>
 

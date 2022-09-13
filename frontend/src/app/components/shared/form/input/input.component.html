@@ -33,7 +33,7 @@
 
 <ng-template let-name="name" let-value="value" let-title="title" let-options="options"  #itemPicker>
     <label>{{title}}</label>
-    <app-item-picker [value]="value[0]" [title]="title" [options]="options" (inputChange)="update($event)"></app-item-picker>
+    <app-item-picker [value]="value[0]" [title]="title" [options]="options" (inputChange)="update($event)" [type]="type" [item]="item"></app-item-picker>
 </ng-template>
 
 <ng-template let-name="name" let-value="value" let-title="title" let-options="options"  #dateTime>

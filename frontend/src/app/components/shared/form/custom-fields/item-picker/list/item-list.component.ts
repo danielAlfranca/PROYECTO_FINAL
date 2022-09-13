@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { take } from 'rxjs';
 import { TableAdminComponent } from 'src/app/components/shared/models/table-admin/table-admin.component';
 import { empresaTable } from 'src/app/fields/empresa';
+import { hotelTable } from 'src/app/fields/hotel';
 import { tourTable } from 'src/app/fields/tour';
 import { TableSection } from 'src/app/interfaces/table';
 import { DataTypes } from 'src/app/interfaces/types/data-config';
@@ -32,7 +33,8 @@ export class ItemListComponent extends TableAdminComponent implements OnInit {
 
   protected override display(item: any, data?: any, section?: string | undefined): void {
 
-    this.appConfig.canvas.close(item);
+    const id = this.appConfig.dataConfig.getValue(item, 'id',this.type);
+    this.appConfig.canvas.close(id);
   }
 
   protected override form(): void {
@@ -50,6 +52,7 @@ export class ItemListComponent extends TableAdminComponent implements OnInit {
     switch (type) {
       case 'empresa':return empresaTable;
       case 'tour':return tourTable;
+      case 'hotel':return hotelTable;
       default: return empresaTable; 
     }
 

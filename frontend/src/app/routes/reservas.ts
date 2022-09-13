@@ -88,6 +88,32 @@ export const reservasRoutes = [
         
     },
 
+    {
+        path: 'editar-reserva', component: ReservaFormComponent, outlet:'aside-2', data: {
 
+            title: 'Editar Reserva',
+            icon: 'bi bi-pen'
+        },        
+        
+    },
+
+    {
+        path: 'editar-tourActivity', component: TourActivityFormComponent, outlet:'aside-3', data: {
+
+            title: 'Editar Tour',
+            icon: 'bi bi-pen'
+        },        
+        
+    },
+
+    {
+        path: 'editar-hotelActivity', component: HotelActivityFormComponent, outlet:'aside-3', data: {
+
+            title: 'Editar Hotel',
+            icon: 'bi bi-pen'
+        },        
+        
+    },
+    
 
 ];

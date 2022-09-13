@@ -59,7 +59,7 @@ export class TimePickerComponent implements OnChanges, OnInit {
   }
 
   getMinutes(){
-
+ 
     if(!this.time) return ''
 
     return (this.time.split(':')[1] || '').trim()

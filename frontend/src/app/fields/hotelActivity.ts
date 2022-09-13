@@ -5,7 +5,7 @@ export const hotelActivityForm = [
     title:'Hotel',
     name:'hotel_id',
     input:'itemPicker',
-    options:{type:'hotel'}
+    options:{listType:'hotel',propertyForDisplay:'hotel_name'}
   },
   {
     title:'Fecha Inicio',
@@ -21,7 +21,8 @@ export const hotelActivityForm = [
     title:'Habitaciones',
     name:'rooms',
     input:'roomsList'
-  },
+  }
+  
 ] as FormItem[];
 
 export const hotelActivityTable = {

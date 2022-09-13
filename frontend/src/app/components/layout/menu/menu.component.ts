@@ -29,7 +29,6 @@ export class MenuComponent implements OnInit {
 
     {icon:'bi bi-bookmark', title:'reservas'},
     {icon:'bi bi-truck', title:'salidas'},
-    {icon:'bi bi-credit-card', title:'pagos'},
     {icon:'bi bi-archive', title:'inventario'}
 
   ];

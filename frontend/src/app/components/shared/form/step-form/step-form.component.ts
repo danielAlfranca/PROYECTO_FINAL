@@ -26,7 +26,6 @@ export class StepFormComponent implements OnInit, AfterViewInit, OnDestroy {
   private stepper!: Stepper;
   private domStepper!: HTMLElement;
 
-
   constructor(private appConfig:AppConfigService) { }
 
   ngOnInit(): void {    

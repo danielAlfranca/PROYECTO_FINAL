@@ -53,15 +53,15 @@ export class FormComponent implements AfterContentInit{
       
       });
 
-      this.update(true);  
+      this.update(true,data);  
    }
   }
 
-  update(notificate?:boolean){
+  update(notificate?:boolean, value?:any){
 
     this.fields.forEach(field=>{
 
-      console.log(field.name, this.type);
+      console.log(field.name, this.type, value);
 
       field.valid = this.appConfig.dataConfig.validateProperty(this.item,field.name, this.type);
       
