@@ -31,7 +31,7 @@ class AppData{
         $reservas = ["reserva"=>$this->prepare_reservas($filteredReservas)];
         $salidas = ["salida"=>$this->prepare_salidas($filteredSalidas)];
        
-        return array_merge($inventario, $reservas);
+        return array_merge($inventario, $reservas, $salidas);
     }
 
     public function prepare_sections_inventario($inventario){

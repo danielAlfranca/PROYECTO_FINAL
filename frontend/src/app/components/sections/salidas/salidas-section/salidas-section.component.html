@@ -1,1 +1,23 @@
-<h1>salidas-section works!</h1>
+<app-table [config]="tableConfig" (buttonClick)="form()">
+
+    <ng-template let-data="data" #reservas>
+        <tr (click)="display(data,false)" class="pointer">
+            <td>                 
+                {{ data | show:'salida':'tour_name' }} <br>           
+            </td>
+            <td>
+                <i class="bi bi-chevron-right me-2"></i> {{ data | show:'salida':'date_start'}}  <br> 
+                <i class="bi bi-chevron-left me-2"></i> {{ data | show:'salida':'date_end' }} 
+            </td>
+            <td>                 
+                {{ data | show:'salida':'operator_name' }} <br>           
+            </td>
+            <td>                 
+                {{ data | show:'salida':'passengers_total_list' }} <br>           
+            </td>
+        </tr>
+    </ng-template>
+
+   
+
+</app-table>

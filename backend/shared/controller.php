@@ -15,6 +15,9 @@ require '../sections/trabajador.php';
 require '../sections/reservas.php';
 require '../sections/tourActivity.php';
 require '../sections/hotelActivity.php';
+require '../sections/salidas.php';
+require '../sections/passenger.php';
+
 
 
 if(strcasecmp($_SERVER['REQUEST_METHOD'], 'POST') != 0){

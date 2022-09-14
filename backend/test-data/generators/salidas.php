@@ -16,11 +16,11 @@
 ); */
 
 
-    function build_salidas($reservas){        
+    function build_salidas($reservas, $empresas, $trabajadores){        
         
        $salidas = []; $resultado = [];
 
-       foreach ($reserva as $reserva) {
+       foreach ($reservas as $reserva) {
 
             $data = json_decode($reserva[6] );
             
@@ -31,93 +31,77 @@
 
                 // date_start(0)--date_end(1)--time_start(2)--time_end(3)--tour-id(4)
            
-                $key = $e[4] . "--".$e[5] . "--".$e[6] . "--".$e[7] . "--".$e[8][0];
+                $key = $tour[4] . "--".$tour[5] . "--".$tour[6] . "--".$tour[7] . "--".$tour[8][0];
 
-                // reservaid (0) pax (1)
+                //[ reservaid (0),  tourid (1), pax (2)]
 
-                $value = [$e[0],$e[8][1]];
+                $value = [$reserva[0],$tour[0],$tour[8][1]];
 
                 if (!array_key_exists($key, $salidas )) {
                     
-                    $salidas[$key]=[$idPax];
+                    $salidas[$key]=[$value];
 
                 }else{
 
-                    $salidas[$key][] = $idPax;
+                    $salidas[$key][] = $value;
                 }
-
-
             
             }
        }
-       $toursDates = array_map(function($reserva){
 
-            $data = json_decode($reserva[6] );
-           
-            $activities = $data[5];
-            $tours = $activities->{'1'};
-            
-
-            return array_map(fn($e)=>[[$key]=>[$value]],$tours);
-
-       },$reservas);
-
-       foreach ($toursDates as $dates) {
-
-            foreach ($dates as $salidaStr=>$idPax) {
-
-                var_dump($salidaStr);
-
-                if (!array_key_exists($salidaStr, $salidas )) {
-                    
-                    $salidas[$salidaStr]=[$idPax];
-
-                }else{
-
-                    $salidas[$salidaStr][] = $idPax;
-                }
-                
-            }
-       }
 
        foreach ($salidas as $key => $value) {
 
-            $arr=explode('--', $key);       
+        $arr=explode('--', $key);  
+        $operator =  build_operator_activity($empresas); 
+        $guiado = build_guiado_activities($trabajadores,$empresas);
+        $activities = [ "1"=>$operator, "2"=>$guiado];
 
-            $data = [
+        $data = [
+            $arr[4] , // 0 tour id
+            $value , // 1 pax
+            $activities //  2 activities
+        ];
+        
+        $resultado[] =[null,2,$arr[0],$arr[1],$arr[2],$arr[3], json_encode($data)];
 
-                $arr[4], // tour id - 0,
-                $value[0], //id reserva
-                $value[1], //pax
-            ];
-            $resultado[] =[null,2,$arr[0],$arr[1],$arr[2],$arr[3], json_encode($data)];
-
-       }
-
-       
-        return $resultado;
-    
     }
 
+   
+    return $resultado;
+    }
+       /*  group_id INT,
+    activity_index TINYINT NOT NULL,
+    activity_type TINYINT NOT NULL,
+    agent INT NOT NULL,
+    date_start DATE NOT NULL,
+    date_end DATE NOT NULL,
+    time_start TIME,
+    time_end TIME,
+    data JSON,
+    PRIMARY KEY (group_id,activity_index,activity_type),
+    FOREIGN KEY (group_id) REFERENCES activity_group(id),
+    FOREIGN KEY (agent) REFERENCES agents(id) */
+
  
-    function build_operator_activities($span, $start, $id, $tours, $pax){
+    function build_operator_activity($empresas){ 
 
-       
+        return [
 
- 
-
-        return $toursList;
+            rand(2,$empresas+1)
+        ];
     }
 
-    function build_guiado_activities($start, $end, $id, $hotels, $pax){
+    function build_guiado_activities($trabajadores,$empresas){
 
+        return [
+       
+            rand($empresas+2, $trabajadores+$empresas+2)
+        ];
       
     }
 
-    function build_passengers(){
-
-
-    }
+ 
 
 
 

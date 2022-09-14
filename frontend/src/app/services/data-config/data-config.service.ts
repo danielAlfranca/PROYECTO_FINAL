@@ -6,6 +6,8 @@ import { TrabajadorConfig } from './types/trabajador.config';
 import { ReservaConfig } from './types/reserva.config';
 import { TourActivityConfig } from './types/tourActivity.config';
 import { HotelActivityConfig } from './types/hotelActivity.config';
+import { SalidaConfig } from './types/salida.config';
+import { PassengerConfig } from './types/passenger.config';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +17,7 @@ export class DataConfigService {
 
   private types:any =  {
 
+    salida:this.salida,
     empresa:this.empresa,
     tour:this.tour,
     hotel:this.hotel,
@@ -22,6 +25,7 @@ export class DataConfigService {
     reserva:this.reserva,
     tourActivity:this.tourActivity,
     hotelActivity:this.hotelActivity,
+    passenger:this.passenger,
     
   };
 
@@ -32,7 +36,9 @@ export class DataConfigService {
     private trabajador:TrabajadorConfig,
     private reserva:ReservaConfig,
     private tourActivity:TourActivityConfig,
-    private hotelActivity:HotelActivityConfig
+    private hotelActivity:HotelActivityConfig,
+    private salida:SalidaConfig,
+    private passenger:PassengerConfig
   ) {}
 
 

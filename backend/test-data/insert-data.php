@@ -24,7 +24,7 @@
     $tours = array_filter($inventory, fn($e)=>$e[2]==4);
     $hotels = array_filter($inventory, fn($e)=>$e[2]==3);
     $reservas = build_reservas($reservas, [ $empresas , $trabajadores , $reservasAgents ], $names, $last_names, $emails, $tours, $hotels);
-    $salidas = build_salidas($reservas);
+    $salidas = build_salidas($reservas,$empresas,$trabajadores);
 
     $user='root';
     $host='localhost';
@@ -65,7 +65,7 @@
         }
 
         foreach ($salidas as $item) {
-     
+
             $statement = $connection->prepare("INSERT INTO activity_group( type, date_start, date_end, data)  VALUES(:type, :date_start, :date_end, :data)");
             $statement->bindParam(":type", $item[1]);
             $statement->bindParam(":date_start", $item[2]);
