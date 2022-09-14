@@ -10,6 +10,7 @@
     include_once './generators/inventory.php';
     include_once './generators/agents.php';
     include_once './generators/reservas.php';
+    include_once './generators/salidas.php';
 
     include_once '../shared/database.php';    
 
@@ -23,6 +24,7 @@
     $tours = array_filter($inventory, fn($e)=>$e[2]==4);
     $hotels = array_filter($inventory, fn($e)=>$e[2]==3);
     $reservas = build_reservas($reservas, [ $empresas , $trabajadores , $reservasAgents ], $names, $last_names, $emails, $tours, $hotels);
+    $salidas = build_salidas($reservas);
 
     $user='root';
     $host='localhost';
@@ -52,6 +54,17 @@
         }
 
         foreach ($reservas as $item) {
+     
+            $statement = $connection->prepare("INSERT INTO activity_group( type, date_start, date_end, data)  VALUES(:type, :date_start, :date_end, :data)");
+            $statement->bindParam(":type", $item[1]);
+            $statement->bindParam(":date_start", $item[2]);
+            $statement->bindParam(":date_end", $item[3]);
+            $statement->bindParam(":data", $item[6]);
+          
+            $statement->execute();            
+        }
+
+        foreach ($salidas as $item) {
      
             $statement = $connection->prepare("INSERT INTO activity_group( type, date_start, date_end, data)  VALUES(:type, :date_start, :date_end, :data)");
             $statement->bindParam(":type", $item[1]);

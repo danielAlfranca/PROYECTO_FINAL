@@ -38,6 +38,8 @@ export class InputComponent implements OnChanges, AfterViewInit {
     this.names ||= Array.isArray(this.field.name) ? this.field.name:[this.field.name];
 
     this.values = this.names.map(name=>this.appConfig.dataConfig.getValue(this.item,name,this.type) )
+
+    console.log(this.names);
     
     this.options = this.field.options || [];
 

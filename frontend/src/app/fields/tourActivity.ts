@@ -10,12 +10,12 @@ export const tourActivityForm = [
     },
     {
       title:'Fecha Inicio',
-      name:'date_start',
+      name:['date_start','time_start'],
       input:'dateTime'
     },
     {
       title:'Fecha Fin',
-      name:'date_end',
+      name:['date_end','time_end'],
       input:'dateTime'
     },
     {

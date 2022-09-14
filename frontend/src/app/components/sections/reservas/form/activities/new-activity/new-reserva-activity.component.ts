@@ -11,8 +11,8 @@ export class NewReservaActivityComponent {
 
   options = [
 
-    {name:'Tour', icono:'camera', path:'form-tour-activity', type:'tourActivity'},
-    {name:'Hotel', icono:'house', path:'form-hotel-activity', type:'hotelActivity'},
+    {name:'Tour', icono:'camera', path:'form-tourActivity-2', type:'tourActivity'},
+    {name:'Hotel', icono:'house', path:'form-hotel-Activity-2', type:'hotelActivity'},
   ]
   constructor(private appConfig:AppConfigService) { }
 

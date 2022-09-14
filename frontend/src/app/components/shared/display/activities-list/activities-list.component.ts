@@ -16,6 +16,7 @@ import { TableAdminComponent } from '../../models/table-admin/table-admin.compon
 export class ActivitiesListComponent extends TableAdminComponent implements OnChanges{
 
   @Input() override type!:DataTypes;
+  @Input() mode!:string;
   @Input() data!:any;
   @Output() activitiesUpdated = new EventEmitter();
 
@@ -25,9 +26,9 @@ export class ActivitiesListComponent extends TableAdminComponent implements OnCh
 
   ngOnChanges(): void {
 
-    this.configs ||= this.getConfig()
-    
-    this.init(this.getSectionsWithItems(this.configs),{hideSearchButton:true, sectionsStyle:'small'})    
+    this.configs ||= this.getConfig();
+
+    this.init(this.getSectionsWithItems(this.configs),{hideSearchButton:true, sectionsStyle:'small', hidePlusButton:this.mode=='display'})    
   }
 
   protected override  getData(section:ActivityTypes){
@@ -39,7 +40,7 @@ export class ActivitiesListComponent extends TableAdminComponent implements OnCh
 
   protected override form(data?:any, formName?:string){
 
-    this.appConfig.canvas.open('form-'+ this.type + '-activity', data).pipe(take(1)).subscribe((response:NewActivity)=>{
+    this.appConfig.canvas.open('form-activity-'+(formName||this.type) , {formItem:data}).pipe(take(1)).subscribe((response:NewActivity)=>{
       
       if(response) {
         
@@ -58,7 +59,7 @@ export class ActivitiesListComponent extends TableAdminComponent implements OnCh
   }
 
   private getConfig():any { 
-
+    
     switch (this.type) {
 
       case'reserva': return {
@@ -75,6 +76,18 @@ export class ActivitiesListComponent extends TableAdminComponent implements OnCh
     this.appConfig.dataConfig.getValue(this.data,'add_new_'+newActivity.type,this.type);
 
     return this.appConfig.dataConfig.getValue(this.data,'activities',this.type);
+  }
+
+  open(item:any, section?:string){
+
+    if(this.mode=='display'){
+
+      this.display(item, null, section);
+
+    }else{
+      console.log(item, section);
+      this.form(item,section);
+    }
   }
 
 }

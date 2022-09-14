@@ -87,15 +87,15 @@
             $date_end = date("Y-m-d", strtotime($date. ' + '.strval($duracion) .' days'));
             $toursList  [] = [
 
-                $id, // group_id 
-                $i +1, // activity_index
-                1, // activity_type - tour
-                1, // agent - de momento sin agente,
-                $date, // date_start,
-                $date_end, // date_end,
-                $data[1], // time_start,
-                $data[2], // time_end,
-                [
+                $id, // group_id 0
+                $i +1, // activity_index 1
+                1, // activity_type - tour 2
+                1, // agent - de momento sin agente, 3
+                $date, // date_start, 4
+                $date_end, // date_end 5,
+                $data[1], // time_start 6,
+                $data[2], // time_end 7,
+                [ // 8
                     $tour[0], //  tour id
                     $pax, //  passengers
                 ]

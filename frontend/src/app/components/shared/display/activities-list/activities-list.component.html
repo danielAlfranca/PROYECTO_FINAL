@@ -3,7 +3,7 @@
     <app-table *ngSwitchCase="'reserva'" [config]="tableConfig" (buttonClick)="form(null)">
 
         <ng-template let-data="data" #tourActivity>
-            <tr (click)="display(data,false,'tourActivity')" class="pointer">
+            <tr (click)="open(data,'tourActivity')" class="pointer">
                 <td>{{data | show:'tourActivity':'tour_name'}} </td>
                 <td>{{data | show:'tourActivity':'passengers_list'}} </td>
                 <td>
@@ -13,7 +13,7 @@
             </tr>
         </ng-template>
         <ng-template let-data="data" #hotelActivity>
-            <tr (click)="display(data,false,'hotelActivity')" class="pointer">
+            <tr (click)="open(data,'hotelActivity')" class="pointer">
                 <td>{{data | show:'hotelActivity':'hotel_name'}} </td>
                 <td>{{data | show:'hotelActivity':'rooms' | room_string:true}} </td>
                 <td>

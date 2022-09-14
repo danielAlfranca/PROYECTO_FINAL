@@ -59,11 +59,13 @@ export class FormComponent implements AfterContentInit{
 
   update(notificate?:boolean, value?:any){
 
+    let names;
+
     this.fields.forEach(field=>{
 
-      console.log(field.name, this.type, value);
+      names = Array.isArray(field.name) ? field.name:[field.name];
 
-      field.valid = this.appConfig.dataConfig.validateProperty(this.item,field.name, this.type);
+      field.valid = names.every(name=>this.validateField(name))
       
     });
 
@@ -81,6 +83,12 @@ export class FormComponent implements AfterContentInit{
   } 
 
   onSave(){   this.save.emit(this.item); }
+
+  validateField(name:string){
+
+    return this.appConfig.dataConfig.validateProperty(this.item,name, this.type);
+
+  }
 
  
 

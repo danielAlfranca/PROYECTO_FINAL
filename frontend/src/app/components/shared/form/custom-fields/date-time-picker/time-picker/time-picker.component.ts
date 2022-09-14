@@ -24,7 +24,7 @@ export class TimePickerComponent implements OnChanges, OnInit {
     this.createLists(); 
     this.hours = this.getHours();
     this.minutes = this.getMinutes();
-    console.log(this.hours, this.minutes)
+    console.log(this.hours, this.minutes, this.time)
   
   }
 

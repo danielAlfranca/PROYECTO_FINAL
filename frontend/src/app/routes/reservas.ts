@@ -53,7 +53,7 @@ export const reservasRoutes = [
         
     },
     {
-        path: 'form-reserva-activity', component: NewReservaActivityComponent, outlet:'aside-2', data: {
+        path: 'form-activity-reserva', component: NewReservaActivityComponent, outlet:'aside-3', data: {
 
             title: 'Nueva actividad',
             icon: 'bi bi-file-plus'
@@ -61,7 +61,7 @@ export const reservasRoutes = [
         
     },
     {
-        path: 'form-tour-activity', component: TourActivityFormComponent, outlet:'aside-3', data: {
+        path: 'form-activity-tourActivity', component: TourActivityFormComponent, outlet:'aside-3', data: {
 
             title: 'Nuevo Tour',
             icon: 'bi bi-file-plus'
@@ -70,7 +70,24 @@ export const reservasRoutes = [
     },
 
     {
-        path: 'form-hotel-activity', component: HotelActivityFormComponent, outlet:'aside-3', data: {
+        path: 'form-activity-hotelActivity', component: HotelActivityFormComponent, outlet:'aside-3', data: {
+
+            title: 'Nuevo Hotel',
+            icon: 'bi bi-file-plus'
+        },
+        
+    },
+    {
+        path: 'form-tourActivity-2', component: TourActivityFormComponent, outlet:'aside-4', data: {
+
+            title: 'Nuevo Tour',
+            icon: 'bi bi-file-plus'
+        },
+        
+    },
+
+    {
+        path: 'form-hotelActivity-2', component: HotelActivityFormComponent, outlet:'aside-4', data: {
 
             title: 'Nuevo Hotel',
             icon: 'bi bi-file-plus'

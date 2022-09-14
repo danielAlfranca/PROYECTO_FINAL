@@ -17,7 +17,7 @@
         $trabajadores = buildIdLisT($num_empresas+1,$num_empresas+$num_trabajadores+1);
         $empresasHoteleras = randomPick($empresas, 4 );
         $initTours = $trabajadores[count($trabajadores)-1]+1;
-        $tours = buildIdLisT($initTours,$initTours+16);
+        $tours = buildIdLisT($initTours,$initTours+8);
         $initHoteles = $tours[count($tours)-1]+1;
         $hoteles = buildIdLisT($initHoteles, $initHoteles+14);
         $initPaquetes = $hoteles[count($hoteles)-1]+1;

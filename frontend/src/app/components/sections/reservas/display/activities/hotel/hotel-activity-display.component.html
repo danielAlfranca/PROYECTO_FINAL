@@ -1,5 +1,5 @@
 <div class="p-4">
-    <app-card-display [editButton]="true" (edit)="edit()" [title]="title">   
+    <app-card-display (edit)="edit()" [title]="title">   
         <li app-data-item-display icon="calendar" title="Fechas">{{item | show:'hotelActivity':'full_dates'}}</li> 
         <li app-data-item-display icon="bookmark-star" title="Habitaciones">
             {{item | show:'hotelActivity':'rooms' | room_string: true }}

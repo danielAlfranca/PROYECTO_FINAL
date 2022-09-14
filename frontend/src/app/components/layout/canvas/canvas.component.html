@@ -3,7 +3,7 @@
 
     <aside [ngClass]="{'aside-hidden':!asideIsActive}">
         <div class="slider h-100 w-100 bg-light">
-            <div class="slider-inner slides-3 h-100" [ngClass]="{slide1:aside[0],slide2:aside[1],slide3:aside[2]}">
+            <div class="slider-inner slides-4 h-100" [ngClass]="{slide1:aside[0],slide2:aside[1],slide3:aside[2],slide4:aside[3]}">
                 <div class="slide h-100">
                     <app-header-canvas [config]="aside[0]" [isFirstRoute]="true"></app-header-canvas>
                     <router-outlet name="aside-1"></router-outlet>
@@ -15,6 +15,10 @@
                 <div class="slide h-100">
                     <app-header-canvas [config]="aside[2]"></app-header-canvas>
                     <router-outlet name="aside-3"></router-outlet>
+                </div>
+                <div class="slide h-100">
+                    <app-header-canvas [config]="aside[3]"></app-header-canvas>
+                    <router-outlet name="aside-4"></router-outlet>
                 </div>
             </div>
         </div>
