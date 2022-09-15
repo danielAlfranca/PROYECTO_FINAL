@@ -62,6 +62,7 @@ export class TableComponent implements OnChanges, AfterContentInit {
     this.rowTemplate = this.get_template();      
    
     this.updateEntries(this.data);    
+    
   }
 
 

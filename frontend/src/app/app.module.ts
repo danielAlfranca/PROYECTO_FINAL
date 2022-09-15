@@ -69,6 +69,14 @@ import { NewReservaActivityComponent } from './components/sections/reservas/form
 import { RoomsListComponent } from './components/shared/form/custom-fields/rooms-list/rooms-list.component';
 import { RoomListPopUpComponent } from './components/shared/form/custom-fields/rooms-list/room-list-pop-up/room-list-pop-up.component';
 import { RoomPipe } from './pipes/room.pipe';
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { SalidasCalendarComponent } from './components/sections/salidas/salidas-section/calendar/salidas-calendar.component';
+import { SalidasFormComponent } from './components/sections/salidas/form/salidas-form.component';
+import { SalidasDisplayComponent } from './components/sections/salidas/display/salidas-display.component';
+import { CalendarComponent } from './components/shared/calendar/calendar.component';
+import { CalendarAdminComponent } from './components/shared/models/calendar-admin/calendar-admin.component';
+
 
 
 
@@ -134,6 +142,11 @@ import { RoomPipe } from './pipes/room.pipe';
     RoomsListComponent,
     RoomListPopUpComponent,
     RoomPipe,
+    SalidasCalendarComponent,
+    SalidasFormComponent,
+    SalidasDisplayComponent,
+    CalendarComponent,
+    CalendarAdminComponent
 
   ],
   imports: [
@@ -145,6 +158,7 @@ import { RoomPipe } from './pipes/room.pipe';
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
+    CalendarModule.forRoot({ provide: DateAdapter, useFactory: adapterFactory }),
    
   ],
   providers: [DatePipe],

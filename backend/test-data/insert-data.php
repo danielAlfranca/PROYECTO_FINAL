@@ -66,10 +66,12 @@
 
         foreach ($salidas as $item) {
 
-            $statement = $connection->prepare("INSERT INTO activity_group( type, date_start, date_end, data)  VALUES(:type, :date_start, :date_end, :data)");
+            $statement = $connection->prepare("INSERT INTO activity_group( type, date_start, date_end, time_start, time_end, data)  VALUES(:type, :date_start, :date_end, :time_start, :time_end, :data)");
             $statement->bindParam(":type", $item[1]);
             $statement->bindParam(":date_start", $item[2]);
             $statement->bindParam(":date_end", $item[3]);
+            $statement->bindParam(":time_start", $item[4]);
+            $statement->bindParam(":time_end", $item[5]);
             $statement->bindParam(":data", $item[6]);
           
             $statement->execute();            

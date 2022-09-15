@@ -8,7 +8,7 @@
 
   <div class="header-table-buttons-container d-flex justify-content-end">
     <app-search *ngIf="!config.hideSearchButton && entries.length>0" [data]="data" [dataType]="dataType" [searchProperties]="searchProperties" (filtered)="updateEntries($event)"></app-search>
-    <button *ngIf="config.extraButton" class="btn btn-{{config.extraButton.color}}" ><i class="{{config.extraButton.icon}}"></i></button>
+    <button *ngIf="config.extraButton" class="btn btn-{{config.extraButton.color}} btn-sm button-table me-2" (click)="buttonClick.emit('calendar')"><i class="{{config.extraButton.icon}} h3"></i></button>
     <button class="btn btn-warning button-table btn-sm" 
       *ngIf="!config.hidePlusButton" (click)="buttonClick.emit('nuevo')"><i class="bi bi-plus {{ config.sectionsStyle != 'small' ? 'h3':'h5' }}"></i></button>    
   </div>  

@@ -15,7 +15,14 @@ export class SalidasSectionComponent extends TableAdminComponent implements OnIn
   
   constructor(protected override appConfig:AppConfigService) {  super(appConfig); } 
 
-  ngOnInit(): void { this.init([salidaTable]); }
+  ngOnInit(): void { this.init([salidaTable], {extraButton:{icon:'bi bi-calendar', color:'info'}}); }
+
+  open(mode:string){
+
+    if (mode=='nuevo') {  return this.form();}
+      
+    this.appConfig.canvas.open('salidas');
+  }
 
 
 }

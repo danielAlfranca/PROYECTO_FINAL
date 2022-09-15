@@ -1,20 +1,5 @@
 <?php 
 
-/* activity_group(
-
-    id INT AUTO_INCREMENT, # 0 
-    type TINYINT NOT NULL, # 1
-    # 1 - RESERVA
-    # 2 - SALIDA
-    # 3 - OTROS
-    date_start DATE NOT NULL,# 2
-    date_end DATE NOT NULL,# 3 
-    time_start TIME,# 4
-    time_end TIME,# 5
-    data JSON,# 6
-    PRIMARY KEY (id)
-); */
-
 
     function build_salidas($reservas, $empresas, $trabajadores){        
         
@@ -70,6 +55,22 @@
    
     return $resultado;
     }
+
+  /*   * activity_group(
+
+        id INT AUTO_INCREMENT, # 0 
+        type TINYINT NOT NULL, # 1
+        # 1 - RESERVA
+        # 2 - SALIDA
+        # 3 - OTROS
+        date_start DATE NOT NULL,# 2
+        date_end DATE NOT NULL,# 3 
+        time_start TIME,# 4
+        time_end TIME,# 5
+        data JSON,# 6
+        PRIMARY KEY (id)
+    ); */ 
+    
        /*  group_id INT,
     activity_index TINYINT NOT NULL,
     activity_type TINYINT NOT NULL,
@@ -88,7 +89,7 @@
 
         return [
 
-            rand(2,$empresas+1)
+            rand(2,$empresas)
         ];
     }
 
@@ -96,7 +97,7 @@
 
         return [
        
-            rand($empresas+2, $trabajadores+$empresas+2)
+            rand($empresas+1, $trabajadores+$empresas+1)
         ];
       
     }

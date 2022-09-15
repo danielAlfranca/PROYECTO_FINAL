@@ -1,4 +1,4 @@
-<app-table [config]="tableConfig" (buttonClick)="form()">
+<app-table [config]="tableConfig" (buttonClick)="open($event)">
 
     <ng-template let-data="data" #reservas>
         <tr (click)="display(data,false)" class="pointer">

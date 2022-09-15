@@ -24,7 +24,7 @@ export class TableAdminComponent {
 
     this.subscription = this.appConfig.queries.$dataUpdates.subscribe(e=>{
       
-      this.tableConfig = this.createTable(sections);
+      this.tableConfig = this.createTable(sections, extraconfig);
 
     }) 
   }

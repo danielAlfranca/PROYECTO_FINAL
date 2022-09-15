@@ -29,7 +29,11 @@ export class SalidaConfig extends DataConfig{
 
         date_start:(obj:any)=>  this.datePipe.transform(this.getByPath(obj,this.getKey('date_start') ), 'dd/MM/yy'),
         
-        date_end:(obj:any)=>  this.datePipe.transform(this.getByPath(obj,this.getKey('date_end') ), 'dd/MM/yy')
+        date_end:(obj:any)=>  this.datePipe.transform(this.getByPath(obj,this.getKey('date_end') ), 'dd/MM/yy'),
+
+        time_start:(obj:any)=>  (this.getByPath(obj,this.getKey('time_start') ).split(":")).slice(0,-1).join(':'),
+        
+        time_end:(obj:any)=>  (this.getByPath(obj,this.getKey('time_end') ).split(":")).slice(0,-1).join(':')
 
     }
 
