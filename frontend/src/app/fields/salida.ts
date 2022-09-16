@@ -2,32 +2,31 @@ import { FormItem } from "../interfaces/form";
 
 export const salidaForm = [ // datos cliente
     {
-      title:'Nombre',
-      name:'name',
-      input:'text'
-    },
-    {
-      title:'Apellidos',
-      name:'surname',
-      input:'text'
-    },
-
-    {
-      title:'Telefonos',
-      name:'phones',
-      input:'array'
-    },
-    {
-      title:'Emails',
-      name:'emails',
-      input:'array'
-    },
-    {
-      title:'Proveedor',
-      name:'provider_id',
+      title:'Tour',
+      name:'tour_id',
       input:'itemPicker',
-      options:{listType:'empresa',propertyForDisplay:'provider_name'}
+      options:{listType:'tour',propertyForDisplay:'tour_name'}
     },
+    {
+      title:'Fecha Inicio',
+      name:['date_start', 'time_start'],
+      input:'dateTime'
+    },
+    {
+      title:'Fecha Fin',
+      name:['date_end','time_end'],
+      input:'dateTime'
+    },
+    {
+      title:'Pasajeros',
+      name:'pax',
+      input:'text'
+    },
+    {
+      title:'Servicios',
+      name:'activities',
+      input:'activitiesList'
+    }
 
 ] as FormItem[];
 

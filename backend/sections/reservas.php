@@ -2,10 +2,6 @@
 
 class Reserva extends Section{   
     
- /*    public static $fixed_constants = ['type'=>1];// para valores fijos
-
-    public static $model =['nuevo',1,null, null, null, null,['', '', '', [0,0,0],1,[]]];  */
-
     public static $indexes = [
 
         'id'=>['private'=>0, 'validations'=>['id_valid'], 'required'=>true, 'default'=>'nuevo'], 

@@ -12,7 +12,7 @@ class TourActivity extends Activity{
 
         'activity_index'=>['private'=>1, 'validations'=>[], 'required'=>true],
 
-        'activity_type'=>['private'=>2, 'validations'=>[], 'required'=>true],
+        'activity_type'=>['private'=>2, 'validations'=>[], 'required'=>true, 'default' => 1 , 'fixed'=>true],
 
         'agent'=>['private'=>3, 'validations'=>[], 'required'=>true],
 

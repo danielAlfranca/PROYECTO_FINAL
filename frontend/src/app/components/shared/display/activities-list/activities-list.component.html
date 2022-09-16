@@ -1,5 +1,101 @@
+<div style="max-height:200px" class="overflow-auto">
+    <table  class="table table-striped table-hover align-middle table-sm " >
+        <thead>
+            <tr>
+                <th *ngFor="let column of columns; let i = index" > 
+                    <div class="d-flex justify-content-left align-items-stretch flex-wrap">
+                        <span>{{column}}</span>
+                    </div>           
+                </th>         
+            </tr>
+        </thead>
+        <tbody *ngIf="type=='reserva' else salida">
+            <tr  class="pointer" *ngFor="let data of activities" (click)="open(data.item,data.type)">
+                <td [ngSwitch]="data.type">
+                    <div *ngSwitchCase="'tourActivity'" class="d-flex align-items-center">
+                        <i class="bi bi-camera me-3 h5 mb-0"></i> 
+                        <div>
+                            {{data.item | show:'tourActivity':'tour_name'}} 
+                            <small class="text-secondary d-block">{{data.item | show:'tourActivity':'passengers_list'}}</small>
+                        </div>                   
+                    </div>
+                    <div *ngSwitchCase="'hotelActivity'" class="d-flex align-items-center">                    
+                        <i class="bi bi-moon-stars me-3 h5  mb-0"></i>
+                        <div>
+                            {{data.item | show:'hotelActivity':'hotel_name'}} 
+                            <small class="text-secondary d-block">{{data.item | show:'hotelActivity':'rooms' | room_string:true}}</small>
+                        </div>
+                        
+                    </div>
+                </td>
+                <td >
+                    
+                    <i class="bi bi-chevron-right me-2"></i> {{ data.item | show:data.type:'date_start'}}  <br> 
+                    <i class="bi bi-chevron-left me-2"></i> {{ data.item | show:data.type:'date_end' }} 
+                </td>                    
+            </tr>       
+        </tbody>
+        <ng-template #salida>
+            <tbody>
+                <tr  class="pointer" *ngFor="let data of activities" (click)="open(data.item,data.type)">
+                    <td [ngSwitch]="data.type">
+                        <div *ngSwitchCase="'operadorActivity'" class="d-flex align-items-center">
+                            <i class="bi bi-briefcase me-2 h5 mb-0"></i> 
+                          
+                                {{data.item | show:data.type:'operator_name'}} 
+                                            
+                        </div>
+                        <div *ngSwitchCase="'guiadoActivity'" class="d-flex align-items-center">
+                            <i class="bi bi-chat-dots me-2 h5 mb-0"></i> 
+                            <div>
+                                {{data.item | show:data.type:'full_name'}} 
+                               <!--  <small class="text-secondary d-block">{{data.item | show:'operatorActivity':'passengers_list'}}</small> -->
+                            </div>                   
+                        </div>
+                        <div *ngSwitchCase="'choferActivity'" class="d-flex align-items-center">
+                            <i class="bi bi-speedometer me-2 h5 mb-0"></i> 
+                            <div>
+                                {{data.item | show:data.type:'full_name'}} 
+                               <!--  <small class="text-secondary d-block">{{data.item | show:'operatorActivity':'passengers_list'}}</small> -->
+                            </div>                   
+                        </div>
+                        <div *ngSwitchCase="'restaurantActivity'" class="d-flex align-items-center">
+                            <i class="bi bi-camera me-2 h5 mb-0"></i> 
+                            <div>
+                                {{data.item | show:data.type:'restaurant_name'}} 
+                               <!--  <small class="text-secondary d-block">{{data.item | show:'operatorActivity':'passengers_list'}}</small> -->
+                            </div>                   
+                        </div>
+                        
+                    </td>
+                    <td [ngSwitch]="data.type">
+                        
+                        <div *ngSwitchCase="'operadorActivity'" class="d-flex align-items-center">                    
+                            Operador                   
+                        </div>
+                        <div *ngSwitchCase="'guiadoActivity'" class="d-flex align-items-center">                      
+                            Guia                   
+                        </div>
+                        <div *ngSwitchCase="'choferActivity'" class="d-flex align-items-center">
+                        
+                            Chofer                
+                        </div>
+                        <div *ngSwitchCase="'restaurantActivity'">
+                            
+                            Servicio de comidas
+                             <small class="text-secondary d-block">{{data.item | show:data.type:'num_menus'}} menus</small>                 
+                        </div>
+                    </td>                    
+                </tr>       
+            </tbody>
+        </ng-template>
+    </table>    
+</div>
 
-<div [ngSwitch]="type" class="display-list">
+
+
+
+<!-- <div [ngSwitch]="type" class="display-list">
     <app-table *ngSwitchCase="'reserva'" [config]="tableConfig" (buttonClick)="form(null)">
 
         <ng-template let-data="data" #tourActivity>
@@ -24,5 +120,33 @@
         </ng-template>
         
     </app-table>
+    <app-table *ngSwitchCase="'salida'" [config]="tableConfig" (buttonClick)="form(null)">
+
+        <ng-template let-data="data" #operadorActivity>
+            <tr (click)="open(data,'operadorActivity')" class="pointer">
+                <td>{{data | show:'operadorActivity':'operator_name'}} </td>                     
+            </tr>
+        </ng-template>
+        <ng-template let-data="data" #guiadoActivity>
+            <tr (click)="open(data,'guiadoActivity')" class="pointer">
+                <td>{{data | show:'guiadoActivity':'full_name'}} </td>   
+                <td>{{data | show:'guiadoActivity':'regimen'}} </td>                    
+            </tr>
+        </ng-template>
+        <ng-template let-data="data" #choferActivity>
+            <tr (click)="open(data,'choferActivity')" class="pointer">
+                <td>{{data | show:'choferActivity':'full_name'}} </td>   
+                <td>{{data | show:'choferActivity':'regimen'}} </td>                    
+            </tr>
+        </ng-template>
+        <ng-template let-data="data" #restaurantActivity>
+            <tr (click)="open(data,'restaurantActivity')" class="pointer">
+                <td>{{data | show:'restaurantActivity':'restaurant_name'}} </td>   
+                <td>{{data | show:'restaurantActivity':'menus'}} </td>                    
+            </tr>
+        </ng-template>       
+        
+    </app-table>
 </div>
 
+ -->

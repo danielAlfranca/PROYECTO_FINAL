@@ -8,6 +8,10 @@ import { TourActivityConfig } from './types/tourActivity.config';
 import { HotelActivityConfig } from './types/hotelActivity.config';
 import { SalidaConfig } from './types/salida.config';
 import { PassengerConfig } from './types/passenger.config';
+import { OperadorActivityConfig } from './types/operadorActivity.config';
+import { GuiadoActivityConfig } from './types/guiadoActivity.config';
+import { ChoferActivityConfig } from './types/choferActivity.config';
+import { RestaurantActivityConfig } from './types/restaurantActivity.config';
 
 @Injectable({
   providedIn: 'root'
@@ -25,6 +29,10 @@ export class DataConfigService {
     reserva:this.reserva,
     tourActivity:this.tourActivity,
     hotelActivity:this.hotelActivity,
+    operadorActivity:this.operadorActivity,
+    guiadoActivity:this.guiadoActivity,
+    choferActivity:this.choferActivity,
+    restaurantActivity:this.restaurantActivity,
     passenger:this.passenger,
     
   };
@@ -38,7 +46,11 @@ export class DataConfigService {
     private tourActivity:TourActivityConfig,
     private hotelActivity:HotelActivityConfig,
     private salida:SalidaConfig,
-    private passenger:PassengerConfig
+    private passenger:PassengerConfig,
+    private operadorActivity:OperadorActivityConfig,
+    private guiadoActivity:GuiadoActivityConfig,
+    private choferActivity:ChoferActivityConfig,
+    private restaurantActivity:RestaurantActivityConfig,
   ) {}
 
 

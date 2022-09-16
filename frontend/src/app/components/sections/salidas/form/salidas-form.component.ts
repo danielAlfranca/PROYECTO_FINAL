@@ -1,15 +1,18 @@
 import { Component, OnInit } from '@angular/core';
+import { FormAdminComponent } from 'src/app/components/shared/models/form-admin/form-admin.component';
+import { formAdminTemplate } from 'src/app/components/shared/models/form-admin/template';
+import { salidaForm } from 'src/app/fields/salida';
+import { AppConfigService } from 'src/app/services/app-config.service';
 
 @Component({
   selector: 'app-salidas-form',
-  templateUrl: './salidas-form.component.html',
-  styleUrls: ['./salidas-form.component.scss']
+  template: '<div class="m-3">'+formAdminTemplate+"</div>",
+  styles: ['']
 })
-export class SalidasFormComponent implements OnInit {
+export class SalidasFormComponent extends FormAdminComponent implements OnInit {
 
-  constructor() { }
+  constructor(protected override appConfig:AppConfigService) { super(appConfig) }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { this.init('salida', salidaForm); }
 
 }

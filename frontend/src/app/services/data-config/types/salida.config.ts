@@ -2,6 +2,7 @@ import { Injectable, Injector } from "@angular/core";
 import { DataConfig } from "../model";
 import { DatePipe } from "@angular/common";
 import { PassengerConfig } from "./passenger.config";
+import { DataConfigService } from "../data-config.service";
 
 @Injectable({
     providedIn: 'root' 
@@ -23,7 +24,12 @@ export class SalidaConfig extends DataConfig{
 
         tour_name:(obj:any)=>this.getRef('tour',this.getValue(obj,'tour_id') ,'nombre'),
 
-        operator_name:(obj:any)=>this.getRef('empresa',this.getValue(obj,'operator') ,'nombre'),
+        operators_list:(obj:any)=> {
+
+            const operators = (this.getValue(obj,'operadores')), service = this.injector.get(DataConfigService);
+
+            return operators.map((e:any)=>service.getValue(e,'operator_name','operadorActivity')).join(', ')
+        },
 
         passengers_total_list:(obj:any)=>this.paxTotalList(obj),
 
@@ -31,9 +37,9 @@ export class SalidaConfig extends DataConfig{
         
         date_end:(obj:any)=>  this.datePipe.transform(this.getByPath(obj,this.getKey('date_end') ), 'dd/MM/yy'),
 
-        time_start:(obj:any)=>  (this.getByPath(obj,this.getKey('time_start') ).split(":")).slice(0,-1).join(':'),
+        time_start:(obj:any)=>  ((this.getByPath(obj,this.getKey('time_start') ) || '').split(":")).slice(0,-1).join(':'),
         
-        time_end:(obj:any)=>  (this.getByPath(obj,this.getKey('time_end') ).split(":")).slice(0,-1).join(':')
+        time_end:(obj:any)=>  ((this.getByPath(obj,this.getKey('time_end')) || '').split(":") ).slice(0,-1).join(':')
 
     }
 

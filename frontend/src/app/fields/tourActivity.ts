@@ -33,15 +33,11 @@ export const tourActivityTable = {
   dataType:'tourActivity',
   data:[],
   columns:[
-
-   {     
-      title:'Nombre',
+    {     
+      title:'Servicio',
     },
     { 
-      title:'Pasajeros'
-    },
-    { 
-      title:'Fechas'   
+      title:'Fechas'
     }
   ],
   search:[]

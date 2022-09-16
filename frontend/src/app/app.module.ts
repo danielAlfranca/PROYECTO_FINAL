@@ -76,6 +76,11 @@ import { SalidasFormComponent } from './components/sections/salidas/form/salidas
 import { SalidasDisplayComponent } from './components/sections/salidas/display/salidas-display.component';
 import { CalendarComponent } from './components/shared/calendar/calendar.component';
 import { CalendarAdminComponent } from './components/shared/models/calendar-admin/calendar-admin.component';
+import { DisplayGuiadoComponent } from './components/sections/salidas/display/activities/guiado/display-guiado.component';
+import { DisplayChoferComponent } from './components/sections/salidas/display/activities/chofer/display-chofer.component';
+import { DisplayOperadorComponent } from './components/sections/salidas/display/activities/operador/display-operador.component';
+import { DisplayRestaurantActivityComponent } from './components/sections/salidas/display/activities/restaurant-activity/display-restaurant-activity.component';
+import { DisplayPassengerComponent } from './components/sections/salidas/display/passenger/display-passenger.component';
 
 
 
@@ -146,7 +151,12 @@ import { CalendarAdminComponent } from './components/shared/models/calendar-admi
     SalidasFormComponent,
     SalidasDisplayComponent,
     CalendarComponent,
-    CalendarAdminComponent
+    CalendarAdminComponent,
+    DisplayGuiadoComponent,
+    DisplayChoferComponent,
+    DisplayOperadorComponent,
+    DisplayRestaurantActivityComponent,
+    DisplayPassengerComponent
 
   ],
   imports: [

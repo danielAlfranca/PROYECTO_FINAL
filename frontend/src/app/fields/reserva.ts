@@ -54,7 +54,7 @@ export const reservaForm2 = [ // datos paquete
   },
   {
     title:'Actividades',
-    name:'emails',
+    name:'activities',
     input:'activitiesList'
   }
 

@@ -4,29 +4,34 @@ class Salida extends Section{
     
     public static $indexes = [
 
-        'id'=>['private'=>0, 'validations'=>['id_valid'], 'required'=>true, 'default'=>'nuevo'], 
+        'id'=>['private'=>0, 'validations'=>[], 'required'=>true, 'default'=>'nuevo'], 
 
-        'type'=>['private'=>1, 'validations'=>['type_valid'], 'required'=>true, 'default'=>2, 'fixed'=>true],
+        'type'=>['private'=>1, 'validations'=>[], 'required'=>true, 'default'=>2, 'fixed'=>true],
 
-        'date_start'=>['private'=>2, 'validations'=>['is_string'], 'required'=>true, 'default'=>null], // falta validacion
+        'date_start'=>['private'=>2, 'validations'=>['is_string'], 'required'=>true, 'default'=>''], // falta validacion
 
-        'date_end'=>['private'=>3, 'validations'=>['is_string'], 'required'=>true, 'default'=>null], // falta validacion
+        'date_end'=>['private'=>3, 'validations'=>['is_string'], 'required'=>true, 'default'=>''], // falta validacion
 
-        'time_start'=>['private'=>4, 'validations'=>['is_string'], 'required'=>false, 'default'=>null], // falta validacion
+        'time_start'=>['private'=>4, 'validations'=>['is_string'], 'required'=>false, 'default'=>''], // falta validacion
 
-        'time_end'=>['private'=>5, 'validations'=>['is_string'], 'required'=>false, 'default'=>null], // falta validacion
+        'time_end'=>['private'=>5, 'validations'=>['is_string'], 'required'=>false, 'default'=>''], // falta validacion
 
         'data'=>['private'=>6, 'validations'=>[], 'required'=>true, 'default'=>[]],
 
-        'tour_id'=>['private'=>"6.0", 'validations'=>['is_string'], 'required'=>true, 'default'=>''],
+        'tour_id'=>['private'=>"6.0", 'validations'=>['is_string'], 'required'=>true, 'default'=>null],
 
-        'pax'=>['private'=>"6.1", 'validations'=>[], 'required'=>true, 'default'=>[]], 
+        'pax'=>['private'=>"6.1", 'validations'=>[], 'required'=>true, 'default'=>[0,0,0]], 
         
-        'activities'=>['private'=>"6.2", 'validations'=>[], 'required'=>true, 'default'=>['1'=>[],'2'=>[]]], 
+        'activities'=>['private'=>"6.2", 'validations'=>[], 'required'=>true, 'default'=>['4'=>[],'5'=>[],'6'=>[],'7'=>[]]], 
 
-        'operator'=>['private'=>"6.2.1.0", 'validations'=>[], 'required'=>true, 'default'=>null], 
+        'guiados'=>['private'=>"6.2.4", 'validations'=>[], 'required'=>true, 'default'=>[]], 
+
+        'chofers'=>['private'=>"6.2.5", 'validations'=>[], 'required'=>true, 'default'=>[]], 
+
+        'operadores'=>['private'=>"6.2.6", 'validations'=>[], 'required'=>true, 'default'=>[]], 
+
+        'restaurantes'=>['private'=>"6.2.7", 'validations'=>[], 'required'=>true, 'default'=>[]]
         
-        'guides'=>['private'=>"6.2.2", 'validations'=>[], 'required'=>true, 'default'=>null], 
     ]; 
 
     public function save($data){

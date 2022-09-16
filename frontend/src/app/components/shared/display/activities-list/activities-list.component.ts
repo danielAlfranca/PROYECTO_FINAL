@@ -1,6 +1,10 @@
 import {  Component, EventEmitter, Input, OnChanges, Output} from '@angular/core';
 import { take } from 'rxjs';
+import { choferActivityTable } from 'src/app/fields/choferActivity';
+import { guiadorActivityTable } from 'src/app/fields/guiadoActivity';
 import { hotelActivityTable } from 'src/app/fields/hotelActivity';
+import { operatorActivityTable } from 'src/app/fields/operadorActivity';
+import { restaurantActivityTable } from 'src/app/fields/restaurantActivity';
 import { tourActivityTable } from 'src/app/fields/tourActivity';
 import { ActivityTypes, NewActivity } from 'src/app/interfaces/activities';
 import { TableSection } from 'src/app/interfaces/table';
@@ -13,32 +17,26 @@ import { TableAdminComponent } from '../../models/table-admin/table-admin.compon
   templateUrl: './activities-list.component.html',
   styles: ['']
 })
-export class ActivitiesListComponent extends TableAdminComponent implements OnChanges{
+export class ActivitiesListComponent implements OnChanges{
 
-  @Input() override type!:DataTypes;
+  @Input() type!:DataTypes;
   @Input() mode!:string;
   @Input() data!:any;
   @Output() activitiesUpdated = new EventEmitter();
 
-  configs! :{[nameActivity:string]:{order:number, tbConfig:TableSection,instanceProperty:string}};
+  activities:any;
+  columns:any;
 
-  constructor(protected override appConfig:AppConfigService) {  super(appConfig); } 
+  constructor(protected appConfig:AppConfigService) {   } 
 
   ngOnChanges(): void {
 
-    this.configs ||= this.getConfig();
+    this.activities = this.getList(); 
+    this.columns = this.type == 'reserva' ? ['Actividad','Fecha']:['Provedor','Servicio'];
 
-    this.init(this.getSectionsWithItems(this.configs),{hideSearchButton:true, sectionsStyle:'small', hidePlusButton:this.mode=='display'})    
   }
 
-  protected override  getData(section:ActivityTypes){
-
-    const instanceProperty = this.configs[section].instanceProperty;
-
-    return this.appConfig.dataConfig.getValue(this.data,instanceProperty ,this.type)
-  }
-
-  protected override form(data?:any, formName?:string){
+  protected form(data?:any, formName?:string){
 
     this.appConfig.canvas.open('form-activity-'+(formName||this.type) , {formItem:data}).pipe(take(1)).subscribe((response:NewActivity)=>{
       
@@ -50,44 +48,63 @@ export class ActivitiesListComponent extends TableAdminComponent implements OnCh
     });
   }
 
-  private getSectionsWithItems(sections:any){
-
-    const filtered = Object.values(sections).filter((el:any)=>(this.appConfig.dataConfig.getValue(this.data,el.instanceProperty,this.type)|| []).length)
-
-    return filtered.sort((a:any, b:any)=>a.order-b.order).map((el:any)=>el.tbConfig)
-
-  }
-
-  private getConfig():any { 
+  private getList():any { 
     
+    let propList:any, types:any, items:any, list:any=[];
+
     switch (this.type) {
 
-      case'reserva': return {
+      case 'reserva': {
 
-          tourActivity:{order:1, tbConfig:tourActivityTable,instanceProperty:'tours'},
-          hotelActivity:{order:2, tbConfig:hotelActivityTable,instanceProperty:'hotels'}
+        propList = ['tours','hotels'];
+        types = ['tourActivity','hotelActivity'];
 
-        }
+        break;
+
+      }
+      case'salida':{
+
+        propList = ['operadores','guiados','chofers','restaurants'];
+        types = ['operadorActivity','guiadoActivity','choferActivity','restaurantActivity'];
+       
+        break; 
+      };      
     }
+
+    propList.forEach((label:any,index:any)=>{
+
+      items = this.appConfig.dataConfig.getValue(this.data,label,this.type) || [];
+
+      list = list.concat(items.map((e:any)=>({type:types[index],item:e})));
+
+    });
+
+    return list;
+
   }
 
   private updateActivityOnDataGroup(newActivity:NewActivity){
 
-    this.appConfig.dataConfig.getValue(this.data,'add_new_'+newActivity.type,this.type);
+    this.appConfig.dataConfig.setValue(this.data,'add_new_'+newActivity.type,this.type, newActivity.item);
 
     return this.appConfig.dataConfig.getValue(this.data,'activities',this.type);
+
   }
 
-  open(item:any, section?:string){
+  open(item?:any, section?:string){
 
-    if(this.mode=='display'){
 
-      this.display(item, null, section);
+    if(this.mode=='display') return this.appConfig.canvas.open('display-' +section , {displayItem:item});
 
-    }else{
-      console.log(item, section);
-      this.form(item,section);
-    }
+    return this.appConfig.canvas.open('form-activity-'+(section||this.type) , {formItem:item}).pipe(take(1)).subscribe((response:NewActivity)=>{
+      
+      if(response) {
+        
+        this.activitiesUpdated.emit(this.updateActivityOnDataGroup(response))
+      };
+    
+    });
+    
   }
 
 }

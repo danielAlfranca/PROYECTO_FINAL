@@ -17,6 +17,13 @@ require '../sections/tourActivity.php';
 require '../sections/hotelActivity.php';
 require '../sections/salidas.php';
 require '../sections/passenger.php';
+require '../sections/operadorActivity.php';
+require '../sections/guiadoActivity.php';
+require '../sections/choferActivity.php';
+require '../sections/restaurantActivity.php';
+
+
+
 
 
 

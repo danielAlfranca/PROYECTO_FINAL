@@ -3,7 +3,7 @@
         <span class="input-group-text bg-light pointer btnDate" (click)="calendarOpen=!calendarOpen; timeOpen=false"><i class="bi bi-calendar"></i></span>
     </ng-container>
     
-    <input class="form-control bg-white text-center" [disabled]="true" [value]="date_time_string" >
+    <input class="form-control bg-white text-center" [disabled]="true" [value]="date_time_string || null" >
 
     <ng-container *ngIf="!timeHidden">
         <span class="input-group-text bg-light pointer" (click)="timeOpen=!timeOpen; calendarOpen=false;" ><i class="bi bi-clock"></i></span>

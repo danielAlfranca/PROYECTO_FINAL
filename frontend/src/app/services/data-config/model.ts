@@ -57,7 +57,7 @@ export abstract class DataConfig{
     public objectIsValid!:(obj:any)=>boolean;
 
     public valueIsValid(obj:any,key:string):boolean{ // VALIDA PROPIEDAD
-
+        //console.log(key);
         const propConfig:PropertyConfig = this.getKey(key), value = this.getByPath(obj, propConfig);
         //console.log(key,value);
         if(propConfig.required && value === undefined) return false;

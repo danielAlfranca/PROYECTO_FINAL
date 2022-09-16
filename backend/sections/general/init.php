@@ -27,6 +27,26 @@ class AppConfig{
                 'indexes'=>Salida::$indexes,
 
             ],
+         'operadorActivity'=>[
+
+                'indexes'=>OperadorActivity::$indexes,
+
+            ],
+            'guiadoActivity'=>[
+
+                'indexes'=>GuiadoActivity::$indexes,
+
+            ],
+            'choferActivity'=>[
+
+                'indexes'=>ChoferActivity::$indexes,
+
+            ],
+            'restaurantActivity'=>[
+
+                'indexes'=>RestaurantActivity::$indexes,
+
+            ],
             'passenger'=>[
 
                 'indexes'=>Passenger::$indexes

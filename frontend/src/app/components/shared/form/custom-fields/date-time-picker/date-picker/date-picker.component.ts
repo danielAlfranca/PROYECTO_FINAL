@@ -4,7 +4,7 @@ declare var Datepicker:any;
 
 @Component({
   selector: 'app-date-picker',
-  template: '<div [id]="idCalendar" [attr.data-date]="date"></div>',
+  template: '<div [id]="idCalendar" [attr.data-date]="date || null"></div>',
   styles: ['']
 })
 export class DatePickerComponent implements AfterViewInit {

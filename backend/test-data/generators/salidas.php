@@ -37,10 +37,23 @@
 
        foreach ($salidas as $key => $value) {
 
-        $arr=explode('--', $key);  
-        $operator =  build_operator_activity($empresas); 
-        $guiado = build_guiado_activities($trabajadores,$empresas);
-        $activities = [ "1"=>$operator, "2"=>$guiado];
+        $arr=explode('--', $key); 
+        $start =  $arr[0];
+        $end =  $arr[1];
+        $time_start =  $arr[2];
+        $time_end =  $arr[3];
+        $operator =  build_operator_activity($empresas,$start, $end, $time_start, $time_end); 
+        $guiado = build_guiado_activities($trabajadores,$empresas,$start, $end, $time_start, $time_end);
+        $chofer = build_chofer_activities($trabajadores,$empresas,$start, $end, $time_start, $time_end);
+        $restaurant =  build_operator_activity($empresas,$start, $end, $time_start, $time_end); 
+
+        $activities = [
+            
+            "6"=>$operator, 
+            "4"=>$guiado,
+            "5"=>$chofer,
+            "7"=>$restaurant,
+        ];
 
         $data = [
             $arr[4] , // 0 tour id
@@ -85,23 +98,73 @@
     FOREIGN KEY (agent) REFERENCES agents(id) */
 
  
-    function build_operator_activity($empresas){ 
+    function build_operator_activity($empresas, $start, $end, $time_start, $time_end){ 
 
-        return [
-
-            rand(2,$empresas)
-        ];
+        return[ [
+            null, //0 -group_id - id salida falta,
+            1 ,// 1 - activity_index,
+            6 ,// 1 - activity_type,
+            rand(2,$empresas) ,// 2 -agent ,
+            $start ,// 1 - date_start,
+            $end ,// 1 - date_end,
+            $time_start ,// 1 - time_start,
+            $time_end ,// 1 - time_end,
+            []       
+        ]];
     }
 
-    function build_guiado_activities($trabajadores,$empresas){
+    function build_guiado_activities($trabajadores,$empresas, $start, $end, $time_start, $time_end){
 
-        return [
-       
-            rand($empresas+1, $trabajadores+$empresas+1)
-        ];
-      
+         return [[
+            null, //0 -group_id - id salida falta,
+            1 ,// 1 - activity_index,
+            4 ,// 1 - activity_type,
+            rand($empresas+1, $trabajadores+$empresas+1) ,// 2 -agent ,
+            $start ,// 1 - date_start,
+            $end ,// 1 - date_end,
+            $time_start ,// 1 - time_start,
+            $time_end ,// 1 - time_end,
+            []       
+        ]];
     }
 
+    function build_chofer_activities($trabajadores,$empresas, $start, $end, $time_start, $time_end){
+
+        return [[
+           null, //0 -group_id - id salida falta,
+           1 ,// 1 - activity_index,
+           5 ,// 1 - activity_type,
+           rand($empresas+1, $trabajadores+$empresas+1) ,// 2 -agent ,
+           $start ,// 1 - date_start,
+           $end ,// 1 - date_end,
+           $time_start ,// 1 - time_start,
+           $time_end ,// 1 - time_end,
+           []       
+       ]];
+
+
+    }
+    
+    function build_restaurant_activities($trabajadores,$empresas, $start, $end, $time_start, $time_end){
+
+        return [[
+           null, //0 -group_id - id salida falta,
+           1 ,// 1 - activity_index,
+           5 ,// 1 - activity_type,
+           rand(2,$empresas) ,// 2 -agent ,
+           $start ,// 1 - date_start,
+           $end ,// 1 - date_end,
+           $time_start ,// 1 - time_start,
+           $time_end ,// 1 - time_end,
+           [
+
+            rand(4,12)
+
+           ]       
+       ]];
+
+
+    }
  
 
 

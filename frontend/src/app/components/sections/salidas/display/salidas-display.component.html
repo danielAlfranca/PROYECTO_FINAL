@@ -1,1 +1,36 @@
-<p>salidas-display works!</p>
+<div class="p-4">
+    <app-card-display title="Salida" [editButton]="true" (edit)="edit(1)">
+        <li app-data-item-display *ngFor="let data of dataDisplay" [icon]="data.icon" [title]="data.title" >
+            {{data.value}}        
+        </li> 
+      
+    </app-card-display>
+    <app-card-display  title="Pasajeros">
+        <table  class="table table-striped table-hover align-middle table-sm " display-table >
+            <thead>
+                <tr>
+                    <th *ngFor="let column of ['Nombre','Agencia']; let i = index" > 
+                        <div class="d-flex justify-content-left align-items-stretch flex-wrap">
+                            <span>{{column}}</span>
+                        </div>           
+                    </th>         
+                </tr>
+            </thead>
+            <tbody>
+                <tr  class="pointer" *ngFor="let data of passengers" (click)="showPax(data)">
+                    <td>{{data | show:'passenger':'full_name'}} <small class="text-secondary d-block">{{data | show:'passenger':'pax_list' }}</small> </td>
+                    <td> {{data | show:'passenger':'provider_name' }} </td>          
+                </tr>       
+            </tbody>
+        </table> 
+    </app-card-display>
+    <app-card-display  title="Servicios">
+        <app-activities-list display-table type="salida" [data]="item" mode="display"></app-activities-list>    
+    </app-card-display>  
+    
+    <footer>
+        <div class="text-left">
+            <button class="btn btn-outline-secondary" (click)="delete()">eliminar</button>
+        </div>
+    </footer>    
+</div>

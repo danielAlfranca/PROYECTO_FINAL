@@ -1,0 +1,15 @@
+<div class="p-4">
+    <app-card-display (edit)="edit()" [title]="title"> 
+        <li app-data-item-display icon="people" title="pasajeros">{{item | show:'passenger':'pax_list'}}</li>
+        <li app-data-item-display icon="briefcase" title="proveedor">{{item | show:'passenger':'provider_name'}}</li> 
+        <li app-data-item-display icon="phone" title="telefonos">{{item | show:'passenger':'phones_list'}}</li> 
+        <li app-data-item-display icon="chat-square-text" title="comentarios">{{(item | show:'passenger':'comments') || '-'}}</li>        
+    </app-card-display>
+    
+    <footer>
+        <br>
+        <div class="text-left">
+            <button class="btn btn-outline-secondary" (click)="delete()">Eliminar servicio</button>
+        </div>
+    </footer>
+</div>

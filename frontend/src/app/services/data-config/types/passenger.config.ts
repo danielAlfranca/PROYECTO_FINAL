@@ -19,15 +19,13 @@ export class PassengerConfig extends DataConfig{
 
     protected override getters = {
 
-        tour_name:(obj:any)=>this.getRef('tour',this.getValue(obj,'tour_id') ,'nombre'),
+        full_name:(obj:any)=>this.getRef('reserva',this.getValue(obj,'id') ,'full_name'),
 
-        operator_name:(obj:any)=>this.getRef('empresa',this.getValue(obj,'operator') ,'nombre'),
+        provider_name:(obj:any)=>this.getRef('reserva',this.getValue(obj,'id') ,'provider_name'),
 
-        passengers_total_list:(obj:any)=>this.paxTotalList(obj),
+        phones_list:(obj:any)=> this.getRef('reserva',this.getValue(obj, 'id'),'phones'),
 
-        date_start:(obj:any)=>  this.datePipe.transform(this.getByPath(obj,this.getKey('date_start') ), 'dd/MM/yy'),
-        
-        date_end:(obj:any)=>  this.datePipe.transform(this.getByPath(obj,this.getKey('date_end') ), 'dd/MM/yy')
+        pax_list:(obj:any)=>this.get_passengers_list(this.getValue(obj,'passengers')),
 
     }
 
@@ -51,14 +49,7 @@ export class PassengerConfig extends DataConfig{
         return (this.getValue(obj,'id') == 'nuevo' && agent === 1) || !isNaN(agent);
     }
 
-    private paxTotalList(obj:any){
 
-        const pax = [...(this.getValue(obj,'pax') || [])].reduce((arr,item)=>([arr[0]+Number(item[0]), arr[1]+Number(item[1]), arr[2]+Number(item[2])]), [0,0,0]);
-
-
-        return this.get_passengers_list(pax)
-
-    }
 
     private get_passengers_list(pax:any[]){
 
@@ -67,7 +58,9 @@ export class PassengerConfig extends DataConfig{
         const   singulars = ['adulto', 'nino', 'infante'],
                 plurals = ['adultos', 'ninos', 'infantes'];
 
-        return pax.reduce((strPax:string,el:number, i:number)=>{
+        console.log(pax);
+
+        return (pax || []).reduce((strPax:string,el:number, i:number)=>{
 
             num = Number(el);
 
