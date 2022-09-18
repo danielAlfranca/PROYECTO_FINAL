@@ -64,7 +64,7 @@ import { DateTimePickerComponent } from './components/shared/form/custom-fields/
 import { DatePickerComponent } from './components/shared/form/custom-fields/date-time-picker/date-picker/date-picker.component';
 import { PassengersListComponent } from './components/shared/form/custom-fields/passengers-list/passengers-list.component';
 import { ActivitiesListComponent } from './components/shared/display/activities-list/activities-list.component';
-import { ActivitiesListFormAdminComponent } from './components/shared/form/custom-fields/activities-list-form-admin/activities-list-form-admin.component';
+import { ActivitiesListFormAdminComponent } from './components/shared/form/custom-fields/form-admin/activities-list-form-admin/activities-list-form-admin.component';
 import { NewReservaActivityComponent } from './components/sections/reservas/form/activities/new-activity/new-reserva-activity.component';
 import { RoomsListComponent } from './components/shared/form/custom-fields/rooms-list/rooms-list.component';
 import { RoomListPopUpComponent } from './components/shared/form/custom-fields/rooms-list/room-list-pop-up/room-list-pop-up.component';
@@ -81,6 +81,8 @@ import { DisplayChoferComponent } from './components/sections/salidas/display/ac
 import { DisplayOperadorComponent } from './components/sections/salidas/display/activities/operador/display-operador.component';
 import { DisplayRestaurantActivityComponent } from './components/sections/salidas/display/activities/restaurant-activity/display-restaurant-activity.component';
 import { DisplayPassengerComponent } from './components/sections/salidas/display/passenger/display-passenger.component';
+import { PaxListComponent } from './components/shared/display/pax-list/pax-list.component';
+import { PaxListFormAdminComponent } from './components/shared/form/custom-fields/form-admin/pax-list-form-admin/pax-list-form-admin.component';
 
 
 
@@ -156,7 +158,9 @@ import { DisplayPassengerComponent } from './components/sections/salidas/display
     DisplayChoferComponent,
     DisplayOperadorComponent,
     DisplayRestaurantActivityComponent,
-    DisplayPassengerComponent
+    DisplayPassengerComponent,
+    PaxListComponent,
+    PaxListFormAdminComponent
 
   ],
   imports: [

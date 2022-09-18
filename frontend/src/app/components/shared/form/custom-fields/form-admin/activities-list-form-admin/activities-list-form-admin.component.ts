@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { CustomFieldComponent } from '../model/custom-field.component';
+import { CustomFieldComponent } from '../../model/custom-field.component';
 
 @Component({
   selector: 'app-activities-list-form-admin',
@@ -7,7 +7,7 @@ import { CustomFieldComponent } from '../model/custom-field.component';
     <app-activities-list 
       [type]="type" 
       [data]="activitiesGroupItem" 
-      (activitiesUpdated)="onChange($event)">    
+      (paxUpdated)="onChange($event)">    
     </app-activities-list>`,
 
   styles: ['']

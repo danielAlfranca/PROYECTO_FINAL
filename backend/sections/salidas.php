@@ -20,7 +20,7 @@ class Salida extends Section{
 
         'tour_id'=>['private'=>"6.0", 'validations'=>['is_string'], 'required'=>true, 'default'=>null],
 
-        'pax'=>['private'=>"6.1", 'validations'=>[], 'required'=>true, 'default'=>[0,0,0]], 
+        'pax'=>['private'=>"6.1", 'validations'=>[], 'required'=>true, 'default'=>[]], 
         
         'activities'=>['private'=>"6.2", 'validations'=>[], 'required'=>true, 'default'=>['4'=>[],'5'=>[],'6'=>[],'7'=>[]]], 
 

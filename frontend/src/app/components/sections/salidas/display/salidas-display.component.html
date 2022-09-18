@@ -6,23 +6,7 @@
       
     </app-card-display>
     <app-card-display  title="Pasajeros">
-        <table  class="table table-striped table-hover align-middle table-sm " display-table >
-            <thead>
-                <tr>
-                    <th *ngFor="let column of ['Nombre','Agencia']; let i = index" > 
-                        <div class="d-flex justify-content-left align-items-stretch flex-wrap">
-                            <span>{{column}}</span>
-                        </div>           
-                    </th>         
-                </tr>
-            </thead>
-            <tbody>
-                <tr  class="pointer" *ngFor="let data of passengers" (click)="showPax(data)">
-                    <td>{{data | show:'passenger':'full_name'}} <small class="text-secondary d-block">{{data | show:'passenger':'pax_list' }}</small> </td>
-                    <td> {{data | show:'passenger':'provider_name' }} </td>          
-                </tr>       
-            </tbody>
-        </table> 
+       <app-pax-list display-table [passengers]="passengers" mode="display"></app-pax-list>  
     </app-card-display>
     <app-card-display  title="Servicios">
         <app-activities-list display-table type="salida" [data]="item" mode="display"></app-activities-list>    

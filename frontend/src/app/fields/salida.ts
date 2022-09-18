@@ -20,7 +20,7 @@ export const salidaForm = [ // datos cliente
     {
       title:'Pasajeros',
       name:'pax',
-      input:'text'
+      input:'paxSalidaList'
     },
     {
       title:'Servicios',

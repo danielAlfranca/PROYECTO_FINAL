@@ -1,96 +1,117 @@
-<div style="max-height:200px" class="overflow-auto">
-    <table  class="table table-striped table-hover align-middle table-sm " >
+<div class="table-header table-header-sm">   
+    <div class="header-table-buttons-container d-flex justify-content-between" *ngIf="mode!='display'" >
+
+      Servicios <button class="btn btn-warning button-table btn-sm" (click)="open()" style="border-radius: 50%;"><i class="bi bi-plus h5"></i></button>    
+    </div>  
+</div>
+<div style="max-height:200px" class="overflow-auto" *ngIf="activities.length else noActivities">
+    <table class="table table-striped table-hover align-middle table-sm ">
         <thead>
             <tr>
-                <th *ngFor="let column of columns; let i = index" > 
+                <th *ngFor="let column of columns; let i = index">
                     <div class="d-flex justify-content-left align-items-stretch flex-wrap">
                         <span>{{column}}</span>
-                    </div>           
-                </th>         
+                    </div>
+                </th>
             </tr>
         </thead>
+
         <tbody *ngIf="type=='reserva' else salida">
-            <tr  class="pointer" *ngFor="let data of activities" (click)="open(data.item,data.type)">
+            <tr class="pointer" *ngFor="let data of activities" (click)="open(data.item,data.type)">
                 <td [ngSwitch]="data.type">
                     <div *ngSwitchCase="'tourActivity'" class="d-flex align-items-center">
-                        <i class="bi bi-camera me-3 h5 mb-0"></i> 
+                        <i class="bi bi-camera me-3 h5 mb-0"></i>
                         <div>
-                            {{data.item | show:'tourActivity':'tour_name'}} 
-                            <small class="text-secondary d-block">{{data.item | show:'tourActivity':'passengers_list'}}</small>
-                        </div>                   
+                            {{data.item | show:'tourActivity':'tour_name'}}
+                            <small class="text-secondary d-block">{{data.item |
+                                show:'tourActivity':'passengers_list'}}</small>
+                        </div>
                     </div>
-                    <div *ngSwitchCase="'hotelActivity'" class="d-flex align-items-center">                    
+                    <div *ngSwitchCase="'hotelActivity'" class="d-flex align-items-center">
                         <i class="bi bi-moon-stars me-3 h5  mb-0"></i>
                         <div>
-                            {{data.item | show:'hotelActivity':'hotel_name'}} 
-                            <small class="text-secondary d-block">{{data.item | show:'hotelActivity':'rooms' | room_string:true}}</small>
+                            {{data.item | show:'hotelActivity':'hotel_name'}}
+                            <small class="text-secondary d-block">{{data.item | show:'hotelActivity':'rooms' |
+                                room_string:true}}</small>
                         </div>
-                        
+
                     </div>
                 </td>
-                <td >
-                    
-                    <i class="bi bi-chevron-right me-2"></i> {{ data.item | show:data.type:'date_start'}}  <br> 
-                    <i class="bi bi-chevron-left me-2"></i> {{ data.item | show:data.type:'date_end' }} 
-                </td>                    
-            </tr>       
+                <td>
+
+                    <i class="bi bi-chevron-right me-2"></i> {{ data.item | show:data.type:'date_start'}} <br>
+                    <i class="bi bi-chevron-left me-2"></i> {{ data.item | show:data.type:'date_end' }}
+                </td>
+            </tr>
         </tbody>
         <ng-template #salida>
             <tbody>
-                <tr  class="pointer" *ngFor="let data of activities" (click)="open(data.item,data.type)">
+                <tr class="pointer" *ngFor="let data of activities" (click)="open(data.item,data.type)">
                     <td [ngSwitch]="data.type">
                         <div *ngSwitchCase="'operadorActivity'" class="d-flex align-items-center">
-                            <i class="bi bi-briefcase me-2 h5 mb-0"></i> 
-                          
-                                {{data.item | show:data.type:'operator_name'}} 
-                                            
+                            <i class="bi bi-briefcase me-2 h5 mb-0"></i>
+
+                            {{data.item | show:data.type:'operator_name'}}
+
                         </div>
                         <div *ngSwitchCase="'guiadoActivity'" class="d-flex align-items-center">
-                            <i class="bi bi-chat-dots me-2 h5 mb-0"></i> 
+                            <i class="bi bi-chat-dots me-2 h5 mb-0"></i>
                             <div>
-                                {{data.item | show:data.type:'full_name'}} 
-                               <!--  <small class="text-secondary d-block">{{data.item | show:'operatorActivity':'passengers_list'}}</small> -->
-                            </div>                   
+                                {{data.item | show:data.type:'full_name'}}
+
+                            </div>
                         </div>
                         <div *ngSwitchCase="'choferActivity'" class="d-flex align-items-center">
-                            <i class="bi bi-speedometer me-2 h5 mb-0"></i> 
+                            <i class="bi bi-speedometer me-2 h5 mb-0"></i>
                             <div>
-                                {{data.item | show:data.type:'full_name'}} 
-                               <!--  <small class="text-secondary d-block">{{data.item | show:'operatorActivity':'passengers_list'}}</small> -->
-                            </div>                   
+                                {{data.item | show:data.type:'full_name'}}
+
+                            </div>
                         </div>
                         <div *ngSwitchCase="'restaurantActivity'" class="d-flex align-items-center">
-                            <i class="bi bi-camera me-2 h5 mb-0"></i> 
+                            <i class="bi bi-camera me-2 h5 mb-0"></i>
                             <div>
-                                {{data.item | show:data.type:'restaurant_name'}} 
-                               <!--  <small class="text-secondary d-block">{{data.item | show:'operatorActivity':'passengers_list'}}</small> -->
-                            </div>                   
+                                {{data.item | show:data.type:'restaurant_name'}}
+
+                            </div>
                         </div>
-                        
+
                     </td>
                     <td [ngSwitch]="data.type">
-                        
-                        <div *ngSwitchCase="'operadorActivity'" class="d-flex align-items-center">                    
-                            Operador                   
+
+                        <div *ngSwitchCase="'operadorActivity'" class="d-flex align-items-center">
+                            Operador
                         </div>
-                        <div *ngSwitchCase="'guiadoActivity'" class="d-flex align-items-center">                      
-                            Guia                   
+                        <div *ngSwitchCase="'guiadoActivity'" class="d-flex align-items-center">
+                            Guia
                         </div>
                         <div *ngSwitchCase="'choferActivity'" class="d-flex align-items-center">
-                        
-                            Chofer                
+
+                            Chofer
                         </div>
                         <div *ngSwitchCase="'restaurantActivity'">
-                            
+
                             Servicio de comidas
-                             <small class="text-secondary d-block">{{data.item | show:data.type:'num_menus'}} menus</small>                 
+                            <small class="text-secondary d-block">{{data.item | show:data.type:'num_menus'}}
+                                menus</small>
                         </div>
-                    </td>                    
-                </tr>       
+                    </td>
+                </tr>
             </tbody>
         </ng-template>
-    </table>    
+
+    </table>
 </div>
+
+
+
+
+<ng-template #noActivities>
+    <small class="mt-3 text-start text-secondary d-flex align-items-center">
+        <i class="bi bi-exclamation-diamond h4 me-2 mb-0"></i> <em> No hay servicios registrados en esta salida</em>
+    </small>
+
+</ng-template>
 
 
 
