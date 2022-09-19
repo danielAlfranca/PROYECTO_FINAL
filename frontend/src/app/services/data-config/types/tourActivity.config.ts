@@ -1,5 +1,6 @@
 import { DatePipe } from "@angular/common";
 import { Injectable, Injector } from "@angular/core";
+import { AppConfigService } from "../../app-config.service";
 import { DataConfig } from "../model";
 import { ActivityConfig } from "./modelActivity.config";
 
@@ -21,6 +22,8 @@ export class TourActivityConfig extends ActivityConfig{
         tour_name:(obj:any)=> this.getRef('tour',this.getValue(obj, 'tour_id'),'nombre'),
 
         passengers_list:(obj:any)=>this.get_passengers_list(obj),
+
+        associated_salida: (obj:any)=>this.get_associated_salida(obj)
         
     }
 
@@ -49,6 +52,29 @@ export class TourActivityConfig extends ActivityConfig{
 
     }
 
-    
+    get_associated_salida(obj:any){
+
+         const  service = this.injector.get(AppConfigService),
+                salidas = service.queries.section('salida') || [],
+                id = this.getValue(obj,'id'),
+                activity= this.getValue(obj,'activity_index');
+
+        let pax, salida = salidas.find((salida:any)=>{
+
+            pax = service.dataConfig.getValue(salida,'pax','salida') || [];
+
+            return pax.find((passenger:any)=>{
+
+
+                return  service.dataConfig.getValue(passenger,'id','passenger') == id &&
+                        service.dataConfig.getValue(passenger,'activity','passenger') == activity 
+            }) != -1;
+      
+          }) 
+
+        return salida!==-1 ? salida : false
+        
+    }
+   
 
 }

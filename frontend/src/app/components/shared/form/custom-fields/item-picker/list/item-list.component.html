@@ -37,12 +37,23 @@
             </tr>
         </ng-template>   
     </app-table>
-   
+    <app-table *ngSwitchCase="'trabajador'" [config]="tableConfig" (buttonClick)="form()">
+        <ng-template let-data="data" #trabajadores>
+            <tr (click)="display(data,false,'trabajador')" class="pointer">
+                <td>
+                    {{data | show:'trabajador':'nombre_completo'}} 
+                    <div>
+                        <small class="text-secondary"><i class="bi bi-telephone me-2"></i> {{data | show:'trabajador':'lista_telefonos'}}</small><br>
+                        <small class="text-secondary"><i class="bi bi-envelope me-2"></i> {{data | show:'trabajador':'lista_emails'}} </small>
+                    </div>           
+                </td>
+                <td>{{data | show:'trabajador':'documento'}} </td>
+                <td>{{data | show:'trabajador':'tipo'}} <small><em>({{data | show:'trabajador':'regimen'}} ) </em></small></td>
+                <td> 
+                    
+                </td>         
+            </tr>
+        </ng-template>
+    </app-table>
 </div>
-
-<!-- <ng-container [ngTemplateOutlet]="template"></ng-container> 
-
-<ng-template>
-    <app-empresa-list></app-empresa-list>
-</ng-template> -->
 

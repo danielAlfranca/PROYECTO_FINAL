@@ -47,9 +47,9 @@ export class FormComponent implements AfterContentInit{
 
    if(!(data instanceof Event)){ // evitar el error de enviar evento en vez de valor
 
-      Object.keys(data).forEach((property:string)=>{
+      Object.keys(data).forEach((property:string)=>{        
         
-        this.appConfig.dataConfig.setValue(this.item, property, this.type, data[property]);
+        this.appConfig.dataConfig.setValue(this.item, property, this.type, data[property]);   
       
       });
 
@@ -70,6 +70,8 @@ export class FormComponent implements AfterContentInit{
     });
 
     this.fields = [...this.fields];
+
+    this.item = [...this.item];
 
     if(notificate) {
       

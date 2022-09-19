@@ -4,6 +4,7 @@ import { TableAdminComponent } from 'src/app/components/shared/models/table-admi
 import { empresaTable } from 'src/app/fields/empresa';
 import { hotelTable } from 'src/app/fields/hotel';
 import { tourTable } from 'src/app/fields/tour';
+import { trabajadorTable } from 'src/app/fields/trabajador';
 import { TableSection } from 'src/app/interfaces/table';
 import { DataTypes } from 'src/app/interfaces/types/data-config';
 import { AppConfigService } from 'src/app/services/app-config.service';
@@ -53,6 +54,7 @@ export class ItemListComponent extends TableAdminComponent implements OnInit {
       case 'empresa':return empresaTable;
       case 'tour':return tourTable;
       case 'hotel':return hotelTable;
+      case 'trabajador':return trabajadorTable;
       default: return empresaTable; 
     }
 

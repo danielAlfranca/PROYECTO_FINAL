@@ -83,8 +83,13 @@ import { DisplayRestaurantActivityComponent } from './components/sections/salida
 import { DisplayPassengerComponent } from './components/sections/salidas/display/passenger/display-passenger.component';
 import { PaxListComponent } from './components/shared/display/pax-list/pax-list.component';
 import { PaxListFormAdminComponent } from './components/shared/form/custom-fields/form-admin/pax-list-form-admin/pax-list-form-admin.component';
-
-
+import { OperadorFormComponent } from './components/sections/salidas/form/activities/operador/operador-form.component';
+import { GuiadoFormComponent } from './components/sections/salidas/form/activities/guiado/guiado-form.component';
+import { ChoferFormComponent } from './components/sections/salidas/form/activities/chofer/chofer-form.component';
+import { SalidaActivityComponent } from './components/sections/salidas/form/activities/salida-activity/salida-activity.component';
+import { SalidasPassengersFormComponent } from './components/sections/salidas/form/passengers/salidas-passengers-form.component';
+import { SelectPassengerComponent } from './components/sections/salidas/form/passengers/select-passenger/select-passenger.component';
+import { CreatePassengerComponent } from './components/sections/salidas/form/passengers/create-passenger/create-passenger.component';
 
 
 @NgModule({
@@ -160,7 +165,14 @@ import { PaxListFormAdminComponent } from './components/shared/form/custom-field
     DisplayRestaurantActivityComponent,
     DisplayPassengerComponent,
     PaxListComponent,
-    PaxListFormAdminComponent
+    PaxListFormAdminComponent,
+    OperadorFormComponent,
+    GuiadoFormComponent,
+    ChoferFormComponent,
+    SalidaActivityComponent,
+    SalidasPassengersFormComponent,
+    SelectPassengerComponent,
+    CreatePassengerComponent
 
   ],
   imports: [

@@ -46,6 +46,8 @@ export class SalidaConfig extends DataConfig{
     protected override setters: { [key: string]: (obj: any, value: any) => any; } = {
 
         agent:(obj:any, value:any)=>false// solo asignable desde servidor aunque presente aqui para busquedas por referencia
+
+       
     };
 
     public override valueIsValid(obj:any,key:string):boolean{ // VALIDA PROPIEDAD
@@ -105,6 +107,7 @@ export class SalidaConfig extends DataConfig{
         }, '')
 
     }
+
 
 
 }

@@ -8,7 +8,7 @@ import { ActivityConfig } from "./modelActivity.config";
 
 export class OperadorActivityConfig extends ActivityConfig{
     
-    override activitType  = 5;
+    override activitType  = 6;
 
     constructor(protected override injector:Injector, protected override datePipe:DatePipe){ super(injector, datePipe); }
 

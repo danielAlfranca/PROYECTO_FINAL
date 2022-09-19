@@ -6,7 +6,12 @@ export const choferActivityForm = [
     name:'agent',
     input:'itemPicker',
     options:{listType:'trabajador',propertyForDisplay:'full_name'}
-  }
+  },
+  {
+    title:'Comentarios',
+    name:'comments',
+    input:'textArea',   
+  },
   
 ] as unknown as FormItem[];
 

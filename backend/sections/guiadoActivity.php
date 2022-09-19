@@ -24,7 +24,9 @@ class GuiadoActivity extends Activity{
 
         'time_end'=>['private'=>7, 'validations'=>[], 'required'=>true],
 
-        'data'=>['private'=>8, 'validations'=>[], 'required'=>true,'default'=>[]]
+        'data'=>['private'=>8, 'validations'=>[], 'required'=>true,'default'=>[]],
+
+        'comments'=>['private'=>'8.0', 'validations'=>[], 'required'=>true,'default'=>'']
     ]; 
 
 

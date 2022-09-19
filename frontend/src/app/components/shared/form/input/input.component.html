@@ -57,6 +57,12 @@
 <ng-template let-name="name" let-value="value" let-title="title" let-options="options" #paxList>
     <app-pax-list-form-admin [value]="value[0]" (inputChange)="update($event)"></app-pax-list-form-admin>
 </ng-template>
+<ng-template let-name="name" let-value="value" let-title="title" let-options="options" #textArea>
+    <label>{{title}}</label>
+    <textarea class="form-control"  [value]="value[0] || null" [name]="name[0]"  (input)="update($any($event.target).value)"></textarea>
+</ng-template>
+
+
 
 
 <!-- VALIDACION  -->

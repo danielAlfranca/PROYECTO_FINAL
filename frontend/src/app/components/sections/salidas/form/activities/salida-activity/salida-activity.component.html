@@ -1,0 +1,15 @@
+<div class="card m-4 pt-0">
+
+    <h5 class="text-center card-header py-3">Elige una opcion</h5>
+    <ul class="list-group">
+        <li class="list-group-item d-flex align-items-stretch pointer py-3" *ngFor="let option of options" (click)="open(option)">
+            
+            <div class="border-end border-2 d-flex align-items-center justify-content-center pe-3">
+                <i class="bi bi-{{option.icono}}"></i>
+            </div>
+            <div class="text-center w-100">
+                {{option.name}}
+            </div>    
+        </li>       
+    </ul>
+</div>

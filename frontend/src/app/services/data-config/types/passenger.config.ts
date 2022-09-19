@@ -25,7 +25,7 @@ export class PassengerConfig extends DataConfig{
 
         phones_list:(obj:any)=> this.getRef('reserva',this.getValue(obj, 'id'),'phones'),
 
-        pax_list:(obj:any)=>this.get_passengers_list(this.getValue(obj,'passengers')),
+        pax_list:(obj:any)=>this.get_passengers_list(this.getValue(obj,'passengers'))
 
     }
 
@@ -76,6 +76,8 @@ export class PassengerConfig extends DataConfig{
         }, '')
 
     }
+
+
 
 
 }

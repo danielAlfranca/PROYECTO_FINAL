@@ -5,8 +5,14 @@ export const operatorActivityForm = [
     title:'Operador',
     name:'agent',
     input:'itemPicker',
-    options:{listType:'empresa',propertyForDisplay:'nombre'}
-  }
+    options:{listType:'empresa',propertyForDisplay:'operator_name'}
+  }, 
+  {
+    title:'Comentarios',
+    name:'comments',
+    input:'textArea',
+   
+  },
   
 ] as unknown as FormItem[];
 

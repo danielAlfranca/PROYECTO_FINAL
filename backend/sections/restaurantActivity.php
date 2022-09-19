@@ -26,6 +26,8 @@ class RestaurantActivity extends Activity{
 
         'data'=>['private'=>8, 'validations'=>[], 'required'=>true,'default'=>[]],
 
+        'comments'=>['private'=>'8.0', 'validations'=>[], 'required'=>true,'default'=>''],
+
         'num_menus'=>['private'=>'8.1', 'validations'=>[], 'required'=>true,'default'=>0]
     ]; 
 

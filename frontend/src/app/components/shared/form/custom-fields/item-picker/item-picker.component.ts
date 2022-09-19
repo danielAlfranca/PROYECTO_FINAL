@@ -30,7 +30,7 @@ export class ItemPickerComponent extends CustomFieldComponent implements OnChang
     this.propertyForDisplay = this.options.propertyForDisplay;
   }
 
-  ngOnChanges(changes:SimpleChanges): void{ this.item = [...(this.item||[])]; console.log('cambio',this.item)}
+  ngOnChanges(changes:SimpleChanges): void{ this.item = [...(this.item||[])]; console.log('cambio',changes,(changes['item'] || {}).currentValue)}
 
   open(){
 

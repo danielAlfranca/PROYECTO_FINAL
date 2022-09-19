@@ -32,6 +32,7 @@ export class ActivitiesListComponent implements OnChanges{
   ngOnChanges(): void {
 
     this.activities = this.getList(); 
+
     this.columns = this.type == 'reserva' ? ['Actividad','Fecha']:['Provedor','Servicio'];
 
   }
@@ -70,6 +71,8 @@ export class ActivitiesListComponent implements OnChanges{
         break; 
       };      
     }
+
+
 
     propList.forEach((label:any,index:any)=>{
 
