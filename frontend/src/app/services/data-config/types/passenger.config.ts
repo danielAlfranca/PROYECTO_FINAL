@@ -1,6 +1,8 @@
 import { Injectable, Injector } from "@angular/core";
 import { DataConfig } from "../model";
 import { DatePipe } from "@angular/common";
+import { AppConfigService } from "../../app-config.service";
+
 
 @Injectable({
     providedIn: 'root' 
@@ -11,13 +13,13 @@ export class PassengerConfig extends DataConfig{
     protected override validations = {
 
         ...this.common_validations,
-        type_valid: (obj:any, key:string) => this.getValue(obj,key) == 2,
-        agent_valid:(obj:any, key:string) => this.valid_agent(obj)     
-
+        
     }
     constructor(protected override injector:Injector,private datePipe:DatePipe ){ super(injector); }
 
     protected override getters = {
+
+        passengers:(obj:any)=>this.getPassengers(obj),
 
         full_name:(obj:any)=>this.getRef('reserva',this.getValue(obj,'id') ,'full_name'),
 
@@ -25,34 +27,65 @@ export class PassengerConfig extends DataConfig{
 
         phones_list:(obj:any)=> this.getRef('reserva',this.getValue(obj, 'id'),'phones'),
 
-        pax_list:(obj:any)=>this.get_passengers_list(this.getValue(obj,'passengers'))
+        pax_list:(obj:any)=>this.get_passengers_list(this.getValue(obj,'passengers')),
+        
+        dates:(obj:any)=>this.getDates(obj),
+
+        has_salida:(obj:any)=>this.hasSalida(obj)
 
     }
 
     protected override setters: { [key: string]: (obj: any, value: any) => any; } = {
 
-        agent:(obj:any, value:any)=>false// solo asignable desde servidor aunque presente aqui para busquedas por referencia
+        
     };
 
-    public override valueIsValid(obj:any,key:string):boolean{ // VALIDA PROPIEDAD
+    private getTour(obj:any){
 
-        // como hay otros objetos de inventario con la misma estructura primero siempre comprobar que sea una empresa
+        const tours = (this.getRef('reserva',this.getValue(obj,'id'),'tours') || []),
+              service = this.injector.get(AppConfigService).dataConfig;
 
-       if(!this.validations.type_valid(obj,'type')) return false
-
-       return super.valueIsValid(obj,key)
+        return tours.find((tour:any)=>service.getValue(tour, 'activity_index', 'tourActivity')==this.getValue(obj, 'activity'))     
     }
 
-    private valid_agent(obj:any){
+    private getPassengers(obj:any){
 
-        const agent = this.getValue(obj,'agent');
-        return (this.getValue(obj,'id') == 'nuevo' && agent === 1) || !isNaN(agent);
+        const pax = this.getByPath(obj,this.getKey("passengers")) || [];
+
+        if(pax.length) return pax;
+
+        const tour:any = this.getTour(obj),
+              service = this.injector.get(AppConfigService).dataConfig;
+
+        return service.getValue(tour,'pax','tourActivity');
+
+    }
+
+    private hasSalida(obj:any){
+
+        const tour:any  = this.getTour(obj);
+        return this.injector.get(AppConfigService).dataConfig.getValue(tour,'salida_id','tourActivity');
+    }
+
+
+    private getDates(obj:any){
+
+        const   service = this.injector.get(AppConfigService).dataConfig,
+                tour:any  = this.getTour(obj),
+                tourDate = service.getValue(tour,'date_start','tourActivity'),
+                salidaId = service.getValue(tour,'salida_id','tourActivity'),
+                salidaDate = this.getRef('salida',salidaId,'date_start');
+
+        return {
+
+            reserva:tourDate,
+            programada:salidaDate
+        };
     }
 
 
 
     private get_passengers_list(pax:any[]){
-
         
         let str = '', num;
         const   singulars = ['adulto', 'nino', 'infante'],

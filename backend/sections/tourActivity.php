@@ -28,7 +28,9 @@ class TourActivity extends Activity{
 
         'tour_id'=>['private'=>"8.0", 'validations'=>['is_number'], 'required'=>true], // falta
 
-        'pax'=>['private'=>"8.1", 'validations'=>['is_string_array'], 'required'=>true]
+        'pax'=>['private'=>"8.1", 'validations'=>['is_string_array'], 'required'=>true],
+
+        'salida_id'=>['private'=>"8.2", 'validations'=>['is_string_array']]
     ]; 
 
 

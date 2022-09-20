@@ -33,7 +33,9 @@ export class TableAdminComponent {
   
     sections.forEach((tableSection:TableSection) => {
 
+      
       tableSection.data = this.getData(tableSection.dataType as DataTypes);
+      console.log(tableSection.data);
 
     });
 

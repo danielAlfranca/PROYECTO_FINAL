@@ -7,6 +7,8 @@ import { ChoferFormComponent } from "../components/sections/salidas/form/activit
 import { GuiadoFormComponent } from "../components/sections/salidas/form/activities/guiado/guiado-form.component";
 import { OperadorFormComponent } from "../components/sections/salidas/form/activities/operador/operador-form.component";
 import { SalidaActivityComponent } from "../components/sections/salidas/form/activities/salida-activity/salida-activity.component";
+import { CreatePassengerComponent } from "../components/sections/salidas/form/passengers/create-passenger/create-passenger.component";
+import { SelectPassengerComponent } from "../components/sections/salidas/form/passengers/select-passenger/select-passenger.component";
 import { SalidasFormComponent } from "../components/sections/salidas/form/salidas-form.component";
 import { SalidasCalendarComponent } from "../components/sections/salidas/salidas-section/calendar/salidas-calendar.component";
 import { SalidasSectionComponent } from "../components/sections/salidas/salidas-section/salidas-section.component";
@@ -149,5 +151,27 @@ export const salidasRoutes = [
         },
     },
 
+    {
+
+        path: 'add-passenger', component: SelectPassengerComponent, outlet:'popUp-1', data: {
+
+            title: 'Seleccionar pasajero',
+            icon: 'bi bi-file-plus'
+        },
+
+        
+    },
+
+    {
+
+        path: 'new-passenger', component: CreatePassengerComponent, outlet:'popUp-2', data: {
+
+            title: 'Añadir pasajero',
+            icon: 'bi bi-file-plus'
+        },
+
+        
+    },
     
 ];
+

@@ -1,1 +1,24 @@
-<p>select-passenger works!</p>
+<app-table [config]="tableConfig" (buttonClick)="form()">
+
+    <ng-template let-data="data" #passengers>
+        <tr (click)="display(data,false)" class="pointer">
+            <td> 
+                
+                {{ data | show:'passenger':'full_name' }} <br>
+                <small class="text-secondary">
+                    <i class="bi bi-people me-2"></i>{{ data | show:'passenger':'pax_list' }}</small> <br>               
+            
+            </td>
+            <td> 
+                {{ $any(data | show:'passenger':'dates').programada ||   $any(data | show:'passenger':'dates').reserva }} 
+            </td>
+            <td>
+                <i class="bi bi-{{ (data | show:'passenger':'has_salida') ? 'check-circle-fill text-success':'exclamation-square-fill text-warning' }}" ></i>                 
+            </td>
+            <td>{{data | show:'reserva':'provider_name'}} </td>
+        </tr>
+    </ng-template>
+
+   
+
+</app-table>

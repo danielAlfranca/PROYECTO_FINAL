@@ -3,7 +3,7 @@
 
     function build_salidas($reservas, $empresas, $trabajadores){        
         
-       $salidas = []; $resultado = [];
+       $salidas = []; $resultado = []; $numReservas = count($reservas); $index = 0; 
 
        foreach ($reservas as $reserva) {
 
@@ -11,6 +11,7 @@
             
             $activities = $data[5];
             $tours = $activities->{'1'};
+            $indexTours = 0;
         
             foreach ($tours as $tour) {
 
@@ -18,9 +19,13 @@
            
                 $key = $tour[4] . "--".$tour[5] . "--".$tour[6] . "--".$tour[7] . "--".$tour[8][0];
 
-                //[ reservaid (0),  tourid (1), pax (2)]
+                //[ reservaid (0),  tourid (1), pax (2)]                
 
-                $value = [$reserva[0],$tour[0],$tour[8][1]];
+                $value = [$reserva[0],$tour[1],$tour[8][1]];
+
+                // añado id salida
+
+                $tour[8][2]= $numReservas + 1 + $index;
 
                 if (!array_key_exists($key, $salidas )) {
                     
@@ -30,8 +35,15 @@
 
                     $salidas[$key][] = $value;
                 }
-            
+                
+                $data[5]->{'1'}[$indexTours] = $tour;
+                
+                $indexTours++;
             }
+
+            $reservas[$index][6] =  json_encode($data);
+
+            $index++;
        }
 
 
@@ -66,7 +78,7 @@
     }
 
    
-    return $resultado;
+    return ["salidas"=>$resultado, "reservas"=>$reservas];
     }
 
   /*   * activity_group(
@@ -119,7 +131,7 @@
             null, //0 -group_id - id salida falta,
             1 ,// 1 - activity_index,
             4 ,// 1 - activity_type,
-            rand($empresas+1, $trabajadores+$empresas+1) ,// 2 -agent ,
+            rand($empresas+1, $trabajadores+$empresas) ,// 2 -agent ,
             $start ,// 1 - date_start,
             $end ,// 1 - date_end,
             $time_start ,// 1 - time_start,
@@ -134,7 +146,7 @@
            null, //0 -group_id - id salida falta,
            1 ,// 1 - activity_index,
            5 ,// 1 - activity_type,
-           rand($empresas+1, $trabajadores+$empresas+1) ,// 2 -agent ,
+           rand($empresas+1, $trabajadores+$empresas) ,// 2 -agent ,
            $start ,// 1 - date_start,
            $end ,// 1 - date_end,
            $time_start ,// 1 - time_start,

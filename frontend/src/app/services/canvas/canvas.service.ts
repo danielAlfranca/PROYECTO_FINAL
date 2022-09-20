@@ -36,7 +36,7 @@ export class CanvasService {
 
     const response = new Subject<any>(), config = this.getRouteConfig(data, response, query);
 
-    console.log(config);
+   // console.log(config);
 
     if(config) { this.router.navigate([config ]); }  
     

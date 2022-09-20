@@ -96,11 +96,13 @@ export abstract class DataConfig{
 
         const configKey = this.getKey(property);
 
+        //console.log(value, configKey);
+
         switch(true){
 
             case !configKey as boolean: return false;
 
-            case !this.setters[property] as boolean: return configKey.private ? this.setByPath(obj,configKey,value) : false;
+            case !this.setters[property] as boolean: return configKey.private !== undefined ? this.setByPath(obj,configKey,value) : false;
 
             default: return this.setters[property](obj,value )
         }

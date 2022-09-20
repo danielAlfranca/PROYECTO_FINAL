@@ -24,7 +24,9 @@
     $tours = array_filter($inventory, fn($e)=>$e[2]==4);
     $hotels = array_filter($inventory, fn($e)=>$e[2]==3);
     $reservas = build_reservas($reservas, [ $empresas , $trabajadores , $reservasAgents ], $names, $last_names, $emails, $tours, $hotels);
-    $salidas = build_salidas($reservas,$empresas,$trabajadores);
+    $salidasYReservas = build_salidas($reservas,$empresas,$trabajadores);
+    $salidas = $salidasYReservas["salidas"];
+    $reservas = $salidasYReservas["reservas"];
 
     $user='root';
     $host='localhost';

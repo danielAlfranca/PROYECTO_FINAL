@@ -55,7 +55,7 @@
     <app-rooms-list [value]="value[0]" (inputChange)="update($event)"></app-rooms-list>
 </ng-template>
 <ng-template let-name="name" let-value="value" let-title="title" let-options="options" #paxList>
-    <app-pax-list-form-admin [value]="value[0]" (inputChange)="update($event)"></app-pax-list-form-admin>
+    <app-pax-list-form-admin [value]="value[0]" (inputChange)="update($event)" [item]="item"></app-pax-list-form-admin>
 </ng-template>
 <ng-template let-name="name" let-value="value" let-title="title" let-options="options" #textArea>
     <label>{{title}}</label>

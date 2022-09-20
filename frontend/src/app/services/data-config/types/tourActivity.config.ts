@@ -23,7 +23,11 @@ export class TourActivityConfig extends ActivityConfig{
 
         passengers_list:(obj:any)=>this.get_passengers_list(obj),
 
-        associated_salida: (obj:any)=>this.get_associated_salida(obj)
+        salida_date_start: (obj:any)=>this.getRef('salida', this.getValue(obj,'salida_id'),"date_start"),
+
+        salida_date_end: (obj:any)=>this.getRef('salida', this.getValue(obj,'salida_id'),"date_end"),
+
+        salida_pax: (obj:any)=>this.get_salida_pax(obj)
         
     }
 
@@ -52,27 +56,24 @@ export class TourActivityConfig extends ActivityConfig{
 
     }
 
-    get_associated_salida(obj:any){
+    get_salida_pax(obj:any){
 
-         const  service = this.injector.get(AppConfigService),
-                salidas = service.queries.section('salida') || [],
-                id = this.getValue(obj,'id'),
-                activity= this.getValue(obj,'activity_index');
+        const pax = this.getRef('salida', this.getValue(obj,'salida_id'),"pax"),
+              service = this.injector.get(AppConfigService).dataConfig;
 
-        let pax, salida = salidas.find((salida:any)=>{
-
-            pax = service.dataConfig.getValue(salida,'pax','salida') || [];
-
-            return pax.find((passenger:any)=>{
+        if(!pax) return false;
 
 
-                return  service.dataConfig.getValue(passenger,'id','passenger') == id &&
-                        service.dataConfig.getValue(passenger,'activity','passenger') == activity 
-            }) != -1;
-      
-          }) 
+        let id, activity, passengers =  pax.find((el:any)=>{
+            
+           id = service.getValue(el,'id','passenger');
+           activity = service.getValue(el,'activity','passenger');
 
-        return salida!==-1 ? salida : false
+           return id ==this.getValue(obj,'id') && id ==this.getValue(obj,'id')
+        
+        })
+
+        return service.getValue(passengers, 'passengers','passenger');
         
     }
    
