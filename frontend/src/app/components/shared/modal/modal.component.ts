@@ -24,6 +24,7 @@ export class ModalComponent implements OnInit {
     this.message = config.message;
     this.type = config.type;
     this.icon = this.getIcon(this.type) as string
+    
   }
 
   getIcon(type:string){

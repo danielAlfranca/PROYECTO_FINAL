@@ -1,16 +1,9 @@
 import {  Component, EventEmitter, Input, OnChanges, Output} from '@angular/core';
 import { take } from 'rxjs';
-import { choferActivityTable } from 'src/app/fields/choferActivity';
-import { guiadorActivityTable } from 'src/app/fields/guiadoActivity';
-import { hotelActivityTable } from 'src/app/fields/hotelActivity';
-import { operatorActivityTable } from 'src/app/fields/operadorActivity';
-import { restaurantActivityTable } from 'src/app/fields/restaurantActivity';
-import { tourActivityTable } from 'src/app/fields/tourActivity';
-import { ActivityTypes, NewActivity } from 'src/app/interfaces/activities';
-import { TableSection } from 'src/app/interfaces/table';
+import {  NewActivity } from 'src/app/interfaces/activities';
 import { DataTypes } from 'src/app/interfaces/types/data-config';
 import { AppConfigService } from 'src/app/services/app-config.service';
-import { TableAdminComponent } from '../../models/table-admin/table-admin.component';
+
 
 @Component({
   selector: 'app-activities-list',
@@ -22,6 +15,7 @@ export class ActivitiesListComponent implements OnChanges{
   @Input() type!:DataTypes;
   @Input() mode!:string;
   @Input() data!:any;
+  @Input() index!:any;// for edit url
   @Output() activitiesUpdated = new EventEmitter();
 
   activities:any;
@@ -95,11 +89,11 @@ export class ActivitiesListComponent implements OnChanges{
   }
 
   open(item?:any, section?:string){
-
+    console.log(this.getFormUrl(section) ,this.appConfig.canvas.last.outlet);
 
     if(this.mode=='display') return this.appConfig.canvas.open('display-' +section , {displayItem:item});
 
-    return this.appConfig.canvas.open('form-activity-'+(section||this.type) , {formItem:item}).pipe(take(1)).subscribe((response:NewActivity)=>{
+    return this.appConfig.canvas.open(this.getFormUrl(section) , {formItem:item}).pipe(take(1)).subscribe((response:NewActivity)=>{
       
       if(response) {
         
@@ -107,6 +101,14 @@ export class ActivitiesListComponent implements OnChanges{
       };
     
     });
+    
+  }
+
+  private getFormUrl(section?:string){
+
+    const outlet = this.appConfig.canvas.last.outlet;
+
+    return 'form-activity-'+(section||this.type)+(outlet=="aside-1" ? '':"-2") 
     
   }
 

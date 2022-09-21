@@ -3,6 +3,7 @@ import { DataConfig } from "../model";
 import { DatePipe } from "@angular/common";
 import { PassengerConfig } from "./passenger.config";
 import { DataConfigService } from "../data-config.service";
+import { format, parse } from "date-fns";
 
 @Injectable({
     providedIn: 'root' 
@@ -33,22 +34,17 @@ export class SalidaConfig extends DataConfig{
 
         passengers_total_list:(obj:any)=>this.paxTotalList(obj),
 
-        date_start:(obj:any)=>  this.datePipe.transform(this.getByPath(obj,this.getKey('date_start') ), 'dd/MM/yy'),
+        date_start:(obj:any)=>  this.getDate(obj, 'date_start'),
         
-        date_end:(obj:any)=>  this.datePipe.transform(this.getByPath(obj,this.getKey('date_end') ), 'dd/MM/yy'),
+        date_end:(obj:any)=>  this.getDate(obj, 'date_end'),
 
-        time_start:(obj:any)=>  ((this.getByPath(obj,this.getKey('time_start') ) || '').split(":")).slice(0,-1).join(':'),
+        time_start:(obj:any)=>  this.getTime(obj, 'time_start'),
         
-        time_end:(obj:any)=>  ((this.getByPath(obj,this.getKey('time_end')) || '').split(":") ).slice(0,-1).join(':')
+        time_end:(obj:any)=>  this.getTime(obj, 'time_end')
 
     }
 
-    protected override setters: { [key: string]: (obj: any, value: any) => any; } = {
-
-        agent:(obj:any, value:any)=>false// solo asignable desde servidor aunque presente aqui para busquedas por referencia
-
-       
-    };
+    protected override setters: { [key: string]: (obj: any, value: any) => any; } = {};
 
     public override valueIsValid(obj:any,key:string):boolean{ // VALIDA PROPIEDAD
 
@@ -107,6 +103,29 @@ export class SalidaConfig extends DataConfig{
         }, '')
 
     }
+
+    getDate(obj:any, field:string){
+
+        const date:any = this.getByPath(obj,this.getKey(field) );
+
+        console.log(date)
+
+        if(date) return format(parse(date, 'yyyy-MM-dd', new Date() ),"dd/MM/yy");
+
+        return null
+    }
+
+    getTime(obj:any, field:string){
+
+        const time:any = this.getByPath(obj,this.getKey(field) ) || '', arr = time.split(":");
+
+        if(!time) return null;
+
+        return arr[0]+":"+arr[1];
+    }
+
+
+ 
 
 
 

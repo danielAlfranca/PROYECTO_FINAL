@@ -9,7 +9,7 @@ import { Subscription, take } from 'rxjs';
 })
 export class PaxListComponent implements OnInit {
 
-  @Input() salida!:string;
+  @Input() salida!:any;
   @Input() mode!:string;
   @Input() passengers!:any;
 
@@ -29,12 +29,20 @@ export class PaxListComponent implements OnInit {
     
     });    
 
-    else this.appConfig.canvas.open('add-passenger', {formItem:this.salida}).pipe(take(1)).subscribe(response=>{
+    else {
+      
+      if(this.salidaIsReady()){
+
+        this.appConfig.canvas.open('add-passenger', {formItem:this.salida}).pipe(take(1)).subscribe(response=>{
       
     
-      if(response) {this.update(response)}
-    
-    });   
+          if(response) {this.update(response)}
+        
+          });  
+
+      }else this.showError()
+       
+    }
 
   }
 
@@ -59,6 +67,17 @@ export class PaxListComponent implements OnInit {
 
     this.paxUpdated.emit(this.passengers)
 
+  }
+
+  private salidaIsReady(){
+
+      return ['date_start','date_end','tour_id'].every((e:any)=>this.appConfig.dataConfig.getValue(this.salida,e,'salida'))
+
+  }
+
+  private showError(){
+
+    return this.appConfig.canvas.open('modal-error-1',{message:"Antes debes determinar una fecha de inicio, ficha de fin y el tour asociado", type:'error'});
   }
 
 

@@ -16,7 +16,7 @@ export class FormComponent implements AfterContentInit{
   @Input() fields!:FormItem[];
   @Input() btnText?:string;
 
-  @Output() change = new EventEmitter<{item:any,valid:boolean}>();
+  @Output() change = new EventEmitter<{item:any,valid:boolean,changed?:any}>();
   @Output() save = new EventEmitter<{item:any}>();
 
   @ViewChildren(TemplateRef) defaultTemplates!:QueryList<TemplateRef<any>>;
@@ -78,10 +78,11 @@ export class FormComponent implements AfterContentInit{
       this.change.emit({ 
       
         item:this.item, 
-        valid:this.appConfig.dataConfig.validate(this.item,this.type)
+        valid:this.appConfig.dataConfig.validate(this.item,this.type),
+        changed:value
       
       })
-    }
+    }    
   } 
 
   onSave(){   this.save.emit(this.item); }

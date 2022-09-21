@@ -16,18 +16,31 @@ export class SelectPassengerComponent extends TableAdminComponent implements OnI
 
   protected override type = 'passenger' as DataTypes;
   protected item:any;
+
+  date_start!:string;
+  date_end!:string;
+  tourSalida!:number;
   
   constructor(protected override appConfig:AppConfigService) {  super(appConfig); } 
 
   ngOnInit(): void { 
 
-    this.item = this.appConfig.canvas.last.query.formItem;
+    const service = this.appConfig.dataConfig;
 
-    this.init([passengerTable]);   
+    this.item = this.appConfig.canvas.last.query.formItem;
+    this.date_start = service.getValue(this.item,'date_start','salida');
+    this.date_end = service.getValue(this.item,'date_end','salida');
+    this.tourSalida = service.getValue(this.item,'tour_id','salida');
+
+    if(this.date_start && this.date_end && this.tourSalida){
+
+      this.init([passengerTable]);   
+
+    }  
 
   }
 
-  protected override display(item: any, data?: any, section?: string | undefined): void {
+  protected override display(item?: any, data?: any, section?: string | undefined): void {
 
     this.appConfig.canvas.close(item);
   }
@@ -47,9 +60,8 @@ export class SelectPassengerComponent extends TableAdminComponent implements OnI
     let startIsBefore, endIsAfter , startReserva, endReserva, passengers:any = [], tour, passenger;
 
     const service = this.appConfig.dataConfig,
-          startDate = parse(service.getValue(this.item,'date_start','salida'),"dd/MM/yy",new Date()),
-          endDate = parse(service.getValue(this.item,'date_end','salida'),"dd/MM/yy",new Date()),
-          tourSalida = service.getValue(this.item,'tour_id','salida'),
+          startDate = parse(this.date_start,"dd/MM/yy",new Date()),
+          endDate = parse(this.date_end,"dd/MM/yy",new Date()),
           reservas = Object.values(this.appConfig.queries.section('reserva')||{});
 
     reservas.forEach((reserva:any)=>{
@@ -61,11 +73,10 @@ export class SelectPassengerComponent extends TableAdminComponent implements OnI
       startIsBefore = isBefore(startReserva, startDate) || differenceInDays(startReserva, startDate)==0; 
       endIsAfter = isAfter(endReserva, endDate) || differenceInDays(endReserva, endDate)==0;
 
-      tour = this.getTour(reserva, tourSalida);
+      tour = this.getTour(reserva, this.tourSalida);
       
 
       if(startIsBefore && endIsAfter && tour){
-
   
         passenger = this.appConfig.dataConfig.getModel("passenger");
 

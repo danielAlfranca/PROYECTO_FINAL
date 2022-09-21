@@ -7,15 +7,25 @@ import { take } from 'rxjs';
   templateUrl: './salida-activity.component.html',
   styleUrls: ['./salida-activity.component.scss']
 })
-export class SalidaActivityComponent {
+export class SalidaActivityComponent implements OnInit{
 
-  options = [
+  outlet!:string
 
-    {name:'Operador', icono:'briefcase', path:'form-operadorActivity', type:'operadorActivity'},
-    {name:'Guiado', icono:'chat-dots', path:'form-guiadoActivity', type:'guiadoActivity'},
-    {name:'Chofer', icono:'speedometer', path:'form-choferActivity', type:'choferActivity'},
-  ]
+  options:any;
+
   constructor(private appConfig:AppConfigService) { }
+
+  ngOnInit(): void {
+
+    const index = this.appConfig.canvas.last.outlet =="aside-2" ? "":"-2";
+
+    this.options = [
+
+      {name:'Operador', icono:'briefcase', path:'form-operadorActivity'+index, type:'operadorActivity'},
+      {name:'Guiado', icono:'chat-dots', path:'form-guiadoActivity'+index, type:'guiadoActivity'},
+      {name:'Chofer', icono:'speedometer', path:'form-choferActivity'+index, type:'choferActivity'},
+    ]
+  }
 
   open(option:any){
 

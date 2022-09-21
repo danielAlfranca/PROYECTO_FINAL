@@ -1,18 +1,29 @@
-import { Component, AfterViewInit, Output, Input, EventEmitter} from '@angular/core';
+import { Component, AfterViewInit, Output, Input, EventEmitter, OnChanges, SimpleChanges} from '@angular/core';
+import { format, parse } from 'date-fns';
 
 declare var Datepicker:any;
 
 @Component({
   selector: 'app-date-picker',
-  template: '<div [id]="idCalendar" [attr.data-date]="date || null"></div>',
+  template: '<div [id]="idCalendar" [attr.data-date]="formattedDate"></div>',
   styles: ['']
 })
-export class DatePickerComponent implements AfterViewInit {
+export class DatePickerComponent implements AfterViewInit, OnChanges {
 
   @Input() date!:string;
   @Output() newDate = new EventEmitter();
 
   idCalendar:string
+  formattedDate!:any
+
+
+  ngOnChanges(changes: SimpleChanges) { 
+
+    if(changes['date']){
+
+
+    }
+  }
   
   constructor() {
 
@@ -27,7 +38,15 @@ export class DatePickerComponent implements AfterViewInit {
       const elem = document.querySelector('#'+this.idCalendar) as Element;
       const datepicker = new Datepicker(elem);
 
-      elem.addEventListener('changeDate', (e:any)=>this.newDate.emit(Datepicker.formatDate(e.detail.date, 'dd/mm/yy')));     
+      elem.addEventListener('changeDate', (e:any)=>{
+        
+        let date =Datepicker.formatDate(e.detail.date, 'yyyy-mm-dd');
+
+        console.log(date,(e.detail.date))
+
+        this.newDate.emit(date)
+      
+      });     
 
     })
   }

@@ -40,17 +40,24 @@ export const salidasRoutes = [
         
     },
     {
-        path: 'form-activity-salida', component: SalidaActivityComponent, outlet:'aside-3', data: {
+        path: 'form-activity-salida', component: SalidaActivityComponent, outlet:'aside-2', data: {
 
             title: 'Nueva Actividad',
             icon: 'bi bi-file-plus'
         },        
         
     },
+    {
+        path: 'form-activity-salida-2', component: SalidaActivityComponent, outlet:'aside-3', data: {
 
+            title: 'Nueva Actividad',
+            icon: 'bi bi-file-plus'
+        },        
+        
+    },
     {
 
-        path: 'form-operadorActivity', component: OperadorFormComponent, outlet:'aside-4', data: {
+        path: 'form-operadorActivity', component: OperadorFormComponent, outlet:'aside-3', data: {
 
             title: 'Crear nuevo Operador',
             icon: 'bi bi-file-plus'
@@ -59,7 +66,7 @@ export const salidasRoutes = [
 
     {
 
-        path: 'form-guiadoActivity', component: GuiadoFormComponent, outlet:'aside-4', data: {
+        path: 'form-guiadoActivity', component: GuiadoFormComponent, outlet:'aside-3', data: {
 
             title: 'Crear nuevo Guia',
             icon: 'bi bi-file-plus'
@@ -68,7 +75,33 @@ export const salidasRoutes = [
 
     {
 
-        path: 'form-choferActivity', component: ChoferFormComponent, outlet:'aside-4', data: {
+        path: 'form-choferActivity', component: ChoferFormComponent, outlet:'aside-3', data: {
+
+            title: 'Crear nuevo chofer',
+            icon: 'bi bi-pencil'
+        },
+    },
+    {
+
+        path: 'form-operadorActivity-2', component: OperadorFormComponent, outlet:'aside-4', data: {
+
+            title: 'Crear nuevo Operador',
+            icon: 'bi bi-file-plus'
+        },
+    },
+
+    {
+
+        path: 'form-guiadoActivity-2', component: GuiadoFormComponent, outlet:'aside-4', data: {
+
+            title: 'Crear nuevo Guia',
+            icon: 'bi bi-file-plus'
+        },
+    },
+
+    {
+
+        path: 'form-choferActivity-2', component: ChoferFormComponent, outlet:'aside-4', data: {
 
             title: 'Crear nuevo chofer',
             icon: 'bi bi-pencil'
@@ -126,7 +159,7 @@ export const salidasRoutes = [
 
     {
 
-        path: 'form-activity-operadorActivity', component: OperadorFormComponent, outlet:'aside-3', data: {
+        path: 'form-activity-operadorActivity-2', component: OperadorFormComponent, outlet:'aside-3', data: {
 
             title: 'Editar Operador',
             icon: 'bi bi-pencil'
@@ -135,7 +168,7 @@ export const salidasRoutes = [
 
     {
 
-        path: 'form-activity-guiadoActivity', component: GuiadoFormComponent, outlet:'aside-3', data: {
+        path: 'form-activity-guiadoActivity-2', component: GuiadoFormComponent, outlet:'aside-3', data: {
 
             title: 'Editar Guia',
             icon: 'bi bi-pencil'
@@ -144,7 +177,33 @@ export const salidasRoutes = [
 
     {
 
-        path: 'form-activity-choferActivity', component: ChoferFormComponent, outlet:'aside-3', data: {
+        path: 'form-activity-choferActivity-2', component: ChoferFormComponent, outlet:'aside-3', data: {
+
+            title: 'Editar chofer',
+            icon: 'bi bi-pencil'
+        },
+    },
+    {
+
+        path: 'form-activity-operadorActivity', component: OperadorFormComponent, outlet:'aside-2', data: {
+
+            title: 'Editar Operador',
+            icon: 'bi bi-pencil'
+        },
+    },
+
+    {
+
+        path: 'form-activity-guiadoActivity', component: GuiadoFormComponent, outlet:'aside-2', data: {
+
+            title: 'Editar Guia',
+            icon: 'bi bi-pencil'
+        },
+    },
+
+    {
+
+        path: 'form-activity-choferActivity', component: ChoferFormComponent, outlet:'aside-2', data: {
 
             title: 'Editar chofer',
             icon: 'bi bi-pencil'
@@ -161,7 +220,6 @@ export const salidasRoutes = [
 
         
     },
-
     {
 
         path: 'new-passenger', component: CreatePassengerComponent, outlet:'popUp-2', data: {

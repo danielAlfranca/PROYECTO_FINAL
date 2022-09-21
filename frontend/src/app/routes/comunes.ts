@@ -25,7 +25,7 @@ export const comunesRoutes = [
         }        
     },
     {
-        path: 'modal-error-1', component: ModalComponent, outlet:'popUp-3', data: {
+        path: 'modal-error-1', component: ModalComponent, outlet:'popUp-1', data: {
 
             title: 'Error',
             icon: 'bi bi-pencil-square',
@@ -36,7 +36,7 @@ export const comunesRoutes = [
     {
         path: 'modal-error-3', component: ModalComponent, outlet:'popUp-3', data: {
 
-            title: 'Operación exitosa',
+            title: 'Error',
             icon: 'bi bi-pencil-square',
             size:'modal',
             color:'danger'           
