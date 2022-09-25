@@ -1,41 +1,38 @@
 
 
-<main class="d-flex justify-content-center align-items-center">
-    <div id="app-wrapper" class="bg-light position-relative">
+<main class="d-flex justify-content-center align-items-center scene">
 
-        <div id="app-main-content" class="d-flex h-100 flex-column flex-lg-row">
+    <div id="app-wrapper" class="cube" [ngClass]="{inLogin:isLogin}">
+        <div id="app-active" class="cube-face face-front bg-light">
+            <div id="app-main-content" class="d-flex flex-column flex-lg-row h-100" >
 
-            <section id="app-menu" class="h-lg-100">     
-                <app-menu></app-menu>
-            </section>
-            
-
-            <section id="app-sections" class="h-100 w-100 overflow-auto">
-
-                <header class="app-section-header">
-
-                    <app-header></app-header>
-
-                </header>                
-
-                <div class="app-section-content p-5">
-
-                    <ng-content></ng-content>
-
-                </div>
-                
-                <footer class="app-footer">
-
-                   <!--  <app-footer></app-footer> -->
+                <section id="app-menu" class="h-lg-100" >     
+                    <app-menu></app-menu>
+                </section>                
     
-                </footer>
-
-            </section>            
-
+                <section id="app-sections" class="h-100 w-100 overflow-auto">
+    
+                    <header class="app-section-header">
+    
+                        <app-header></app-header>
+    
+                    </header>                
+    
+                    <div class="app-section-content p-5 h-100">
+    
+                        <ng-content></ng-content>
+    
+                    </div>
+                    
+                </section>            
+    
+            </div>            
+            <app-canvas ></app-canvas>
         </div>
-        
-        <app-canvas></app-canvas>
-
-    </div>    
+        <div id="app-login" class="cube-face face-right">
+            <app-login></app-login>
+        </div>
+    </div>
+       
 </main>
 

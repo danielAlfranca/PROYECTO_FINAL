@@ -27,6 +27,7 @@ export class MenuComponent implements OnInit {
 
   appSections = [
 
+    {icon:'bi bi-bar-chart', title:'resumen'},
     {icon:'bi bi-bookmark', title:'reservas'},
     {icon:'bi bi-truck', title:'salidas'},
     {icon:'bi bi-archive', title:'inventario'}

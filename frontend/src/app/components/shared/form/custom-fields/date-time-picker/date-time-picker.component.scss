@@ -1,6 +1,18 @@
 .picker-container{
 
-    z-index: 300;
-    margin: 0 2.55rem;
-    position: relative;
+    z-index: 300;    
+    position: absolute;
+    transition: max-height 0.3s;
+    left: 2.55rem;
+    right: 2.55rem;
+}
+
+.calendar-container{
+    //margin: 0 2.55rem;
+    
+}
+
+.pickerContainerOpen{
+
+    max-height:500px
 }

@@ -57,8 +57,8 @@ export class CalendarAdminComponent implements OnDestroy{
   }
 
   parseDate(date:string, time:string){
- 
-    return parse(date+ ' , ' +time, 'dd/MM/yy , HH:mm', new Date())
+
+    return parse(date+ ' , ' +time, 'yyyy-MM-dd , HH:mm', new Date())
   }
 
   parseProp(item:any, prop:string, type:string){

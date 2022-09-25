@@ -18,16 +18,19 @@ export class AppConfigService {
 
   get dataConfig(){ return this.dataConfigs }
 
-  public  appInit(){ return this._appInit }
+  public  get appInit(){ return this._appInit &&  this._isAuthenticated }
 
   private _appInit = false;
+  private _isAuthenticated = false;
 
   constructor(
     private dataQueries:DataService, 
     private userConfig:UserConfigService,
     private dataConfigs:DataConfigService,
-    private canvasAdmin:CanvasService) {
-      
+    private canvasAdmin:CanvasService) { }
+
+    init(){
+
       this.dataQueries.connect('AppConfig','initData').pipe(take(1)).subscribe((response) => { 
         
         this.dataConfigs.initConfig(response);
@@ -37,5 +40,12 @@ export class AppConfigService {
         this.dataQueries.$dataUpdates.pipe(take(1)).subscribe((e:any)=>this._appInit=true);
       
       });
+
+    }
+
+    login(){
+
+          this.init()
+
     }
 }

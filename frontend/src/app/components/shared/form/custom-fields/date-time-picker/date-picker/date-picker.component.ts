@@ -14,15 +14,10 @@ export class DatePickerComponent implements AfterViewInit, OnChanges {
   @Output() newDate = new EventEmitter();
 
   idCalendar:string
-  formattedDate!:any
-
+  formattedDate!:string;
 
   ngOnChanges(changes: SimpleChanges) { 
-
-    if(changes['date']){
-
-
-    }
+   
   }
   
   constructor() {

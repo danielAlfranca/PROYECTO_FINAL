@@ -1,0 +1,13 @@
+ <div class="card p-3 text-center">
+    <div class="form-group">
+        <label>Fecha inicio</label>
+        <app-date-time-picker (inputChange)="start=$event" [timeHidden]="true"></app-date-time-picker>
+    </div>
+    <div class="form-group">
+        <label>Fecha Fin</label>
+        <app-date-time-picker (inputChange)="end=$event; aver($event)" [timeHidden]="true"></app-date-time-picker>        
+    </div> 
+    <div class="text-center">
+        <button class="btn btn-primary" [disabled]="!start||!end" (click)="response()">Guardar</button>
+    </div>   
+ </div>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ThemeService } from 'ng2-charts';
 import { AppConfigService } from 'src/app/services/app-config.service';
 
 @Component({
@@ -21,6 +22,11 @@ export class HeaderComponent {
       if(last.type=='primary') { this.title = last.title; this.icon = last.icon }
 
     })
+  }
+
+  open(){
+
+    this.appConfig.canvas.open('seleccionar-rango-fecha');
   }
 
 }

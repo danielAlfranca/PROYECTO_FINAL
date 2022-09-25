@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { format, parse } from 'date-fns';
 import { DisplayAdminComponent } from 'src/app/components/shared/models/display-admin/display-admin.component';
 import { AppConfigService } from 'src/app/services/app-config.service';
 
@@ -17,11 +18,11 @@ export class SalidasDisplayComponent extends DisplayAdminComponent implements On
   ngOnInit(): void { this.init('salida'); }
 
   override updateDisplayData(item: any): void {
-      
+
     this.dataDisplay = [
 
       {title:'Tour', value: this.value('tour_name'), icon:'camera'}, 
-      {title:'Fecha', value: this.value('date_start'), icon:'calendar'}, 
+      {title:'Fecha', value: format(parse(this.value('date_start'), 'yyyy-MM-dd', new Date() ),"dd/MM/yy"), icon:'calendar'}, 
       {title:'Horario', value: this.value('time_start') + ' - ' + this.value('time_end'), icon:'clock'}, 
       
     ];

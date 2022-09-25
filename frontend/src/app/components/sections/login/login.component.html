@@ -1,0 +1,61 @@
+<div class="bg-primary h-100 d-flex justify-content-center align-items-center">
+
+    <div class="text-center">
+        <div class="display-1">
+            <div class="text-light">
+                <i class="bi bi-brightness-alt-high display-1 "></i>
+                <span class="d-block display-5" style="margin-top: -20px;">
+                    SUMMERBIT
+                </span>
+                 
+            </div>
+        </div>
+        <div class="slider-login w-100 overflow-hidden">
+            <div class="inner d-flex align-items-stretch " [ngClass]="{slide2:slide==2, slide3:slide==3}">
+                <div class="slide">
+                    <div class="card card-options bg-transparent border-0 py-5 mx-auto">               
+                        <h5 class="text-light pb-3 m-0"><em> Que deseas hacer? </em></h5>                       
+                        <div class="card-body">
+                            <div class="btn-group-vertical w-100">
+                                <button type="button" (click)="slideContent=log;slide=2;"
+                                    class="btn btn-lg btn-outline-light d-flex justify-content-between align-items-center w-100 py-4">
+                                    <i class="bi bi-box-arrow-in-right h1 me-3 mb-0"></i>Loggearme
+                                </button>
+                                <button type="button" class="btn btn-lg btn-outline-light d-flex justify-content-between align-items-center w-100 py-4" 
+                                    (click)="slideContent=loading;slide=2;probar()">
+                                    <i class="bi bi-clipboard-check h1 me-3 mb-0"></i> Probar app
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="slide">                    
+                    <ng-container [ngTemplateOutlet]="slideContent"></ng-container>
+                </div> 
+                <div class="slide">                    
+                    <ng-container *ngTemplateOutlet="loading"></ng-container>
+                </div>       
+                
+            </div>
+        </div>            
+    </div>
+    <ng-template #log>
+        <div class="m-auto h-100 d-flex justify-content-center align-items-center flex-column" >
+           <app-login-form (query)="slide=3;probar()"></app-login-form>
+        </div>
+    </ng-template>
+
+    <ng-template #loading>
+        <div class="m-auto h-100 d-flex justify-content-center align-items-center flex-column" >
+            <div class="spinner-border text-light h1" role="status">
+                
+            </div>
+            <h3 class="text-light mt-2">Cargando...</h3>
+        </div>
+    </ng-template>
+
+    
+     
+
+
+</div>

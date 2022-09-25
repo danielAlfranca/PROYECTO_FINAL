@@ -8,7 +8,6 @@ import { TourFormComponent } from "../components/sections/inventario/form/tour/t
 import { HotelFormComponent } from "../components/sections/inventario/form/hotel/hotel-form.component";
 import { DisplayTourComponent } from "../components/sections/inventario/display/tour/display-tour.component";
 import { DisplayHotelComponent } from "../components/sections/inventario/display/hotel/display-hotel.component";
-import { ModalComponent } from "../components/shared/modal/modal.component";
 
 export const inventarioRoutes = [
 

@@ -34,10 +34,6 @@ export class SalidaConfig extends DataConfig{
 
         passengers_total_list:(obj:any)=>this.paxTotalList(obj),
 
-        date_start:(obj:any)=>  this.getDate(obj, 'date_start'),
-        
-        date_end:(obj:any)=>  this.getDate(obj, 'date_end'),
-
         time_start:(obj:any)=>  this.getTime(obj, 'time_start'),
         
         time_end:(obj:any)=>  this.getTime(obj, 'time_end')

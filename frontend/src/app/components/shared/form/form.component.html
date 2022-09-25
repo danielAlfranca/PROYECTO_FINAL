@@ -3,13 +3,12 @@
         <div *ngFor="let field of fields; let i = index" class="col-{{ fields[i].columns }}">
             <div class="form-group mb-3 text-center">                     
                <app-input [field]="field" [item]="item" [type]="type" (change)="setFields($event); field.touched = true"></app-input>       
-            </div>           
+            </div>            
         </div>    
     </div>
-    <!-- <hr> -->
-
+    <!-- <hr> --> 
     <div class="py-3 text-center">
-        <button class="btn btn-primary" (click)="onSave()"> {{ btnText || 'Guardar'}}</button>
+        <button class="btn btn-primary" (click)="onSave()"> {{ btnText || 'Guardar'}} </button>
     </div>
 </div>
 <ng-content></ng-content>

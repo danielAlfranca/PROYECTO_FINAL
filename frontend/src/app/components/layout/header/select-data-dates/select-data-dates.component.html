@@ -1,1 +1,4 @@
-<p class="m-0 p-0 text-secondary"><small>Datos desde 22/03/22 a 22/05/22</small></p>
+<ul class="list-group">
+    <li class="list-group-item pointer text-center" *ngFor="let item of spans; let i = index" (click)="query(i)">{{item}}</li>
+    
+</ul>

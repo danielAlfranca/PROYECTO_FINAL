@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, EventEmitter, Input, OnChanges, OnDestroy, Output, SimpleChanges } from '@angular/core';
+import { format, parse } from 'date-fns';
 import { CustomFieldComponent } from '../model/custom-field.component';
 
 declare var Datepicker:any;
@@ -52,11 +53,13 @@ export class DateTimePickerComponent extends CustomFieldComponent implements OnC
 
   create_date_time_string(){
 
-    const date  = this.value , time = this.time;
+    let date  = this.value , time = this.time;
 
     if(this.dateHidden) return time
 
     if(this.timeHidden) return date
+
+    if(date) date = format(parse(date, 'yyyy-MM-dd', new Date() ),"dd-MM-yy")
 
     return [date, time ].filter(e=>e).join(' - ')
 

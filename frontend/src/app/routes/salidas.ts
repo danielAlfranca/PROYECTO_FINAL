@@ -13,6 +13,7 @@ import { SalidasFormComponent } from "../components/sections/salidas/form/salida
 import { SalidasCalendarComponent } from "../components/sections/salidas/salidas-section/calendar/salidas-calendar.component";
 import { SalidasSectionComponent } from "../components/sections/salidas/salidas-section/salidas-section.component";
 
+
 export const salidasRoutes = [
 
     { path: 'salidas-table', component: SalidasSectionComponent, data:{

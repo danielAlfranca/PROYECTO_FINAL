@@ -1,0 +1,86 @@
+<app-tabs-header [titles]="['Todo','Este Mes', 'Esta Semana', 'Hoy']" [selected]="section" (selectedChange)="init($event)"></app-tabs-header>
+<div class="row">
+    <div class="col-12 col-md-4 ">
+        <div class="card text-center" >
+            <div class="card-header">
+                Tours mas demandados
+            </div>
+            <canvas baseChart [data]="charts.rankingTours"  type="bar"></canvas>
+        </div>        
+    </div>
+    <div class="col-12 col-md-4 ">
+        <div class="card text-center h-100" >
+            <div class="card-header">
+                Numero de reservas
+            </div>
+            <div class="d-flex justify-content-center align-items-center h-100">
+                <strong class="display-1">{{charts.numReservas}}</strong>
+            </div>            
+        </div>        
+    </div>
+    <div class="col-12 col-md-4 ">
+        <div class="card text-center" >
+            <div class="card-header">
+                Hoteles mas demandados
+            </div>
+            <canvas baseChart [data]="charts.rankingHoteles"  type="bar"></canvas>
+        </div>        
+    </div>
+    <div class="col-12 col-md-4 ">
+        <div class="card text-center h-100 " >
+            <div class="card-header">
+                Numero de salidas
+            </div>
+            <div class="d-flex justify-content-center align-items-center h-100">
+                <strong class="display-1">{{charts.numSalidas}}</strong>
+            </div>            
+        </div>        
+    </div>
+    <div class="col-12 col-md-4 ">
+        <div class="card text-center h-100"  >
+            <div class="card-header">
+                Destinos mas demandados
+            </div>
+            <canvas baseChart [data]="charts.porcentajeDestinos"  type="bar" ></canvas>
+        </div>        
+    </div>
+
+    <div class="col-12 col-md-4 ">
+        <div class="card text-center" >
+            <div class="card-header">
+                Clientes propios vs de otras agencias
+            </div>
+            <canvas baseChart [data]="charts.porcentajeClientesPropios"  type="pie"></canvas>
+        </div>
+        
+    </div>
+    <div class="col-12 col-md-4 ">
+        <div class="card text-center" >
+            <div class="card-header">
+                Destinos mas demandados
+            </div>
+            <canvas baseChart [data]="charts.porcentajeDestinos"  type="pie"></canvas>
+        </div>        
+    </div>
+    <div class="col-12 col-md-4 ">
+        <div class="card text-center" >
+            <div class="card-header">
+                Duracion mas frecuente
+            </div>
+            <canvas baseChart [data]="charts.porcentajeDuracion"  type="pie"></canvas>
+        </div>        
+    </div>
+    <div class="col-12 col-md-4 ">
+        <div class="card text-center" >
+            <div class="card-header">
+                Proveedores de clientes
+            </div>
+            <canvas baseChart [data]="charts.rankingEmpresasProveedorasDeClientes"  type="bar"></canvas>
+        </div>
+        
+    </div>
+    
+   
+</div>
+
+

@@ -2,11 +2,13 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { comunesRoutes } from './comunes';
 import { inventarioRoutes } from './inventario';
+import { loginRoutes } from './login';
 import { pagosRoutes } from './pagos';
 import { reservasRoutes } from './reservas';
+import { resumenRoutes } from './resumen';
 import { salidasRoutes } from './salidas';
 
-export const welcomeSection = 'reservas';
+export const welcomeSection = 'resumen';
 
 const routes = [
   
@@ -16,7 +18,9 @@ const routes = [
    ...reservasRoutes, 
    ...salidasRoutes, 
    ...pagosRoutes, 
-   ...inventarioRoutes
+   ...inventarioRoutes,
+   ...resumenRoutes,
+   ...loginRoutes
   
   ]
 

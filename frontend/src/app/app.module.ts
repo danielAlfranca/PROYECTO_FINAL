@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import {HttpClientJsonpModule, HttpClientModule} from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TagInputModule } from 'ngx-chips'; // PARA INPUT ARRAY
+import { NgChartsModule } from 'ng2-charts'; // para charts
 
 import { AppRoutingModule } from './routes/app-routing.module';
 import { AppComponent } from './app.component';
@@ -90,6 +91,10 @@ import { SalidaActivityComponent } from './components/sections/salidas/form/acti
 import { SalidasPassengersFormComponent } from './components/sections/salidas/form/passengers/salidas-passengers-form.component';
 import { SelectPassengerComponent } from './components/sections/salidas/form/passengers/select-passenger/select-passenger.component';
 import { CreatePassengerComponent } from './components/sections/salidas/form/passengers/create-passenger/create-passenger.component';
+import { ResumenComponent } from './components/sections/resumen/resumen.component';
+import { LoginComponent } from './components/sections/login/login.component';
+import { LoginFormComponent } from './components/sections/login/login-form/login-form.component';
+import { SelectCustomDateComponent } from './components/layout/header/select-data-dates/select-custom-date/select-custom-date.component';
 
 
 @NgModule({
@@ -172,7 +177,11 @@ import { CreatePassengerComponent } from './components/sections/salidas/form/pas
     SalidaActivityComponent,
     SalidasPassengersFormComponent,
     SelectPassengerComponent,
-    CreatePassengerComponent
+    CreatePassengerComponent,
+    ResumenComponent,
+    LoginComponent,
+    LoginFormComponent,
+    SelectCustomDateComponent
 
   ],
   imports: [
@@ -185,6 +194,7 @@ import { CreatePassengerComponent } from './components/sections/salidas/form/pas
     ReactiveFormsModule,
     BrowserAnimationsModule,
     CalendarModule.forRoot({ provide: DateAdapter, useFactory: adapterFactory }),
+    NgChartsModule
    
   ],
   providers: [DatePipe],

@@ -1,0 +1,36 @@
+<div class="card p-4">
+    <app-tabs-header [titles]="['Iniciar Sesion','Nuevo registro']" [(selected)]="section"></app-tabs-header>
+    <form action="" class="form px-2" #loginForm="ngForm">
+        <div class="py-4">
+            <div class="form-group mb-3">
+                <label for="emailLogin">Introduce tu email</label>
+                <input id="emailLogin" type="email" name="emailLogin" class="form-control" [(ngModel)]="email" required #emailLogin="ngModel" email>
+                <div  class="invalid-feedback mt-3" [ngClass]="{'d-block':emailLogin.invalid && (emailLogin.touched)}">
+                    <div *ngIf="emailLogin.errors?.['required']">
+                        El email es necesario
+                    </div>
+                    <div *ngIf="emailLogin.errors?.['email']">
+                        Proporciona un email correcto
+                    </div>
+                </div>                 
+            </div>
+            <div class="form-group mb-3">
+                <label for="passLogin">Introduce tu clave secreta</label>
+                <input id="passLogin" type="password" class="form-control" name="passLogin" [(ngModel)]="password" required #passLogin="ngModel"  pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$">
+                <div  class="invalid-feedback mt-3" [ngClass]="{'d-block':passLogin.invalid && (passLogin.touched)}">
+                    <div *ngIf="passLogin.errors?.['required']">
+                        La clave es necesaria
+                    </div>
+                    <div *ngIf="passLogin.errors?.['pattern']">
+                        La clave ha de tener al menos 6 caracteres y al menos una letra y un numero
+                    </div>
+                </div>  
+            </div>
+            <div class="text-center">
+                <button [disabled]="!loginForm.form.valid" class="btn btn-primary" (click)="newQuery()">Entrar</button>
+            </div>
+        </div>
+
+    </form>
+
+</div>

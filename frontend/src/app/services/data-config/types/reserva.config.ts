@@ -32,12 +32,9 @@ export class ReservaConfig extends DataConfig{
 
         has_hotels:(obj:any)=>this.has_activity(obj,2),
 
-        has_traslados:(obj:any)=>this.has_activity(obj,3),       
-
-        date_start:(obj:any)=>  this.datePipe.transform(this.getByPath(obj,this.getKey('date_start') ), 'dd/MM/yy'),
+        has_traslados:(obj:any)=>this.has_activity(obj,3), 
         
-        date_end:(obj:any)=>  this.datePipe.transform(this.getByPath(obj,this.getKey('date_end') ), 'dd/MM/yy')
-        
+        duracion:(obj:any)=>this.getPaqueteDays(obj)
         
     }
 
