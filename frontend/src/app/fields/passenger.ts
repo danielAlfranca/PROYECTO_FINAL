@@ -1,6 +1,6 @@
 import { FormItem } from "../interfaces/form";
 
-export const reservaForm = [ // datos cliente
+export const passengerForm = [ // datos cliente
     {
       title:'Nombre',
       name:'name',
@@ -11,7 +11,11 @@ export const reservaForm = [ // datos cliente
       name:'surname',
       input:'text'
     },
-
+    {
+      title:'Pasajeros',
+      name:'pax',
+      input:'passengersList'
+    },
     {
       title:'Telefonos',
       name:'phones',
@@ -27,7 +31,9 @@ export const reservaForm = [ // datos cliente
       name:'provider_id',
       input:'itemPicker',
       options:{listType:'empresa',propertyForDisplay:'provider_name'}
-    },
+    }
+
+   
 
 ] as FormItem[];
 

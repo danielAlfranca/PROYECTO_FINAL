@@ -4,13 +4,13 @@
 
     <div id="app-wrapper" class="cube" [ngClass]="{inLogin:isLogin}">
         <div id="app-active" class="cube-face face-front bg-light">
-            <div id="app-main-content" class="d-flex flex-column flex-lg-row h-100" >
+            <div id="app-main-content" class="d-flex flex-column flex-lg-row h-100 position-relative w-100" >
 
-                <section id="app-menu" class="h-lg-100" >     
+                <section id="app-menu" class="h-lg-100 position-relative"  style="z-index:99">     
                     <app-menu></app-menu>
                 </section>                
     
-                <section id="app-sections" class="h-100 w-100 overflow-auto">
+                <section id="app-sections" class="h-100 w-100 overflow-auto position-relative">
     
                     <header class="app-section-header">
     
@@ -18,10 +18,10 @@
     
                     </header>                
     
-                    <div class="app-section-content p-5 h-100">
-    
-                        <ng-content></ng-content>
-    
+                    <div class="app-section-content p-5 h-100 w-100" [@routerTransition]="getState(o)">
+                        
+                        <router-outlet #o="outlet"></router-outlet>
+   
                     </div>
                     
                 </section>            

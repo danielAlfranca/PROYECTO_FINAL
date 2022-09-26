@@ -23,13 +23,13 @@ export class SearchComponent {
 
   private filter(term:string){
 
-    let concatenated, dataConfig = this.appConfig.dataConfig;
+    let concatenated:string, dataConfig = this.appConfig.dataConfig;
 
     return this.data.filter(item=>{
 
       concatenated = this.searchProperties.map(property=> dataConfig.getValue(item,property, this.dataType) ).join(' ')
 
-      return concatenated.indexOf(term)!=-1
+      return concatenated.toLowerCase().indexOf(term)!=-1
 
     })
   }

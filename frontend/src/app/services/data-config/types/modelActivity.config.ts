@@ -1,5 +1,6 @@
 import { DatePipe } from "@angular/common";
 import { Injectable, Injector } from "@angular/core";
+import { format, parse } from "date-fns";
 import { DataConfig } from "../model";
 
 
@@ -28,11 +29,7 @@ export class ActivityConfig extends DataConfig{
 
     protected override getters = { 
 
-        date_start:(obj:any)=>  this.datePipe.transform(this.getByPath(obj,this.getKey('date_start') ), 'dd/MM/yy'),
-        
-        date_end:(obj:any)=>  this.datePipe.transform(this.getByPath(obj,this.getKey('date_end') ), 'dd/MM/yy'),
-
-        full_dates:(obj:any)=>this.getValue(obj,'date_start') + ' - ' + this.getValue(obj,'date_end'),
+        full_dates:(obj:any)=>this.formatDate(this.getValue(obj,'date_start')) + ' - ' + this.formatDate(this.getValue(obj,'date_end')),
 
         duracion:(obj:any)=>this.getDuracion(obj),
 
@@ -57,5 +54,13 @@ export class ActivityConfig extends DataConfig{
         return Math.floor(Difference_In_Time / (1000 * 3600 * 24)) + 1;
 
     }
+
+    formatDate(date:string){
+
+        if(!date) return '';
+
+        return format(parse(date, 'yyyy-MM-dd', new Date()),'dd/MM/yy')
+    }
+    
 
 }

@@ -60,15 +60,15 @@ export class SelectPassengerComponent extends TableAdminComponent implements OnI
     let startIsBefore, endIsAfter , startReserva, endReserva, passengers:any = [], tour, passenger;
 
     const service = this.appConfig.dataConfig,
-          startDate = parse(this.date_start,"dd/MM/yy",new Date()),
-          endDate = parse(this.date_end,"dd/MM/yy",new Date()),
+          startDate = parse(this.date_start,"yyyy-mm-dd",new Date()),
+          endDate = parse(this.date_end,"yyyy-mm-dd",new Date()),
           reservas = Object.values(this.appConfig.queries.section('reserva')||{});
 
     reservas.forEach((reserva:any)=>{
 
 
-      startReserva = parse(service.getValue(reserva,'date_start','reserva'),"dd/MM/yy",new Date());
-      endReserva = parse(service.getValue(reserva,'date_end','reserva'),"dd/MM/yy",new Date());
+      startReserva = parse(service.getValue(reserva,'date_start','reserva'),"yyyy-mm-dd",new Date());
+      endReserva = parse(service.getValue(reserva,'date_end','reserva'),"yyyy-mm-dd",new Date());
 
       startIsBefore = isBefore(startReserva, startDate) || differenceInDays(startReserva, startDate)==0; 
       endIsAfter = isAfter(endReserva, endDate) || differenceInDays(endReserva, endDate)==0;

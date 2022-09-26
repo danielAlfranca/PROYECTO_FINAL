@@ -1,5 +1,6 @@
 import { DatePipe } from "@angular/common";
 import { Injectable, Injector } from "@angular/core";
+import { format, parse } from "date-fns";
 import { DataConfig } from "../model";
 
 @Injectable({
@@ -20,7 +21,7 @@ export class ReservaConfig extends DataConfig{
 
         full_name:(obj:any)=>this.getValue(obj,'name') + ' ' + this.getValue(obj,'surname'),
 
-        full_dates:(obj:any)=>this.getValue(obj,'date_start') + ' - ' + this.getValue(obj,'date_end'),
+        full_dates:(obj:any)=>this.formatDate(this.getValue(obj,'date_start')) + ' - ' + this.formatDate(this.getValue(obj,'date_end')),
 
         paquete_name:(obj:any)=>this.get_paquete_name(obj),
 
@@ -121,6 +122,13 @@ export class ReservaConfig extends DataConfig{
         const services = this.getValue(obj, 'activities') || {1:[],2:[],3:[]}; 
         
         return Array.isArray (services[typeNum]) &&  services[typeNum].length > 0;
+    }
+
+    private formatDate(date:string){
+
+        if(!date) return '';
+
+        return format(parse(date, 'yyyy-MM-dd', new Date()),'dd/MM/yy')
     }
 
 

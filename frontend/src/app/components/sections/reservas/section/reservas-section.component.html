@@ -1,4 +1,4 @@
-<app-table [config]="tableConfig" (buttonClick)="form()">
+<app-table [config]="tableConfig" (buttonClick)="open($event)">
 
     <ng-template let-data="data" #reservas>
         <tr (click)="display(data,false)" class="pointer">
@@ -20,8 +20,8 @@
                 
             </td>
             <td>
-                <i class="bi bi-chevron-right me-2"></i> {{ data | show:'reserva':'date_start'}}  <br> 
-                <i class="bi bi-chevron-left me-2"></i> {{ data | show:'reserva':'date_end' }} 
+                <i class="bi bi-chevron-right me-2"></i> {{ $any(data | show:'reserva':'date_start') | date: 'dd-MM-yy' }}  <br> 
+                <i class="bi bi-chevron-left me-2"></i> {{  $any(data | show:'reserva':'date_end') | date: 'dd-MM-yy'  }} 
             </td>
             <td>{{data | show:'reserva':'provider_name'}} </td>
         </tr>

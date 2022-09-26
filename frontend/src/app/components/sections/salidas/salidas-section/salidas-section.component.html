@@ -6,8 +6,8 @@
                 {{ data | show:'salida':'tour_name' }} <br>           
             </td>
             <td>
-                <i class="bi bi-chevron-right me-2"></i> {{ data | show:'salida':'date_start'}}  <br> 
-                <i class="bi bi-chevron-left me-2"></i> {{ data | show:'salida':'date_end' }} 
+                <i class="bi bi-chevron-right me-2"></i> {{ $any(data | show:'salida':'date_start') | date: 'dd-MM-yy' }}  <br> 
+                <i class="bi bi-chevron-left me-2"></i> {{  $any(data | show:'salida':'date_end') | date: 'dd-MM-yy'  }} 
             </td>
             <td>                 
                 {{ data | show:'salida':'operators_list' }} <br>           

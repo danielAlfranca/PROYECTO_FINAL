@@ -39,8 +39,8 @@
                 </td>
                 <td>
 
-                    <i class="bi bi-chevron-right me-2"></i> {{ data.item | show:data.type:'date_start'}} <br>
-                    <i class="bi bi-chevron-left me-2"></i> {{ data.item | show:data.type:'date_end' }}
+                    <i class="bi bi-chevron-right me-2"></i> {{ $any(data.item | show:data.type:'date_start') | date: 'dd-MM-yy'  }} <br>
+                    <i class="bi bi-chevron-left me-2"></i> {{ $any(data.item | show:data.type:'date_end') | date: 'dd-MM-yy'  }}
                 </td>
             </tr>
         </tbody>

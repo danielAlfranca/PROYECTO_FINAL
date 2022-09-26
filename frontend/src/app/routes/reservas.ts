@@ -8,12 +8,20 @@ import { NewReservaActivityComponent } from "../components/sections/reservas/for
 import { TourActivityFormComponent } from "../components/sections/reservas/form/activities/tour/tour-activity-form.component";
 import { HotelActivityFormComponent } from "../components/sections/reservas/form/activities/hotel/hotel-activity-form.component";
 import { RoomListPopUpComponent } from "../components/shared/form/custom-fields/rooms-list/room-list-pop-up/room-list-pop-up.component";
+import { ReservasCalendarComponent } from "../components/sections/reservas/section/reservas-calendar/reservas-calendar.component";
 
 
 export const reservasRoutes = [
 
     {
         path: 'reservas', component: ReservasSectionComponent, data: {
+
+            title: 'reservas',
+            icon: 'bi bi-bookmark'
+        }
+    },
+    {
+        path: 'reservas-calendar', component: ReservasCalendarComponent, data: {
 
             title: 'reservas',
             icon: 'bi bi-bookmark'

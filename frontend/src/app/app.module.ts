@@ -95,6 +95,7 @@ import { ResumenComponent } from './components/sections/resumen/resumen.componen
 import { LoginComponent } from './components/sections/login/login.component';
 import { LoginFormComponent } from './components/sections/login/login-form/login-form.component';
 import { SelectCustomDateComponent } from './components/layout/header/select-data-dates/select-custom-date/select-custom-date.component';
+import { ReservasCalendarComponent } from './components/sections/reservas/section/reservas-calendar/reservas-calendar.component';
 
 
 @NgModule({
@@ -181,7 +182,8 @@ import { SelectCustomDateComponent } from './components/layout/header/select-dat
     ResumenComponent,
     LoginComponent,
     LoginFormComponent,
-    SelectCustomDateComponent
+    SelectCustomDateComponent,
+    ReservasCalendarComponent
 
   ],
   imports: [

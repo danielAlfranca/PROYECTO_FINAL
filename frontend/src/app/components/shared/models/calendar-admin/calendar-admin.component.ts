@@ -56,7 +56,9 @@ export class CalendarAdminComponent implements OnDestroy{
     if (this.subscription) this.subscription.unsubscribe();
   }
 
-  parseDate(date:string, time:string){
+  parseDate(date:string, time?:string){
+
+    if(!time) return parse(date, 'yyyy-MM-dd', new Date())
 
     return parse(date+ ' , ' +time, 'yyyy-MM-dd , HH:mm', new Date())
   }

@@ -2,6 +2,7 @@ import { Injectable, Injector } from "@angular/core";
 import { DataConfig } from "../model";
 import { DatePipe } from "@angular/common";
 import { AppConfigService } from "../../app-config.service";
+import { format, parse } from "date-fns";
 
 
 @Injectable({
@@ -76,10 +77,12 @@ export class PassengerConfig extends DataConfig{
                 salidaId = service.getValue(tour,'salida_id','tourActivity'),
                 salidaDate = this.getRef('salida',salidaId,'date_start');
 
+    
+
         return {
 
-            reserva:tourDate,
-            programada:salidaDate
+            reserva:format(parse(tourDate, 'yyyy-MM-dd', new Date() ),"dd-MM-yy"),
+            programada:format(parse(salidaDate, 'yyyy-MM-dd', new Date() ),"dd-MM-yy")
         };
     }
 
