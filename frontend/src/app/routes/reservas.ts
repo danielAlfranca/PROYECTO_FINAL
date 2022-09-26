@@ -59,9 +59,17 @@ export const reservasRoutes = [
             icon: 'bi bi-file-plus'
         },        
         
+    }, 
+    {
+        path: 'form-activity-reserva', component: NewReservaActivityComponent, outlet:'aside-2', data: {
+
+            title: 'Nueva actividad',
+            icon: 'bi bi-file-plus'
+        },
+        
     },
     {
-        path: 'form-activity-reserva', component: NewReservaActivityComponent, outlet:'aside-3', data: {
+        path: 'form-activity-reserva-2', component: NewReservaActivityComponent, outlet:'aside-3', data: {
 
             title: 'Nueva actividad',
             icon: 'bi bi-file-plus'
@@ -76,9 +84,25 @@ export const reservasRoutes = [
         },
         
     },
+    {
+        path: 'form-activity-tourActivity-2', component: TourActivityFormComponent, outlet:'aside-4', data: {
+
+            title: 'Nuevo Tour',
+            icon: 'bi bi-file-plus'
+        },
+        
+    },
 
     {
         path: 'form-activity-hotelActivity', component: HotelActivityFormComponent, outlet:'aside-3', data: {
+
+            title: 'Nuevo Hotel',
+            icon: 'bi bi-file-plus'
+        },
+        
+    },
+    {
+        path: 'form-activity-hotelActivity-4', component: HotelActivityFormComponent, outlet:'aside-4', data: {
 
             title: 'Nuevo Hotel',
             icon: 'bi bi-file-plus'
@@ -121,9 +145,8 @@ export const reservasRoutes = [
         },        
         
     },
-
     {
-        path: 'editar-tourActivity', component: TourActivityFormComponent, outlet:'aside-3', data: {
+        path: 'editar-tourActivity', component: TourActivityFormComponent, outlet:'aside-2', data: {
 
             title: 'Editar Tour',
             icon: 'bi bi-pen'
@@ -132,7 +155,25 @@ export const reservasRoutes = [
     },
 
     {
-        path: 'editar-hotelActivity', component: HotelActivityFormComponent, outlet:'aside-3', data: {
+        path: 'editar-hotelActivity', component: HotelActivityFormComponent, outlet:'aside-2', data: {
+
+            title: 'Editar Hotel',
+            icon: 'bi bi-pen'
+        },        
+        
+    },
+
+    {
+        path: 'editar-tourActivity-2', component: TourActivityFormComponent, outlet:'aside-3', data: {
+
+            title: 'Editar Tour',
+            icon: 'bi bi-pen'
+        },        
+        
+    },
+
+    {
+        path: 'editar-hotelActivity-2', component: HotelActivityFormComponent, outlet:'aside-3', data: {
 
             title: 'Editar Hotel',
             icon: 'bi bi-pen'

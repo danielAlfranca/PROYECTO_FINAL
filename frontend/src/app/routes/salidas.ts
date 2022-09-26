@@ -117,6 +117,58 @@ export const salidasRoutes = [
         
     },
     {
+
+        path: 'editar-operadorActivity', component: OperadorFormComponent, outlet:'aside-2', data: {
+
+            title: 'Crear nuevo Operador',
+            icon: 'bi bi-file-plus'
+        },
+    },
+
+    {
+
+        path: 'editar-guiadoActivity', component: GuiadoFormComponent, outlet:'aside-2', data: {
+
+            title: 'Crear nuevo Guia',
+            icon: 'bi bi-file-plus'
+        },
+    },
+
+    {
+
+        path: 'editar-choferActivity', component: ChoferFormComponent, outlet:'aside-2', data: {
+
+            title: 'Crear nuevo chofer',
+            icon: 'bi bi-pencil'
+        },
+    },
+    {
+
+        path: 'editar-operadorActivity-2', component: OperadorFormComponent, outlet:'aside-3', data: {
+
+            title: 'Crear nuevo Operador',
+            icon: 'bi bi-file-plus'
+        },
+    },
+
+    {
+
+        path: 'editar-guiadoActivity-2', component: GuiadoFormComponent, outlet:'aside-3', data: {
+
+            title: 'Crear nuevo Guia',
+            icon: 'bi bi-file-plus'
+        },
+    },
+
+    {
+
+        path: 'editar-choferActivity-2', component: ChoferFormComponent, outlet:'aside-3', data: {
+
+            title: 'Crear nuevo chofer',
+            icon: 'bi bi-pencil'
+        },
+    },
+    {
         path: 'display-salida', component: SalidasDisplayComponent, outlet:'aside-1', data: {
 
             title: 'Detalles Salida',

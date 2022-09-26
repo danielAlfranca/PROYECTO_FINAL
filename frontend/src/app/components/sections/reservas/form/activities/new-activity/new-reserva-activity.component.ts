@@ -11,14 +11,16 @@ export class NewReservaActivityComponent {
 
   options = [
 
-    {name:'Tour', icono:'camera', path:'form-tourActivity-2', type:'tourActivity'},
-    {name:'Hotel', icono:'house', path:'form-hotel-Activity-2', type:'hotelActivity'},
+    {name:'Tour', icono:'camera', path:'form-activity-tourActivity', type:'tourActivity'},
+    {name:'Hotel', icono:'house', path:'form-activity-hotelActivity', type:'hotelActivity'},
   ]
   constructor(private appConfig:AppConfigService) { }
 
   open(option:any){
 
-    this.appConfig.canvas.open(option.path, {formItem:null}).pipe(take(1)).subscribe(response=>{      
+    const outlet = this.appConfig.canvas.last.outlet;
+
+    this.appConfig.canvas.open(option.path +(outlet=="aside-2" ? '':"-2"), {formItem:null}).pipe(take(1)).subscribe(response=>{      
       
       if(response) this.appConfig.canvas.close({item:response, type:option.type})
     

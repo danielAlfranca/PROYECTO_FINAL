@@ -89,11 +89,10 @@ export class ActivitiesListComponent implements OnChanges{
   }
 
   open(item?:any, section?:string){
-    console.log(this.getFormUrl(section) ,this.appConfig.canvas.last.outlet);
-
+    
     if(this.mode=='display') return this.appConfig.canvas.open('display-' +section , {displayItem:item});
 
-    return this.appConfig.canvas.open(this.getFormUrl(section) , {formItem:item}).pipe(take(1)).subscribe((response:NewActivity)=>{
+    return this.appConfig.canvas.open(this.getFormUrl(section, item) , {formItem:item}).pipe(take(1)).subscribe((response:NewActivity)=>{
       
       if(response) {
         
@@ -104,9 +103,11 @@ export class ActivitiesListComponent implements OnChanges{
     
   }
 
-  private getFormUrl(section?:string){
+  private getFormUrl(section?:string, item?:any){
 
     const outlet = this.appConfig.canvas.last.outlet;
+
+    if(item) return 'editar-'+(section||this.type)+ +(outlet=="aside-1" ? '':"-2")
 
     return 'form-activity-'+(section||this.type)+(outlet=="aside-1" ? '':"-2") 
     
