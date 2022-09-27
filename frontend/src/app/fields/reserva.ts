@@ -86,6 +86,6 @@ export const reservaTable = {
   ],
   search:[
 
-    'name','surname', 'destination', 'date_start', 'date_end', 'provider_name'
+    'name','surname', 'destination', 'date_start', 'date_end', 'provider_name', 'passengers_list','phones_list','emails_list'
   ]
 };

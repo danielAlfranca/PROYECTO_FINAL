@@ -58,6 +58,6 @@ export const salidaTable = {
   ],
   search:[
 
-    'name','surname', 'destination', 'date_start', 'date_end', 'provider_name'
+    'tour_name', 'operators_list', 'date_start', 'date_end', 'passengers_total_list'
   ]
 };

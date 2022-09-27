@@ -35,7 +35,11 @@ export class ReservaConfig extends DataConfig{
 
         has_traslados:(obj:any)=>this.has_activity(obj,3), 
         
-        duracion:(obj:any)=>this.getPaqueteDays(obj)
+        duracion:(obj:any)=>this.getPaqueteDays(obj),
+
+        phones_list:(obj:any)=>this.get_info_list(this.getValue(obj,'phones')),
+
+        emails_list:(obj:any)=>this.get_info_list(this.getValue(obj,'emails')),
         
     }
 
@@ -129,6 +133,14 @@ export class ReservaConfig extends DataConfig{
         if(!date) return '';
 
         return format(parse(date, 'yyyy-MM-dd', new Date()),'dd/MM/yy')
+    }
+
+    private get_info_list(list:any){
+
+        if(!Array.isArray(list)) return ""
+
+        return list.join(',');
+ 
     }
 
 

@@ -61,18 +61,18 @@ export class TableComponent implements OnChanges, AfterContentInit {
 
     this.rowTemplate = this.get_template();      
    
-    this.updateEntries(this.data);    
+    this.updateEntries(this.data);      
     
   }
 
 
-  updateEntries(data:any[]){
+  updateEntries(data:any[]){    
 
     this.entries = this.sort_data(data);
 
-    this.currentPage = 1; 
+    this.currentPage = 1;  
     
-    this.calculate_pages(this.entries);
+    this.pages = this.calculate_pages(this.entries); 
 
   }
 
