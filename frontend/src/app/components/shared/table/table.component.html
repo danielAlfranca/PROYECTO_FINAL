@@ -6,11 +6,11 @@
     </div>
   </div>
 
-  <div class="header-table-buttons-container d-flex justify-content-end">
-    <app-search *ngIf="!config.hideSearchButton" [data]="data" [dataType]="dataType" [searchProperties]="searchProperties" (filtered)="updateEntries($event)"></app-search>
-    <button *ngIf="config.extraButton" class="btn btn-{{config.extraButton.color}} btn-sm button-table me-2" (click)="buttonClick.emit('calendar')"><i class="{{config.extraButton.icon}} h3"></i></button>
-    <button class="btn btn-warning button-table btn-sm" 
-      *ngIf="!config.hidePlusButton" (click)="buttonClick.emit('nuevo')"><i class="bi bi-plus {{ config.sectionsStyle != 'small' ? 'h3':'h5' }}"></i></button>    
+  <div class="header-table-buttons-container d-flex justify-content-end align-items-stretch">
+    <app-search *ngIf="!config.hideSearchButton" [style]="config.sectionsStyle" [data]="data" [dataType]="dataType" [searchProperties]="searchProperties" (filtered)="updateEntries($event)"></app-search>
+    <button *ngIf="config.extraButton" class="btn btn-{{config.extraButton.color}} {{ config.sectionsStyle == 'small' ? 'btn-sm':'' }} button-table me-2" (click)="buttonClick.emit('calendar')"><i class="{{config.extraButton.icon}} h5"></i></button>
+    <button class="btn btn-warning button-table {{ config.sectionsStyle == 'small' ? 'btn-sm':'' }}" 
+      *ngIf="!config.hidePlusButton" (click)="buttonClick.emit('nuevo')"><i class="bi bi-plus h5"></i></button>    
   </div>  
 </div>
 
@@ -20,7 +20,7 @@
     <thead>
       <tr>
           <th *ngFor="let column of columns; let i = index" (click)="updateSort(column, i)" > 
-            <div class="d-flex justify-content-left align-items-stretch flex-wrap">
+            <div class="d-flex align-items-center flex-wrap {{ config.sectionsStyle == 'small' ? 'py-3':'py-2' }}">
               <span>{{column.title}}</span>
               <div *ngIf="column.sort" class="d-inline-flex flex-column justify-content-center align-items-top columns-icon-container">
                 <i class="ms-2 bi bi-caret-up-fill i-sort" *ngIf="column.state!=-1 || currentSort.column!= i" ></i>

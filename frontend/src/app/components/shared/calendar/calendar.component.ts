@@ -2,6 +2,8 @@ import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 import { CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, CalendarView } from 'angular-calendar';
 import { AppConfigService } from 'src/app/services/app-config.service';
 import { Subject } from 'rxjs';
+import { registerLocaleData } from '@angular/common';
+import localeEs from '@angular/common/locales/Es';
 
 import {
   isSameDay,
@@ -23,6 +25,8 @@ export class CalendarComponent implements OnInit {
   CalendarView = CalendarView;
   view: CalendarView = CalendarView.Month;
   viewDate: Date = new Date();
+
+ locale: string = "Es";
 
   modalData!: {
     action: string;
@@ -55,6 +59,7 @@ export class CalendarComponent implements OnInit {
   constructor(private appConfig:AppConfigService) { }
 
   ngOnInit(): void {
+    registerLocaleData(localeEs); 
     this.events||= this.events;
   }
 

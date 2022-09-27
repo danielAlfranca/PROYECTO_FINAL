@@ -40,7 +40,7 @@ $travelApp-theme: mat.define-light-theme((
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700&display=swap');
 
 $primary : #4392d5;
-$warning: #ffca2c;
+$warning: #ff8960;
 $info: #8bb3bf;
 $dark: #444d54;
 
@@ -75,11 +75,131 @@ body{
 
 .btn-edit{border-radius:50%;}
 
+.btn-warning, .btn-primary, .btn-info,.btn-warning:hover, .btn-primary:hover, .btn-info:hover{
+
+  color: $light;
+}
+
+.btn-check:checked + .btn-primary, .btn-check:active + .btn-primary, .btn-primary:active, .btn-primary.active, .show > .btn-primary.dropdown-toggle {
+  color: $light;
+  background-color: hsl(208deg 54% 41%) ;
+  border-color: hsl(208deg 54% 41%);
+}
+
+// table 
+
 
 .table-sm td, .table-sm th, .table-header-sm .nav-link {
 
     font-size: 80%;
 }
+
+.table-striped > tbody > tr:nth-of-type(odd) > *{
+
+  background-color:  rgb(223 240 255 / 58%);
+}
+
+.table-striped > tbody > tr:nth-of-type(even) > *{
+
+  //background-color:  rgb(212 228 242 / 37%);
+}
+
+
+.table-hover > tbody > tr:hover > * {
+  --bs-table-accent-bg: rgb(212 228 242 / 37%);
+  color: var(--bs-table-hover-color);
+}
+
+
+//tabs
+
+.nav-tabs .nav-link.active, .nav-tabs .nav-link:hover {
+  color: #495057;
+  border-bottom: solid 5px #4392d5;
+  font-weight: bold;
+  background-color: transparent;
+}
+
+.nav-tabs .nav-link:hover {
+
+  font-weight: normal;
+}
+
+.nav-tabs .nav-link {
+  margin-bottom: -1px;
+  background: none;
+  border: none;
+}
+// calendar
+
+.cal-month-view .cal-day-badge {
+  background-color: $primary;
+  color: #fff;
+  border-radius: 2px;
+}
+
+.cal-month-view .cal-event {
+  background-color: $info;
+  border-color: #d1e8ff;
+  color: #fff;
+}
+
+.cal-month-view .cal-day-number{
+
+  color: $secondary;
+  opacity: 1;
+}
+
+.cal-month-view .cal-day-cell.cal-weekend .cal-day-number {
+  color: $warning;
+}
+
+.cal-month-view .cal-open-day-events {
+  color: #fff;
+  background-color: $secondary;
+  box-shadow: none;
+
+}
+
+.cal-month-view .cal-open-day-events>div:not(:last-child) {
+  padding-bottom: 0.5rem;
+
+}
+// card-diplay-list
+
+.card-diplay-list > .list-group-item{
+
+  padding-left: 0;
+  padding-right: 0;
+} 
+
+.card-diplay-list > .list-group-item>div{
+
+  font-size: 80%;
+  font-weight: 500;
+  
+}
+
+.card-diplay-list > .list-group-item>div>i{
+
+  color: $primary;
+  font-size: 120%;
+}
+
+.card-diplay-list > .list-group-item>small{
+
+  color:$secondary;
+} 
+
+
+.card-diplay-list > .list-group-item>div>.text-capitalize{
+
+  text-transform: uppercase !important;
+} 
+
+
+
+
 
 // scrollbar 
 
@@ -103,15 +223,15 @@ body{
   background: $primary;
 }
 ::-webkit-scrollbar-track {
-  background: $secondary;
+  background: $light;
   border: 0px none #ffffff;
   border-radius: 50px;
 }
 ::-webkit-scrollbar-track:hover {
-  background: $secondary;
+  background: $light;
 }
 ::-webkit-scrollbar-track:active {
-  background: $secondary;
+  background: $light;
 }
 ::-webkit-scrollbar-corner {
   background: transparent;

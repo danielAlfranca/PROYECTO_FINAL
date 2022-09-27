@@ -1,38 +1,38 @@
 <div class="row text-center calendar-header">
-    <div class="col-md-4">      
+    <div class="col-md-4 text-start">      
       <div class="btn-group">
         <div
-          class="btn btn-primary"
+          class="btn btn-outline-primary"
           mwlCalendarPreviousView
           [view]="view"
           [(viewDate)]="viewDate"
           (viewDateChange)="closeOpenMonthViewDay()"
         >
-          Previo
+        <i class="bi bi-chevron-double-left h5"></i>
         </div>
         <div
-          class="btn btn-primary"
+          class="btn btn-outline-primary"
           mwlCalendarToday
           [(viewDate)]="viewDate"
         >
           Hoy
         </div>
         <div
-          class="btn btn-primary"
+          class="btn btn-outline-primary"
           mwlCalendarNextView
           [view]="view"
           [(viewDate)]="viewDate"
           (viewDateChange)="closeOpenMonthViewDay()"
         >
-          Siguiente
+         <i class="bi bi-chevron-double-right h5"></i>
         </div>
       </div>
     </div>
     <div class="col-md-4">
-      <h3>{{ viewDate | date:'dd-MM-yyyy' }}</h3>
+      <h4>{{ viewDate | date:'dd-MM-yyyy' }}</h4>
     </div>
-    <div class="col-md-4 text-right">
-      <div class="btn-group">
+    <div class="col-md-4 text-end">
+      <!-- <div class="btn-group">
         <div
           class="btn btn-primary"
           (click)="setView(CalendarView.Month)"
@@ -54,7 +54,7 @@
         >
           Dia
         </div>
-      </div>
+      </div> -->
       <button class="btn btn-info button-table ms-4" (click)="changeToTable.emit(true)"><i class="bi bi-table h5"></i></button>
       <button class="btn btn-warning button-table ms-2" (click)="query()"><i class="bi bi-plus h5"></i></button>
     </div>
@@ -68,16 +68,23 @@
     [viewDate]="viewDate"
     [events]="events"
     [refresh]="refresh"
+    [locale]="'Es'"
+    
+    [weekStartsOn]="1"
     [activeDayIsOpen]="activeDayIsOpen"
     (dayClicked)="dayClicked($event.day)"
     (eventClicked)="query($event.event)"
 
   >
+
+  {{viewDate | calendarDate:(view + 'ViewTitle'):'Es'}}
   </mwl-calendar-month-view>
   <mwl-calendar-week-view
     *ngSwitchCase="CalendarView.Week"
     [viewDate]="viewDate"
     [events]="events"
+    [locale]="'Es'"
+    [weekStartsOn]="1"
     [refresh]="refresh"
     (eventClicked)="query($event.event)"
   
@@ -88,6 +95,7 @@
     [viewDate]="viewDate"
     [events]="events"
     [refresh]="refresh"
+    [locale]="'Es'"
     (eventClicked)="query($event.event)"
   >
   </mwl-calendar-day-view>

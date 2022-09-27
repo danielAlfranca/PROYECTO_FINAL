@@ -8,7 +8,7 @@ import { AppConfigService } from 'src/app/services/app-config.service';
 @Component({
   selector: 'app-activities-list',
   templateUrl: './activities-list.component.html',
-  styles: ['']
+  styles: ['.table-striped > tbody > tr:nth-of-type(odd) > *{--bs-table-accent-bg: #f6fcfd; background-color: #f6fcfd;}']
 })
 export class ActivitiesListComponent implements OnChanges{
 

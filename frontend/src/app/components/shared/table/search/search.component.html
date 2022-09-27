@@ -1,6 +1,6 @@
 
-<div class="d-inline-flex me-2 align-items-stretch">
-    <button class="btn btn-primary button-table btn-sm position-relative" (click)="change()"><i class="bi bi-search h3"></i></button>
+<div class="d-inline-flex me-2 align-items-stretch h-100">
+    <button class="btn btn-primary button-table {{ style == 'small' ? 'btn-sm':'' }} position-relative" (click)="change()"><i class="bi bi-search h5"></i></button>
     <div [ngClass]="{active:active}" class="input-container "><input #input type="text" class="search-input bg-light" (input)="update($event)" placeholder="Busca lo que quieras"></div> 
 </div>
  

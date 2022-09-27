@@ -12,6 +12,7 @@ export class SearchComponent {
   @Input() data!:any[];
   @Input() dataType!:string;
   @Input() searchProperties!:string[] 
+  @Input() style!:any;
 
   @Output() filtered =  new EventEmitter<any[]>();
 

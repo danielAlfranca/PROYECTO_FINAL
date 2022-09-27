@@ -1,14 +1,14 @@
 <div class="card mb-4">
     <div class="card-header d-flex justify-content-between align-items-center bg-white">
-        <h5>{{title}}</h5>
+        <h5 class="mb-0">{{title}}</h5>
         <div class="d-flex">
-            <button class="ms-3 btn btn-sm btn-edit btn-warning" *ngIf="editButton" (click)="edit.emit(true)"><i class="bi bi-pencil h5 "></i></button>
-            <button class="ms-3 btn btn-sm btn-edit btn-warning" *ngIf="addButton" (click)="edit.emit(true)"><i class="bi bi-plus h5 "></i></button>
+            <button class="ms-3 btn btn-sm btn-edit btn-warning" *ngIf="editButton" (click)="edit.emit(true)"><i class="bi bi-pencil fs-5 "></i></button>
+            <button class="ms-3 btn btn-sm btn-edit btn-warning" *ngIf="addButton" (click)="edit.emit(true)"><i class="bi bi-plus fs-5 "></i></button>
         </div> 
        
     </div>
     <div class="card-body">
-        <ul class="list-group list-group-flush">
+        <ul class="list-group list-group-flush card-diplay-list">
             <ng-content select="[app-data-item-display]"></ng-content>           
         </ul>        
         <ng-content select="[featured-data]"></ng-content>

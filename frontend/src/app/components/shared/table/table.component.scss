@@ -1,6 +1,7 @@
 .button-table{
 
     border-radius:50%;
+    color: white;
 }
 
 .i-sort{
@@ -9,3 +10,10 @@
     line-height: 0.7rem;
     cursor: pointer;
 }
+
+th{
+
+    font-size: 80%;
+    text-transform: uppercase;
+}
+
