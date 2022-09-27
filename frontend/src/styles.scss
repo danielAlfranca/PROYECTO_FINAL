@@ -39,6 +39,11 @@ $travelApp-theme: mat.define-light-theme((
 
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700&display=swap');
 
+$primary : #4392d5;
+$warning: #ffca2c;
+$info: #8bb3bf;
+$dark: #444d54;
+
 @import "../src/assets/scss/inputs.scss";
 
 @import "../node_modules/bootstrap/scss/bootstrap"; 
@@ -46,6 +51,8 @@ $travelApp-theme: mat.define-light-theme((
 @import url('https://cdn.jsdelivr.net/npm/bs-stepper/dist/css/bs-stepper.min.css'); // for step form
 
 @import "../node_modules/angular-calendar/css/angular-calendar.css"; // for calendar
+
+
 
 
 html{
@@ -109,6 +116,15 @@ body{
 ::-webkit-scrollbar-corner {
   background: transparent;
 }
+
+/* 
+
+primary #4392d5 !important
+accent hsl(224deg 72% 55%) !important
+warning #ffca2c
+info #8bb3bf
+
+*/
 
 
 
