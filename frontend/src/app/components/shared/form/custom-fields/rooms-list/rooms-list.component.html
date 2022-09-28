@@ -1,8 +1,16 @@
 
-<div class="form-group ">
+<!-- <div class="form-group ">
     <div class="input-group mb-3">        
         <input type="text" disabled class="text-center form-control bg-white" placeholder="Anade una habitacion" value="{{value.length ? (value | room_string:true):'' }}" >
         <span class="input-group-text pointer"   (click)="openRooms()" ><i class="bi bi-plus"></i></span>
     </div>   
+</div> -->
+<div class="d-flex position-relative">
+    <div class="form-floating w-100">
+        <input type="text" disabled class="form-control bg-transparent" placeholder="Añade una habitacion" value="{{value.length ? (value | room_string:true):'' }}" >
+        <label>{{title}}</label>
+    </div>  
+    <button class="btn btn-sm btn-warning position-absolute end-0 " (click)="openRooms()" style="border-radius: 50%; top:-0.5rem"><i class="bi bi-plus fs-5"></i></button>
 </div>
+
 

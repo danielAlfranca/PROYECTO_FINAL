@@ -13,10 +13,12 @@
     </li>
       
 </ul>
-<select #sel class="form-select rounded-0"  (change)="newroom($any($event.target).value); sel.selectedIndex = 0">
-    <option class="text-center">---  selecciona una habitacion  ---</option>
-    <option *ngFor="let option of roomLabels | keyvalue"  class="text-center" [value]="option.key">{{option.value[0]}}</option>       
-</select> 
+<div class="form-floating">
+    <select #sel class="form-select rounded-0"  (change)="newroom($any($event.target).value); sel.selectedIndex = 0">
+        <option class="text-center">---  selecciona una habitacion  ---</option>
+        <option *ngFor="let option of roomLabels | keyvalue"  class="text-center" [value]="option.key">{{option.value[0]}}</option>       
+    </select> 
+</div>
 <br>
 
 <div class="text-center">

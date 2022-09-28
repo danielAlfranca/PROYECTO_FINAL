@@ -1,5 +1,19 @@
-<div class="input-group mb-3">
+<!-- <div class="input-group mb-3">
     <input type="number" class="form-control" placeholder="Adultos" aria-label="adultos" [value]="adultos" (input)="adultos=$any($event.target).value; update()">
     <input type="number" class="form-control" placeholder="Ninos" aria-label="ninos" [value]="ninos"  (input)="ninos=$any($event.target).value;update()">
     <input type="number" class="form-control" placeholder="Infantes" aria-label="infantes" [value]="infantes" (input)="infantes=$any($event.target).value;update()">
+</div> -->
+<div class="mb-3 d-flex flex-nowrap">
+    <div class="form-floating ">
+        <input type="number" class="form-control"  placeholder="Adultos" [value]="adultos || 0" (input)="adultos=$any($event.target).value; update()">
+        <label>Adultos</label>
+    </div>
+    <div class="form-floating ">
+        <input type="number" class="form-control"  placeholder="Niños" [value]="ninos || 0" (input)="ninos=$any($event.target).value;update()">
+        <label>Niños</label>
+    </div>
+    <div class="form-floating ">
+        <input type="number" class="form-control"  placeholder="Infantes" [value]="infantes || 0" (input)="infantes=$any($event.target).value;update()">
+        <label>Infantes</label>
+    </div>
 </div>

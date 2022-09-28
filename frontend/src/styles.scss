@@ -44,6 +44,8 @@ $warning: #ff8960;
 $info: #8bb3bf;
 $dark: #444d54;
 
+
+
 @import "../src/assets/scss/inputs.scss";
 
 @import "../node_modules/bootstrap/scss/bootstrap"; 
@@ -51,8 +53,6 @@ $dark: #444d54;
 @import url('https://cdn.jsdelivr.net/npm/bs-stepper/dist/css/bs-stepper.min.css'); // for step form
 
 @import "../node_modules/angular-calendar/css/angular-calendar.css"; // for calendar
-
-
 
 
 html{
@@ -84,6 +84,12 @@ body{
   color: $light;
   background-color: hsl(208deg 54% 41%) ;
   border-color: hsl(208deg 54% 41%);
+}
+// form
+
+.form-floating > .form-control:focus ~ label, .form-floating > .form-control:not(:placeholder-shown) ~ label, .form-floating > .form-select ~ label {
+  opacity: 0.75;
+  transform: scale(0.85) translateY(-1.1rem) translateX(0.15rem);
 }
 
 // table 

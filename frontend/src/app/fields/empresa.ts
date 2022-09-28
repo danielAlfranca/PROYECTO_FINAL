@@ -57,3 +57,29 @@ export const empresaTable = {
     'nombre','documento', 'lista_emails', 'direccion', 'lista_telefonos'
   ]
 };
+
+export const empresaTable2 = {
+
+  title:'Empresas',
+  name:'empresas',
+  dataType:'empresa',
+  data:[],
+  columns:[
+
+   { 
+      title:'Nombre',
+      sort:'nombre'
+    },
+    { 
+      title:'Documento',
+      sort:'documento'
+    },
+    { 
+      title:'Contacto'
+    }
+  ],
+  search:[
+
+    'nombre','documento', 'lista_emails', 'direccion', 'lista_telefonos'
+  ]
+};

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { take } from 'rxjs';
 import { TableAdminComponent } from 'src/app/components/shared/models/table-admin/table-admin.component';
-import { empresaTable } from 'src/app/fields/empresa';
+import { empresaTable2 } from 'src/app/fields/empresa';
 import { hotelTable } from 'src/app/fields/hotel';
 import { tourTable } from 'src/app/fields/tour';
 import { trabajadorTable } from 'src/app/fields/trabajador';
@@ -51,11 +51,11 @@ export class ItemListComponent extends TableAdminComponent implements OnInit {
 
 
     switch (type) {
-      case 'empresa':return empresaTable;
+      case 'empresa':return empresaTable2;
       case 'tour':return tourTable;
       case 'hotel':return hotelTable;
       case 'trabajador':return trabajadorTable;
-      default: return empresaTable; 
+      default: return empresaTable2; 
     }
 
    

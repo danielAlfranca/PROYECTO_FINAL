@@ -1,5 +1,5 @@
 <div class="d-flex flex-column align-items-stretch mb-3 ">
-    <div class="input-group ">
+    <!-- <div class="input-group ">
         <ng-container *ngIf="!dateHidden">
             <span class="input-group-text bg-light pointer btnDate" (click)="calendarOpen=!calendarOpen; timeOpen=false"><i class="bi bi-calendar"></i></span>
         </ng-container>
@@ -11,7 +11,15 @@
         </ng-container>
        
         
-    </div>
+    </div> -->
+    <div class="d-flex w-100">
+        <button *ngIf="!dateHidden" class="btn btn-sm btn-outline-secondary border-0"  (click)="calendarOpen=!calendarOpen; timeOpen=false"><i class="bi bi-calendar fs-5"></i></button>
+        <div class="form-floating w-100">
+          <input type="text" placeholder="{{title}}" disabled  class="form-control bg-transparent" [disabled]="true" [value]="date_time_string || null">
+          <label>{{title}}</label>   
+        </div>
+        <button *ngIf="!timeHidden" class="btn btn-sm btn-outline-secondary border-0"  (click)="timeOpen=!timeOpen; calendarOpen=false;"><i class="bi bi-clock fs-5"></i></button>
+    </div> 
     <div class="calendar-container position-relative" >
         <div class="picker-container bg-light py-3 shadow"  *ngIf="calendarOpen" [ngClass]="{pickerContainerOpen:timeOpen}">
             <app-date-picker [date]="value" (newDate)="changeDate($event);calendarOpen=false"></app-date-picker>
@@ -21,6 +29,7 @@
         </div>
     </div>
 </div>
+ 
 
 
 

@@ -7,12 +7,15 @@ import { CustomFieldComponent } from '../model/custom-field.component';
 @Component({
   selector: 'app-item-picker',
   template: `
-    <div class="input-group">
-      <input type="text" disabled class="text-center form-control bg-white" value="{{(item | show:type:propertyForDisplay) || null}} ">
-      <span class="input-group-text pointer" (click)="open()"><i class=" bi bi-plus h-3"></i></span>
+  <div class="position-relative">
+    <div class="form-floating">
+      <input type="text" class="form-control bg-transparent"  placeholder="{{title}}" disabled  [value]="(item | show:type:propertyForDisplay) || null" >
+      <label>{{title}}</label>   
     </div>
+    <button class="position-absolute end-0 btn btn-sm btn-edit btn-warning" (click)="open()"><i class="bi bi-plus fs-5"></i></button>
+  </div>     
   `,
-  styles: ['']
+  styles: ['.btn-edit{border-radius:50%; top:-0.5rem}']
 })
 
 export class ItemPickerComponent extends CustomFieldComponent implements OnChanges, OnInit {
@@ -21,6 +24,8 @@ export class ItemPickerComponent extends CustomFieldComponent implements OnChang
   @Input() type!:DataTypes;
   listType!:DataTypes;
   propertyForDisplay!:string
+
+
 
   constructor(private appConfig:AppConfigService) { super(); }
 
