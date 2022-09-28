@@ -12,7 +12,7 @@ import { CustomFieldComponent } from '../model/custom-field.component';
       <input type="text" class="form-control bg-transparent"  placeholder="{{title}}" disabled  [value]="(item | show:type:propertyForDisplay) || null" >
       <label>{{title}}</label>   
     </div>
-    <button class="position-absolute end-0 btn btn-sm btn-edit btn-warning" (click)="open()"><i class="bi bi-plus fs-5"></i></button>
+    <button class="position-absolute end-0 btn btn-sm btn-edit btn-warning" (click)="open()"><i class="bi bi-plus h5"></i></button>
   </div>     
   `,
   styles: ['.btn-edit{border-radius:50%; top:-0.5rem}']

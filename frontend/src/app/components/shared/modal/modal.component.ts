@@ -13,6 +13,8 @@ export class ModalComponent implements OnInit {
   button = "aceptar";
 
   icon!:string
+  btnColor!:string;
+
   constructor(private appConfig:AppConfigService) { }
 
   ngOnInit(): void { this.config(); }
@@ -23,7 +25,8 @@ export class ModalComponent implements OnInit {
 
     this.message = config.message;
     this.type = config.type;
-    this.icon = this.getIcon(this.type) as string
+    this.icon = this.getIcon(this.type) as string;
+    this.btnColor = this.getButtonColor(this.type) as string;
     
   }
 
@@ -36,6 +39,20 @@ export class ModalComponent implements OnInit {
       warning:'text-warning bi-exclamation-circle-fill',
       error:'text-danger bi-x-circle-fill',
       question:'text-dark bi-question-circle-fill'
+
+    }[type];
+    
+  }
+
+  getButtonColor(type:string){
+
+    return {
+
+      info: 'btn-primary',
+      success:'btn-success ',
+      warning:'btn-warning ',
+      error:'btn-danger',
+      question:'btn-secondary'
 
     }[type];
     

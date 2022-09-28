@@ -62,7 +62,7 @@ export const comunesRoutes = [
 
             title: 'Nuevo Item',
             icon: 'bi bi-file-plus',
-            size:'list'           
+            size:'form'           
         }
         
     },

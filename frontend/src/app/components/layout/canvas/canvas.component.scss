@@ -108,4 +108,28 @@ aside.aside-hidden{
 
 .slide1.slide2.slide3.slide4{  left:-300%; }
 
+/***  POP-UP SIZES  ***/
+
+
+.pop-up{ transition: max-width 0.5s, max-height 0.5s; }
+
+.pop-up-list{
+
+    max-width: 50rem;
+    max-height: 40rem;
+}
+
+.pop-up-form{
+
+    max-width: 30rem;
+    max-height: 35rem;
+}
+
+.pop-up-modal{
+
+    max-width: 30rem;
+    max-height: 20rem;
+}
+
+
 

@@ -23,11 +23,14 @@
 </ng-template>
 
 <ng-template let-name="name" let-value="value" let-title="title"   let-options="options"  #select>
-    <label>{{title}}</label>
-    <select class="form-select"  (change)="update($any($event.target).value)">
-        <option class="text-center">---  selecciona un valor  ---</option>
-        <option *ngFor="let option of options"  [value]="option.value || option.name" [selected]="(option.value || option.name) == value[0]" class="text-center">{{option.name}}</option>       
-    </select>
+    <div class="form-floating">
+    <!-- FALTA -->
+        <select class="form-select"  (change)="update($any($event.target).value)">
+            <option class="text-center">---  selecciona un valor  ---</option>
+            <option *ngFor="let option of options"  [value]="option.value || option.name" [selected]="(option.value || option.name) == value[0]" class="text-center">{{option.name}}</option>       
+        </select>
+        <label>{{title}}</label>
+    </div>
 </ng-template>
 
 <ng-template let-name="name" let-value="value" let-title="title"   let-options="options"  #array>
@@ -69,9 +72,6 @@
     <label>{{title}}</label>
     <textarea class="form-control"  [value]="value[0] || null" [name]="name[0]"  (input)="update($any($event.target).value)"></textarea>
 </ng-template>
-
-
-
 
 <!-- VALIDACION  -->
 

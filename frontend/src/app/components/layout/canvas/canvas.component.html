@@ -26,7 +26,7 @@
 
     <div class="canvas-blanket" [ngClass]="{'canvas-hidden':!(asideIsActive&&popUpIsActive)}"></div>
 
-    <div class="pop-up position-absolute top-50 start-50 translate-middle rounded-3" [ngClass]="{'pop-up-hidden':!popUpIsActive}">
+    <div class="pop-up position-absolute top-50 start-50 translate-middle rounded-3 {{popUpClass}}" [ngClass]="{'pop-up-hidden':!popUpIsActive}">
 
         <div class="slider h-100 w-100 bg-light">
             <div class="slider-inner slides-3 h-100" [ngClass]="{slide1:popUp[0],slide2:popUp[1],slide3:popUp[2]}">

@@ -23,8 +23,8 @@ export class SalidasDisplayComponent extends DisplayAdminComponent implements On
 
       {title:'Tour', value: this.value('tour_name'), icon:'camera'}, 
       {title:'Fecha', value: format(parse(this.value('date_start'), 'yyyy-MM-dd', new Date() ),"dd/MM/yy"), icon:'calendar'}, 
-      {title:'Horario', value: this.value('time_start') + ' - ' + this.value('time_end'), icon:'clock'}, 
-      
+      {title:'Horario', value: this.value('time_start') + ' - ' + this.value('time_end'), icon:'clock'}
+            
     ];
 
     this.passengers = this.value('pax') || [];

@@ -15,6 +15,8 @@ export class CanvasComponent {
   aside:CanvasConfig[] = [];
   popUp:CanvasConfig[] = [];
 
+  popUpClass = ''
+
   constructor(private appConfig: AppConfigService) {
     
     this.appConfig.canvas.routesChanges.subscribe((canvasArr:CanvasConfig[]) => { 
@@ -24,9 +26,20 @@ export class CanvasComponent {
 
         this.asideIsActive = this.aside.length>0;
         this.popUpIsActive = this.popUp.length>0;
+
+        this.popUpClass = this.getPopUpClass();
+        
      });
   }
 
-  openTest(route:string){ this.appConfig.canvas.open(route); }
+  getPopUpClass(){
+
+    if(!this.popUpIsActive) return ''
+
+    const last:any = this.popUp[this.popUp.length-1];
+
+    return last.size ? 'pop-up-' + last.size :'';
+
+  }
 
 }

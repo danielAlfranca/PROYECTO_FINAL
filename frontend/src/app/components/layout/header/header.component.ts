@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ThemeService } from 'ng2-charts';
 import { AppConfigService } from 'src/app/services/app-config.service';
 
 @Component({
