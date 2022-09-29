@@ -8,7 +8,7 @@ import { reservasRoutes } from './reservas';
 import { resumenRoutes } from './resumen';
 import { salidasRoutes } from './salidas';
 
-export const welcomeSection = 'resumen';
+export const welcomeSection = 'inventario';
 
 const routes = [
   

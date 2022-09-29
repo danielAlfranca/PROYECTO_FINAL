@@ -1,6 +1,122 @@
 <?php 
 
 
+    function build_empresas($num, $empresas,$emails, $direcciones){
+
+        $limit = $num ;
+        $list = [ // empresa 1 es sin empresa
+
+           [ "nuevo",
+            "Sin empresa asociada",
+            " ",
+            "",
+            "",
+            ""],
+            [
+                "nuevo",
+                "mi empresa ",
+                " ",
+                "",
+                "",
+                ""
+            ]
+        ];
+
+        for ($i=0; $i < $limit; $i++) { 
+            
+            $list[]=[
+
+                "nuevo", // id
+                $empresas[$i].randomPick([" S.L.", " S.A."," corp.",  " S.A.C"]),
+                strval(rand(111111,999999)),// doc
+                strval(rand(600000000,699999999)), // phones 
+                randomPick($emails), // emails
+                randomPick($direcciones) // address
+            ];
+        }
+        
+        return $list; 
+    }
+
+    function build_trabajadores($numGuias, $numChoferes, $numAdim, $names,$last_names, $emails, $direcciones){
+
+        $list = [];
+        $types = ["1","2","3"];
+        $limits = [$numGuias, $numChoferes, $numAdim];
+
+        foreach ($limits as $key=>$limit) {
+
+            for ($i=0; $i < $limit; $i++) { 
+                
+                $list []=[
+
+                    "nuevo", // id
+                    randomPick($names) , // name
+                    randomPick($last_names). " ".randomPick($last_names),
+                    strval(rand(111111,999999)),// doc
+                    strval(rand(600000000,699999999)), // phones 
+                    randomPick($emails), // emails
+                    $types[$key], // tipo,
+                    randomPick(["1","2"]), // regimen,
+                ];
+            }         
+        } 
+        
+        return $list; 
+    }
+
+    function build_hoteles($num, $hoteles,$emails, $direcciones, $empresas){
+
+        $limit = $num;
+        $list = [];
+        $tipos = ["1","2","3"];
+        $idsEmpresas = buildIdLisT(1,count($empresas)-1);
+       
+
+        for ($i=0; $i < $limit; $i++) { 
+            
+            $tipo = randomPick($tipos);
+
+            $list[]=[
+
+                "nuevo", // id
+                $hoteles[$i], // nombre
+                $tipo, // tipo
+                strval(rand(600000000,699999999)), // phones 
+                randomPick($emails), // emails
+                randomPick($direcciones), // address
+                randomPick($idsEmpresas ) // propietario
+            ];
+        }
+        
+        return $list; 
+    }
+
+    function build_tours($num, $tours,$destinos){
+
+        $limit = $num;
+        $list = [];
+        $time_start= ['07:00', '08:00','09:00','10:00','11:00','12:00','07:30', '08:30','09:30','10:30','11:30','12:30'];
+        $time_end= ['13:00','14:00','15:00','16:00','17:00','18:00','19:00','20:00','13:30','14:30','15:30','16:30','17:30','18:30','19:30','20:30'];
+       
+
+        for ($i=0; $i < $limit; $i++) { 
+            
+            $list[]=[
+
+                "nuevo", // id
+                $tours[$i], // nombre
+                randomPick($time_start), // inicio
+                randomPick($time_end), // fin
+                strval(rand(600000000,699999999)), // phones 
+                randomPick([1,1,1,1,1,1,1,1,2]), // duracion
+                randomPick($destinos)// address                
+            ];
+        }
+        
+        return $list; 
+    }
+
     function build_inventory($num_empresas,$num_trabajadores,$emails, $names, $last_names){        
 
         $inventory_array = [];
