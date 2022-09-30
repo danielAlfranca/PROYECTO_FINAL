@@ -1,7 +1,153 @@
 <?php 
 
 
-    function build_salidas($reservas, $empresas, $trabajadores){        
+    function build_salidas($tours){
+
+        $salidas = [];
+
+        foreach ($tours as $tour) {
+
+            $arr = [];
+
+            foreach (['date_start','date_end','time_start','time_end','tour'] as $keyName) {
+
+                $arr[]= TourPaquete::get_property($tour, $keyName);
+            }
+
+            $str = implode('--',$arr);
+   
+            if(!array_key_exists($str,$salidas)) $salidas[$str]=[
+
+                'id'=>'nuevo', # 0 
+                'tour'=> $arr[4],
+                'date_start'=> $arr[0],
+                'date_end' =>$arr[1],
+                'time_start' => $arr[2],
+                'time_end' =>$arr[3],
+                'comments' => ''
+            ];           
+
+        }
+
+        return array_values($salidas);
+    }
+
+    function build_operators($salidas,$empresas){
+
+        $list = [];
+
+        foreach ($salidas as $salida) {
+            
+            $list[]=[
+
+                'id'=> 'nuevo', # 0 
+                'salida'=>  Salida::get_property($salida, 'id'),    
+                'proveedor'=>  Empresa::get_property(randomPick($empresas), 'id'), 
+                'comments'=>  '',
+            ];
+        }
+    }
+
+    function build_guias($salidas,$trabajadores){
+
+        $list = [];
+        $guias = array_filter($trabajadores, fn($e)=>Trabajador::get_property($e, 'tipo')==1);
+
+        foreach ($salidas as $salida) {
+            
+            $list[]=[
+
+                'id'=> 'nuevo', # 0 
+                'salida'=>  Salida::get_property($salida, 'id'),    
+                'proveedor'=>  Trabajador::get_property(randomPick($guias), 'id'), 
+                'comments'=>  '',
+            ];
+        }
+    }
+
+    function build_chofers($salidas,$trabajadores){
+
+        $list = [];
+        $chofers = array_filter($trabajadores, fn($e)=>Trabajador::get_property($e, 'tipo')==2);
+
+        foreach ($salidas as $salida) {
+            
+            $list[]=[
+
+                'id'=> 'nuevo', # 0 
+                'salida'=>  Salida::get_property($salida, 'id'),    
+                'proveedor'=>  Trabajador::get_property(randomPick($chofers), 'id'), 
+                'comments'=>  '',
+            ];
+        }
+    }
+
+    function build_pasajeros($salidas,$tours){
+
+        $paxCONreserva = []; $paxSINreserva = [];$toursUpdated = [];
+   
+        foreach ($tours as $tour) {
+            
+            if(strtotime(TourPaquete::get_property($e, 'date_start')) <= strtotime('now')){
+
+                foreach ($salidas as $salida) {
+                    
+                    foreach (['date_start','date_end','time_start','time_end','tour'] as $label) {
+
+                        if (Salida::get_property($salida, $label)==TourPaquete::get_property($tour, $label)) {
+
+                            $updated = TourPaquete::set_property($tour, 'salida',Salida::get_property($salida, 'id'));
+                            $toursUpdated[] = $updated;
+                            $paxCONreserva[] = create_pasajero_con_reserva($tour,$salida);
+
+                            for ($i=0; $i < randomPick([0,1,2,1,3]); $i++) { 
+
+                                $paxSINreserva[] = create_pasajero_sin_reserva($tour,$salida);
+                            }
+                            
+                           
+                        }
+                    }  
+                }
+            }
+        }
+
+        return [
+
+            'toursPaqueteUpdated'=>$toursUpdated,
+            'paxConReserva'=>$paxCONreserva,
+            'paxSinReserva'=>$paxSINreserva,
+
+        ]
+    }
+
+    function create_pasajero_con_reserva($tour,$salida){
+
+        return [
+
+            'id'=>'nuevo', # 0 
+            'tour'=> TourPaquete::get_property($tour, 'id'),
+            'salida'=> SalidaPaquete::get_property($salida, 'id'),
+            'pasajeros' =>TourPaquete::get_property($tour, 'pasajeros')
+        ]
+    }
+
+    function create_pasajero_sin_reserva($tour,$salida, $names){
+
+        return [
+
+            'id'=>'nuevo', # 0 
+            'salida'=> SalidaPaquete::get_property($salida, 'id'),
+            'pasajeros' => [randomPick(buildIdLisT(1, 5)), randomPick([0,0,0,0,1,2]), randomPick([0,0,0,0,0,1])],
+            'nombre'=>  randomPick($names), //
+            'apellidos'=>  randomPick($last_names). " ".randomPick($last_names),
+            'telefonos'=>  rand(600000000,699999999), 
+            'emails'=>  randomPick($emails) 
+            'proveedor' =>Empresa::get_property(randomPick($empresas), 'id')
+        ]
+    }
+
+    function build_salidas1($reservas, $empresas, $trabajadores){        
         
        $salidas = []; $resultado = []; $numReservas = count($reservas); $index = 0; 
 

@@ -307,15 +307,24 @@ class Section{
                 
                 return "SELECT * FROM $table WHERE id=:id";                
                 
-            }
-
-
-            
-            
+            }           
 
         }
 
+    }
 
+
+    public static function build_random_item($data){ // para generar fake data
+
+        $item =[];
+        
+        foreach(static::$indexes as $key=>$config){
+
+            $value = $data[$key] ? $data[$key] : ($config['default'] ? $config['default']:null);
+            static::set_property($item , $value, $key);
+        }
+
+        return $item;
     }
 
     

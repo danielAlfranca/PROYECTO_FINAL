@@ -77,6 +77,10 @@ CREATE TABLE paquetes(
     id INT AUTO_INCREMENT, # 0 
     destino VARCHAR(20)NOT NULL,
     pasajeros VARCHAR(10) NOT NULL,
+    date_start DATE NOT NULL ,
+    date_end DATE NOT NULL ,
+    time_start TIME,# 4
+    time_end TIME,# 5
     proveedor INT NOT NULL,
     cliente INT NOT NULL, 
     PRIMARY KEY (id),
@@ -103,7 +107,11 @@ CREATE TABLE tour_paquete(
     pasajeros VARCHAR(10) NOT NULL,
     paquete INT NOT NULL,
     tour INT NOT NULL,
-    salida INT NOT NULL,
+    date_start DATE NOT NULL ,
+    date_end DATE NOT NULL ,
+    time_start TIME,# 4
+    time_end TIME,# 5
+    salida INT,
     comments VARCHAR(255),
     PRIMARY KEY (id),    
     FOREIGN KEY (paquete) REFERENCES paquetes(id),  
@@ -117,6 +125,10 @@ CREATE TABLE hotel_paquete(
     habitaciones VARCHAR(10) NOT NULL,
     paquete INT NOT NULL,
     hotel INT NOT NULL,
+    date_start DATE NOT NULL ,
+    date_end DATE NOT NULL ,
+    time_start TIME,# 4
+    time_end TIME,# 5
     comments VARCHAR(255),
     PRIMARY KEY (id),
     FOREIGN KEY (paquete) REFERENCES paquetes(id),  

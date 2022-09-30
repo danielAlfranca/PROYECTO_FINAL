@@ -4,34 +4,18 @@
     function build_empresas($num, $empresas,$emails, $direcciones){
 
         $limit = $num ;
-        $list = [ // empresa 1 es sin empresa
-
-           [ "nuevo",
-            "Sin empresa asociada",
-            " ",
-            "",
-            "",
-            ""],
-            [
-                "nuevo",
-                "mi empresa ",
-                " ",
-                "",
-                "",
-                ""
-            ]
-        ];
+        $list = [];
 
         for ($i=0; $i < $limit; $i++) { 
             
             $list[]=[
 
-                "nuevo", // id
-                $empresas[$i].randomPick([" S.L.", " S.A."," corp.",  " S.A.C"]),
-                strval(rand(111111,999999)),// doc
-                strval(rand(600000000,699999999)), // phones 
-                randomPick($emails), // emails
-                randomPick($direcciones) // address
+                'id'=>  "nuevo", // id
+                'nombre'=>  $empresas[$i].randomPick([" S.L.", " S.A."," corp.",  " S.A.C"]),
+                'documento'=>  strval(rand(111111,999999)),// doc
+                'telefonos'=>  strval(rand(600000000,699999999)), // phones 
+                'emails'=>  randomPick($emails), // emails
+                'direccion'=>  randomPick($direcciones) // address
             ];
         }
         
@@ -50,14 +34,14 @@
                 
                 $list []=[
 
-                    "nuevo", // id
-                    randomPick($names) , // name
-                    randomPick($last_names). " ".randomPick($last_names),
-                    strval(rand(111111,999999)),// doc
-                    strval(rand(600000000,699999999)), // phones 
-                    randomPick($emails), // emails
-                    $types[$key], // tipo,
-                    randomPick(["1","2"]), // regimen,
+                    'id'=>   "nuevo", // id
+                    'nombre'=>  randomPick($names) , // name
+                    'apellidos'=>  randomPick($last_names). " ".randomPick($last_names),
+                    'documento'=>  strval(rand(111111,999999)),// doc
+                    'telefonos'=>  strval(rand(600000000,699999999)), // phones 
+                    'emails'=>  randomPick($emails), // emails
+                    'tipo'=>  $types[$key], // tipo,
+                    'regimen'=>  randomPick(["1","2"]), // regimen,
                 ];
             }         
         } 
@@ -79,14 +63,14 @@
 
             $list[]=[
 
-                "nuevo", // id 0
-                $hoteles[$i], // nombre 1
-                $tipo, // tipo 2
-                strval(rand(600000000,699999999)), // phones  3
-                randomPick($emails), // emails 4
-                randomPick($direcciones), // address 5
-                randomPick($idsEmpresas ), // propietario 6
-                $tipo == 1 ? randomPick(["1",'2','3','4','5']):null // categoria 7
+                'id'=>  "nuevo", // id 0
+                'nombre'=> $hoteles[$i], // nombre 1
+                'tipo'=> $tipo, // tipo 2
+                'phones'=> strval(rand(600000000,699999999)), // phones  3
+                'emails'=> randomPick($emails), // emails 4
+                'address'=> randomPick($direcciones), // address 5
+                'propietario'=> randomPick($idsEmpresas ), // propietario 6
+                'categoria'=> $tipo == 1 ? randomPick(["1",'2','3','4','5']):null // categoria 7
 
             ];
 
@@ -108,12 +92,12 @@
             
             $list[]=[
 
-                "nuevo", // id
-                $tours[$i], // nombre
-                randomPick($time_start), // inicio
-                randomPick($time_end), // fin
-                randomPick([1,1,1,1,1,1,1,1,2]), // duracion
-                randomPick($destinos)// destino                
+               'id'=> "nuevo", // id
+               'nombre'=> $tours[$i], // nombre
+               'inicio'=> randomPick($time_start), // inicio
+               'fin'=> randomPick($time_end), // fin
+               'duracion'=> randomPick([1,1,1,1,1,1,1,1,2]), // duracion
+               'destino'=> randomPick($destinos)// destino                
             ];
         }
         
