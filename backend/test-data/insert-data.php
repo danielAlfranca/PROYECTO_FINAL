@@ -68,13 +68,14 @@
         }
         foreach ($hotelesItems as $item) {
             
-            $statement = $connection->prepare("INSERT INTO hoteles( nombre, tipo, telefonos, emails, direccion, propietario)  VALUES(:nombre, :tipo, :telefonos, :emails, :direccion, :propietario)");
+            $statement = $connection->prepare("INSERT INTO hoteles( nombre, tipo, telefonos, emails, direccion, propietario, categoria)  VALUES(:nombre, :tipo, :telefonos, :emails, :direccion, :propietario, :categoria)");
             $statement->bindParam(":nombre", $item[1]);
             $statement->bindParam(":tipo", $item[2]);
             $statement->bindParam(":telefonos", $item[3]);
             $statement->bindParam(":emails", $item[4]);
             $statement->bindParam(":direccion", $item[5]);
             $statement->bindParam(":propietario", $item[6]);
+            $statement->bindParam(":categoria", $item[7]);
             $statement->execute();            
         }
 

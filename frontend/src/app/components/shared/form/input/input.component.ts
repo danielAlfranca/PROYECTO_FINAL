@@ -39,8 +39,6 @@ export class InputComponent implements OnChanges, AfterViewInit {
 
     this.values = this.names.map(name=>this.appConfig.dataConfig.getValue(this.item,name,this.type) )
 
-    console.log(this.names);
-    
     this.options = this.field.options || [];
 
     if(this.templates && !this.template){
@@ -60,7 +58,6 @@ export class InputComponent implements OnChanges, AfterViewInit {
   update(value:any, index = 0){
 
     this.values[index] = value;
-
     this.change.emit(this.parseUpdate(this.values));
     
   }

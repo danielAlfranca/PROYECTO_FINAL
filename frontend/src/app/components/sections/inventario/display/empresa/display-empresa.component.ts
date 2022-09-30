@@ -24,8 +24,8 @@ export class DisplayEmpresaComponent extends DisplayAdminComponent implements On
       {title:'Nombre', value: this.value('nombre'), icon:'briefcase'}, 
       {title:'Documento', value: this.value('documento'), icon:'file-text'}, 
       {title:'Direccion', value: this.value('direccion'), icon:'file-text'}, 
-      {title:'telefonos', value: this.value('lista_telefonos'), icon:'telephone'}, 
-      {title:'emails', value: this.value('lista_emails'), icon:'envelope'}      
+      {title:'telefonos', value: this.value('telefonos'), icon:'telephone'}, 
+      {title:'emails', value: this.value('emails'), icon:'envelope'}      
     ];
   }
 }

@@ -19,12 +19,12 @@ export const empresaForm = [
     {
       title:'Telefonos',
       name:'telefonos',
-      input:'array'
+      input:'text'
     },
     {
       title:'Emails',
       name:'emails',
-      input:'array'
+      input:'text'
     }
 ] as FormItem[];
 
@@ -45,16 +45,12 @@ export const empresaTable = {
       sort:'documento'
     },
     { 
-      title:'Direccion',
-      sort:'direccion'
-    },
-    { 
       title:'Contacto',
     }
   ],
   search:[
 
-    'nombre','documento', 'lista_emails', 'direccion', 'lista_telefonos'
+    'nombre','documento', 'emails', 'direccion', 'telefonos'
   ]
 };
 

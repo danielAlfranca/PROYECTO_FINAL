@@ -23,9 +23,7 @@ export abstract class DataConfig{
 
     /* VALIDACIONES */
 
-    protected validations:{[key:string]:(obj:any, key:string)=>boolean} = {}
-
-    protected common_validations:{[key:string]:(obj:any, key:string)=>boolean} = {
+    protected validations:{[key:string]:(obj:any, key:string)=>boolean} = {
 
         is_boolean:(obj:any, key:string) => {
             
@@ -59,13 +57,13 @@ export abstract class DataConfig{
     public valueIsValid(obj:any,key:string):boolean{ // VALIDA PROPIEDAD
         //console.log(key);
         const propConfig:PropertyConfig = this.getKey(key), value = this.getByPath(obj, propConfig);
-        //console.log(key,value);
+        console.log(key,value);
         if(propConfig.required && value === undefined) return false;
 
         if(!propConfig.required && value === undefined) return true;
 
         return !propConfig.validations || propConfig.validations.every(validation=>{ // SI NO REQUIERE VALIDACION O TODAS LAS VALIDACIONES OK
-            //console.log(validation, (this.validations),value);    
+              
             return (this.validations[validation])(obj,key); // SE BUSCA EN VALIDACIONES ESPECIFICAS DE LA CLASE
         });
     }

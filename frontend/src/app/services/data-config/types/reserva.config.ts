@@ -8,9 +8,9 @@ import { DataConfig } from "../model";
   })
 export class ReservaConfig extends DataConfig{   
 
-    protected override validations = {
+    protected override validations:any = {
 
-        ...this.common_validations,
+        ...this.validations,
         type_valid: (obj:any, key:string) => this.getValue(obj,key) == 1,
         agent_valid_id:(obj:any, key:string) => this.valid_agent_id(obj)     
 

@@ -13,25 +13,46 @@ class AppData{
     
     public function dataSet($data){
 
-        $query = $this->connection->prepare("SELECT * FROM inventory_items");
+        $sections = [];
+
+        $query = $this->connection->prepare("SELECT * FROM empresas");
         $query->setFetchMode(PDO::FETCH_NUM);
         $query->execute();
 
-        $inventario = $this->prepare_sections_inventario($query->fetchAll());
+        $sections['empresa'] = $this->indexArrayByID($query->fetchAll()) ;
 
-        $query = $this->connection->prepare("SELECT * FROM activity_group");
+        $query = $this->connection->prepare("SELECT * FROM tours");
         $query->setFetchMode(PDO::FETCH_NUM);
         $query->execute();
 
-        $activity_groups = $query->fetchAll();
+        $sections['tour'] = $this->indexArrayByID($query->fetchAll()  ) ;
 
-        $filteredReservas = array_filter($activity_groups, fn($e)=>$e[1]==1);
-        $filteredSalidas = array_filter($activity_groups, fn($e)=>$e[1]==2);
 
-        $reservas = ["reserva"=>$this->prepare_reservas($filteredReservas)];
-        $salidas = ["salida"=>$this->prepare_salidas($filteredSalidas)];
+        $query = $this->connection->prepare("SELECT * FROM hoteles");
+        $query->setFetchMode(PDO::FETCH_NUM);
+        $query->execute();
+
+        $sections['hotel'] = $this->indexArrayByID($query->fetchAll() ) ;
+
+        $query = $this->connection->prepare("SELECT * FROM trabajadores");
+        $query->setFetchMode(PDO::FETCH_NUM);
+        $query->execute();
+
+        $sections['trabajador'] = $this->indexArrayByID($query->fetchAll()  ) ;       
        
-        return array_merge($inventario, $reservas, $salidas);
+        return $sections;
+    }
+
+    private function indexArrayByID($list){
+
+        $parsed = [];
+
+        foreach ($list as $key => $value) {
+            
+            $parsed[$value[0]] = $value;            
+        }
+
+        return $parsed;
     }
 
     public function prepare_sections_inventario($inventario){

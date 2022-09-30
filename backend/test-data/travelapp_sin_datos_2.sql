@@ -1,4 +1,4 @@
--- Active: 1658128211047@@127.0.0.1@3306@travelapp
+-- Active: 1657547555018@@127.0.0.1@3306@travelapp
 DROP DATABASE IF EXISTS travelapp;
 
 CREATE DATABASE travelapp DEFAULT CHARSET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -15,6 +15,7 @@ CREATE TABLE empresas(
     telefonos VARCHAR(30),  # 3   
     emails VARCHAR(30), # 4
     direccion VARCHAR(60),# 5
+    hidden BOOLEAN,# 6
     PRIMARY KEY (id)      
 );
 CREATE TABLE trabajadores(
@@ -27,6 +28,7 @@ CREATE TABLE trabajadores(
     emails VARCHAR(30), 
     tipo ENUM('1','2','3') NOT NULL,
     regimen ENUM('1','2') NOT NULL,
+    hidden BOOLEAN,# 
     PRIMARY KEY (id)      
 );
 
@@ -38,18 +40,21 @@ CREATE TABLE tours(
     fin CHAR(5) NOT NULL,    
     duracion TINYINT NOT NULL, 
     destino VARCHAR(20) NOT NULL,
+    hidden BOOLEAN,# 
     PRIMARY KEY (id)      
 );
 
 CREATE TABLE hoteles(
 
     id INT AUTO_INCREMENT, # 0 
-    nombre VARCHAR(30)NOT NULL,
-    tipo ENUM('1','2','3') NOT NULL,
-    telefonos VARCHAR(30),    
-    emails VARCHAR(30), 
-    direccion VARCHAR(60),
-    propietario INT NOT NULL,
+    nombre VARCHAR(30)NOT NULL, # 1 
+    tipo ENUM('1','2','3') NOT NULL, # 2
+    categoria ENUM('1','2','3','4','5'), # 3 
+    telefonos VARCHAR(30), # 4     
+    emails VARCHAR(30), # 5 
+    direccion VARCHAR(60), # 6 
+    propietario INT, # 7
+    hidden BOOLEAN,# 8
     PRIMARY KEY (id),
     FOREIGN KEY (propietario) REFERENCES empresas(id)    
 );

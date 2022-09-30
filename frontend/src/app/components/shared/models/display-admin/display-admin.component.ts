@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { take } from 'rxjs';
+import { DataTypes } from 'src/app/interfaces/types/data-config';
 import { AppConfigService } from 'src/app/services/app-config.service';
 
 @Component({
@@ -42,7 +43,8 @@ export class DisplayAdminComponent  {
 
   delete(){
 
-    this.appConfig.queries.delete(this.section,this.item).pipe(take(1)).subscribe(response=>{
+    
+    this.appConfig.queries.delete(this.section as DataTypes,this.item).pipe(take(1)).subscribe(response=>{
 
       if(response && !response.errors){ this.successDelete(); } else  { this.errorDelete(); }
       
@@ -56,7 +58,7 @@ export class DisplayAdminComponent  {
 
   successDelete(){
 
-    this.appConfig.canvas.open(this.deleteSuccess).pipe(take(1)).subscribe(response=>{
+    this.appConfig.canvas.open(this.deleteSuccess,{message:"Elemento eliminado con exito", type:'success'}).pipe(take(1)).subscribe(response=>{
 
       this.appConfig.canvas.close();
     })
@@ -64,7 +66,7 @@ export class DisplayAdminComponent  {
 
   errorDelete(){
 
-    this.appConfig.canvas.open(this.deleteError).pipe(take(1)).subscribe(response=>{
+    this.appConfig.canvas.open(this.deleteError,{message:"No se pudo eliminar", type:'error'}).pipe(take(1)).subscribe(response=>{
 
       this.appConfig.canvas.close();
     })

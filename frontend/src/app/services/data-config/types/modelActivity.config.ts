@@ -10,9 +10,9 @@ export class ActivityConfig extends DataConfig{
 
     constructor(protected override injector:Injector, protected datePipe:DatePipe){ super(injector); }
 
-    protected override validations = {
+    protected override validations:any = {
 
-        ...this.common_validations,
+        ...this.validations,
         type_valid: (obj:any, key:string) => this.getValue(obj,key) ==  this.activitType,
         agent_valid:(obj:any, key:string) => this.valid_agent(obj)   
 

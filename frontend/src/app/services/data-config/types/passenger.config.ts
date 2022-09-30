@@ -11,11 +11,6 @@ import { format, parse } from "date-fns";
 export class PassengerConfig extends DataConfig{
    
 
-    protected override validations = {
-
-        ...this.common_validations,
-        
-    }
     constructor(protected override injector:Injector,private datePipe:DatePipe ){ super(injector); }
 
     protected override getters = {

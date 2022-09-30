@@ -119,7 +119,7 @@ class Inventario extends Section{
     protected function init_validations(){ // php no permite asignarlo directamente en la propiedad 
 
         parent::init_validations();         
-        $this->validations['type_valid']  = fn($data, $name) => in_array( static::get_property($data,$name), range(1,5));
+        
     }
 
 

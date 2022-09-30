@@ -11,7 +11,7 @@ export const hotelForm =  [
       title:'Tipo',
       name:'tipo',
       input:'select',
-      options:[{name:'hotel'},{name:'lodge'},{name:'alojamiento'}]
+      options:[{name:'hotel', value:1},{name:'lodge', value:2},{name:'alojamiento', value:3}]
     },
     {
       title:'Direccion',
@@ -21,12 +21,12 @@ export const hotelForm =  [
     {
       title:'Telefonos',
       name:'telefonos',
-      input:'array'
+      input:'text'
     },
     {
       title:'Emails',
-      name:'telefonos',
-      input:'array'
+      name:'emails',
+      input:'text'
     },
     {
       title:'Propietario',
@@ -54,10 +54,6 @@ export const hotelTable = {
         sort:'tipo'
       },
       { 
-        title:'direccion',
-        sort:'direccion'
-      },
-      { 
         title:'contacto',
       },
       { 
@@ -68,6 +64,6 @@ export const hotelTable = {
     ],
     search:[
 
-      'nombre', 'direccion', 'estrellas', 'tipo' ,'nombre_propietario' ,'lista_emails','lista_telefonos'
+      'nombre', 'direccion', 'categoria', 'tipo' ,'nombre_propietario' ,'emails','telefonos'
     ]
   };

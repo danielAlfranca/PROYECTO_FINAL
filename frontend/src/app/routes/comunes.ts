@@ -1,6 +1,5 @@
 import { SelectCustomDateComponent } from "../components/layout/header/select-data-dates/select-custom-date/select-custom-date.component";
 import { SelectDataDatesComponent } from "../components/layout/header/select-data-dates/select-data-dates.component";
-import { DateTimePickerComponent } from "../components/shared/form/custom-fields/date-time-picker/date-time-picker.component";
 import { ItemFormComponent } from "../components/shared/form/custom-fields/item-picker/form/item-form.component";
 import { ItemListComponent } from "../components/shared/form/custom-fields/item-picker/list/item-list.component";
 import { ModalComponent } from "../components/shared/modal/modal.component";
@@ -42,6 +41,25 @@ export const comunesRoutes = [
             icon: 'bi bi-pencil-square',
             size:'modal',
             color:'danger'           
+        }        
+    },
+
+    {
+        path: 'delete-success', component: ModalComponent, outlet:'popUp-1', data: {
+
+            title: 'Eliminacion exitosa',
+            icon: 'bi bi-pencil-square',
+            size: 'modal',
+            color:'success'          
+        }        
+    },
+    {
+        path: 'delete-error', component: ModalComponent, outlet:'popUp-1', data: {
+
+            title: 'Fallo',
+            icon: 'bi bi-pencil-square',
+            size: 'modal',
+            color:'danger'         
         }        
     },
 

@@ -8,6 +8,11 @@ export const trabajadorForm =  [
       input:'text'
     },
     {
+      title:'Apellidos',
+      name:'apellidos',
+      input:'text'
+    },
+    {
       title:'documento',
       name:'documento',
       input:'text',
@@ -16,23 +21,23 @@ export const trabajadorForm =  [
       title:'tipo',
       name:'tipo',
       input:'select',
-      options:[{name:'guia'},{name:'chofer'},{name:'administrativo'}],
+      options:[{name:'guia', value:1},{name:'chofer', value:2},{name:'administrativo', value:3}],
     },
     {
       title:'regimen',
       name:'regimen',
       input:'select',
-      options:[{name:'en plantilla'},{name:'autonomo'}],
+      options:[{name:'en plantilla', value:1},{name:'autonomo', value:2}],
     },
     {
       title:'telefonos',
       name:'telefonos',
-      input:'array'
+      input:'text'
     },
     {
       title:'emails',
       name:'emails',
-      input:'array'
+      input:'text'
     }    
 
   ] as FormItem[];
@@ -56,11 +61,7 @@ export const trabajadorTable = {
       { 
         title:'Tipo',
         sort:'tipo'
-      },
-      { 
-        title:'Contacto',
-        name:'contacto'
-      },
+      },    
 
     ],
     search:[

@@ -1,36 +1,36 @@
 <?php 
 
-class Trabajador extends Inventario{   
+class Trabajador extends Section{   
 
+    public static $table = "trabajadores";
     
-    public static $fixed_constants = ['type'=>2];// para valores fijos
-
-    public static $model =  ['nuevo',1,2,[],false];
     public static $indexes = [
 
         'id'=>['private'=>0, 'validations'=>['id_valid'], 'required'=>true, 'default'=>'nuevo'], 
 
-        'agent'=>['private'=>1, 'validations'=>['agent_valid'], 'required'=>true, 'default'=>1, 'fixed'=>true],  
+        'nombre'=>['private'=>1, 'validations'=>['is_string'], 'required'=>true], 
 
-        'type'=>['private'=>2, 'validations'=>['type_valid'], 'required'=>true, 'default'=>2, 'fixed'=>true],
+        'apellidos'=>['private'=>2, 'validations'=>['is_string'], 'required'=>true], 
 
-        'data'=>['private'=>3, 'validations'=>[], 'required'=>true, 'default'=>[]],
+        'documento'=>['private'=>3, 'validations'=>['is_string'], 'required'=>false], 
+        
+        'telefonos'=>['private'=>4, 'validations'=>['is_string'], 'required'=>false], 
 
-        'hidden'=>['private'=>4, 'validations'=>['is_boolean'], 'required'=>true, 'default'=>false], 
+        'emails'=>['private'=>5, 'validations'=>['is_string'], 'required'=>false],
 
-        'nombre'=>['private'=>'3.0', 'validations'=>['is_string'], 'required'=>true], 
+        'tipo'=>['private'=>6, 'validations'=>['tipo_valid'], 'required'=>true], 
 
-        'documento'=>['private'=>'3.1', 'validations'=>['is_string'], 'required'=>false], 
+        'regimen'=>['private'=>7, 'validations'=>['regimen_valid'], 'required'=>true],
 
-        'tipo'=>['private'=>'3.4', 'validations'=>['tipo_valid'], 'required'=>true], 
-
-        'regimen'=>['private'=>'3.5', 'validations'=>['regimen_valid'], 'required'=>true], 
-
-        'telefonos'=>['private'=>'3.2', 'validations'=>['is_string_array'], 'required'=>false], 
-
-        'emails'=>['private'=>'3.3', 'validations'=>['is_string_array'], 'required'=>false],
-   
+        'hidden'=>['private'=>8, 'validations'=>[], 'required'=>false, 'default'=>false]  
     ]; 
+
+
+    public function delete($data){
+
+        $updated = static::set_property($data, true, 'hidden');        
+        return $this->update($updated);
+     }
 
     protected function init_validations(){ // php no permite asignarlo directamente en la propiedad 
 

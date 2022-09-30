@@ -79,14 +79,18 @@
 
             $list[]=[
 
-                "nuevo", // id
-                $hoteles[$i], // nombre
-                $tipo, // tipo
-                strval(rand(600000000,699999999)), // phones 
-                randomPick($emails), // emails
-                randomPick($direcciones), // address
-                randomPick($idsEmpresas ) // propietario
+                "nuevo", // id 0
+                $hoteles[$i], // nombre 1
+                $tipo, // tipo 2
+                strval(rand(600000000,699999999)), // phones  3
+                randomPick($emails), // emails 4
+                randomPick($direcciones), // address 5
+                randomPick($idsEmpresas ), // propietario 6
+                $tipo == 1 ? randomPick(["1",'2','3','4','5']):null // categoria 7
+
             ];
+
+
         }
         
         return $list; 
@@ -108,9 +112,8 @@
                 $tours[$i], // nombre
                 randomPick($time_start), // inicio
                 randomPick($time_end), // fin
-                strval(rand(600000000,699999999)), // phones 
                 randomPick([1,1,1,1,1,1,1,1,2]), // duracion
-                randomPick($destinos)// address                
+                randomPick($destinos)// destino                
             ];
         }
         

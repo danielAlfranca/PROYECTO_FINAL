@@ -35,7 +35,7 @@ export class FormAdminComponent {
     if(!this.is_valid(item)) return this.form_error_message();
    
     this.appConfig.queries.save(this.type,item).pipe(take(1)).subscribe(response=>{
-
+      console.log(response);
       if(!response || response.errors) { this.server_error_message() }
 
       else{        
@@ -53,7 +53,7 @@ export class FormAdminComponent {
 
   is_valid(item:any){
 
-    return this.appConfig.dataConfig.validate(this.item,this.type);
+    return this.appConfig.dataConfig.validate(item,this.type);
   }
 
   form_error_message(){

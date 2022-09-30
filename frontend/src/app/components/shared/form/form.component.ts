@@ -85,7 +85,7 @@ export class FormComponent implements AfterContentInit{
     }    
   } 
 
-  onSave(){   this.save.emit(this.item); }
+  onSave(){  this.save.emit(this.item); }
 
   validateField(name:string){
 

@@ -9,7 +9,7 @@ class AppConfig{
 
         return [
 
-            'reserva'=>[
+/*             'reserva'=>[
 
                 'indexes'=>Reserva::$indexes
             ],
@@ -50,7 +50,7 @@ class AppConfig{
             'passenger'=>[
 
                 'indexes'=>Passenger::$indexes
-            ],
+            ], */
             'empresa'=>[
 
                 'indexes'=>Empresa::$indexes,

@@ -1,8 +1,9 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Injector } from '@angular/core';
 import { DataStoreService } from './data-store.service';
 import {HttpClient} from "@angular/common/http";
 import { Observable, Subject, take } from 'rxjs';
 import { DataTypes } from 'src/app/interfaces/types/data-config';
+import { AppConfigService } from '../app-config.service';
 
 @Injectable({
   providedIn: 'root' 
@@ -16,7 +17,7 @@ export class DataService {
   private $_dataUpdates = new Subject<undefined>();
   
 
-  constructor(private http:HttpClient,  private dataStore:DataStoreService) {}
+  constructor(private http:HttpClient,  private dataStore:DataStoreService, private injector:Injector) {}
 
   public section(section:DataTypes){
 
@@ -42,20 +43,20 @@ export class DataService {
 
     this.connect(section,'save',item).subscribe((data:any)=>{       
 
-      if(data){  this.addItem(section,data);  notification.next(data) } else notification.next(false); 
+      if(data){  this.addItem(section,data);  notification.next(data); this.$_dataUpdates.next(data) } else notification.next(false); 
     
     })
 
     return notification as Observable<any>;    
   }
 
-  delete(section:string, item:any){
+  delete(section:DataTypes, item:any, justHide = false){
 
     const notification = new Subject();
 
     this.connect(section,'delete',item).subscribe((data:any)=>{ 
-
-      if(data){  this.removeItem(section,data);  notification.next(data) }
+   
+      if(data){  this.removeItem(section,data);  notification.next(data); }
       else notification.next(false);
     })
 
@@ -86,14 +87,19 @@ export class DataService {
   private addItem( section:DataTypes, data:any){
 
     this.dataStore.addItem(section, data);
-    this.$_dataUpdates.next(undefined);
+
+    setTimeout(()=>this.$_dataUpdates.next(data))
+    
 
   }
 
-  private removeItem(data:any, section:DataTypes){
+  private removeItem( section:DataTypes, data:any){
+    
+    const  justHide = this.injector.get(AppConfigService).dataConfig.hasKey(data,section,'hidden');
 
-//FALTA
-   
-
+    if(!justHide) this.dataStore.removeItem(section, data);
+    else this.dataStore.addItem(section, data);
+    
+    setTimeout(()=>this.$_dataUpdates.next(data))
   }
 }

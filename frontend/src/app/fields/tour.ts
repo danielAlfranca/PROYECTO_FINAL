@@ -50,12 +50,12 @@ export const tourTable = {
       },
       { 
         title:'horario',
-        sort:'horario_completo'
+       
       }       
 
     ],
     search:[
 
-      'nombre','destino', 'horario_completo'
+      'nombre','destino', 'inicio','fin'
     ]
   };;

@@ -12,9 +12,9 @@ export class SalidaConfig extends DataConfig{
    
     
 
-    protected override validations = {
+    protected override validations:any = {
 
-        ...this.common_validations,
+        ...this.validations,
         type_valid: (obj:any, key:string) => this.getValue(obj,key) == 2,
         agent_valid:(obj:any, key:string) => this.valid_agent(obj)     
 

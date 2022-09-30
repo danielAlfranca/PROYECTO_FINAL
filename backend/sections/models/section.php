@@ -5,13 +5,11 @@ class Section{
     
     protected $connection; // BASE DE DATOS;
 
-    public static $fixed_constants = [];// para valores fijos
-
     public static $indexes = []; // PATHS DE LAS PROPIEDADES;
 
-    public static $model = []; 
-
     public $validations = []; // lista de validaciones para datos
+
+    public static $table; // tabla para insertar datos
 
     public $sanitize_funcs = []; // lista de sanitizaciones para datos desde cliente
  
@@ -31,9 +29,7 @@ class Section{
 
     public static function set_property($data, $value, $name){ // SI NO ES UNA PROP CON VALOR FIJO SE DEVUELE EL VALOR OBTENIDOA TRAVES DE LA RUTA
         
-        $newValue = isset(static::$fixed_constants[$name])  ? static::$fixed_constants[$name]:$value;
-
-        return static::set_prop_by_path($data,$name,$newValue);
+          return static::set_prop_by_path($data,$name,$value);
     }
 
     protected static function get_prop_by_path($data, $name){  // LOS OBJETOS SON ARRAYS ANIDADOS. EN INDEXES SE DEFINEN LOS PATH Y AQUI SE OBTIENEN LOS VALORES A TRAVES DE ESOS PATHS
@@ -70,13 +66,110 @@ class Section{
         return $data ;
     }
 
-    public function save($data){}
+    public function save($data){       
+       
+        $id = static::get_property($data,'id');        
 
-    public function update($data){}
+        if($id!='nuevo') return $this->update($data);
 
-    public function select($data){}
+        try{
 
-    public function delete($data){}
+            if(!$this->connection->inTransaction()) $this->connection->beginTransaction();
+
+            $query = $this->connection->prepare($this->getQueryString('save'));
+            $keys = static::$indexes;
+
+            foreach (array_keys($keys) as $keyName) {
+
+                if($keyName!='id'){ $query->bindValue(":$keyName", $data[$keys[$keyName]['private']] );  }       
+            }
+
+            if($query->execute()){
+
+                $lastID = $this->connection->lastInsertId();
+
+                $item  = $this->select( $lastID );
+
+                $this->connection->commit();
+        
+                return $item;
+
+            }else return false;
+
+        }catch(PDOExecption $e) { return false; }
+    }
+
+    public function update($data){
+
+        $id = static::get_property($data,'id');
+
+        if($id=='nuevo') return $this->save($data);
+
+        try{
+
+            if(!$this->connection->inTransaction()) $this->connection->beginTransaction();
+
+            $query = $this->connection->prepare($this->getQueryString('update'));
+            $keys = static::$indexes;
+
+            foreach (array_keys($keys) as $keyName) {
+
+               $query->bindValue(":$keyName", $data[$keys[$keyName]['private']] );       
+            }
+
+            if($query->execute()){
+
+                $this->connection->commit();
+                
+                return $this->select(static::get_property($data,'id'));
+
+            }else return false;
+
+        }catch(PDOExecption $e) { return false; }
+        
+    }   
+
+    public function select($id){
+
+        try{            
+
+            if(!$this->connection->inTransaction()) $this->connection->beginTransaction();
+
+            $query = $this->connection->prepare($this->getQueryString('select'));            
+
+            $query->setFetchMode(PDO::FETCH_NUM);
+
+            $query->bindValue(':id', $id);
+            
+            if($query->execute()){
+
+                return $query->fetch();
+
+            }else return false;
+
+        }catch(PDOExecption $e) { return false; }
+    
+    }
+
+    public function delete($data){
+
+        try{
+
+            if(!$this->connection->inTransaction()) $this->connection->beginTransaction();
+
+            $query = $this->connection->prepare($this->getQueryString('delete'));
+
+            $query->bindValue(':id', static::get_property($data,'id')); 
+
+            if($query->execute()){
+
+                return $data;
+
+            }else return false;
+
+        }catch(PDOExecption $e) { return false; }
+
+    }
     
     public function validate($data){ // validada datos segun las validaciones especificadas en keys
 
@@ -153,9 +246,8 @@ class Section{
         $this->validations['id_valid'] = function ($data, $name){
 
             $id = static::get_property($data,'id');
-            $exists = $this->select($id);
 
-            return $id=='nuevo' || $exists;
+            return $id=='nuevo' || boolval($this->select($id));
         };        
     }
 
@@ -181,6 +273,52 @@ class Section{
         }; 
             
     }
+
+    protected function getQueryString($action){
+
+        $table = static::$table;
+        $keys = array_keys(static::$indexes);
+        $keysWithoutId = array_filter($keys,fn($e)=>$e!='id');   
+
+        switch ($action) {
+            
+
+            case 'save': {
+                
+                $columns = '('.implode(", ", $keysWithoutId).")";
+                $columnsValues = '('.implode(", ", array_map(fn($e)=>':'.$e,$keysWithoutId)).")";
+
+                return "INSERT INTO $table $columns VALUES $columnsValues";        
+            }
+
+            case 'update': {
+                
+                $setValues = implode(", ",array_map(fn($e)=>$e."=:".$e, $keysWithoutId));
+
+                return "UPDATE $table SET ".$setValues." WHERE id=:id";            
+            }
+
+            case 'delete': {
+                
+                return "DELETE FROM $table WHERE id=:id";            
+            }
+
+            case 'select': {
+                
+                return "SELECT * FROM $table WHERE id=:id";                
+                
+            }
+
+
+            
+            
+
+        }
+
+
+    }
+
+    
     
 
 }

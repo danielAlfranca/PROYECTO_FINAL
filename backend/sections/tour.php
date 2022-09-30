@@ -1,31 +1,32 @@
 <?php 
 
-class Tour extends Inventario{   
-    
-    public static $fixed_constants = ['type'=>4, 'agent'=>1];// para valores fijos
 
-    public static $model = ['nuevo',1,4,[],false];
+class Tour extends Section{     
+
+    public static $table = "tours";
+    
     public static $indexes = [
 
         'id'=>['private'=>0, 'validations'=>['id_valid'], 'required'=>true, 'default'=>'nuevo'], 
 
-        'agent'=>['private'=>1, 'validations'=>['agent_valid'], 'required'=>true, 'default'=>1, 'fixed'=>true],  
+        'nombre'=>['private'=>1, 'validations'=>['is_string'], 'required'=>true], 
 
-        'type'=>['private'=>2, 'validations'=>['type_valid'], 'required'=>true, 'default'=>4, 'fixed'=>true],
+        'inicio'=>['private'=>2, 'validations'=>['is_string'], 'required'=>true], // !!! FALTA VALIDACION
 
-        'data'=>['private'=>3, 'validations'=>[], 'required'=>true, 'default'=>[]],
+        'fin'=>['private'=>3, 'validations'=>['is_string'], 'required'=>true], // !!! FALTA VALIDACION
 
-        'hidden'=>['private'=>4, 'validations'=>['is_boolean'], 'required'=>true, 'default'=>false], 
+        'duracion'=>['private'=>4, 'validations'=>['is_number'], 'required'=>true], 
 
-        'nombre'=>['private'=>'3.0', 'validations'=>['is_string'], 'required'=>true], 
+        'destino'=>['private'=>5, 'validations'=>['is_string'], 'required'=>true],
 
-        'inicio'=>['private'=>'3.1', 'validations'=>['is_string'], 'required'=>true], // !!! FALTA VALIDACION
-
-        'fin'=>['private'=>'3.2', 'validations'=>['is_string'], 'required'=>true], // !!! FALTA VALIDACION
-
-        'duracion'=>['private'=>'3.3', 'validations'=>['is_number'], 'required'=>true], 
-
-        'destino'=>['private'=>'3.4', 'validations'=>['is_string'], 'required'=>true]
+        'hidden'=>['private'=>6, 'validations'=>[], 'required'=>false, 'default'=>false]  
     ]; 
 
+
+    public function delete($data){
+
+        $updated = static::set_property($data, true, 'hidden');
+        
+         return $this->update($updated);
+     }
 }

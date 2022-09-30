@@ -89,6 +89,12 @@ export class DataConfigService {
     return this.getValue(object,'id', dataType) == 'nuevo'
   }
 
+  public hasKey(object:any,dataType:string, key:string):any{
+
+    return Boolean(this.types[dataType].getKey(key))
+  }
+
+
   public initConfig(keys:any){
 
     (Object.keys(keys)).forEach((key) => this.types[key].init(keys[key])); 
