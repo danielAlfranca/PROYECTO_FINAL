@@ -1,5 +1,7 @@
 <?php 
 
+include_once 'models/section.php';
+
 class Empresa extends Section{   
     
     public static $table = "empresas";

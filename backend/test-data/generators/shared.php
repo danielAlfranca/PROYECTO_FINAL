@@ -32,5 +32,18 @@
         return randomPick($direccion). ", ".randomPick($destinos).", ".randomPick($paises);
     }
 
+    function buildItem($data, $type){ // para generar fake data
+
+        $item =[];
+        
+        foreach(type::$indexes as $key=>$config){
+
+            $value = $data[$key] ? $data[$key] : ($config['default'] ? $config['default']:null);
+            type::set_property($item , $value, $key);
+        }
+
+        return $item;
+    }
+
  
 ?>

@@ -79,8 +79,10 @@ class Section{
             $query = $this->connection->prepare($this->getQueryString('save'));
             $keys = static::$indexes;
 
-            foreach (array_keys($keys) as $keyName) {
+            
 
+            foreach (array_keys($keys) as $keyName) {
+               
                 if($keyName!='id'){ $query->bindValue(":$keyName", $data[$keys[$keyName]['private']] );  }       
             }
 
@@ -110,7 +112,7 @@ class Section{
             if(!$this->connection->inTransaction()) $this->connection->beginTransaction();
 
             $query = $this->connection->prepare($this->getQueryString('update'));
-            $keys = static::$indexes;
+            $keys = static::$indexes;        
 
             foreach (array_keys($keys) as $keyName) {
 
