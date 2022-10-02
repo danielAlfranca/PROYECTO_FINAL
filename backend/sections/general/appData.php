@@ -1,7 +1,6 @@
 <?php 
 
 
-
 class AppData{   
     
     private $connection;
@@ -10,35 +9,95 @@ class AppData{
 
         $this->connection = Database::connect();
     }
+
     
-    public function dataSet($data){
+    public function dataSet($dates=false){
 
+        $user = $this->getUserID();
+        $connection = $this->connection;
         $sections = [];
+        
+        if($dates==false){ $dates =  [ 'start'=> date('Y-m-d', strtotime(date('Y-m')." -1 month")) ]; }
 
-        $query = $this->connection->prepare("SELECT * FROM empresas");
-        $query->setFetchMode(PDO::FETCH_NUM);
-        $query->execute();
+        // primero inventario
+        
+        $inventario = ['empresa'=> Empresa::class,'tour'=> Tour::class,'trabajador'=> Trabajador::class,'hotel'=> Hotel::class ];
 
-        $sections['empresa'] = $this->indexArrayByID($query->fetchAll()) ;
+        foreach ($inventario as $key => $ClassRef) {
+            
+            $manager = new $ClassRef();
+         
+            $items = $manager->dataSet('user',$user);
 
-        $query = $this->connection->prepare("SELECT * FROM tours");
-        $query->setFetchMode(PDO::FETCH_NUM);
-        $query->execute();
+            if($items!==false) $sections[$key] = $this->indexArrayByID($items);
 
-        $sections['tour'] = $this->indexArrayByID($query->fetchAll()  ) ;
+            else return false;
+        } 
+        
+        // luego reservas
+
+        $manager = new Reserva();
+
+        $items = $manager->dataSet('user',$user, $dates);
+
+        if($items!==false) $sections['reserva'] = $this->indexArrayByID($items);
+
+        else{ return false; }
+
+        // luego actividades de reserva
+
+        $activities =  ['tourActivity'=>new TourReserva(), 'hotelActivity'=>new HotelReserva()];
+
+        foreach ($activities as $key => $manager) {
+
+            $activitiesType = [];
+    
+            foreach ($sections['reserva'] as $id => $reserva) {
+                
+                $actividadesReserva = $manager->dataSet('reserva',$id);
+    
+                if($actividadesReserva !==false) foreach ($actividadesReserva  as $actividad) {
+                    
+                    $activitiesType []= $actividad;
+    
+                }else return false;           
+            }
+    
+            $sections[$key] = $this->indexArrayByID($activitiesType);           
+        } 
+        
+        // luego salidas
+
+        $manager = new Salida();
+        $items = $manager->dataSet('user',$user,$dates);
+
+        if($items!==false) $sections['salida'] = $this->indexArrayByID($items);
+
+        else{ return false; }
 
 
-        $query = $this->connection->prepare("SELECT * FROM hoteles");
-        $query->setFetchMode(PDO::FETCH_NUM);
-        $query->execute();
+        // luego actividades salida
 
-        $sections['hotel'] = $this->indexArrayByID($query->fetchAll() ) ;
 
-        $query = $this->connection->prepare("SELECT * FROM trabajadores");
-        $query->setFetchMode(PDO::FETCH_NUM);
-        $query->execute();
+        $activities =  ['operadorActivity'=>new OperadorSalida(), 'guiadoActivity'=>new GuiadoSalida(),'choferActivity'=>new ChoferSalida()];
 
-        $sections['trabajador'] = $this->indexArrayByID($query->fetchAll()  ) ;       
+        foreach ($activities as $key => $manager) {
+
+            $activitiesType = [];
+    
+            foreach ($sections['salida'] as $id => $salida) {
+                
+                $actividadesSalida = $manager->dataSet('salida',$id);
+    
+                if($actividadesSalida !==false) foreach ($actividadesSalida  as $actividad) {
+                    
+                    $activitiesType []= $actividad;
+    
+                }else return false;           
+            }
+    
+            $sections[$key] = $this->indexArrayByID($activitiesType);           
+        } 
        
         return $sections;
     }
@@ -53,6 +112,11 @@ class AppData{
         }
 
         return $parsed;
+    }
+
+    private function getUserID(){
+
+        return 1;
     }
 
     public function prepare_sections_inventario($inventario){

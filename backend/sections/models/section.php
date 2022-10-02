@@ -12,10 +12,14 @@ class Section{
     public static $table; // tabla para insertar datos
 
     public $sanitize_funcs = []; // lista de sanitizaciones para datos desde cliente
+
+    private $userID;
  
     public function __construct(){
 
         $this->connection = Database::connect();
+
+        $this->userID = $this->getUserId();
 
         $this->init_sanitize_funcs(); 
 
@@ -24,12 +28,12 @@ class Section{
 
     public static function get_property($data, $name){ // SI NO ES UNA PROP CON VALOR FIJO SE DEVUELE EL VALOR OBTENIDOA TRAVES DE LA RUTA
 
-        return isset(static::$fixed_constants[$name]) ? static::$fixed_constants[$name]:static::get_prop_by_path($data,$name);
+        return static::get_prop_by_path($data,$name);
     }
 
     public static function set_property($data, $value, $name){ // SI NO ES UNA PROP CON VALOR FIJO SE DEVUELE EL VALOR OBTENIDOA TRAVES DE LA RUTA
         
-          return static::set_prop_by_path($data,$name,$value);
+        return static::set_prop_by_path($data,$name,$value);
     }
 
     protected static function get_prop_by_path($data, $name){  // LOS OBJETOS SON ARRAYS ANIDADOS. EN INDEXES SE DEFINEN LOS PATH Y AQUI SE OBTIENEN LOS VALORES A TRAVES DE ESOS PATHS
@@ -66,24 +70,24 @@ class Section{
         return $data ;
     }
 
-    public function save($data){       
+    public function save($command){       
        
-        $id = static::get_property($data,'id');        
+        $data = $command['item'];
 
-        if($id!='nuevo') return $this->update($data);
+        $id = static::get_property($data,'id');
+       
+        if($id!='nuevo') return $this->update($command);
 
         try{
 
             if(!$this->connection->inTransaction()) $this->connection->beginTransaction();
 
             $query = $this->connection->prepare($this->getQueryString('save'));
-            $keys = static::$indexes;
-
-            
+            $keys = static::$indexes;            
 
             foreach (array_keys($keys) as $keyName) {
                
-                if($keyName!='id'){ $query->bindValue(":$keyName", $data[$keys[$keyName]['private']] );  }       
+                if($keyName!='id'){ $query->bindValue(":$keyName", $data[$keys[$keyName]['private']] );  }
             }
 
             if($query->execute()){
@@ -92,20 +96,30 @@ class Section{
 
                 $item  = $this->select( $lastID );
 
+                $extra_data = [];
+
+                if(array_key_exists('extra_data',$command)){
+                    
+                   $extra_data = $this->save_extra_data($item, $command['extra_data']);               
+                }            
+
                 $this->connection->commit();
-        
-                return $item;
+                
+                return ['item'=>$item, 'extra_data'=>$extra_data];
+                
 
             }else return false;
 
-        }catch(PDOExecption $e) { return false; }
+        }catch(PDOException $e) { return false; }
     }
 
-    public function update($data){
+    public function update($command){
+
+        $data = $command['item'];
 
         $id = static::get_property($data,'id');
-
-        if($id=='nuevo') return $this->save($data);
+       
+        if($id=='nuevo') return $this->save($command);
 
         try{
 
@@ -122,15 +136,25 @@ class Section{
             if($query->execute()){
 
                 $this->connection->commit();
+
+                $item = $this->select(static::get_property($data,'id'));
+                $extra_data = [];
+
+                if(array_key_exists('extra_data',$command)){                    
+
+                    $extra_data = $this->save_extra_data($item, $command['extra_data']);               
+                 }               
                 
-                return $this->select(static::get_property($data,'id'));
+                return ['item'=>$item, 'extra_data'=>$extra_data];
 
             }else return false;
 
         }catch(PDOExecption $e) { return false; }
         
-    }   
-
+    }
+    
+    
+   
     public function select($id){
 
         try{            
@@ -153,7 +177,9 @@ class Section{
     
     }
 
-    public function delete($data){
+    public function delete($command){
+
+        $data = $command['item'];
 
         try{
 
@@ -172,6 +198,38 @@ class Section{
         }catch(PDOExecption $e) { return false; }
 
     }
+
+    public function dataSet($field, $value, $dates = false){
+  
+        $table = static::$table; 
+
+        $queryString = "SELECT * FROM $table WHERE $field=:$field"; 
+
+        if($dates!=false){
+
+            foreach (['start'=> '>=','end'=> '<='] as $key=>$rel) {
+              
+                if(array_key_exists($key,$dates)){
+
+                    $queryString .= " AND date_end $rel '".$dates[$key]."'";
+                }
+            }
+        }
+
+        $query = $this->connection->prepare($queryString);
+        $query->setFetchMode(PDO::FETCH_NUM);
+        $query->bindValue(":$field", $value);
+
+        if($query->execute()) return $query->fetchAll();        
+
+        return false;
+    }
+
+    protected function save_extra_data($item, $extra_data){
+
+        return [];
+    }
+
     
     public function validate($data){ // validada datos segun las validaciones especificadas en keys
 
@@ -214,7 +272,7 @@ class Section{
             }
         }
 
-        return $sanitized;
+        return $this->sanitizeUser($sanitized);
     }
 
 
@@ -280,7 +338,7 @@ class Section{
 
         $table = static::$table;
         $keys = array_keys(static::$indexes);
-        $keysWithoutId = array_filter($keys,fn($e)=>$e!='id');   
+        $keysWithoutId = array_filter($keys,fn($e)=>$e!='id');  
 
         switch ($action) {
             
@@ -307,29 +365,78 @@ class Section{
 
             case 'select': {
                 
-                return "SELECT * FROM $table WHERE id=:id";                
-                
+                return "SELECT * FROM $table WHERE id=:id";                 
             }           
 
         }
 
+    } 
+
+    /* protected function sqlSave(){
+
+        $table = static::$table;
+        $keys = array_keys(static::$indexes);
+        $keysWithoutId = array_filter($keys,fn($e)=>$e!='id'); 
+        $columns = '('.implode(", ", $keysWithoutId).")";
+        $columnsValues = '('.implode(", ", array_map(fn($e)=>':'.$e,$keysWithoutId)).")";
+
+        return "INSERT INTO $table $columns VALUES $columnsValues";   
     }
 
+    protected function sqlUpdate(){
 
-    public static function build_random_item($data){ // para generar fake data
+        $table = static::$table;
+        $keys = array_keys(static::$indexes);
+        $keysWithoutId = array_filter($keys,fn($e)=>$e!='id'); 
+        $setValues = implode(", ",array_map(fn($e)=>$e."=:".$e, $keysWithoutId));
 
-        $item =[];
+        return "UPDATE $table SET $setValues WHERE id=:id";           
+    }
+
+    protected function sqlDelete(){
+
+        $table = static::$table;
+        return "DELETE FROM $table WHERE id=:id";            
+    }
+
+    protected function sqlSelect($type, $dates){
+
+        $table = static::$table;
+
+       return "SELECT * FROM $table WHERE id=:id"; 
+
+        if($keysToRemove!==false)
+
+        $keysWithoutUser= '('.implode(", ",array_filter($keys,fn($e)=>$e!='user')).")";                
         
-        foreach(static::$indexes as $key=>$config){
-
-            $value = $data[$key] ? $data[$key] : ($config['default'] ? $config['default']:null);
-            static::set_property($item , $value, $key);
-        }
-
-        return $item;
+        return "SELECT * FROM $table WHERE id=:id";         
     }
 
+    private function sqlSelectByID($type){
+
+        $table = static::$table;
+
+       return "SELECT * FROM $table WHERE id=:id"; 
+        
+    }
+
+    private function sqlSelectByUser($dates=false){
+
+        $table = static::$table; 
+        $keys = array_keys(static::$indexes);
+        $keysWithoutUser = '('.implode(", ",array_filter($keys,fn($e)=>$e!='user')).")";       
+
+        if(!$dates) return "SELECT $keysWithoutUser FROM $table WHERE user=:user";                    
+    } */
     
-    
+    private function getUserId(){
+
+        return 1;
+    }
+
+    private function hasUserColumn(){
+
+        return array_key_exists('user', static::$indexes);
+    }
 
 }

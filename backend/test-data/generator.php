@@ -59,12 +59,11 @@ class FakeDataGenerator {
   
         foreach ($items as $item) {
             
-            $inserted[] = $instance->save($item);            
+            $inserted[] = $instance->save(['item'=>$item])['item'];            
 
         }
 
         return $inserted;
-
     }
 
     public function parse($data){ 

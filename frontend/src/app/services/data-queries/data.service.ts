@@ -4,6 +4,7 @@ import {HttpClient} from "@angular/common/http";
 import { Observable, Subject, take } from 'rxjs';
 import { DataTypes } from 'src/app/interfaces/types/data-config';
 import { AppConfigService } from '../app-config.service';
+import { forEach } from 'lodash';
 
 @Injectable({
   providedIn: 'root' 
@@ -31,19 +32,33 @@ export class DataService {
 
   public dataSet(start?:string, end?:string){
 
-    const data = start && end ? {start:start,end:end} : {};
+    const data = start || end ? {start:start,end:end} : false;
+
+    console.log('init',data);
 
     this.connect('appData','dataSet', data).subscribe((data:any)=>{ if(data){  this.store(data); }})
 
   }  
 
-  public save(section:DataTypes, item:any):Observable<any>{
+  public save(section:DataTypes, item:any, extraData?:any):Observable<any>{
 
     const notification = new Subject();  
 
-    this.connect(section,'save',item).subscribe((data:any)=>{       
+    this.connect(section,'save',{item:item, extraData:extraData||{}}).subscribe((data:any)=>{       
 
-      if(data){  this.addItem(section,data);  notification.next(data); this.$_dataUpdates.next(data) } else notification.next(false); 
+      if(data){ 
+
+        this.addItem(section,data.item);
+
+        Object.keys(data.extra_data || {}).forEach((key:any)=>{
+
+          data.extra_data[key].forEach((el:any)=>this.addItem(key,el));
+
+        });
+
+        notification.next(data.item); 
+      
+      } else notification.next(false); 
     
     })
 
@@ -56,8 +71,19 @@ export class DataService {
 
     this.connect(section,'delete',item).subscribe((data:any)=>{ 
    
-      if(data){  this.removeItem(section,data);  notification.next(data); }
-      else notification.next(false);
+      if(data){ 
+        
+        this.removeItem(section,data.item);  
+ 
+        Object.keys(data.extra_data || {}).forEach((key:any)=>{
+
+          data.extra_data[key].forEach((el:any)=>this.removeItem(key,el));
+
+        });
+
+        notification.next(data.item); 
+      
+      }else notification.next(false);
     })
 
     return notification as Observable<any>;  
@@ -80,6 +106,7 @@ export class DataService {
     this.dataStore.save(data);
 
     console.log(data);
+    
     this.$_dataUpdates.next(undefined);
 
   }

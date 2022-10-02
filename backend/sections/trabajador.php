@@ -22,7 +22,9 @@ class Trabajador extends Section{
 
         'regimen'=>['private'=>7, 'validations'=>['regimen_valid'], 'required'=>true],
 
-        'hidden'=>['private'=>8, 'validations'=>[], 'required'=>false, 'default'=>false]  
+        'hidden'=>['private'=>8, 'validations'=>[], 'required'=>false, 'default'=>false] ,
+        
+        'user'=>['private'=>9, 'validations'=>[], 'required'=>false, 'default'=>null]  
     ]; 
 
 

@@ -19,7 +19,9 @@ class Tour extends Section{
 
         'destino'=>['private'=>5, 'validations'=>['is_string'], 'required'=>true],
 
-        'hidden'=>['private'=>6, 'validations'=>[], 'required'=>false, 'default'=>false]  
+        'hidden'=>['private'=>6, 'validations'=>[], 'required'=>false, 'default'=>false] ,
+        
+        'user'=>['private'=>7, 'validations'=>[], 'required'=>false, 'default'=>null]  
     ]; 
 
 

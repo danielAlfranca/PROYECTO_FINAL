@@ -6,24 +6,18 @@ require './database.php';
 require '../sections/general/init.php';
 require '../sections/general/appData.php';
 require '../sections/models/section.php';
-require '../sections/models/inventario.php'; // necesario para empresa, trabajador, hotel, tour y paquete
-require '../sections/models/activity.php';
 require '../sections/empresa.php';
 require '../sections/hotel.php';
 require '../sections/tour.php';
 require '../sections/trabajador.php';
 require '../sections/reservas.php';
-require '../sections/tourActivity.php';
-require '../sections/hotelActivity.php';
+require '../sections/tourReserva.php';
+require '../sections/hotelReserva.php';
 require '../sections/salidas.php';
-require '../sections/passenger.php';
-require '../sections/operadorActivity.php';
-require '../sections/guiadoActivity.php';
-require '../sections/choferActivity.php';
-require '../sections/restaurantActivity.php';
-
-
-
+require '../sections/operadorSalida.php';
+require '../sections/guiadoSalida.php';
+require '../sections/choferSalida.php';
+require '../sections/pasajeroSalida.php';
 
 
 

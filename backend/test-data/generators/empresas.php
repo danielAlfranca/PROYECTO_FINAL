@@ -27,7 +27,8 @@ class EmpresasGenerator extends FakeDataGenerator {
                 'documento'=>  strval(rand(111111,999999)),// doc
                 'telefonos'=>  strval(rand(600000000,699999999)), // phones 
                 'emails'=>  $this->randomPick($this->lists['EMAILS']), // emails
-                'direccion'=>  $this->randomPick($this->lists['DIRECCIONES']) // address
+                'direccion'=>  $this->randomPick($this->lists['DIRECCIONES']), // address,
+                'user'=>1  //   
 
             ]);
         }

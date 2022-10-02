@@ -30,7 +30,7 @@ class TrabajadoresGenerator extends FakeDataGenerator {
                 'emails'=>  $this->randomPick($this->lists['EMAILS']), // emails
                 'tipo'=>  $this->randomPick(["1","2","3"]), // tipo,
                 'regimen'=>  $this->randomPick(["1","2"]), // regimen,   
-
+                'user'=>1  //  
             ]);
         }
         

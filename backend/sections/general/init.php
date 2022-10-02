@@ -7,6 +7,77 @@ class AppConfig{
     
     public function initData($data){
 
+        $parsed = [];
+
+        $indexes = [
+
+            'empresa'=>[
+
+                'indexes'=>Empresa::$indexes,
+              
+            ],
+            'hotel'=>[
+
+                'indexes'=>Hotel::$indexes,
+            
+            ], 
+             'tour'=>[
+
+                'indexes'=>Tour::$indexes,
+               
+            ], 
+            'trabajador'=>[
+                
+                'indexes'=>Trabajador::$indexes,
+               
+            ] ,
+            'reserva'=>[
+
+                'indexes'=>Reserva::$indexes
+            ] ,
+            'salida'=>[
+
+                'indexes'=>Salida::$indexes,
+
+            ],
+            'tourActivity'=>[
+
+                'indexes'=>TourReserva::$indexes
+            ] ,
+            'hotelActivity'=>[
+
+                'indexes'=>HotelReserva::$indexes
+            ] ,
+            'operadorActivity'=>[
+
+                'indexes'=>OperadorSalida::$indexes,
+
+            ],
+            'guiadoActivity'=>[
+
+                'indexes'=>GuiadoSalida::$indexes,
+
+            ],
+            'choferActivity'=>[
+
+                'indexes'=>ChoferSalida::$indexes,
+
+            ],
+            'passenger'=>[
+
+                'indexes'=>PasajeroSalida::$indexes,
+
+            ]
+
+        ];
+
+        foreach ($indexes as $key => $arr) {
+            
+            $parsed[$key] = array_filter($arr, fn ($k) => $k!='user', ARRAY_FILTER_USE_KEY);
+        }
+
+        return $parsed;
+
         return [
 
 /*             'reserva'=>[
@@ -51,26 +122,7 @@ class AppConfig{
 
                 'indexes'=>Passenger::$indexes
             ], */
-            'empresa'=>[
-
-                'indexes'=>Empresa::$indexes,
-              
-            ],
-            'hotel'=>[
-
-                'indexes'=>Hotel::$indexes,
-            
-            ], 
-             'tour'=>[
-
-                'indexes'=>Tour::$indexes,
-               
-            ], 
-            'trabajador'=>[
-                
-                'indexes'=>Trabajador::$indexes,
-               
-            ] 
+           
         ];
     } 
     

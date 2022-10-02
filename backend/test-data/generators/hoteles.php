@@ -33,17 +33,13 @@ class HotelesGenerator extends FakeDataGenerator {
                 'emails'=> $this->randomPick($this->lists['EMAILS']), // emails 4
                 'direccion'=> $this->randomPick($this->lists['DIRECCIONES']), // address 5
                 'propietario'=> Empresa::get_property($this->randomPick($this->empresas ), 'id'), // propietario 6
-                'categoria'=> $tipo == 1 ? $this->randomPick(["1",'2','3','4','5']):null // categoria 7
-
+                'categoria'=> $tipo == 1 ? $this->randomPick(["1",'2','3','4','5']):null, // categoria 7
+                'user'=>1  //  
             ]);
         }
         
         return $list;
-    }
-
-  
-
-    
+    }    
 } 
 
 ?>

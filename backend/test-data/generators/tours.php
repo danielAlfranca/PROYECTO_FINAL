@@ -31,8 +31,8 @@ class ToursGenerator extends FakeDataGenerator {
                 'inicio'=> $this->randomPick($time_start), // inicio
                 'fin'=> $this->randomPick($time_end), // fin
                 'duracion'=> $this->randomPick([1,1,1,1,1,1,1,1,2]), // duracion
-                'destino'=> $this->randomPick($this->lists['DESTINOS'])// destino   
-
+                'destino'=> $this->randomPick($this->lists['DESTINOS']),// destino   
+                'user'=>1  //  
             ]);
         }
         
