@@ -31,7 +31,11 @@ export class InventarioSectionComponent extends TableAdminComponent implements O
   
   protected override getData(section?:DataTypes){
 
-    return filter(this.appConfig.queries.section(section || this.type),(e:any)=>!this.appConfig.dataConfig.getValue(e,'hidden',section|| this.type));
+    return filter(this.appConfig.queries.section(section || this.type),(e:any)=>{
+      
+      return  !Boolean(Number(this.appConfig.dataConfig.getValue(e,'hidden',section|| this.type)));
+         
+    }); 
   }
 
 

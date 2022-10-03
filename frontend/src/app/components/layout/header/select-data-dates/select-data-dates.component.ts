@@ -8,7 +8,7 @@ import { endOfMonth, endOfWeek, format, startOfMonth, startOfWeek, subMonths } f
   templateUrl: './select-data-dates.component.html',
   styleUrls: ['./select-data-dates.component.scss']
 })
-export class SelectDataDatesComponent implements OnInit {
+export class SelectDataDatesComponent {
 
   spans = [
 
@@ -19,45 +19,41 @@ export class SelectDataDatesComponent implements OnInit {
 
   ];
 
-
   constructor(private appConfig:AppConfigService) { }
-
-  ngOnInit(): void {
-  }
+ 
 
   query(i:number){
 
     const title = this.spans[i];
 
+    let query:any;
+
     switch (title) {
 
-      case 'Personalizado': return this.appConfig.canvas.open('seleccionar-rango-fecha-personalizado').pipe(take(1)).subscribe(res=>this.appConfig.canvas.close())
-        
-      default: return this.appConfig.canvas.close(this.getDates(title))
+      case 'De esta semana en adelante': query = 'week' ;break;
 
+      case 'De este mes en adelante': query =  'month';break;
+        
+      case 'De hace 2 meses en adelante':query =  '2 months';break;        
+        
+      default: return this.appConfig.canvas.open('seleccionar-rango-fecha-personalizado').pipe(take(1)).subscribe(()=>this.appConfig.canvas.close());
+    
     }
+
+    return this.getData(query);
+
   }
 
-  private getDates(title:string){
+  private getData(dates:any){
 
-    let dates;
-    switch (title) {
+    const query = this.appConfig.queries.dataSet(dates);
 
-      case 'De esta semana en adelante': dates =  [startOfWeek(new Date())] ; break;
+    this.appConfig.canvas.open('loading-2',{query:query}).pipe(take(1)).subscribe(()=>this.appConfig.canvas.close());
 
-      case 'De este mes en adelante': dates =  [startOfMonth(new Date())] ; break;
-        
-      case 'De hace 2 meses en adelante': dates =  [subMonths(startOfMonth(new Date()),1)] ; break;  
-      
-      default: dates = [new Date()]; break;  
-      
-    }
-
-    return {
-
-      start:format(dates[0],'yyyy-mm-dd'),
-      end: dates[1] ? format(dates[1],'yyyy-mm-dd'):null
-    }
+    return query
   }
+
+   
+ 
 
 }

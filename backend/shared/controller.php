@@ -5,6 +5,7 @@ header('Access-Control-Allow-Origin: *');
 require './database.php';
 require '../sections/general/init.php';
 require '../sections/general/appData.php';
+require '../sections/general/login.php';
 require '../sections/models/section.php';
 require '../sections/empresa.php';
 require '../sections/hotel.php';
@@ -23,7 +24,7 @@ require '../sections/pasajeroSalida.php';
 
 if(strcasecmp($_SERVER['REQUEST_METHOD'], 'POST') != 0){
     throw new Exception('Request method must be POST!');
-}
+} 
 
 //session_start();
 

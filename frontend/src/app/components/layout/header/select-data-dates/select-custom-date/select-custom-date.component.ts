@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { startCase } from 'lodash';
+import { take } from 'rxjs';
 import { AppConfigService } from 'src/app/services/app-config.service';
 
 @Component({
@@ -16,13 +16,23 @@ export class SelectCustomDateComponent  {
 
   response(){
 
-    this.appConfig.canvas.close({start:this.start, end:this.end})
+    let date:any = {}
+
+    if(this.start) date.start = this.start;
+    if(this.end) date.end = this.end;
+    
+    this.getData(date);
     
   }
 
-  aver(e:any){
+  private getData(dates:any){
 
-    console.log(e)
+    const query = this.appConfig.queries.dataSet(dates);
+
+    this.appConfig.canvas.open('loading-3',{query:query}).pipe(take(1)).subscribe(()=>this.appConfig.canvas.close());
+
+    return query
   }
+
 
 }

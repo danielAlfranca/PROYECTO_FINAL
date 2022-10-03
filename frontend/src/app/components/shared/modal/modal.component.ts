@@ -38,7 +38,8 @@ export class ModalComponent implements OnInit {
       success:'text-success bi-check-circle-fill',
       warning:'text-warning bi-exclamation-circle-fill',
       error:'text-danger bi-x-circle-fill',
-      question:'text-dark bi-question-circle-fill'
+      question:'text-dark bi-question-circle-fill',
+      loading:'text-primary bi-question-circle-fill'
 
     }[type];
     
@@ -52,7 +53,8 @@ export class ModalComponent implements OnInit {
       success:'btn-success ',
       warning:'btn-warning ',
       error:'btn-danger',
-      question:'btn-secondary'
+      question:'btn-secondary',
+      loading:'btn-secondary'
 
     }[type];
     

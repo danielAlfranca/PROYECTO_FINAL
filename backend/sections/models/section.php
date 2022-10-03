@@ -203,18 +203,7 @@ class Section{
   
         $table = static::$table; 
 
-        $queryString = "SELECT * FROM $table WHERE $field=:$field"; 
-
-        if($dates!=false){
-
-            foreach (['start'=> '>=','end'=> '<='] as $key=>$rel) {
-              
-                if(array_key_exists($key,$dates)){
-
-                    $queryString .= " AND date_end $rel '".$dates[$key]."'";
-                }
-            }
-        }
+        $queryString = "SELECT * FROM $table WHERE $field=:$field";         
 
         $query = $this->connection->prepare($queryString);
         $query->setFetchMode(PDO::FETCH_NUM);
@@ -372,63 +361,7 @@ class Section{
 
     } 
 
-    /* protected function sqlSave(){
-
-        $table = static::$table;
-        $keys = array_keys(static::$indexes);
-        $keysWithoutId = array_filter($keys,fn($e)=>$e!='id'); 
-        $columns = '('.implode(", ", $keysWithoutId).")";
-        $columnsValues = '('.implode(", ", array_map(fn($e)=>':'.$e,$keysWithoutId)).")";
-
-        return "INSERT INTO $table $columns VALUES $columnsValues";   
-    }
-
-    protected function sqlUpdate(){
-
-        $table = static::$table;
-        $keys = array_keys(static::$indexes);
-        $keysWithoutId = array_filter($keys,fn($e)=>$e!='id'); 
-        $setValues = implode(", ",array_map(fn($e)=>$e."=:".$e, $keysWithoutId));
-
-        return "UPDATE $table SET $setValues WHERE id=:id";           
-    }
-
-    protected function sqlDelete(){
-
-        $table = static::$table;
-        return "DELETE FROM $table WHERE id=:id";            
-    }
-
-    protected function sqlSelect($type, $dates){
-
-        $table = static::$table;
-
-       return "SELECT * FROM $table WHERE id=:id"; 
-
-        if($keysToRemove!==false)
-
-        $keysWithoutUser= '('.implode(", ",array_filter($keys,fn($e)=>$e!='user')).")";                
-        
-        return "SELECT * FROM $table WHERE id=:id";         
-    }
-
-    private function sqlSelectByID($type){
-
-        $table = static::$table;
-
-       return "SELECT * FROM $table WHERE id=:id"; 
-        
-    }
-
-    private function sqlSelectByUser($dates=false){
-
-        $table = static::$table; 
-        $keys = array_keys(static::$indexes);
-        $keysWithoutUser = '('.implode(", ",array_filter($keys,fn($e)=>$e!='user')).")";       
-
-        if(!$dates) return "SELECT $keysWithoutUser FROM $table WHERE user=:user";                    
-    } */
-    
+   
     private function getUserId(){
 
         return 1;

@@ -30,13 +30,22 @@ export class DataService {
     return this.dataStore.find(section, value,property);
  }
 
-  public dataSet(start?:string, end?:string){
+  public dataSet(dates:any=false){
 
-    const data = start || end ? {start:start,end:end} : false;
+    const notification = new Subject();  
 
-    console.log('init',data);
+    this.connect('appData','dataSet', dates).subscribe((data:any)=>{ 
+      
+      if(data){  
+      
+        this.store(data); 
+        notification.next(data); 
+        this.$_dataUpdates.next(undefined);
+        console.log(data);
+    
+      }});
 
-    this.connect('appData','dataSet', data).subscribe((data:any)=>{ if(data){  this.store(data); }})
+      return notification as Observable<any>;  
 
   }  
 
@@ -101,6 +110,18 @@ export class DataService {
     },{headers:{ 'content-type':'application/json'}} ).pipe(take(1))
   }
 
+  public login(email:string,pass:string){
+
+    return this.connect('login','log', {email:email, password:pass})
+
+  }
+
+  public unlog(){
+
+    return this.connect('login','unlog')
+
+  }
+
   private store(data:any){
 
     this.dataStore.save(data);
@@ -129,4 +150,6 @@ export class DataService {
     
     setTimeout(()=>this.$_dataUpdates.next(data))
   }
+
+
 }

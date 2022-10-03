@@ -2,6 +2,7 @@ import { SelectCustomDateComponent } from "../components/layout/header/select-da
 import { SelectDataDatesComponent } from "../components/layout/header/select-data-dates/select-data-dates.component";
 import { ItemFormComponent } from "../components/shared/form/custom-fields/item-picker/form/item-form.component";
 import { ItemListComponent } from "../components/shared/form/custom-fields/item-picker/list/item-list.component";
+import { LoadingComponent } from "../components/shared/modal/loading/loading.component";
 import { ModalComponent } from "../components/shared/modal/modal.component";
 
 export const comunesRoutes = [
@@ -60,6 +61,31 @@ export const comunesRoutes = [
             icon: 'bi bi-pencil-square',
             size: 'modal',
             color:'danger'         
+        }        
+    },
+
+    {
+        path: 'loading-1', component: LoadingComponent, outlet:'popUp-1', data: {
+
+            title: 'Esperando respuesta del servidor...',
+            icon: 'bi bi-clock',
+            size: 'modal'        
+        }        
+    },
+    {
+        path: 'loading-2', component: LoadingComponent, outlet:'popUp-2', data: {
+
+            title: 'Esperando respuesta del servidor...',
+            icon: 'bi bi-clock',
+            size: 'modal'        
+        }        
+    },
+    {
+        path: 'loading-3', component: LoadingComponent, outlet:'popUp-3', data: {
+
+            title: 'Esperando respuesta del servidor...',
+            icon: 'bi bi-clock',
+            size: 'modal'        
         }        
     },
 

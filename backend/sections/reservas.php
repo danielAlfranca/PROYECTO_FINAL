@@ -35,34 +35,32 @@ class Reserva extends Section{
     ]; 
 
 
-    protected function save_extra_data($item, $extra_data){
-     
-        $result = [];
-        $managers = ['tours'=>TourReserva::class, 'hoteles'=>HotelReserva::class]; 
-        $reservaID = static::get_value($item, 'id') ;     
-            
-        foreach ($managers as $key => $managerClass) {
+    public function dataSet($field, $value, $dates = false){
+  
+        $table = static::$table; 
 
-            if(array_key_exists($key,$extra_data)){
+        $queryString = "SELECT * FROM $table WHERE $field=:$field"; 
 
-                $result[$key]=[];
-                $manager = new $managerClass();
+        if($dates!=false){
 
-                foreach ($extra_data[$key] as $value) {
+            if(array_key_exists('start',$dates)){
 
-                    try{
-                        
-                        $item = $managerClass::set_property($value,'reserva',$reservaID);
-                        $activity = $manager->save($item);                        
-                        if($activity)  $result[$key][] = $activity;  
-                        else return false;                             
-            
-                    }catch(PDOExecption $e) { return false; }                                    
-                }    
+                $queryString .= " AND date_end >= '".$dates['start']."'"; 
             }
-        }       
-        
-        return $result;
+
+            if(array_key_exists('end',$dates)){
+
+                $queryString .= " AND date_end <= '".$dates['end']."'" ;
+            } 
+            
+            $query = $this->connection->prepare($queryString);
+            $query->setFetchMode(PDO::FETCH_NUM);
+            $query->bindValue(":$field", $value);
+    
+            if($query->execute()) return $query->fetchAll();
+        }              
+
+        return false;
     }
 
 }

@@ -43,9 +43,15 @@ export class AppConfigService {
 
     }
 
-    login(){
+    login(email:string,pass:string){
 
-          this.init()
+      this.dataQueries.login(email,pass).subscribe(e=>this.init());
+
+    }
+
+    unlog(email:string,pass:string){
+
+      this.dataQueries.unlog().subscribe(e=>this._appInit=false);
 
     }
 }

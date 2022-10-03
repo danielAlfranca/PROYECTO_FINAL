@@ -16,8 +16,7 @@ class AppData{
         $user = $this->getUserID();
         $connection = $this->connection;
         $sections = [];
-        
-        if($dates==false){ $dates =  [ 'start'=> date('Y-m-d', strtotime(date('Y-m')." -1 month")) ]; }
+        $dates =  $this->getDates($dates);
 
         // primero inventario
         
@@ -117,6 +116,37 @@ class AppData{
     private function getUserID(){
 
         return 1;
+    }
+
+    private function getDates($dates){   
+
+        if( $dates == 'week' ) return [ 'start'=> date('Y-m-d', strtotime('this week')) ];
+
+        if( $dates == '2 weeks') return [ 'start'=> date('Y-m-d', strtotime('2 weeks ago')) ];
+
+        if( $dates == 'month') return [ 'start'=> date('Y-m-d', strtotime(date('Y-m')." -1 month"))  ];
+
+        if(  $dates == '2 months') return [ 'start'=> date('Y-m-d', strtotime(date('Y-m')." -1 month"))  ];
+
+        if( $dates!= false && is_array($dates)){
+            
+            $parsed = [];
+            
+            if(array_key_exists('start', $dates)){
+
+                $parsed['start']=date('Y-m-d', strtotime($dates['start']));
+            }
+
+            if(array_key_exists('end', $dates)){
+
+                $parsed['end']=date('Y-m-d', strtotime($dates['end']));
+            }
+
+            return $parsed;
+        
+        }
+
+        return $this->getDates('month');        
     }
 
     public function prepare_sections_inventario($inventario){

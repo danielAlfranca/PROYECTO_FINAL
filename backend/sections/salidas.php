@@ -24,6 +24,35 @@ class Salida extends Section{
         
     ]; 
 
+    public function dataSet($field, $value, $dates = false){
+  
+        $table = static::$table; 
+
+        $queryString = "SELECT * FROM $table WHERE $field=:$field"; 
+
+        if($dates!=false){
+
+            if(array_key_exists('start',$dates)){
+
+                $queryString .= " AND date_start >= '".$dates['start']."'";
+            }
+
+            if(array_key_exists('end',$dates)){
+
+                $queryString .= " AND date_end <= '".$dates['end']."'" ;
+            }             
+            
+            $query = $this->connection->prepare($queryString);
+            $query->setFetchMode(PDO::FETCH_NUM);
+            $query->bindValue(":$field", $value);
+    
+            if($query->execute()) return $query->fetchAll();
+           
+        }              
+
+        return false;
+    }
+
     
 
 }

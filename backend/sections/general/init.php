@@ -78,52 +78,7 @@ class AppConfig{
 
         return $parsed;
 
-        return [
-
-/*             'reserva'=>[
-
-                'indexes'=>Reserva::$indexes
-            ],
-            'tourActivity'=>[
-
-                'indexes'=>TourActivity::$indexes,
-
-            ],
-            'hotelActivity'=>[
-
-                'indexes'=>HotelActivity::$indexes,
-            ],
-            'salida'=>[
-
-                'indexes'=>Salida::$indexes,
-
-            ],
-         'operadorActivity'=>[
-
-                'indexes'=>OperadorActivity::$indexes,
-
-            ],
-            'guiadoActivity'=>[
-
-                'indexes'=>GuiadoActivity::$indexes,
-
-            ],
-            'choferActivity'=>[
-
-                'indexes'=>ChoferActivity::$indexes,
-
-            ],
-            'restaurantActivity'=>[
-
-                'indexes'=>RestaurantActivity::$indexes,
-
-            ],
-            'passenger'=>[
-
-                'indexes'=>Passenger::$indexes
-            ], */
-           
-        ];
+   
     } 
     
     public function validate($data){

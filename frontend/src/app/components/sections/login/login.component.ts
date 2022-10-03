@@ -11,17 +11,21 @@ export class LoginComponent implements OnInit {
   slide:number = 1;
   selected!:string
   slideContent!:TemplateRef<any>
-    
+  
+  user ="email@fake.com";
+  pass = "123abc";
 
   constructor(private appConfig:AppConfigService) { }
 
   ngOnInit(): void {
 
-    this.appConfig.login();
+    const user = "email@fake.com", pass = "123abc";
+
+    this.appConfig.login(this.user, this.pass);
     
   }
 
-  login(){ this.appConfig.login(); }
+  login(){ this.appConfig.login(this.user, this.pass); }
 
   probar(){
 
