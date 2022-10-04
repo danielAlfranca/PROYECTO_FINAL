@@ -41,7 +41,7 @@ export abstract class DataConfig{
 
         id_valid:(obj:any, key:string) => { let value = this.getByPath(obj,this.getKey(key)); return !isNaN(value) || value  == 'nuevo'},
 
-        agent_valid:(obj:any, key:string) => true
+        user_valid:(obj:any, key:string) => true
 
 
     }; // VALIDACIONES 

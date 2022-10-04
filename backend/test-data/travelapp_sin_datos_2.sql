@@ -20,7 +20,7 @@ CREATE TABLE users(
 CREATE TABLE empresas(
 
     id INT AUTO_INCREMENT, # 0 
-    nombre VARCHAR(30)NOT NULL,# 1 
+    nombre VARCHAR(30) NOT NULL,# 1 
     documento VARCHAR(30),# 2
     telefonos VARCHAR(30),  # 3   
     emails VARCHAR(30), # 4

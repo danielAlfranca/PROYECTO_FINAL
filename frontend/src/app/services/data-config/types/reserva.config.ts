@@ -1,6 +1,8 @@
 import { DatePipe } from "@angular/common";
 import { Injectable, Injector } from "@angular/core";
 import { format, parse } from "date-fns";
+import { DataTypes } from "src/app/interfaces/types/data-config";
+import { AppConfigService } from "../../app-config.service";
 import { DataConfig } from "../model";
 
 @Injectable({
@@ -10,18 +12,13 @@ export class ReservaConfig extends DataConfig{
 
     protected override validations:any = {
 
-        ...this.validations,
-        type_valid: (obj:any, key:string) => this.getValue(obj,key) == 1,
-        agent_valid_id:(obj:any, key:string) => this.valid_agent_id(obj)     
+        ...this.validations,        
+        user_valid:(obj:any, key:string) => true     
 
     }
     constructor(protected override injector:Injector, private datePipe:DatePipe){ super(injector); }
 
     protected override getters = {
-
-        full_name:(obj:any)=>this.getValue(obj,'name') + ' ' + this.getValue(obj,'surname'),
-
-        full_dates:(obj:any)=>this.formatDate(this.getValue(obj,'date_start')) + ' - ' + this.formatDate(this.getValue(obj,'date_end')),
 
         paquete_name:(obj:any)=>this.get_paquete_name(obj),
 
@@ -29,43 +26,24 @@ export class ReservaConfig extends DataConfig{
 
         passengers_list:(obj:any)=>this.get_passengers_list(obj),
 
-        has_tours:(obj:any)=>this.has_activity(obj,1),
+        tours:(obj:any)=>this.getActivities(obj,'tourActivity'),
 
-        has_hotels:(obj:any)=>this.has_activity(obj,2),
+        hotels:(obj:any)=>this.getActivities(obj,'hotelActivity'),        
 
-        has_traslados:(obj:any)=>this.has_activity(obj,3), 
-        
-        duracion:(obj:any)=>this.getPaqueteDays(obj),
+        has_tours:(obj:any)=>this.has_activity(obj,'tourActivity'),
 
-        phones_list:(obj:any)=>this.get_info_list(this.getValue(obj,'phones')),
+        has_hotels:(obj:any)=>this.has_activity(obj,'hotelActivity'),
 
-        emails_list:(obj:any)=>this.get_info_list(this.getValue(obj,'emails')),
-        
+        duracion:(obj:any)=>this.getPaqueteDays(obj)
+             
     }
 
-    protected override setters: { [key: string]: (obj: any, value: any) => any; } = {
+    
 
-        agent:(obj:any, value:any)=>false// solo asignable desde servidor aunque presente aqui para busquedas por referencia
-    };
-
-    public override valueIsValid(obj:any,key:string):boolean{ // VALIDA PROPIEDAD
-
-        // como hay otros objetos de inventario con la misma estructura primero siempre comprobar que sea una empresa
-
-       if(!this.validations.type_valid(obj,'type')) return false
-
-       return super.valueIsValid(obj,key)
-    }
-
-    private valid_agent_id(obj:any){
-
-        const agent = this.getValue(obj,'agent_id');
-        return (this.getValue(obj,'agent_id') == 'nuevo') || !isNaN(agent);
-    }
 
     private get_paquete_name(obj:any){ // falta
 
-        const   destination = this.getValue(obj,'destination'), 
+        const   destination = this.getValue(obj,'destino'), 
                 days = this.getPaqueteDays(obj);
 
         return destination + ' - ' + (days)+'D/'+(days-1)+'N';
@@ -85,14 +63,14 @@ export class ReservaConfig extends DataConfig{
 
     private get_provider_name(obj:any){
 
-        const   agentID = this.getValue(obj,'provider_id');
+        const   agentID = this.getValue(obj,'proveedor');
 
         
         switch (true) {
 
-            case agentID==2:return 'cliente propio';
+            case agentID==1:return 'cliente propio';
                             
-            default: return this.getRef('empresa',agentID,'nombre','agent');
+            default: return this.getRef('empresa',agentID,'nombre');
         }        
     }
 
@@ -100,9 +78,9 @@ export class ReservaConfig extends DataConfig{
 
         
         let str = '', num;
-        const pax = this.getValue(obj,'pax'),
-            singulars = ['adulto', 'nino', 'infante'],
-            plurals = ['adultos', 'ninos', 'infantes'];
+        const   pax = (this.getValue(obj,'pasajeros')).split('.'),
+                singulars = ['adulto', 'nino', 'infante'],
+                plurals = ['adultos', 'ninos', 'infantes'];
 
         return pax.reduce((strPax:string,el:number, i:number)=>{
 
@@ -121,27 +99,24 @@ export class ReservaConfig extends DataConfig{
 
     }
 
-    private has_activity(obj:any, typeNum:number){
-
-        const services = this.getValue(obj, 'activities') || {1:[],2:[],3:[]}; 
+    private has_activity(obj:any, type:DataTypes){       
         
-        return Array.isArray (services[typeNum]) &&  services[typeNum].length > 0;
+        return (this.getActivities(obj,type) || []).length;
     }
 
-    private formatDate(date:string){
+    private getActivities(obj:any, activity:DataTypes){
 
-        if(!date) return '';
+        const   service = this.injector.get(AppConfigService),
+        list = Object.values(service.queries.section(activity) || {}),
+        id = this.getValue(obj,'id');
 
-        return format(parse(date, 'yyyy-MM-dd', new Date()),'dd/MM/yy')
+        return list.filter((e:any)=>service.dataConfig.getValue(e,'reserva',activity)==id)
     }
 
-    private get_info_list(list:any){
 
-        if(!Array.isArray(list)) return ""
+   
 
-        return list.join(',');
- 
-    }
+    
 
 
 }

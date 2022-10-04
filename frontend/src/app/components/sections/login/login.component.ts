@@ -1,4 +1,4 @@
-import { Component, OnInit,TemplateRef } from '@angular/core';
+import { Component, OnInit,Output,TemplateRef } from '@angular/core';
 import { AppConfigService } from 'src/app/services/app-config.service';
 
 @Component({
@@ -6,31 +6,53 @@ import { AppConfigService } from 'src/app/services/app-config.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
 
   slide:number = 1;
   selected!:string
   slideContent!:TemplateRef<any>
-  
-  user ="email@fake.com";
-  pass = "123abc";
 
-  constructor(private appConfig:AppConfigService) { }
+  constructor(private appConfig:AppConfigService) {
 
-  ngOnInit(): void {
+    appConfig.queries.$dataUpdates.subscribe(e=>this.slide=1)
+   }
 
-    const user = "email@fake.com", pass = "123abc";
-
-    this.appConfig.login(this.user, this.pass);
+  login(data:any){ 
     
+    if(data.type=='register') this.register(data)
+    
+    return this.appConfig.queries.login(data.email, data.password).subscribe((response:any)=>{
+
+      if(response===true){
+
+        this.appConfig.init();
+      }
+
+    }); 
+
   }
 
-  login(){ this.appConfig.login(this.user, this.pass); }
+  register(data:any){
+
+    if(data.type=='login') this.login(data)
+    
+    return this.appConfig.queries.register(data.email, data.password).subscribe((response:any)=>{
+  
+      if(response===true){
+
+        this.appConfig.init();
+        
+      }
+
+    }); 
+  }
 
   probar(){
 
-    setTimeout(()=>this.login(), 2000)
+    this.login({email:"email@fake.com", password:"123abc", type:'login'});
 
   }
+
+
 
 }

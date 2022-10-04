@@ -13,13 +13,9 @@ class Section{
 
     public $sanitize_funcs = []; // lista de sanitizaciones para datos desde cliente
 
-    private $userID;
- 
     public function __construct(){
 
         $this->connection = Database::connect();
-
-        $this->userID = $this->getUserId();
 
         $this->init_sanitize_funcs(); 
 
@@ -70,56 +66,45 @@ class Section{
         return $data ;
     }
 
-    public function save($command){       
+    public function save($data){       
        
-        $data = $command['item'];
-
         $id = static::get_property($data,'id');
        
-        if($id!='nuevo') return $this->update($command);
+        if($id!='nuevo') return $this->update($data);
 
         try{
 
             if(!$this->connection->inTransaction()) $this->connection->beginTransaction();
 
-            $query = $this->connection->prepare($this->getQueryString('save'));
-            $keys = static::$indexes;            
+            $query = $this->connection->prepare($this->getQueryString('save'));      
+            $keys = static::$indexes; 
 
             foreach (array_keys($keys) as $keyName) {
                
                 if($keyName!='id'){ $query->bindValue(":$keyName", $data[$keys[$keyName]['private']] );  }
-            }
-
-            if($query->execute()){
+            } 
+            
+            if($query->execute()){                
 
                 $lastID = $this->connection->lastInsertId();
 
                 $item  = $this->select( $lastID );
 
-                $extra_data = [];
-
-                if(array_key_exists('extra_data',$command)){
-                    
-                   $extra_data = $this->save_extra_data($item, $command['extra_data']);               
-                }            
-
                 $this->connection->commit();
                 
-                return ['item'=>$item, 'extra_data'=>$extra_data];
+                return $item;
                 
 
             }else return false;
 
-        }catch(PDOException $e) { return false; }
+        }catch(PDOException $e) { return $e; }
     }
 
-    public function update($command){
-
-        $data = $command['item'];
+    public function update($data){
 
         $id = static::get_property($data,'id');
        
-        if($id=='nuevo') return $this->save($command);
+        if($id=='nuevo') return $this->save($data);       
 
         try{
 
@@ -135,17 +120,12 @@ class Section{
 
             if($query->execute()){
 
-                $this->connection->commit();
+                $this->connection->commit();                
 
                 $item = $this->select(static::get_property($data,'id'));
                 $extra_data = [];
 
-                if(array_key_exists('extra_data',$command)){                    
-
-                    $extra_data = $this->save_extra_data($item, $command['extra_data']);               
-                 }               
-                
-                return ['item'=>$item, 'extra_data'=>$extra_data];
+                return $item;
 
             }else return false;
 
@@ -177,9 +157,7 @@ class Section{
     
     }
 
-    public function delete($command){
-
-        $data = $command['item'];
+    public function delete($data){
 
         try{
 
@@ -237,7 +215,7 @@ class Section{
                (!empty($value) && !$this->validations[$validation]($data,$name))){ 
                 
                     $obj_is_valid = false;
-                    $errors[$name] = $value ;            
+                    $errors[$name] = $data ;            
                 }
             }
         }
@@ -261,9 +239,8 @@ class Section{
             }
         }
 
-        return $this->sanitizeUser($sanitized);
+        return $sanitized;
     }
-
 
 
     protected function init_validations(){ // php no permite asignarlo directamente en la propiedad asi que hay que hacerlo por este metodo
@@ -297,14 +274,21 @@ class Section{
             $id = static::get_property($data,'id');
 
             return $id=='nuevo' || boolval($this->select($id));
-        };        
+        };  
+        
+        $this->validations['user_valid'] = function ($data, $name){
+
+            $userID = static::get_property($data,'user');
+
+            return $userID == $this->getUserId();
+        }; 
     }
 
     protected function init_sanitize_funcs(){ // php no permite asignarlo directamente en la propiedad asi que hay que hacerlo por este metodo
 
         $this->sanitize_funcs['is_string'] = fn($data, $name)=>filter_var(self::get_property($data,$name),FILTER_SANITIZE_STRING); 
 
-        $this->sanitize_funcs['is_boolean'] =  fn($data, $name)=>filter_var(self::get_property($data,$name),FILTER_VALIDATE_INT);
+        $this->sanitize_funcs['is_boolean'] =  fn($data, $name)=>(filter_var(self::get_property($data,$name),FILTER_VALIDATE_INT));
 
         $this->sanitize_funcs['is_number'] =  fn($data, $name)=>filter_var(self::get_property($data,$name),FILTER_VALIDATE_INT);
 
@@ -320,6 +304,8 @@ class Section{
             $value = $value ? $value : [];
             return array_map(fn($item)=>filter_var(strval($item),FILTER_SANITIZE_STRING), $value);
         }; 
+
+        $this->sanitize_funcs['user_valid'] = fn($data, $name)=>  1; 
             
     }
 

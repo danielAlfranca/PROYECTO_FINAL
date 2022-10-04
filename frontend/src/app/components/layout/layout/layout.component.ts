@@ -27,14 +27,18 @@ import {trigger, animate, style, group, animateChild, query, stagger, transition
 })
 export class LayoutComponent implements OnInit, AfterViewInit {
 
-  isLogin=true;
+  get isLogin(){
+
+    return !this.appConfig.appInit
+  };
+
   @ViewChild('appWrapper') appWrapper!:ElementRef<HTMLElement>;
 
   constructor(private appConfig:AppConfigService) { }
 
   ngOnInit(): void {
 
-    this.appConfig.queries.$dataUpdates.subscribe(e=>{ this.isLogin = false; })
+    
   }
 
   ngAfterViewInit(): void {

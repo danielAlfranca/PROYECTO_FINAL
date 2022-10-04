@@ -1,4 +1,4 @@
-<section class="app-menu-container bg-primary">
+<section class="app-menu-container bg-primary overflow-hidden">
 
     <div class="wrapper-logo d-flex justify-content-between justify-content-lg-center align-items-center px-3 pb-3 mx-auto bg-primary">
         <div class="app-logo d-flex justify-content-center align-items-center flex-column text-light ">
@@ -12,7 +12,7 @@
     </div>
     
 
-    <div class="app-menu-bar w-100 bg-primary" [ngClass]="{'menu-active':mobileMenu}">
+    <div class="app-menu-bar w-100 bg-primary " [ngClass]="{'menu-active':mobileMenu}">
         <ul id="app-menu-sections"  class="list-group rounded-0">
             <li 
                 class="list-group-item app-menu-item bg-transparent text-light rounded-0" 
@@ -23,8 +23,16 @@
                 <div class="d-flex wrapper-menu-item d-flex align-items-center py-2 mx-auto">
                     <i class="app-icon-section {{section.icon}} "></i> <small class="ms-4 app-text-section text-uppercase">{{section.title}}</small>
                 </div>               
-            </li>           
+            </li>
+            <li class="list-group-item app-menu-item bg-info text-light rounded-0 mt-auto"  (click)="unlog()">                
+                <div class="d-flex wrapper-menu-item d-flex align-items-center py-2 mx-auto">
+                    <i class="app-icon-section bi bi-x m-0"></i> <small class="ms-4 app-text-section text-uppercase">Deslogar</small>
+                </div>               
+            </li>
+                   
         </ul>
+       
     </div>
+    
 
 </section>

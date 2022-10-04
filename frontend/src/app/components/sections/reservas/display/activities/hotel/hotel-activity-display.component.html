@@ -1,8 +1,9 @@
 <div class="p-4">
     <app-card-display (edit)="edit()" [title]="title">   
-        <li app-data-item-display icon="calendar" title="Fechas">{{item | show:'hotelActivity':'full_dates'}}</li> 
+        <li app-data-item-display icon="calendar" title="Fechas">
+            {{$any(item | show:'hotelActivity':'date_start')  | date: 'dd-MM-yy' }} - {{$any(item | show:'hotelActivity':'date_end')  | date: 'dd-MM-yy'}}</li> 
         <li app-data-item-display icon="bookmark-star" title="Habitaciones">
-            {{item | show:'hotelActivity':'rooms' | room_string: true }}
+            {{item | show:'hotelActivity':'habitaciones' | room_string: true }}
         </li>  
         
         

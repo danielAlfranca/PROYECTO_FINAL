@@ -23,5 +23,5 @@
 </div>
 
 <ng-template #fullDates>
-    {{item | show:'tourActivity':'full_dates'}}
+    {{ $any(item | show:'tourActivity':'date_start')  | date: 'dd-MM-yy' }} - {{$any(item | show:'tourActivity':'date_end')  | date: 'dd-MM-yy' }}
 </ng-template>

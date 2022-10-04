@@ -26,9 +26,19 @@ export class DataStoreService {
     return this._store.tour 
   }
 
+  get tourActivity(){
+
+    return this._store.tourActivity 
+  }
+
   get hotel(){
 
     return this._store.hotel 
+  }
+
+  get hotelActivity(){
+
+    return this._store.hotelActivity 
   }
 
   get paquete(){

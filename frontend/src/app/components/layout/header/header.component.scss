@@ -2,3 +2,49 @@
 
     text-decoration: underline;
 }
+
+.section-title {
+
+    background-color: transparent;
+}
+
+.section-title i{
+
+    color: #4392d5
+}
+ .section-title h4{
+
+    color: #4392d5;
+    font-weight: bold;
+}
+
+
+
+.header-container{
+
+    padding: 1rem 2rem;
+}
+
+@media (min-width: 992px) { 
+
+    .header-container{
+
+        padding: 0;
+    }
+
+    .section-title {
+
+        background-color: #4392d5;
+    }
+    
+    .section-title i, .section-title h4{
+    
+        color: #f8f9fa;
+    }
+
+    .ci{
+
+        border-right: solid 1px #f8f9fa;
+    }
+    
+}

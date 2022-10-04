@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { take } from 'rxjs';
+import { Observable, Subject, take } from 'rxjs';
 import { CanvasService } from './canvas/canvas.service';
 import { DataConfigService } from './data-config/data-config.service';
 import { DataService } from './data-queries/data.service';
@@ -18,7 +18,7 @@ export class AppConfigService {
 
   get dataConfig(){ return this.dataConfigs }
 
-  public  get appInit(){ return this._appInit &&  this._isAuthenticated }
+  public  get appInit(){ return this._appInit }
 
   private _appInit = false;
   private _isAuthenticated = false;
@@ -27,31 +27,40 @@ export class AppConfigService {
     private dataQueries:DataService, 
     private userConfig:UserConfigService,
     private dataConfigs:DataConfigService,
-    private canvasAdmin:CanvasService) { }
+    private canvasAdmin:CanvasService) { 
 
-    init(){
-
-      this.dataQueries.connect('AppConfig','initData').pipe(take(1)).subscribe((response) => { 
+      this.dataQueries.login('_','_').subscribe((response:any)=>{
         
-        this.dataConfigs.initConfig(response);
-        
-        this.dataQueries.dataSet();
-      
-        this.dataQueries.$dataUpdates.pipe(take(1)).subscribe((e:any)=>this._appInit=true);
-      
+          if(response && !response.errors) this.init();
       });
 
     }
 
-    login(email:string,pass:string){
+    init(){
 
-      this.dataQueries.login(email,pass).subscribe(e=>this.init());
+      const isInit = new Subject();
+
+      this.dataQueries.connect('AppConfig','initData').pipe(take(1)).subscribe((response) => { 
+
+        this.dataConfigs.initConfig(response);
+        
+        this.dataQueries.dataSet().pipe(take(1)).subscribe((e:any)=>{this._appInit=true; isInit.next(true)});
+      
+      });
+
+      return isInit as Observable<any>;
 
     }
 
-    unlog(email:string,pass:string){
+    reset(){
 
-      this.dataQueries.unlog().subscribe(e=>this._appInit=false);
+      this.dataQueries.unlog().subscribe(e=>{
+        
+        e? this._appInit=false:null;
 
+        console.log(e)
+      
+      })
     }
+   
 }

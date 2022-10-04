@@ -8,9 +8,9 @@ import { CustomFieldComponent } from '../model/custom-field.component';
 })
 export class PassengersListComponent extends CustomFieldComponent implements OnChanges {
 
-  adultos = 0;
-  ninos = 0;
-  infantes = 0;
+  adultos:any = 0;
+  ninos:any = 0;
+  infantes:any = 0;
 
   constructor() { super() }
 
@@ -18,11 +18,11 @@ export class PassengersListComponent extends CustomFieldComponent implements OnC
 
   ngOnChanges(): void {
 
-    const pax = this.value || [];
+    const pax = ((this.value || '') +'').split('.');
 
-    this.adultos = pax[0] || null ;
-    this.ninos = pax[1] || null ;
-    this.infantes = pax[2] || null ;
+    this.adultos = Number(pax[0]) || null ;
+    this.ninos = Number(pax[1]) || null ;
+    this.infantes = Number(pax[2]) || null ;
 
   }
 
@@ -33,7 +33,7 @@ export class PassengersListComponent extends CustomFieldComponent implements OnC
 
   create_pax_list(){
 
-    return [this.adultos, this.ninos, this.infantes]
+    return [this.adultos||0, this.ninos||0, this.infantes||0].join('.')
   }
 
 }

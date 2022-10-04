@@ -23,7 +23,7 @@ export class LoginFormComponent {
 
       email:this.email,
       password:this.password,
-      action: this.section == 0 ? 'login':'register'
+      type: this.section == 0 ? 'login':'register'
 
     })
   }

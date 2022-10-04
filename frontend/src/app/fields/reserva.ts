@@ -3,28 +3,28 @@ import { FormItem } from "../interfaces/form";
 export const reservaForm = [ // datos cliente
     {
       title:'Nombre',
-      name:'name',
+      name:'nombre',
       input:'text'
     },
     {
       title:'Apellidos',
-      name:'surname',
+      name:'apellidos',
       input:'text'
     },
 
     {
       title:'Telefonos',
-      name:'phones',
-      input:'array'
+      name:'telefonos',
+      input:'text'
     },
     {
       title:'Emails',
       name:'emails',
-      input:'array'
+      input:'text'
     },
     {
       title:'Proveedor',
-      name:'provider_id',
+      name:'proveedor',
       input:'itemPicker',
       options:{listType:'empresa',propertyForDisplay:'provider_name'}
     },
@@ -44,19 +44,15 @@ export const reservaForm2 = [ // datos paquete
   },
   {
     title:'Destino',
-    name:'destination',
+    name:'destino',
     input:'text'
   },
   {
     title:'Pasajeros',
-    name:'pax',
+    name:'pasajeros',
     input:'passengersList'
-  },
-  {
-    title:'Actividades',
-    name:'activities',
-    input:'activitiesList'
   }
+ 
 
 ]as FormItem[];
 
@@ -70,11 +66,11 @@ export const reservaTable = {
 
    { 
       title:'Nombre',
-      sort:'name'
+      sort:'nombre'
     },
     { 
       title:'Paquete',
-      sort:'destination'
+      sort:'destino'
     },
     { 
       title:'Fechas',
@@ -82,10 +78,11 @@ export const reservaTable = {
     },
    { 
       title:'Proveedor',
+      sort:'provider_name'
     }
   ],
   search:[
 
-    'name','surname', 'destination', 'date_start', 'date_end', 'provider_name', 'passengers_list','phones_list','emails_list'
+    'nombre','apellidos', 'destino', 'date_start', 'date_end', 'provider_name', 'passengers_list','telefonos','emails'
   ]
 };

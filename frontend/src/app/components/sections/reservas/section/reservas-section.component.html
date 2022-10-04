@@ -4,8 +4,8 @@
         <tr (click)="display(data,false)" class="pointer">
             <td> 
                 
-                {{ data | show:'reserva':'full_name' }} <br>
-                <small class="text-secondary"><i class="bi bi-phone me-2"></i>{{ data | show:'reserva':'phones' }}</small> <br>
+                {{ data | show:'reserva':'nombre' }} {{ data | show:'reserva':'apellidos' }} <br>
+                <small class="text-secondary"><i class="bi bi-phone me-2"></i>{{ data | show:'reserva':'telefonos' }}</small> <br>
                 <small class="text-secondary"><i class="bi bi-envelope me-2"></i>{{ data | show:'reserva':'emails' }} </small>
             
             </td>

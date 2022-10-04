@@ -1,52 +1,19 @@
-import { DatePipe } from "@angular/common";
 import { Injectable, Injector } from "@angular/core";
-import { ActivityConfig } from "./modelActivity.config";
+import { DataConfig } from "../model";
 
 @Injectable({
     providedIn: 'root' 
   })
 
-export class HotelActivityConfig extends ActivityConfig{
-
-    override activitType  = 2;
+export class HotelActivityConfig extends DataConfig{
    
-    constructor(protected override injector:Injector, protected override datePipe:DatePipe){ super(injector, datePipe); }
+    constructor(protected override injector:Injector){ super(injector); }
 
     protected override getters:any = { 
 
         ...this.getters,
 
-        hotel_name:(obj:any)=> this.getRef('hotel',this.getValue(obj, 'hotel_id'),'nombre'),
-
-        rooms_list:(obj:any)=>this.get_rooms_list(obj),
+        hotel_nombre:(obj:any)=> this.getRef('hotel',this.getValue(obj, 'hotel'),'nombre'),
         
     }
-
-    private get_rooms_list(obj:any){
-
-        return 'falta';
-
-        let str = '', num;
-
-        const pax = this.getValue(obj,'pax'),
-            singulars = ['doble', 'triple', 'infante'],
-            plurals = ['adultos', 'ninos', 'infantes'];
-
-        return pax.reduce((strPax:string,el:number, i:number)=>{
-
-            num = Number(el);
-
-            if(num > 0 ){
-
-                str = '' +  num + ' ' + (num > 1 ? plurals[i]:singulars[i]);
-
-                return strPax + (i != 0 ? ', ' : '') + str;
-            }
-
-            return strPax;
-
-        }, '')
-
-    }
-
 }

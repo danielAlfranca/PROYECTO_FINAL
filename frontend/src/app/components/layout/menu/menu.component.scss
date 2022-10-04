@@ -1,23 +1,27 @@
 .app-menu-container {
 
     height: auto;
-    --menuHeight: 100px;
+    height: 7rem;
+    --menuHeight: 7rem;
 }
 
 .app-logo>i{
 
     font-size: 5rem;
-    height: 5rem;
     vertical-align: top;
-    margin-bottom: 0.5rem;
-    font-weight: 300; 
+    margin-bottom: -10px;
+    font-weight: 300;
+    padding: 0;
+    margin-top: 0;
+    line-height: 0.1rem;
 }
 
 .app-logo>h5{
 
     font-weight: 300;
     letter-spacing: 2px;
-    margin-bottom: 1rem;
+    margin-bottom: 0;
+    
 }
 
 .list-group-item.app-menu-item:hover, .list-group-item.app-menu-item.active{
@@ -40,15 +44,15 @@
 
     z-index: 2;
     position: relative;
-    height: var(--menuHeight);
     overflow: hidden;
+    min-height: 5rem
 
 }
 
 .app-menu-bar{
 
     position: absolute;
-    top: -100%;
+    top: -20rem;
     left:0;
     transition: top 0.5s;
     z-index: 1;
@@ -56,14 +60,16 @@
 
 .app-menu-bar.menu-active{
 
-    top: var(--menuHeight);  
+    top: 7rem;  
 }
 
 @media (min-width: 992px) { 
 
     .app-menu-container {
 
-        height: 100%
+        height: 100%;
+        display: flex;
+        flex-flow: column;
     }
     
 
@@ -74,6 +80,14 @@
     .app-menu-bar{
 
         position: static;
+        height: 100%;
+        display: flex;
+        flex-flow: column;
 
     }
+    #app-menu-sections{
+
+        height: 100%;
+    }
+    
 }

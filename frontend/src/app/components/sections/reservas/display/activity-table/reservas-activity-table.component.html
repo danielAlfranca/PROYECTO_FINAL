@@ -1,0 +1,62 @@
+<div class="table-header table-header-sm">   
+    <div class="header-table-buttons-container d-flex justify-content-between" *ngIf="mode!='display'" >
+      Incluido <button class="btn btn-warning button-table btn-sm" (click)="open()" style="border-radius: 50%;"><i class="bi bi-plus h5"></i></button>    
+    </div>  
+</div>
+<div style="max-height:200px" class="overflow-auto" *ngIf="activities.length else noActivities">
+    <table class="table table-striped align-middle table-sm ">
+        <thead>
+            <tr>
+                <th>
+                    <div class="d-flex justify-content-left align-items-stretch flex-wrap">
+                        <span>Actividad</span>
+                    </div>
+                </th>
+                <th>
+                    <div class="d-flex justify-content-left align-items-stretch flex-wrap">
+                        <span>Fecha</span>
+                    </div>
+                </th>
+            </tr>
+        </thead>
+
+        <tbody >
+            <tr class="pointer" *ngFor="let data of activities" (click)="open(data.item,data.type)">
+                <td [ngSwitch]="data.type">
+                    <div *ngSwitchCase="'tourActivity'" class="d-flex align-items-center">
+                        <i class="bi bi-camera me-3 h5 mb-0"></i>
+                        <div>
+                            {{data.item | show:data.type:'tour_nombre'}}
+                            <small class="text-secondary d-block">{{data.item |
+                                show:'tourActivity':'passengers_list'}}</small>
+                        </div>
+                    </div>
+                    <div *ngSwitchCase="'hotelActivity'" class="d-flex align-items-center">
+                        <i class="bi bi-moon-stars me-3 h5  mb-0"></i>
+                        <div>
+                            {{data.item | show:data.type:'hotel_nombre'}}
+                            <small class="text-secondary d-block">{{data.item | show:data.type:'habitaciones' |
+                                room_string:true}}</small>
+                        </div>
+
+                    </div>
+                </td>
+                <td>
+
+                    <i class="bi bi-chevron-right me-2"></i> {{ $any(data.item | show:data.type:'date_start') | date: 'dd-MM-yy'  }} <br>
+                    <i class="bi bi-chevron-left me-2"></i> {{ $any(data.item | show:data.type:'date_end') | date: 'dd-MM-yy'  }}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+
+
+<ng-template #noActivities>
+    <small class="mt-3 text-start text-secondary d-flex align-items-center">
+        <i class="bi bi-exclamation-diamond h4 me-2 mb-0"></i> <em> No hay servicios registrados en esta reserva</em>
+    </small>
+
+</ng-template>

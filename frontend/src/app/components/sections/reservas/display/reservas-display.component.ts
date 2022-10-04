@@ -16,19 +16,22 @@ export class ReservasDisplayComponent extends DisplayAdminComponent implements O
   ngOnInit(): void {  this.init('reserva'); }
 
   override updateDisplayData(item: any): void {
+
+    const tstart = this.value('time_start'), tend = this.value('time_end');
       
     this.dataDisplay = [
 
-      {title:'Nombre', value: this.value('full_name'), icon:'file-earmark-person'}, 
-      {title:'Telefonos', value: this.value('phones'), icon:'phone'}, 
+      {title:'Nombre', value: this.value('nombre') + ' ' +this.value('apellidos') , icon:'file-earmark-person'}, 
+      {title:'Telefonos', value: this.value('telefonos'), icon:'phone'}, 
       {title:'Emails', value: this.value('emails'), icon:'envelope'}, 
       {title:'Proveedor', value: this.value('provider_name'), icon:'briefcase'}
     ];
 
     this.dataPaquete = [
 
-      {title:'Destino', value: this.value('destination'), icon:'map'}, 
-      {title:'Fechas', value: this.value('full_dates'), icon:'calendar'}, 
+      {title:'Destino', value: this.value('destino'), icon:'map'}, 
+      {title:'Inicio', value: this.value('date_start')+ (tstart ? (' - '+ tstart):''), icon:'calendar'}, 
+      {title:'Fin', value: this.value('date_end')+ (tend ? (' - '+ tend):''), icon:'calendar'}, 
       {title:'Pasajeros', value: this.value('passengers_list'), icon:'people'}, 
     ];
   }

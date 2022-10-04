@@ -1,33 +1,30 @@
-import { DatePipe } from "@angular/common";
 import { Injectable, Injector } from "@angular/core";
-import { AppConfigService } from "../../app-config.service";
 import { DataConfig } from "../model";
-import { ActivityConfig } from "./modelActivity.config";
+
 
 @Injectable({
     providedIn: 'root' 
   })
 
-export class TourActivityConfig extends ActivityConfig{
+export class TourActivityConfig extends DataConfig{
 
-    override activitType  = 1;
    
-    constructor(protected override injector:Injector, protected override datePipe:DatePipe){ super(injector, datePipe); }
+    constructor(protected override injector:Injector){ super(injector); }
 
 
     protected override getters:any = { 
  
         ...this.getters,
 
-        tour_name:(obj:any)=> this.getRef('tour',this.getValue(obj, 'tour_id'),'nombre'),
+        tour_nombre:(obj:any)=> this.getRef('tour',this.getValue(obj, 'tour'),'nombre'),
 
         passengers_list:(obj:any)=>this.get_passengers_list(obj),
 
-        salida_date_start: (obj:any)=>this.getRef('salida', this.getValue(obj,'salida_id'),"date_start"),
+        salida_date_start: (obj:any)=>this.getRef('salida', this.getValue(obj,'salida'),"date_start"),
 
-        salida_date_end: (obj:any)=>this.getRef('salida', this.getValue(obj,'salida_id'),"date_end"),
+        salida_date_end: (obj:any)=>this.getRef('salida', this.getValue(obj,'salida'),"date_end"),
 
-        salida_pax: (obj:any)=>this.get_salida_pax(obj)
+        salida_pax: (obj:any)=>'this.get_salida_pax(obj)'
         
     }
 
@@ -35,9 +32,9 @@ export class TourActivityConfig extends ActivityConfig{
 
         
         let str = '', num;
-        const pax = this.getValue(obj,'pax'),
-            singulars = ['adulto', 'nino', 'infante'],
-            plurals = ['adultos', 'ninos', 'infantes'];
+        const   pax = (this.getValue(obj,'pasajeros')).split('.'),
+                singulars = ['adulto', 'nino', 'infante'],
+                plurals = ['adultos', 'ninos', 'infantes'];
 
         return pax.reduce((strPax:string,el:number, i:number)=>{
 
@@ -54,28 +51,6 @@ export class TourActivityConfig extends ActivityConfig{
 
         }, '')
 
-    }
-
-    get_salida_pax(obj:any){
-
-        const pax = this.getRef('salida', this.getValue(obj,'salida_id'),"pax"),
-              service = this.injector.get(AppConfigService).dataConfig;
-
-        if(!pax) return false;
-
-
-        let id, activity, passengers =  pax.find((el:any)=>{
-            
-           id = service.getValue(el,'id','passenger');
-           activity = service.getValue(el,'activity','passenger');
-
-           return id ==this.getValue(obj,'id') && id ==this.getValue(obj,'id')
-        
-        })
-
-        return service.getValue(passengers, 'passengers','passenger');
-        
-    }
-   
+    }  
 
 }

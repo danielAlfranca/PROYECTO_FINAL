@@ -49,48 +49,53 @@ export class DataService {
 
   }  
 
-  public save(section:DataTypes, item:any, extraData?:any):Observable<any>{
+  public save(section:DataTypes, data:any):Observable<any>{
 
     const notification = new Subject();  
 
-    this.connect(section,'save',{item:item, extraData:extraData||{}}).subscribe((data:any)=>{       
+ 
 
-      if(data){ 
+    this.connect(section,'save',data).subscribe((response:any)=>{      
+  
 
-        this.addItem(section,data.item);
+      if(response){ 
 
-        Object.keys(data.extra_data || {}).forEach((key:any)=>{
+        this.addItem(section,response);
 
-          data.extra_data[key].forEach((el:any)=>this.addItem(key,el));
+        Object.keys(response.extra_data || {}).forEach((key:any)=>{
+
+          response.extra_data[key].forEach((el:any)=>this.addItem(key,el));
 
         });
 
-        notification.next(data.item); 
+        console.log(response)
+
+        notification.next(response); 
       
-      } else notification.next(false); 
+      } else{    console.log(response); notification.next(false)}; 
     
     })
 
     return notification as Observable<any>;    
   }
 
-  delete(section:DataTypes, item:any, justHide = false){
+  delete(section:DataTypes, data:any){
 
     const notification = new Subject();
 
-    this.connect(section,'delete',item).subscribe((data:any)=>{ 
+    this.connect(section,'delete',data).subscribe((response:any)=>{ 
    
-      if(data){ 
+      if(response){ 
         
-        this.removeItem(section,data.item);  
+        this.removeItem(section,response);  
  
-        Object.keys(data.extra_data || {}).forEach((key:any)=>{
+        Object.keys(response.extra_data || {}).forEach((key:any)=>{ // para elementos donde se eliminan otros datos dependientes
 
-          data.extra_data[key].forEach((el:any)=>this.removeItem(key,el));
+          response.extra_data[key].forEach((el:any)=>this.removeItem(key,el));
 
         });
 
-        notification.next(data.item); 
+        notification.next(response); 
       
       }else notification.next(false);
     })
@@ -112,13 +117,19 @@ export class DataService {
 
   public login(email:string,pass:string){
 
-    return this.connect('login','log', {email:email, password:pass})
+    return this.connect('login','log', {email:email, password:pass, type:'login'}).pipe(take(1))
+
+  }
+
+  public register(email:string,pass:string){
+
+    return this.connect('login','register', {email:email, password:pass, type:'register'}).pipe(take(1))
 
   }
 
   public unlog(){
 
-    return this.connect('login','unlog')
+    return this.connect('login','unlog', {type:'unlog'})
 
   }
 

@@ -30,7 +30,7 @@ class Reserva extends Section{
 
         'proveedor'=>['private'=>11, 'validations'=>[], 'required'=>true, 'default'=>null],   // falta validacion     
 
-        'user'=>['private'=>12, 'validations'=>[], 'required'=>false, 'default'=>null] 
+        'user'=>['private'=>12, 'validations'=>['user_valid'], 'required'=>false, 'default'=>null] 
 
     ]; 
 

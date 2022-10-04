@@ -1,10 +1,14 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-export const roomLabels = {
+export const roomLabels ={
 
   '1':['simple','simples'],
-  '2':['doble','dobles']
-  
+  '2':['doble','dobles'],
+  '3':['triple','triples'],
+  '4':['cuadruple','cuadruples'],
+  '5':['familiar','familiares'],
+  '6':['matrimonial','matrimoniales'],
+ 
  }
 
 @Pipe({
@@ -12,17 +16,18 @@ export const roomLabels = {
 })
 export class RoomPipe implements PipeTransform {
 
-  labels:any ={
-
-    '1':['simple','simples'],
-    '2':['doble','dobles']
-    
-   }
+  labels:any =roomLabels;
+  
   transform(value: any, isRoomList?: boolean): unknown {
 
-    if(value && Array.isArray(value)){
+    if(value){
 
-      if(isRoomList) return value.map(e=>this.getString(e)).join(', ');
+      if(isRoomList) {
+        
+        const arr = value.split('-');
+        return arr.map((e:any)=>this.getString(e)).join(', ');
+      
+      }
 
       return this.getString(value)
     }
@@ -31,9 +36,11 @@ export class RoomPipe implements PipeTransform {
     
   }
 
-  getString(value: number[]){
+  getString(value: string){
 
-    return value[1] + ' ' + this.getWord(value[0],value[1])
+    const arr:any = value.split('.');
+
+    return arr[1] + ' ' + this.getWord(arr[0],arr[1])
 
   }
 

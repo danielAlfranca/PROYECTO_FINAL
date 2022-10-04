@@ -18,7 +18,7 @@ export class TourActivityDisplayComponent extends DisplayAdminComponent implemen
   override updateDisplayData(item: any): void {
 
     
-    this.title = this.appConfig.dataConfig.getValue(this.item,'tour_name', 'tourActivity');     
+    this.title = this.appConfig.dataConfig.getValue(this.item,'tour_nombre', 'tourActivity');     
     
   }
 }

@@ -26,7 +26,7 @@ if(strcasecmp($_SERVER['REQUEST_METHOD'], 'POST') != 0){
     throw new Exception('Request method must be POST!');
 } 
 
-//session_start();
+session_start();
 
 $query = json_decode(trim(file_get_contents('php://input')),true);
 
@@ -35,9 +35,7 @@ $action = $query['action'];
 $data = $query['data'];
 
 
- if( true /* isset($_SESSION['usertapp']) && !empty($_SESSION['usertapp']) */ ){
-
-    //$user = $_SESSION['usertapp']; 
+ if(/* Login::isLogged() || $section == 'login'  */ true){    
 
     $controller = get_section($section); 
     
@@ -46,9 +44,14 @@ $data = $query['data'];
    
    if(  count($errors) == 0 ){ 
 
-        echo json_encode($controller->$action($data)) ;
+        echo json_encode($controller->$action($sanitized)) ;
 
-    } else{ echo json_encode(['errors'=>$errors]);  }  
+    } else{ echo json_encode(['errors'=>$errors]);  } 
+    
+    
+}else{
+
+    return false;
 } 
 
 

@@ -17,7 +17,7 @@ export class HotelActivityDisplayComponent extends DisplayAdminComponent impleme
 
   override updateDisplayData(item: any): void {
     
-    this.title = this.appConfig.dataConfig.getValue(this.item,'hotel_name', 'hotelActivity');     
+    this.title = this.appConfig.dataConfig.getValue(this.item,'hotel_nombre', 'hotelActivity');     
     
   }
 

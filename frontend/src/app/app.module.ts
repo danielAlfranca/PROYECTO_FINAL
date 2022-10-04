@@ -97,6 +97,7 @@ import { LoginFormComponent } from './components/sections/login/login-form/login
 import { SelectCustomDateComponent } from './components/layout/header/select-data-dates/select-custom-date/select-custom-date.component';
 import { ReservasCalendarComponent } from './components/sections/reservas/section/reservas-calendar/reservas-calendar.component';
 import { LoadingComponent } from './components/shared/modal/loading/loading.component';
+import { ReservasActivityTableComponent } from './components/sections/reservas/display/activity-table/reservas-activity-table.component';
 
 
 @NgModule({
@@ -185,7 +186,8 @@ import { LoadingComponent } from './components/shared/modal/loading/loading.comp
     LoginFormComponent,
     SelectCustomDateComponent,
     ReservasCalendarComponent,
-    LoadingComponent
+    LoadingComponent,
+    ReservasActivityTableComponent
 
   ],
   imports: [

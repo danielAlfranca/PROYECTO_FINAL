@@ -35,9 +35,9 @@ export class ReservasCalendarComponent extends CalendarAdminComponent implements
 
   getTitleEvent(reserva:any){
 
-    const name = this.parseProp(reserva,'full_name','reserva'),
+    const name = this.parseProp(reserva,'nombre','reserva') + ' ' +this.parseProp(reserva,'apellidos','reserva'),
           pax = this.parseProp(reserva,'passengers_list','reserva'),
-          start = this.parseProp(reserva,'date_start','reserva'),
+          start = (this.parseProp(reserva,'date_start','reserva')),
           end = this.parseProp(reserva,'date_end','reserva'),
           iconpax = '<i class="bi bi-people mx-2"></i>',
           iconTime = '<i class="bi bi-clock mx-2"></i>';

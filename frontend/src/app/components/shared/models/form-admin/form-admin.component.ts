@@ -35,8 +35,8 @@ export class FormAdminComponent {
     if(!this.is_valid(item)) return this.form_error_message();
    
     this.appConfig.queries.save(this.type,item).pipe(take(1)).subscribe(response=>{
-      console.log(response);
-      if(!response || response.errors) { this.server_error_message() }
+    
+      if(!response || response.errors) {   this.server_error_message() }
 
       else{        
        
@@ -70,7 +70,7 @@ export class FormAdminComponent {
 
   server_error_message(){
 
-     return this.appConfig.canvas.open(this.get_modal_path('error'),{message:`Hubo un error en el servidor y no se pudo guardar`, type:'success'});
+     return this.appConfig.canvas.open(this.get_modal_path('error'),{message:`Hubo un error en el servidor y no se pudo guardar`, type:'error'});
   }
 
   is_new_element(){

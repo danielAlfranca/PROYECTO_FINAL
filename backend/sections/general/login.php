@@ -4,25 +4,20 @@
 class Login{   
     
     private $connection;
-    private $userSession ='dfghsdfhg';
-    private $passwordSession ='dfghsdfhg';
-
+    private static $userSession ='dfghsdfhg';
     public function __construct(){
 
-        session_start();
         $this->connection = Database::connect();
     }
 
 
-    public function log($data){
+    public function log($data){ 
+        
+        if(static::isLogged()) return true;
 
-        if(!$this->sessionExists()){
+        if($data['type']=='register') return $this.register($data);
 
-            if($data['type']=='register') return $this.register($data);
-
-            $_SESSION[$this->userSession] = $data['email']; 
-            $_SESSION[$this->userSession] = $data['password']; 
-        }       
+        $_SESSION[static::$userSession] = $data['email'];     
 
         return true;       
     }  
@@ -50,12 +45,13 @@ class Login{
 
             $lastID = $this->connection->lastInsertId();
 
-            $query = $this->connection->prepare("SELECT * FROM 'users' WHERE id='".$lastID."'");   
+            $query = $this->connection->prepare("SELECT * FROM users WHERE id='".$lastID."'");   
 
           
             if($query->execute()){
 
-                return $query->fetch();
+                $this->connection->commit();
+                return true;
 
             }else return false;
             
@@ -67,34 +63,34 @@ class Login{
     
     public function validate($data){
 
-        $errors = [];
+        $errors = [];  
+          
 
-        if(!$this->sessionExists()){
+        if(!isset($data)) $errors[] = 'Error en usuario y contraseña';
 
-            if(!isset($data)) $errors[] = 'Error en usuario y contraseña';
+        if(!is_array($data)) $errors[] = 'Error en usuario y contraseña';
 
-            if(!is_array($data)) $errors[] = 'Error en usuario y contraseña';
+        if(!isset($data['type'])) $errors[] = 'Peticion incorrecta';
 
-            if(!array_key_exists('email',$data)) $errors[] = 'Error en campo email';
+        if($data['type']=='unlog') return $errors;
 
-            if(!array_key_exists('password',$data)) $errors[] = 'Error en campo contraseña';
+        if(!isset($data['email'])) $errors[] = 'Error en campo email';
 
-            if(!array_key_exists('type',$data)) $errors[] = 'Peticion incorrecta';
+        if(!isset($data['password'])) $errors[] = 'Error en campo contraseña';        
 
-            $user = $this->get_user($data);
-            $type = $data['type'];
+        $user = $this->get_user($data);
+        $type = $data['type'];
+
+        if(!static::isLogged()){
 
             if($type=='login'){
 
-                if($user==false) $errors[] = 'El usuario no existe';
-                if(!$this->pass_ok()) $errors[] = 'La contraseña es incorrecta';
+                if($user==false) {$errors[] = 'El usuario no existe';}
+                else if(!$this->pass_ok($data, $user)) $errors[] = 'La contraseña es incorrecta';
             }
 
-            if($type=='register'){
-
-                if($user!=false) $errors[] = 'El usuario ya existe';
-            }
-        }        
+            if($type=='register'){ if($user!=false) $errors[] = 'El usuario ya existe'; }
+        }
 
         return $errors;    
     }
@@ -104,7 +100,7 @@ class Login{
         return $data;
     }
 
-    private get_user($data){
+    private function get_user($data){
 
         $email = $data['email'];
 
@@ -112,7 +108,7 @@ class Login{
 
             if(!$this->connection->inTransaction()) $this->connection->beginTransaction();
 
-            $query = $this->connection->prepare("SELECT * FROM 'users' WHERE email='".$email."'");            
+            $query = $this->connection->prepare("SELECT * FROM users WHERE email='".$email."'");            
 
           
             if($query->execute()){
@@ -125,16 +121,15 @@ class Login{
       
     }
 
-    private pass_ok($query, $dataDB){
+    private function pass_ok($query, $dataDB){
 
         return trim($query["password"]) == trim($dataDB['pass']);
       
     }
 
-    private function sessionExists(){
-
-        return array_key_exists($_SESSION[$this->userSession],$_SESSION);
-
+    public static function isLogged(){
+        
+        return isset($_SESSION[static::$userSession]);
     }
     
 }

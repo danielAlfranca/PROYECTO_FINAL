@@ -77,6 +77,8 @@ body{
 
 .btn-edit{border-radius:50%;}
 
+.button-table{max-height: 50px;}
+
 .btn-warning, .btn-primary, .btn-info,.btn-success,.btn-danger,.btn-warning:hover, .btn-primary:hover, .btn-outline-primary:hover, .btn-info:hover, .btn-success:hover, .btn-danger:hover{
 
   color: $light;
@@ -93,6 +95,16 @@ body{
   opacity: 0.75;
   transform: scale(0.85) translateY(-1.1rem) translateX(0.15rem);
 }
+
+// select
+
+.form-select{
+
+  border-style: none none solid none;
+  
+}
+
+
 
 // step-form
 

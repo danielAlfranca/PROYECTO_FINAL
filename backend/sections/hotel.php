@@ -23,9 +23,9 @@ class Hotel extends Section{
 
         'propietario'=>['private'=>7, 'validations'=>[], 'required'=>false, 'default'=>NULL], // falta
 
-        'hidden'=>['private'=>8, 'validations'=>[], 'required'=>false, 'default'=>false],
+        'hidden'=>['private'=>8, 'validations'=>['is_boolean'], 'required'=>false, 'default'=>false],
         
-        'user'=>['private'=>9, 'validations'=>[], 'required'=>false, 'default'=>null]  
+        'user'=>['private'=>9, 'validations'=>['user_valid'], 'required'=>false, 'default'=>null]  
     ]; 
 
 
