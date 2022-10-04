@@ -21,7 +21,6 @@ export class AppConfigService {
   public  get appInit(){ return this._appInit }
 
   private _appInit = false;
-  private _isAuthenticated = false;
 
   constructor(
     private dataQueries:DataService, 

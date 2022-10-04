@@ -42,11 +42,11 @@ class AppConfig{
             ],
             'tourActivity'=>[
 
-                'indexes'=>TourReserva::$indexes
+                'indexes'=>TourActivity::$indexes
             ] ,
             'hotelActivity'=>[
 
-                'indexes'=>HotelReserva::$indexes
+                'indexes'=>HotelActivity::$indexes
             ] ,
             'operadorActivity'=>[
 

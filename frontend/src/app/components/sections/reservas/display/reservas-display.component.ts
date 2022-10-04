@@ -10,6 +10,7 @@ import { AppConfigService } from 'src/app/services/app-config.service';
 export class ReservasDisplayComponent extends DisplayAdminComponent implements OnInit {
 
   dataPaquete:any;
+  activities:any;
 
   constructor(protected override appConfig: AppConfigService) { super(appConfig) }
 
@@ -25,6 +26,7 @@ export class ReservasDisplayComponent extends DisplayAdminComponent implements O
       {title:'Telefonos', value: this.value('telefonos'), icon:'phone'}, 
       {title:'Emails', value: this.value('emails'), icon:'envelope'}, 
       {title:'Proveedor', value: this.value('provider_name'), icon:'briefcase'}
+      
     ];
 
     this.dataPaquete = [
@@ -34,7 +36,21 @@ export class ReservasDisplayComponent extends DisplayAdminComponent implements O
       {title:'Fin', value: this.value('date_end')+ (tend ? (' - '+ tend):''), icon:'calendar'}, 
       {title:'Pasajeros', value: this.value('passengers_list'), icon:'people'}, 
     ];
+
+    this.activities = this.getTours().concat(this.getHoteles())
   }
+
+  getTours(){
+
+    return (this.appConfig.dataConfig.getValue(this.item,'tours','reserva') || []).map((e:any)=>({item:e,type:'tourActivity'}))
+
+  }
+
+  getHoteles(){
+
+    return (this.appConfig.dataConfig.getValue(this.item,'hotels','reserva')|| []).map((e:any)=>({item:e,type:'hotelActivity'}))
+  }
+
 
 
 }

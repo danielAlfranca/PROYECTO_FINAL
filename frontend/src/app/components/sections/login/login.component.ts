@@ -15,6 +15,8 @@ export class LoginComponent {
   constructor(private appConfig:AppConfigService) {
 
     appConfig.queries.$dataUpdates.subscribe(e=>this.slide=1)
+
+    this.probar();
    }
 
   login(data:any){ 

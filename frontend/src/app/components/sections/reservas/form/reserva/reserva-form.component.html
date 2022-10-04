@@ -1,3 +1,18 @@
+<div class="m-3">
+    <app-tabs-header [titles]="['Cliente','Paquete']" [(selected)]="step"></app-tabs-header>
 
-    <app-step-form [type]="type" [active]="initialStep" [item]="item" [fields]="[{title:'Cliente', fields:fields}, {title:'Paquete', fields:fields2}]">!</app-step-form>
-
+    <div class="card p-4">
+        <div class="row"  *ngFor="let fieldList of [fields, fieldsPaquete]; let i = index" [ngClass]="{active:i==step}">
+            <ng-container *ngIf="step==i">
+                <div *ngFor="let field of fieldList; let j = index" class="col-{{ fields[j].columns }}">
+                    <div class="form-group mb-3 text-center">                     
+                       <app-input [field]="field" [item]="item" [type]="type" (change)="setFields($event); field.touched = true"></app-input>       
+                    </div>            
+                </div>
+            </ng-container>            
+        </div>
+        <div class="py-3 text-center" *ngIf="step==1">
+            <button class="btn btn-primary" (click)="save(item)"> Guardar </button>
+        </div>
+    </div>
+</div>

@@ -45,7 +45,7 @@ class AppData{
 
         // luego actividades de reserva
 
-        $activities =  ['tourActivity'=>new TourReserva(), 'hotelActivity'=>new HotelReserva()];
+        $activities =  ['tourActivity'=>new TourActivity(), 'hotelActivity'=>new HotelActivity()];
 
         foreach ($activities as $key => $manager) {
 

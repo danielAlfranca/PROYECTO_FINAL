@@ -1,6 +1,6 @@
 <?php 
 
-class TourReserva extends Section{  
+class TourActivity extends Section{  
     
     public static $table = "tour_reserva";
     

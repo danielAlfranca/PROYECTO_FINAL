@@ -33,7 +33,7 @@ export class ReservasSectionComponent extends TableAdminComponent implements OnI
 
     [activos,proximos,antiguos].forEach((data:any, i:number) => {
       
-      tbConfig = JSON.parse(JSON.stringify(sections[0]))
+      tbConfig = JSON.parse(JSON.stringify(sections[0])); // clonar
       tbConfig.data = data;
       tbConfig.title = ['Activos','Proximos', 'Antiguos'][i];
       dataSections.push(tbConfig)

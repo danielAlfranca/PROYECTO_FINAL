@@ -18,19 +18,19 @@ class Reserva extends Section{
 
         'destino'=>['private'=>5, 'validations'=>['is_string'], 'required'=>true, 'default'=>''],
 
-        'pasajeros'=>['private'=>6, 'validations'=>['is_string'], 'required'=>true, 'default'=>'0.0.0'], // falta validacion
+        'pasajeros'=>['private'=>6, 'validations'=>['pasajeros_valid'], 'required'=>true, 'default'=>'0.0.0'], // falta validacion
 
-        'date_start'=>['private'=>7, 'validations'=>['is_string'], 'required'=>true, 'default'=>null], // falta validacion
+        'date_start'=>['private'=>7, 'validations'=>['date_valid'], 'required'=>true], // falta validacion
 
-        'date_end'=>['private'=>8, 'validations'=>['is_string'], 'required'=>true, 'default'=>null], // falta validacion
+        'date_end'=>['private'=>8, 'validations'=>['date_valid', 'date_end_valid'], 'required'=>true], // falta validacion
 
-        'time_start'=>['private'=>9, 'validations'=>['is_string'], 'required'=>false, 'default'=>null], // falta validacion
+        'time_start'=>['private'=>9, 'validations'=>['time_valid'], 'required'=>false], // falta validacion
 
-        'time_end'=>['private'=>10, 'validations'=>['is_string'], 'required'=>false, 'default'=>null], // falta validacion
+        'time_end'=>['private'=>10, 'validations'=>['time_valid'], 'required'=>false], // falta validacion
 
-        'proveedor'=>['private'=>11, 'validations'=>[], 'required'=>true, 'default'=>null],   // falta validacion     
+        'proveedor'=>['private'=>11, 'validations'=>['is_number'], 'required'=>true],   // falta validacion     
 
-        'user'=>['private'=>12, 'validations'=>['user_valid'], 'required'=>false, 'default'=>null] 
+        'user'=>['private'=>12, 'validations'=>['user_valid'], 'required'=>false] 
 
     ]; 
 
@@ -62,6 +62,52 @@ class Reserva extends Section{
 
         return false;
     }
+
+    public function validate($items){ // validada datos segun las validaciones especificadas en keys
+
+        $reserva = $items['reserva'];
+        $tours = $items['tours'];
+        $hoteles = $items['hoteles'];
+
+        $errors = parent::validate($items['reserva']);
+    
+        foreach ($tours as $tour) {
+            
+            $manager = new TourActivity();
+            $errors =array_merge($errors,$manager->validate($tour));
+        }
+
+        foreach ($hoteles as $hotel) {
+            
+            $manager = new HotelActivity();
+            $errors =array_merge($errors,$manager->validate($hotel));
+        }      
+
+        return $errors;
+    }
+
+    public function sanitize($items){ // sanitiza datos segun las validaciones especificadas en keys
+
+        $reserva = $items['reserva'];
+        $tours = $items['tours'];
+        $hoteles = $items['hoteles'];
+
+        $items['reserva'] = parent::sanitize($items['reserva']);
+
+        $manager = new TourActivity();
+
+        $items['tours'] = $manager->sanitize($items['tours']);
+
+        $manager = new TourActivity();
+
+        $items['hoteles'] = $manager->sanitize($items['hoteles']);
+
+        return $items;
+    }
+
+    
+
+    
 
 }
 

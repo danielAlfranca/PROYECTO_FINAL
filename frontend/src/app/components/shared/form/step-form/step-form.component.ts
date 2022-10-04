@@ -69,18 +69,18 @@ export class StepFormComponent implements OnInit, AfterViewInit, OnDestroy {
   } 
 
 
-  onSave(item:any){ 
+  onSave(item:any, index:number){ 
     
-    const islast = this.steps == this.active;
+    const islast = this.fields.length == index +1
 
     this.item = item;
-
+   
     if(islast) this.save.emit(this.item); 
     else this.stepper.next();    
   
   }
 
-  stepChange(event:any){  this.active= event.detail.indexStep +1 ; }
+  stepChange(event:any){this.active= event.detail.indexStep +1 ;  console.log(this.active, this.steps); }
 
   ngOnDestroy(): void {
     

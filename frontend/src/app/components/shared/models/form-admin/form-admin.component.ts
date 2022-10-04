@@ -27,7 +27,7 @@ export class FormAdminComponent {
     this.type = type;
 
     this.fields = fields;
-
+ 
   }
 
   save(item:any):any{
@@ -81,9 +81,11 @@ export class FormAdminComponent {
   get_modal_path(result:string){
 
     // si el form esta como elemento de form item ya esta en popUp y los mensajes se muestran en la posicion 3
-
-    const index = this.appConfig.canvas.last.path == 'pop-up-form' ? 3:1;
+    
+    const index = Number(this.appConfig.canvas.currentOutletsIndex.popUp) + 1;
 
     return  `modal-${result}-${index}`;
   }
+
+  
 }

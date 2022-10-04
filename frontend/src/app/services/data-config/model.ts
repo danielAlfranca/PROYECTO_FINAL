@@ -1,4 +1,5 @@
 import { Injector } from '@angular/core';
+import { isAfter, isMatch, isSameDay, isWithinInterval, parse } from 'date-fns';
 import * as _ from 'lodash';
 import { DataTypes } from 'src/app/interfaces/types/data-config';
 import { DataService } from '../data-queries/data.service';
@@ -37,11 +38,37 @@ export abstract class DataConfig{
 
         is_number:(obj:any, key:string) => !isNaN(this.getByPath(obj,this.getKey(key))),
 
-        is_string_array:(obj:any, key:string) =>{ let value = this.getByPath(obj,this.getKey(key)); return Array.isArray(value) && value.every((e:any)=>typeof (e+'')  == "string")},
+       /*  is_string_array:(obj:any, key:string) =>{ let value = this.getByPath(obj,this.getKey(key)); return Array.isArray(value) && value.every((e:any)=>typeof (e+'')  == "string")}, */
 
         id_valid:(obj:any, key:string) => { let value = this.getByPath(obj,this.getKey(key)); return !isNaN(value) || value  == 'nuevo'},
 
-        user_valid:(obj:any, key:string) => true
+        user_valid:(obj:any, key:string) => true, // se valida en servidor
+
+        date_valid:(obj:any, key:string) => isMatch(this.getByPath(obj,this.getKey(key)),'yyyy-mm-dd'),
+
+        date_end_valid:(obj:any, key:string) => {
+            
+            let start = this.getByPath(obj,this.getKey('date_start')), end = this.getByPath(obj,this.getKey(key));
+
+            if (start && end){
+
+                start = parse(start, 'yyyy-MM-dd', new Date());
+                end = parse(end, 'yyyy-MM-dd', new Date());
+
+                return isAfter(end,start) || isSameDay(end,start);
+            }
+                  
+            return false;
+        },
+
+        time_valid:(obj:any, key:string) => isMatch(this.getByPath(obj,this.getKey(key)),'HH:mm'),
+
+        pasajeros_valid:(obj:any, key:string) => {
+
+            let arr = (this.getByPath(obj,this.getKey(key)) + '').split('.'), adultos = Number(arr[0]);
+
+            return arr.length == 3 && adultos >0;
+        } ,
 
 
     }; // VALIDACIONES 

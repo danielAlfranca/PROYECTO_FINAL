@@ -1,6 +1,6 @@
 <?php 
 
-class HotelReserva extends Section{   
+class HotelActivity extends Section{   
 
     public static $table = "hotel_reserva";
 

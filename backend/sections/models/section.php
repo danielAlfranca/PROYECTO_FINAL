@@ -282,6 +282,41 @@ class Section{
 
             return $userID == $this->getUserId();
         }; 
+
+        $this->validations['pasajeros_valid'] =  function($data, $name)  {            
+
+            $arr = explode(".",strval(static::get_property($data,$name)));
+            $adultos =  intval($arr[0]);
+
+            return count($arr)==3 && $adultos>0;
+        
+        }; 
+        
+        $this->validations['date_valid'] =  function($data, $name)  {            
+
+            $date =strval(static::get_property($data,$name));
+            $dt = DateTime::createFromFormat("Y-m-d", $date);
+            return $dt !== false && !array_sum($dt::getLastErrors());            
+        };
+
+        $this->validations['date_end_valid'] =  function($data, $name)  { 
+
+            if($this->validations['date_valid']($data,"date_start") && $this->validations['date_valid']($data,"date_end")) {
+
+                $start =strval(static::get_property($data,'date_start'));
+                $end = strval(static::get_property($data,'date_end'));
+
+                return (strtotime($end) >= strtotime($start)) ;
+            }
+
+            return false;                       
+        };
+
+        $this->validations['time_valid'] =  function($data, $name)  {            
+
+            $time =strval(static::get_property($data,$name));
+            return preg_match("/^(?:2[0-3]|[01][0-9]):[0-5][0-9]$/", $time);            
+        };
     }
 
     protected function init_sanitize_funcs(){ // php no permite asignarlo directamente en la propiedad asi que hay que hacerlo por este metodo
@@ -297,15 +332,16 @@ class Section{
         $this->sanitize_funcs['id_valid'] = fn($data, $name)=>filter_var(strval(self::get_property($data,$name)),FILTER_SANITIZE_STRING);
 
         $this->sanitize_funcs['type_valid'] = fn($data, $name)=>filter_var(strval(self::get_property($data,$name)),FILTER_SANITIZE_STRING);
-        
-        $this->sanitize_funcs['is_string_array'] = function ($data, $name){
-
-            $value = self::get_property($data,$name);
-            $value = $value ? $value : [];
-            return array_map(fn($item)=>filter_var(strval($item),FILTER_SANITIZE_STRING), $value);
-        }; 
-
+     
         $this->sanitize_funcs['user_valid'] = fn($data, $name)=>  1; 
+
+        $this->sanitize_funcs['pasajeros_valid'] = fn($data, $name)=>  filter_var(self::get_property($data,$name),FILTER_SANITIZE_STRING); 
+
+        $this->sanitize_funcs['date_valid'] = fn($data, $name)=>  filter_var(self::get_property($data,$name),FILTER_SANITIZE_STRING); 
+
+        $this->sanitize_funcs['date_end_valid'] = fn($data, $name)=>  filter_var(self::get_property($data,$name),FILTER_SANITIZE_STRING); 
+
+        $this->sanitize_funcs['time_valid'] = fn($data, $name)=>  filter_var(self::get_property($data,$name),FILTER_SANITIZE_STRING); 
             
     }
 

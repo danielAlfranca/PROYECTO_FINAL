@@ -32,7 +32,7 @@ export class TourActivityConfig extends DataConfig{
 
         
         let str = '', num;
-        const   pax = (this.getValue(obj,'pasajeros')).split('.'),
+        const   pax = (this.getValue(obj,'pasajeros')||'').split('.'),
                 singulars = ['adulto', 'nino', 'infante'],
                 plurals = ['adultos', 'ninos', 'infantes'];
 

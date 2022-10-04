@@ -38,18 +38,20 @@ export const reservasRoutes = [
     },
     {
 
-        path: 'display-tourActivity', component: TourActivityDisplayComponent, outlet:'aside-2', data: {
+        path: 'display-tourActivity', component: TourActivityDisplayComponent, outlet:'popUp-1', data: {
 
             title: 'Detalles Tour',
-            icon: 'bi bi-binoculars'
+            icon: 'bi bi-binoculars',
+            size:'form'
         },
     },
     {
 
-        path: 'display-hotelActivity', component: HotelActivityDisplayComponent, outlet:'aside-2', data: {
+        path: 'display-hotelActivity', component: HotelActivityDisplayComponent, outlet:'popUp-2', data: {
 
             title: 'Detalles Hotel',
-            icon: 'bi bi-binoculars'
+            icon: 'bi bi-binoculars',
+            size:'form'
         },
     },
     {
@@ -72,6 +74,14 @@ export const reservasRoutes = [
         path: 'form-activity-reserva-2', component: NewReservaActivityComponent, outlet:'aside-3', data: {
 
             title: 'Nueva actividad',
+            icon: 'bi bi-file-plus'
+        },
+        
+    },
+    {
+        path: 'form-activity-tourActivity', component: TourActivityFormComponent, outlet:'aside-3', data: {
+
+            title: 'Nuevo Tour',
             icon: 'bi bi-file-plus'
         },
         
@@ -146,19 +156,21 @@ export const reservasRoutes = [
         
     },
     {
-        path: 'editar-tourActivity', component: TourActivityFormComponent, outlet:'aside-2', data: {
+        path: 'editar-tourActivity', component: TourActivityFormComponent, outlet:'popUp-2', data: {
 
             title: 'Editar Tour',
-            icon: 'bi bi-pen'
+            icon: 'bi bi-pen',
+            size:'form' 
         },        
         
     },
 
     {
-        path: 'editar-hotelActivity', component: HotelActivityFormComponent, outlet:'aside-2', data: {
+        path: 'editar-hotelActivity', component: HotelActivityFormComponent, outlet:'popUp-2', data: {
 
             title: 'Editar Hotel',
-            icon: 'bi bi-pen'
+            icon: 'bi bi-pen',
+            size:'form' 
         },        
         
     },

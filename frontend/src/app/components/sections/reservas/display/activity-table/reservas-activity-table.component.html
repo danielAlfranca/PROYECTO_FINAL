@@ -1,6 +1,6 @@
 <div class="table-header table-header-sm">   
-    <div class="header-table-buttons-container d-flex justify-content-between" *ngIf="mode!='display'" >
-      Incluido <button class="btn btn-warning button-table btn-sm" (click)="open()" style="border-radius: 50%;"><i class="bi bi-plus h5"></i></button>    
+    <div class="header-table-buttons-container d-flex justify-content-between">
+       <div> <!-- <i class="bi bi-list-stars text-primary me-2"></i> --> Servicios </div>  <button class="btn btn-warning button-table btn-sm" (click)="open()" style="border-radius: 50%;"><i class="bi bi-plus h5"></i></button>    
     </div>  
 </div>
 <div style="max-height:200px" class="overflow-auto" *ngIf="activities.length else noActivities">

@@ -12,7 +12,7 @@
     </div>
     <div class="bs-stepper-content">       
     <div *ngFor="let step of fields; let i = index" id="stepForm{{i}}" class="content" > 
-        <app-form [fields]="step.fields" [type]="type" [item]="item" (save)="onSave($event)" [btnText]="btnNames[i]"></app-form>
+        <app-form [fields]="step.fields" [type]="type" [item]="item" (save)="onSave($event, i)" [btnText]="btnNames[i]"></app-form>
         <br>
     </div>                        
     </div>

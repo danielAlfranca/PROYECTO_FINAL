@@ -14,6 +14,8 @@ export class CanvasService {
 
   public get last():CanvasConfig{ return [...this.canvasStatus].pop() as CanvasConfig }
 
+  public get currentOutletsIndex(){ return this.getCurrentOutletsIndex() }
+
   private _routesChanges = new Subject<CanvasConfig[]>();
 
   public canvasStatus!:CanvasConfig[];
@@ -169,6 +171,17 @@ export class CanvasService {
        setTimeout(()=>data._responseData = null ); 
 
     }
+  }
+
+  private getCurrentOutletsIndex(){
+
+   const status = this.canvasStatus || [];
+
+    const aside = status.filter(e=>e.type=='aside').length, 
+          popUp = status.filter(e=>e.type=='popUp').length;
+
+    return {aside,popUp};
+
   }
 
 

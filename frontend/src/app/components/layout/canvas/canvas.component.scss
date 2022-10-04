@@ -77,9 +77,9 @@ aside.aside-hidden{
 
 /*** SIZES INNER ***/
 
-.slider-inner.slides-3{
+.slider-inner.slides-5{
     
-    width:300%;
+    width:500%;
 }
 .slider-inner.slides-4{
     
@@ -88,9 +88,9 @@ aside.aside-hidden{
 
 /*** SIZES SLIDE  ***/
 
-.slides-3>.slide{
+.slides-5>.slide{
 
-    width:33.3333%;
+    width:20%;
 }
 
 .slides-4>.slide{
@@ -107,6 +107,8 @@ aside.aside-hidden{
 .slide1.slide2.slide3{  left:-200%; }
 
 .slide1.slide2.slide3.slide4{  left:-300%; }
+
+.slide1.slide2.slide3.slide4.slide5{  left:-400%; }
 
 /***  POP-UP SIZES  ***/
 

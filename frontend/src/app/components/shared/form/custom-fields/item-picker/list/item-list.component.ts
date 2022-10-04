@@ -40,7 +40,7 @@ export class ItemListComponent extends TableAdminComponent implements OnInit {
 
   protected override form(): void {
     
-    this.appConfig.canvas.open('pop-up-form',{type:this.type}).pipe(take(1)).subscribe((response)=>{
+    this.appConfig.canvas.open(this.get_modal_path(),{type:this.type}).pipe(take(1)).subscribe((response)=>{
 
       if(response) this.display(response);
 
@@ -49,24 +49,22 @@ export class ItemListComponent extends TableAdminComponent implements OnInit {
 
   getConfig(type:DataTypes): TableSection{
 
-
     switch (type) {
+
       case 'empresa':return empresaTable2;
       case 'tour':return tourTable;
       case 'hotel':return hotelTable;
       case 'trabajador':return trabajadorTable;
       default: return empresaTable2; 
-    }
 
-   
+    }   
 
   }
 
-  
+  get_modal_path(){
 
+    const index = Number(this.appConfig.canvas.currentOutletsIndex.popUp) + 1;
 
-
-
-
-
+    return  `pop-up-form-${index}`;
+  }
 }

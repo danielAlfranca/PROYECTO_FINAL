@@ -1,4 +1,4 @@
-import { Component, OnChanges, Input } from '@angular/core';
+import { Component, OnChanges, Input, Output } from '@angular/core';
 import { AppConfigService } from 'src/app/services/app-config.service';
 
 @Component({
@@ -6,38 +6,13 @@ import { AppConfigService } from 'src/app/services/app-config.service';
   templateUrl: './reservas-activity-table.component.html',
   styleUrls: ['./reservas-activity-table.component.scss']
 })
-export class ReservasActivityTableComponent implements OnChanges {
+export class ReservasActivityTableComponent {
 
-  @Input() reserva!:any
+  @Input() activities!:any
   @Input() mode!:string;
-
-  tours:any;
-  hoteles:any;
-
-  activities:any
 
   constructor(protected appConfig: AppConfigService) {  }
 
-  ngOnChanges(): void {
-
-    const tours = this.getTours();
-    const hoteles = this.getHoteles();
-
-
-    this.activities = tours.concat(hoteles)
-
-  }
-
-  getTours(){
-
-    return (this.appConfig.dataConfig.getValue(this.reserva,'tours','reserva') || []).map((e:any)=>({item:e,type:'tourActivity'}))
-
-  }
-
-  getHoteles(){
-
-    return (this.appConfig.dataConfig.getValue(this.reserva,'hotels','reserva')|| []).map((e:any)=>({item:e,type:'hotelActivity'}))
-  }
 
   open(item?:any, section?:string){
     

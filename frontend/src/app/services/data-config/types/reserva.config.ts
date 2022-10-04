@@ -1,6 +1,5 @@
 import { DatePipe } from "@angular/common";
 import { Injectable, Injector } from "@angular/core";
-import { format, parse } from "date-fns";
 import { DataTypes } from "src/app/interfaces/types/data-config";
 import { AppConfigService } from "../../app-config.service";
 import { DataConfig } from "../model";
@@ -16,6 +15,7 @@ export class ReservaConfig extends DataConfig{
         user_valid:(obj:any, key:string) => true     
 
     }
+    
     constructor(protected override injector:Injector, private datePipe:DatePipe){ super(injector); }
 
     protected override getters = {
@@ -36,35 +36,39 @@ export class ReservaConfig extends DataConfig{
 
         duracion:(obj:any)=>this.getPaqueteDays(obj)
              
-    }
-
-    
+    }    
 
 
     private get_paquete_name(obj:any){ // falta
 
         const   destination = this.getValue(obj,'destino'), 
-                days = this.getPaqueteDays(obj);
+                days = this.getPaqueteDays(obj),
+                nights = days-1;
 
-        return destination + ' - ' + (days)+'D/'+(days-1)+'N';
+        return destination + ' - ' + (days)+'D'+(nights>0 ? ("/"+nights+'N'):'');
+
     }
 
     private getPaqueteDays(obj:any){
 
         let date1 = new Date(this.getByPath(obj,this.getKey('date_start'))), date2 = new Date(this.getByPath(obj,this.getKey('date_end')));
           
-        // To calculate the time difference of two dates
-        let Difference_In_Time = date2.getTime() - date1.getTime();
-          
-        // To calculate the no. of days between two dates
-        return Math.floor(Difference_In_Time / (1000 * 3600 * 24));
+        if(date1 && date2) {
+
+             // To calculate the time difference of two dates
+            let Difference_In_Time = (date2.getTime() - date1.getTime());
+            
+            // To calculate the no. of days between two dates
+            return Math.floor(Difference_In_Time / (1000 * 3600 * 24))  + 1 ;
+        }
+
+        return 0;      
         
     }
 
     private get_provider_name(obj:any){
 
         const   agentID = this.getValue(obj,'proveedor');
-
         
         switch (true) {
 
@@ -112,11 +116,4 @@ export class ReservaConfig extends DataConfig{
 
         return list.filter((e:any)=>service.dataConfig.getValue(e,'reserva',activity)==id)
     }
-
-
-   
-
-    
-
-
 }

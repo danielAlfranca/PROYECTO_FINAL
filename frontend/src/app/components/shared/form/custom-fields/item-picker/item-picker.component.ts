@@ -39,20 +39,18 @@ export class ItemPickerComponent extends CustomFieldComponent implements OnChang
 
   open(){
 
-    this.appConfig.canvas.open('pop-up-list', {selected:this.value, type:this.listType}).pipe(take(1)).subscribe(response=>{
+    this.appConfig.canvas.open(this.get_modal_path(), {selected:this.value, type:this.listType}).pipe(take(1)).subscribe(response=>{
 
       if(response){ console.log('response',response); this.onChange(response);  }
 
     })
   }
 
-  /* getRenderedValue(){
+  get_modal_path(){
 
-    if(!this.value) return '';
-    
-    return this.appConfig.dataConfig.getValue(this.value,this.propertyForDisplay,this.type);
+    const index = Number(this.appConfig.canvas.currentOutletsIndex.popUp) + 1;
 
+    return  `pop-up-list-${index}`;
   }
- */
 
 }

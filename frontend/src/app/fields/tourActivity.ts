@@ -4,9 +4,9 @@ export const tourActivityForm = [
   
     {
       title:'Tour',
-      name:'tour_id',
+      name:'tour',
       input:'itemPicker',
-      options:{listType:'tour',propertyForDisplay:'tour_name'}
+      options:{listType:'tour',propertyForDisplay:'tour_nombre'}
     },
     {
       title:'Fecha Inicio',
@@ -20,7 +20,7 @@ export const tourActivityForm = [
     },
     {
       title:'Pasajeros',
-      name:'pax',
+      name:'pasajeros',
       input:'passengersList'
     },
     
