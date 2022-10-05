@@ -1,42 +1,46 @@
 
-<ng-container *ngIf="date_start && date_end && tourSalida else volverTemplate">
 
     <app-table [config]="tableConfig" (buttonClick)="form()">
 
+        <ng-template let-data="data" #tourActivity>
+            <tr (click)="display(data,'tourActivity')" class="pointer">
+                <td> 
+                    
+                    {{ data | show:'tourActivity':'nombre_cliente' }} {{ data | show:'tourActivity':'apellidos_cliente' }}<br> 
+                    <small class="text-secondary">
+                        <i class="bi bi-people me-2"></i>{{ data | show:'tourActivity':'passengers_list' }}</small> <br>               
+                
+                </td>
+                <td> 
+                    {{ $any(data | show:'tourActivity':'date_start') | date:'dd-MM-yy' }} 
+                </td>
+                <td class="text-center">
+                    <i class="bi bi-{{ (data | show:'tourActivity':'salida') ? 'check-circle-fill text-success':'exclamation-square-fill text-warning' }}" ></i>                 
+                </td>
+                <td>{{data | show:'tourActivity':'proveedor_cliente'}} </td>
+            </tr>
+        </ng-template>  
+
         <ng-template let-data="data" #passengers>
-            <tr (click)="display(data,false)" class="pointer">
+            <tr (click)="display(data,'passenger')" class="pointer">
                 <td> 
                     
                     {{ data | show:'passenger':'full_name' }} <br>
                     <small class="text-secondary">
-                        <i class="bi bi-people me-2"></i>{{ data | show:'passenger':'pax_list' }}</small> <br>               
+                        <i class="bi bi-people me-2"></i>{{ data | show:'passenger':'passengers_list' }}</small> <br>               
                 
                 </td>
                 <td> 
-                    {{ $any(data | show:'passenger':'dates').programada ||   $any(data | show:'passenger':'dates').reserva }} 
+                    {{ $any(data | show:'passenger':'date_start') | date:'dd-MM-yy' }} 
                 </td>
-                <td>
-                    <i class="bi bi-{{ (data | show:'passenger':'has_salida') ? 'check-circle-fill text-success':'exclamation-square-fill text-warning' }}" ></i>                 
+                <td class="text-center">
+                    <i class="bi bi-{{ (data | show:'passenger':'salida') ? 'check-circle-fill text-success':'exclamation-square-fill text-warning' }}" ></i>                 
                 </td>
-                <td>{{data | show:'reserva':'provider_name'}} </td>
+                <td>{{data | show:'passenger':'provider_name'}} </td>
             </tr>
         </ng-template>    
 
     </app-table>
 
-</ng-container>
 
-<ng-template #volverTemplate>
-    <div class="text-center">
-        <h5>
-            <i class="bi bi-hexagon-exclamation me-2"></i> Antes determina una ficha de inicio y fin para el tour
-        </h5>
-        <hr>
-        <button class="btn btn-primary" (click)="display()">
-            Volver
-        </button>
-    </div>
-    
-    
 
-</ng-template>

@@ -26,8 +26,8 @@ class TourReservasGenerator extends FakeDataGenerator {
         $tours = [];
 
         foreach ($this->paquetes as $paquete) {
-        
-           $paqueteId =  Reserva::get_property($paquete, 'id');
+            
+            $paqueteId =  Reserva::get_property($paquete, 'id');
            $start =  Reserva::get_property($paquete, 'date_start');
            $end =    Reserva::get_property($paquete, 'date_end');
            $pasajeros =  Reserva::get_property($paquete, 'pasajeros');
@@ -50,12 +50,12 @@ class TourReservasGenerator extends FakeDataGenerator {
                     'pasajeros'=> $pasajeros , 
                     'reserva'=>  $paqueteId, 
                     'tour'=>  $tourId, 
-                    'salida'=>  null,
+                    'salida'=>  NULL,
                     'date_start' =>  $tourStart,
                     'date_end' =>  $tourEnd,
                     'time_start' =>  Tour::get_property($tour, 'inicio'),
                     'time_end' =>  Tour::get_property($tour, 'fin'),
-                    'pasajeros_salida'=> null, 
+                    'pasajeros_salida'=> NULL, 
                     'comments_salida'=> $this->randomPick(['recogida en hotel x', 'menu vegano', '','', '','cobro pendiente', '','', '','']), 
                 ]);
             } 

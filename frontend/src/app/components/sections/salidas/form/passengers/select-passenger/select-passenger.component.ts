@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { differenceInDays, isAfter, isBefore } from 'date-fns';
 import parse from 'date-fns/parse';
-import { TableAdminComponent } from 'src/app/components/shared/models/table-admin/table-admin.component';
-import { passengerTable } from 'src/app/fields/passenger';
 import { DataTypes } from 'src/app/interfaces/types/data-config';
 import { AppConfigService } from 'src/app/services/app-config.service';
 import { take } from 'rxjs';
+import { TableAdminComponent } from 'src/app/components/shared/models/table-admin/table-admin.component';
+import { tourActivityPaxTable } from 'src/app/fields/tourActivity';
+import { passengerTable } from 'src/app/fields/passenger';
 
 @Component({
   selector: 'app-select-passenger',
@@ -14,14 +15,15 @@ import { take } from 'rxjs';
 })
 export class SelectPassengerComponent extends TableAdminComponent implements OnInit {
 
-  protected override type = 'passenger' as DataTypes;
   protected item:any;
 
   date_start!:string;
   date_end!:string;
   tourSalida!:number;
+
+  rows!:[];
   
-  constructor(protected override appConfig:AppConfigService) {  super(appConfig); } 
+  constructor(protected override appConfig:AppConfigService) { super(appConfig)  } 
 
   ngOnInit(): void { 
 
@@ -30,99 +32,84 @@ export class SelectPassengerComponent extends TableAdminComponent implements OnI
     this.item = this.appConfig.canvas.last.query.formItem;
     this.date_start = service.getValue(this.item,'date_start','salida');
     this.date_end = service.getValue(this.item,'date_end','salida');
-    this.tourSalida = service.getValue(this.item,'tour_id','salida');
+    this.tourSalida = service.getValue(this.item,'tour','salida');
 
-    if(this.date_start && this.date_end && this.tourSalida){
-
-      this.init([passengerTable]);   
-
-    }  
+    this.init([tourActivityPaxTable, passengerTable]);       
 
   }
 
-  protected override display(item?: any, data?: any, section?: string | undefined): void {
+  protected override display(item: any, type: any, section?: string | undefined): void {
 
-    this.appConfig.canvas.close(item);
+    const updated = this.updateSelected(item,type);    
+
+    this.save(updated,type);
+  }
+
+  get_modal_path(result:string){
+
+    const index = Number(this.appConfig.canvas.currentOutletsIndex.popUp) + 1;
+
+    return  `modal-${result}-${index}`;
   }
 
   protected override form(): void {
     
-    this.appConfig.canvas.open('new-passenger',{salida:this.item}).pipe(take(1)).subscribe((response)=>{
+    this.appConfig.canvas.open('new-passenger',{editData:this.item}).pipe(take(1)).subscribe((response)=>{
 
-      if(response) this.display(response);
-
-    });
-  }
-
-
-  protected override getData(section?:DataTypes){
-
-    let startIsBefore, endIsAfter , startReserva, endReserva, passengers:any = [], tour, passenger;
-
-    const service = this.appConfig.dataConfig,
-          startDate = parse(this.date_start,"yyyy-mm-dd",new Date()),
-          endDate = parse(this.date_end,"yyyy-mm-dd",new Date()),
-          reservas = Object.values(this.appConfig.queries.section('reserva')||{});
-
-    reservas.forEach((reserva:any)=>{
-
-
-      startReserva = parse(service.getValue(reserva,'date_start','reserva'),"yyyy-mm-dd",new Date());
-      endReserva = parse(service.getValue(reserva,'date_end','reserva'),"yyyy-mm-dd",new Date());
-
-      startIsBefore = isBefore(startReserva, startDate) || differenceInDays(startReserva, startDate)==0; 
-      endIsAfter = isAfter(endReserva, endDate) || differenceInDays(endReserva, endDate)==0;
-
-      tour = this.getTour(reserva, this.tourSalida);
-      
-
-      if(startIsBefore && endIsAfter && tour){
-  
-        passenger = this.appConfig.dataConfig.getModel("passenger");
-
-        let id = service.getValue(tour,'id','tourActivity'),
-            activity = service.getValue(tour,'activity_index','tourActivity'),
-            pax = service.getValue(tour,'salida_pax','tourActivity');
-        
-        if(!this.has_passenger(id,activity)){
-
-          service.setValue(passenger,"id","passenger",id);
-          service.setValue(passenger,"activity","passenger",activity);
-          service.setValue(passenger,"passengers","passenger",pax);
-  
-          passengers.push(passenger);  
-
-        }       
-      }     
-      
-    });
-
-    return passengers;
-
-  }
-
-  getTour(reserva:any, tourSalida:number){
-
-    const tours = this.appConfig.dataConfig.getValue(reserva,'tours','reserva')||[];
-
-    return tours.find((tour:any)=>{
-
-      return this.appConfig.dataConfig.getValue(tour,'tour_id','tourActivity') == tourSalida;
+      if(response) this.appConfig.canvas.close({item:response, type:'passenger'})
 
     });
   }
 
-  has_passenger(id:number,activity:number){
+   protected override getData(type:DataTypes){
 
-    const service = this.appConfig.dataConfig,
-          pax = service.getValue(this.item,'pax','salida' ) || [];
-    console.log(pax, id, activity);
-    return pax.some((e:any)=>{
-      
-      return ['id','activity'].every((prop:string, index:number)=>service.getValue(e,prop,'passenger' )==[id,activity][index] )
-      
-    })
+    let passengers:any = [], isSameTour:any, passenger;
 
+    const service = this.appConfig.dataConfig, tours = Object.values(this.appConfig.queries.section(type)||{});
+
+      tours.forEach((activity:any)=>{
+
+        isSameTour = service.getValue(activity,'tour',type)== this.tourSalida;      
+
+        if(isSameTour){ passengers.push(activity) }
+
+      });
+
+      return passengers;
+  }
+
+
+  updateSelected(item:any, type:DataTypes){
+
+    const service = this.appConfig.dataConfig;
+
+    service.setValue(item,'salida',type, service.getValue(this.item,'id','salida'));
+
+    return item;
+  }
+
+  save(item:any, type:DataTypes):any{
+
+    this.appConfig.queries.save(type,item).pipe(take(1)).subscribe(response=>{
+      
+      if(!response || response.errors) {   this.server_error_message() }
+
+      else{        
+       
+        this.server_success_message().pipe(take(1)).subscribe((e:any)=>this.appConfig.canvas.close({item:response, type:type})) 
+      }
+      
+    });
+  }
+
+  server_success_message(){
+
+    return this.appConfig.canvas.open(this.get_modal_path('success'),{message:`El elemento se ha anadido a la salida`, type:'success'});
+  }
+
+  server_error_message(){
+
+     return this.appConfig.canvas.open(this.get_modal_path('error'),{message:`Hubo un error en el servidor y no se pudo cambiar`, type:'error'});
   }
 
   

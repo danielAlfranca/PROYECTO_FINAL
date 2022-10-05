@@ -28,7 +28,7 @@ class TourActivity extends Section{
         
         'comments_salida'=>['private'=>10, 'validations'=>['is_string'], 'required'=>false] 
     ]; 
-
+   
 
     protected function init_sanitize_funcs(){ // php no permite asignarlo directamente en la propiedad 
 
@@ -45,7 +45,7 @@ class TourActivity extends Section{
 
             } else return filter_var(self::get_property($data,$name),FILTER_SANITIZE_NUMBER_INT);            
         
-        }; 
+        };  
        
     }
 

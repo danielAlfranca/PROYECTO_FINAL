@@ -19,7 +19,7 @@ export const guiadoActivityForm = [
 
 export const guiadorActivityTable = {
 
-  title:'Guaidos',
+  title:'Guiados',
   name:'guiadoActivity',
   dataType:'guiadoActivity',
   data:[],

@@ -85,7 +85,7 @@ export const salidasRoutes = [
 
             title: 'Seleccionar pasajero',
             icon: 'bi bi-file-plus',
-            size:'form'
+            size:'list'
         },
 
         

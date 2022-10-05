@@ -41,7 +41,8 @@ export class SalidasDisplayComponent extends DisplayAdminComponent implements On
 
     this.passengers = {
 
-      clientes:this.getActivity('pasajeros_clientes'), noClientes:this.getActivity('pasajeros_no_clientes')
+      clientes:this.getActivity('pasajeros_clientes'), 
+      noClientes:this.getActivity('pasajeros_no_clientes')
     
     };
     
@@ -64,7 +65,15 @@ export class SalidasDisplayComponent extends DisplayAdminComponent implements On
 
   override delete(){
     
-    const data = {reserva:this.item, tours:this.activities.tours, hoteles:this.activities.hoteles};
+    const data = {
+      salida:this.item, 
+      operadores:this.activities.operadores ||[], 
+      guias:this.activities.guias||[],
+      chofers:this.activities.chofers||[],
+      clientes:this.passengers.clientes||[],
+      no_clientes:this.passengers.noClientes||[],
+    };
+
     this.appConfig.queries.delete(this.section as DataTypes,data).pipe(take(1)).subscribe(response=>{
 
       if(response && !response.errors){ this.successDelete(); } else  { this.errorDelete(); }

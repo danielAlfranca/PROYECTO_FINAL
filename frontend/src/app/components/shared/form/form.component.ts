@@ -88,7 +88,7 @@ export class FormComponent implements AfterContentInit{
   onSave(){  this.save.emit(this.item); }
 
   validateField(name:string){
-
+    console.log(name)
     return this.appConfig.dataConfig.validateProperty(this.item,name, this.type);
 
   }

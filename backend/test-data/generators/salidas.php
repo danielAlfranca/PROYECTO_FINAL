@@ -47,7 +47,22 @@ class SalidasGenerator extends FakeDataGenerator {
         }
 
         return array_values($salidas);
-    }    
+    } 
+    
+    public function insert($items){
+
+        $instance = new $this->section();
+        $inserted = [];        
+  
+        foreach ($items as $item) {
+            
+            $data = ['salida'=>$item,'hoteles'=>[],'tours'=>[]];
+            $inserted[] = $instance->save($data)['item']; 
+        }
+
+        return $inserted;
+    }
+    
 } 
 
 

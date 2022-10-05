@@ -4,7 +4,7 @@ import {HttpClient} from "@angular/common/http";
 import { Observable, Subject, take } from 'rxjs';
 import { DataTypes } from 'src/app/interfaces/types/data-config';
 import { AppConfigService } from '../app-config.service';
-import { forEach } from 'lodash';
+
 
 @Injectable({
   providedIn: 'root' 
@@ -53,7 +53,7 @@ export class DataService {
     const notification = new Subject();  
 
     this.connect(section,'save',data).subscribe((response:any)=>{   
-   
+     
       if(response){ 
 
         if(multidata){
@@ -61,10 +61,12 @@ export class DataService {
           this.addItem(section,response.item);
        
           Object.keys(response.extra_data || {}).forEach((key:any)=>{
-
+         
             response.extra_data[key].forEach((el:any)=>this.addItem(key,el));
 
           });
+
+        
 
         }else{ this.addItem(section,response); console.log(section,response)}
               
@@ -83,17 +85,21 @@ export class DataService {
 
     const notification = new Subject();
 
-    this.connect(section,'delete',data).subscribe((response:any)=>{ 
-
+    this.connect(section,'delete',data).subscribe((response:any)=>{   
       
-
       if(response){
         
         this.removeItem(section,response.item);  
   
         Object.keys(response.extra_data || {}).forEach((key:any)=>{ // para elementos donde se eliminan otros datos dependientes
-
+          console.log(key)
           response.extra_data[key].forEach((el:any)=>this.removeItem(key,el));
+
+        });
+
+        Object.keys(response.update || {}).forEach((key:any)=>{
+
+          response.update[key].forEach((el:any)=>this.addItem(key,el));
 
         });
 

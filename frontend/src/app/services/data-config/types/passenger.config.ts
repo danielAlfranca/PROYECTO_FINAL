@@ -29,7 +29,7 @@ export class PassengerConfig extends DataConfig{
 
     }
 
-    private get_passengers_list(obj:any){
+    private get_passengers_list(obj:any){ 
         
         let str = '', num;
         const   pax = (this.getValue(obj,'pasajeros')).split('.'),

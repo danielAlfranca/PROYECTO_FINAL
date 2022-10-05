@@ -42,3 +42,29 @@ export const tourActivityTable = {
   ],
   search:[]
 };
+
+export const tourActivityPaxTable = {
+
+  title:'Clientes',
+  name:'tours',
+  dataType:'tourActivity',
+  data:[],
+  columns:[
+    {     
+      title:'Nombre',
+      sort:'full_name_cliente'
+    },
+    { 
+      title:'Fechas'
+    },
+    { 
+      title:'Salida Programada'       
+    },
+    { 
+      title:'Proveedor'
+    },
+  ],
+  search:['full_name_cliente','proveedor_cliente', 'passengers_list','date_start']
+    
+ 
+};

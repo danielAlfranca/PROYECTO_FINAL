@@ -13,13 +13,6 @@ import { AppConfigService } from "../../app-config.service";
 export class SalidaConfig extends DataConfig{
    
     
-
-    protected override validations:any = {
-
-        ...this.validations,
-        
-
-    }
     constructor(protected override injector:Injector,private datePipe:DatePipe ){ super(injector); }
 
     protected override getters = {
@@ -43,24 +36,10 @@ export class SalidaConfig extends DataConfig{
             return operators.map((e:any)=>service.getValue(e,'operator_name','operadorActivity')).join(', ')
         },
 
-        passengers_total_list:(obj:any)=>this.paxTotalList(obj),
-
-        time_start:(obj:any)=>  this.getTime(obj, 'time_start'),
-        
-        time_end:(obj:any)=>  this.getTime(obj, 'time_end')
+        passengers_total_list:(obj:any)=>this.paxTotalList(obj)      
 
     }
 
-    protected override setters: { [key: string]: (obj: any, value: any) => any; } = {};
-
-    public override valueIsValid(obj:any,key:string):boolean{ // VALIDA PROPIEDAD
-
-        // como hay otros objetos de inventario con la misma estructura primero siempre comprobar que sea una empresa
-
-       if(!this.validations.type_valid(obj,'type')) return false
-
-       return super.valueIsValid(obj,key)
-    }
 
     private getActivities(obj:any, activity:DataTypes){
 
@@ -109,34 +88,12 @@ export class SalidaConfig extends DataConfig{
 
             return strPax;
 
-        }, '')
+        }, '')    
 
-    
-
-        return list
-
-
+        return list;
     }
 
-    getDate(obj:any, field:string){
 
-        const date:any = this.getByPath(obj,this.getKey(field) );
-
-        console.log(date)
-
-        if(date) return format(parse(date, 'yyyy-MM-dd', new Date() ),"dd/MM/yy");
-
-        return null
-    }
-
-    getTime(obj:any, field:string){
-
-        const time:any = this.getByPath(obj,this.getKey(field) ) || '', arr = time.split(":");
-
-        if(!time) return null;
-
-        return arr[0]+":"+arr[1];
-    }
 
 
  

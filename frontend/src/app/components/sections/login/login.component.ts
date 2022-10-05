@@ -12,12 +12,7 @@ export class LoginComponent {
   selected!:string
   slideContent!:TemplateRef<any>
 
-  constructor(private appConfig:AppConfigService) {
-
-    appConfig.queries.$dataUpdates.subscribe(e=>this.slide=1)
-
-    this.probar();
-   }
+  constructor(private appConfig:AppConfigService) { appConfig.queries.$dataUpdates.subscribe(e=>this.slide=1) }
 
   login(data:any){ 
     
@@ -25,12 +20,9 @@ export class LoginComponent {
     
     return this.appConfig.queries.login(data.email, data.password).subscribe((response:any)=>{
 
-      if(response===true){
+      if(response===true){ this.appConfig.init() }
 
-        this.appConfig.init();
-      }
-
-    }); 
+    });
 
   }
 

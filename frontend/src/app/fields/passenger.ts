@@ -37,8 +37,8 @@ export const passengerForm = [ // datos cliente
 
 export const passengerTable = {
 
-  title:'Pasajeros',
-  name:'pasajeros',
+  title:'No Clientes',
+  name:'no clientes',
   dataType:'passenger',
   data:[],
   columns:[
@@ -53,6 +53,9 @@ export const passengerTable = {
     { 
         title:'Salida Programada'       
     },
+    { 
+      title:'Proveedor'       
+  },
    
   ],
   search:[

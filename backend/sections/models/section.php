@@ -242,7 +242,7 @@ class Section{
 
         $this->validations['is_number'] = fn($data, $name)=>is_numeric(static::get_property($data,$name)); 
 
-        $this->validations['nullable'] = true; 
+        $this->validations['nullable'] = fn($data, $name)=>true; 
 
         $this->validations['is_boolean'] =  function($data, $name) {
             
@@ -342,7 +342,7 @@ class Section{
 
             $value = self::get_property($data,$name);
 
-            if(isset($value) || empty($value) || $value==NULL || $value=='') return NULL;
+            if(!isset($value) || empty($value) || $value==NULL || $value=='') return NULL;
 
             return $value;
         }; 

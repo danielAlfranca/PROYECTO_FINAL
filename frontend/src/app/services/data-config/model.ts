@@ -113,7 +113,7 @@ export abstract class DataConfig{
     }
 
     protected getByPath(obj:any, configKey:PropertyConfig){ // pilla el valor de la propiedad a traves del path determinado en la private key
-     
+        
         return _.get(obj,configKey.private as string, undefined)
     }
 

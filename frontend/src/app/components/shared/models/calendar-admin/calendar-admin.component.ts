@@ -38,7 +38,11 @@ export class CalendarAdminComponent implements OnDestroy{
 
   open(item?:any){
 
-    return this.appConfig.canvas.open(item ? this.urlDisplay:this.urlForm, {displayItem:item});    
+    return this.appConfig.canvas.open(item ? this.urlDisplay:this.urlForm, {displayItem:item}).pipe(take(1)).subscribe(e=>{
+          
+          if(e && !item ) this.open(e);
+      
+    });    
   }
 
   protected getData(section:DataTypes){

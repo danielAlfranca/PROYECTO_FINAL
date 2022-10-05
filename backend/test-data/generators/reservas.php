@@ -56,7 +56,7 @@ class ReservasGenerator extends FakeDataGenerator {
         foreach ($items as $item) {
             
             $data = ['reserva'=>$item,'hoteles'=>[],'tours'=>[]];
-            $inserted[] = $instance->save($data);            
+            $inserted[] = $instance->save($data)['item'];            
 
         }
 

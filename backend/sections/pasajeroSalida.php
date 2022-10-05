@@ -6,11 +6,11 @@ class Passenger extends Section{
 
     public static $indexes = [
 
-        'id'=>['private'=>0, 'validations'=>['id_valid'], 'required'=>true], 
+        'id'=>['private'=>0, 'validations'=>['id_valid'], 'required'=>true, 'default'=>'nuevo'], 
 
-        'salida'=>['private'=>1, 'validations'=>[], 'required'=>true],
+        'salida'=>['private'=>1, 'validations'=>['is_number'], 'required'=>true],
 
-        'pasajeros'=>['private'=>2, 'validations'=>[], 'required'=>true],
+        'pasajeros'=>['private'=>2, 'validations'=>['pasajeros_valid'], 'required'=>true],
 
         'nombre'=>['private'=>3, 'validations'=>['is_string'], 'required'=>true, 'default'=>''],
 
@@ -20,7 +20,7 @@ class Passenger extends Section{
 
         'emails'=>['private'=>6, 'validations'=>['is_string'], 'required'=>false],
         
-        'proveedor'=>['private'=>7, 'validations'=>[], 'required'=>true, 'default'=>null],
+        'proveedor'=>['private'=>7, 'validations'=>['is_number'], 'required'=>true, 'default'=>null],
     ]; 
 
     

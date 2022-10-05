@@ -9,7 +9,7 @@ import { take } from 'rxjs';
 })
 export class SalidaActivityComponent implements OnInit{
 
-  outlet!:string
+  salida!:any
 
   options:any;
 
@@ -17,13 +17,13 @@ export class SalidaActivityComponent implements OnInit{
 
   ngOnInit(): void {
 
-    const index = this.appConfig.canvas.last.outlet =="aside-2" ? "":"-2";
+   this.salida = this.appConfig.canvas.last.query.editData; 
 
     this.options = [
 
-      {name:'Operador', icono:'briefcase', path:'form-operadorActivity'+index, type:'operadorActivity'},
-      {name:'Guiado', icono:'chat-dots', path:'form-guiadoActivity'+index, type:'guiadoActivity'},
-      {name:'Chofer', icono:'speedometer', path:'form-choferActivity'+index, type:'choferActivity'},
+      {name:'Operador', icono:'briefcase', path:'form-operadorActivity', type:'operadorActivity'},
+      {name:'Guiado', icono:'chat-dots', path:'form-guiadoActivity', type:'guiadoActivity'},
+      {name:'Chofer', icono:'speedometer', path:'form-choferActivity', type:'choferActivity'},
     ]
   }
 

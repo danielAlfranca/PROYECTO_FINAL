@@ -55,7 +55,6 @@
      $generator = new HotelReservasGenerator($reservas,$hoteles);
      $generator->insert($generator->build());
 
-
      // SALIDAS
 
      $generator = new SalidasGenerator($toursReservas);

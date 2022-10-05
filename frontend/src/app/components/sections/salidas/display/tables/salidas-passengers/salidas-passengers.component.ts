@@ -36,7 +36,7 @@ export class SalidasPassengersComponent implements OnChanges {
 
   form(){
 
-    this.appConfig.canvas.open('passenger-salida-form',{editData:this.salida}).pipe(take(1)).subscribe(response=>{
+    this.appConfig.canvas.open('add-passenger',{formItem:this.salida}).pipe(take(1)).subscribe(response=>{
 
         if(response){
 

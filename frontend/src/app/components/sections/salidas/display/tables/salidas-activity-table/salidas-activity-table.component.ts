@@ -34,7 +34,7 @@ export class SalidasActivityTableComponent implements OnChanges {
 
   form(){
 
-    this.appConfig.canvas.open('salida-reserva-activity',{editData:this.salida}).pipe(take(1)).subscribe(response=>{
+    this.appConfig.canvas.open('form-activity-salida',{editData:this.salida}).pipe(take(1)).subscribe(response=>{
 
         if(response){
 

@@ -3,6 +3,7 @@ import { DisplayAdminComponent } from 'src/app/components/shared/models/display-
 import { DataTypes } from 'src/app/interfaces/types/data-config';
 import { AppConfigService } from 'src/app/services/app-config.service';
 import { take } from 'rxjs';
+import { format, parse } from 'date-fns';
 
 @Component({
   selector: 'app-reservas-display',
@@ -34,8 +35,8 @@ export class ReservasDisplayComponent extends DisplayAdminComponent implements O
     this.dataPaquete = [
 
       {title:'Destino', value: this.value('destino'), icon:'map'}, 
-      {title:'Inicio', value: this.value('date_start')+ (tstart ? (' - '+ tstart):''), icon:'calendar'}, 
-      {title:'Fin', value: this.value('date_end')+ (tend ? (' - '+ tend):''), icon:'calendar'}, 
+      {title:'Inicio', value:  format(parse((this.value('date_start')), 'yyyy-MM-dd', new Date() ),"dd-MM-yy")+ (tstart ? (' - '+ tstart):''), icon:'calendar'}, 
+      {title:'Fin', value: format(parse((this.value('date_end')), 'yyyy-MM-dd', new Date() ),"dd-MM-yy")+ (tend ? (' - '+ tend):''), icon:'calendar'}, 
       {title:'Pasajeros', value: this.value('passengers_list'), icon:'people'}, 
     ];
 

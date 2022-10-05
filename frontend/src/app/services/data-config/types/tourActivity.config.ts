@@ -21,6 +21,8 @@ export class TourActivityConfig extends DataConfig{
 
         apellidos_cliente:(obj:any)=> this.getRef('reserva',this.getValue(obj, 'reserva'),'apellidos'),
 
+        full_name_cliente:(obj:any)=> this.getValue(obj, 'nombre_cliente') +' ' +this.getValue(obj, 'apellidos_cliente'),
+
         telefonos_cliente:(obj:any)=> this.getRef('reserva',this.getValue(obj, 'reserva'),'telefonos'),
 
         proveedor_cliente:(obj:any)=> this.getRef('reserva',this.getValue(obj, 'reserva'),'provider_name'),
