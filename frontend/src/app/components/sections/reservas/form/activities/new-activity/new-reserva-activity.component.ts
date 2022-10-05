@@ -7,7 +7,9 @@ import { AppConfigService } from 'src/app/services/app-config.service';
   templateUrl: './new-reserva-activity.component.html',
   styleUrls: ['./new-reserva-activity.component.scss']
 })
-export class NewReservaActivityComponent {
+export class NewReservaActivityComponent implements OnInit{
+
+  reserva!:any;
 
   options = [
 
@@ -16,13 +18,17 @@ export class NewReservaActivityComponent {
   ]
   constructor(private appConfig:AppConfigService) { }
 
+  ngOnInit(): void {  this.reserva = this.appConfig.canvas.last.query.editData; }
+
   open(option:any){
 
     const outlet = this.appConfig.canvas.last.outlet;
 
-    this.appConfig.canvas.open(option.path +(outlet=="aside-2" ? '':"-2"), {formItem:null}).pipe(take(1)).subscribe(response=>{      
+    this.appConfig.canvas.open("nueva-"+option.type, {formItem:null, editData:this.reserva}).pipe(take(1)).subscribe(response=>{      
       
       if(response) this.appConfig.canvas.close({item:response, type:option.type})
+      
+     
     
     });
   }

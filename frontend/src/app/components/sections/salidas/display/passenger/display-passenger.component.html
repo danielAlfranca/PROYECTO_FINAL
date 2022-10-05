@@ -1,8 +1,8 @@
 <div class="p-4">
-    <app-card-display (edit)="edit()" [title]="title"> 
-        <li app-data-item-display icon="people" title="pasajeros">{{item | show:'passenger':'pax_list'}}</li>
+    <app-card-display (edit)="edit()" [title]="title" [editButton]="true"> 
+        <li app-data-item-display icon="people" title="pasajeros">{{item | show:'passenger':'passengers_list'}}</li>
         <li app-data-item-display icon="briefcase" title="proveedor">{{item | show:'passenger':'provider_name'}}</li> 
-        <li app-data-item-display icon="phone" title="telefonos">{{item | show:'passenger':'phones_list'}}</li> 
+        <li app-data-item-display icon="phone" title="telefonos">{{item | show:'passenger':'telefonos'}}</li> 
         <li app-data-item-display icon="chat-square-text" title="comentarios">{{(item | show:'passenger':'comments') || '-'}}</li>        
     </app-card-display>
     

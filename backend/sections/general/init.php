@@ -50,22 +50,22 @@ class AppConfig{
             ] ,
             'operadorActivity'=>[
 
-                'indexes'=>OperadorSalida::$indexes,
+                'indexes'=>OperadorActivity::$indexes,
 
             ],
             'guiadoActivity'=>[
 
-                'indexes'=>GuiadoSalida::$indexes,
+                'indexes'=>GuiadoActivity::$indexes,
 
             ],
             'choferActivity'=>[
 
-                'indexes'=>ChoferSalida::$indexes,
+                'indexes'=>ChoferActivity::$indexes,
 
             ],
             'passenger'=>[
 
-                'indexes'=>PasajeroSalida::$indexes,
+                'indexes'=>Passenger::$indexes,
 
             ]
 

@@ -1,6 +1,6 @@
 <?php 
 
-class OperadorSalida extends Section{   
+class OperadorActivity extends Section{   
     
     public static $table = "operador_salida";   
 

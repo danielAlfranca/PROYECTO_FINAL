@@ -10,7 +10,7 @@ class PasajerosSalidasGenerator extends FakeDataGenerator {
 
     public function __construct($salidas, $empresas){
         
-        parent::__construct(PasajeroSalida::class);
+        parent::__construct(Passenger::class);
 
         $this->empresas =$empresas;
         $this->salidas = $salidas;

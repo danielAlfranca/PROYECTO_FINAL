@@ -16,15 +16,22 @@ export class RoomListPopUpComponent implements OnInit {
   constructor(private appConfig:AppConfigService) { }
 
   ngOnInit(): void {
+
+
     
-    this.rooms = this.appConfig.canvas.last.query.rooms || [];
+    this.rooms = this.parseRoomsArray(this.appConfig.canvas.last.query.rooms );
+
+    console.log(this.appConfig.canvas.last.query.rooms ,this.rooms )
     this.update();
 
   }
 
   add(index:number){
 
-    this.rooms[index][1]++;
+    const arr = this.rooms[index].split('.'),
+          num = Number(this.rooms[index].split('.')[1]) +1;
+
+    this.rooms[index]= arr[0]+'.'+num;
 
     this.update()
 
@@ -32,9 +39,12 @@ export class RoomListPopUpComponent implements OnInit {
 
   substract(index:number){
 
-    const res = this.rooms[index][1] - 1;
+    let arr = this.rooms[index].split('.'),
+          num = Number(this.rooms[index].split('.')[1]) +1;
 
-    this.rooms[index][1] = res || 1 ;
+    num = num>0 ? num:1;
+
+    this.rooms[index]= arr[0]+'.'+num;
 
     this.update()
 
@@ -48,19 +58,34 @@ export class RoomListPopUpComponent implements OnInit {
 
   update(){
 
-    this.rooms = [...this.rooms].map(e=>[...e])
+    this.rooms = [...this.rooms];
+
   }
 
   newroom(value:number|string){
 
-    if(!this.rooms.map((e:any)=>e[0]).includes(Number(value)))   this.rooms.push([Number(value),1]);  
+    const types = this.rooms.map((e:string)=>e.split('.')[0])
+
+    if(!types.includes(Number(value)))   this.rooms.push((value)+'.'+1);  
     this.update()
 
   }
 
   guardar(){
 
-    this.appConfig.canvas.close(this.rooms)
+    this.appConfig.canvas.close(this.parseRoomsString(this.rooms))
+  }
+
+  parseRoomsArray(str:string = ''){
+
+    return (str).split('-').filter(e=>e);
+
+    
+  }
+
+  parseRoomsString(arr:string[][]){
+
+    return arr.join('-')
   }
 
 }

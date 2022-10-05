@@ -3,7 +3,7 @@ import { FormAdminComponent } from 'src/app/components/shared/models/form-admin/
 import { formAdminTemplate } from 'src/app/components/shared/models/form-admin/template';
 import { empresaForm } from 'src/app/fields/empresa';
 import { hotelForm } from 'src/app/fields/hotel';
-import { tourForm } from 'src/app/fields/tour';
+import { tourForm, tourFormPopUp } from 'src/app/fields/tour';
 import { trabajadorForm } from 'src/app/fields/trabajador';
 import { AppConfigService } from 'src/app/services/app-config.service';
 
@@ -30,7 +30,7 @@ export class ItemFormComponent  extends FormAdminComponent implements OnInit {
 
       empresa: empresaForm,
       hotel: hotelForm,
-      tour: tourForm,
+      tour: tourFormPopUp,
       trabajador: trabajadorForm   
 
     }[type];

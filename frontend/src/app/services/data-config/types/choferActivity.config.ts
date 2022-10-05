@@ -1,28 +1,28 @@
 import { DatePipe } from "@angular/common";
 import { Injectable, Injector } from "@angular/core";
+import { DataConfig } from "../model";
 import { ActivityConfig } from "./modelActivity.config";
 
 @Injectable({
     providedIn: 'root' 
   })
 
-export class ChoferActivityConfig extends ActivityConfig{
-    
-    override activitType  = 5;
+export class ChoferActivityConfig extends DataConfig{   
 
-    constructor(protected override injector:Injector, protected override datePipe:DatePipe){ super(injector, datePipe); }
+
+    constructor(protected override injector:Injector){ super(injector); }
 
     protected override getters:any = { 
 
         ...this.getters,
 
-        full_name:(obj:any)=> this.getRef('trabajador',this.getValue(obj, 'agent'),'nombre_completo','agent'),
+        full_name:(obj:any)=> this.getRef('trabajador',this.getValue(obj, 'proveedor'),'nombre')+ ' ' + this.getRef('trabajador',this.getValue(obj, 'proveedor'),'apellidos'),
 
-        regimen:(obj:any)=> this.getRef('trabajador',this.getValue(obj, 'agent'),'regimen','agent'),
+        regimen:(obj:any)=> this.getRef('trabajador',this.getValue(obj, 'proveedor'),'regimen_nombre'),
 
-        phones_list:(obj:any)=> this.getRef('trabajador',this.getValue(obj, 'agent'),'lista_telefonos','agent'),
+        phones_list:(obj:any)=> this.getRef('trabajador',this.getValue(obj, 'proveedor'),'telefonos'),
 
-        mails_list:(obj:any)=> this.getRef('trabajador',this.getValue(obj, 'agent'),'lista_emails','agent')
+        mails_list:(obj:any)=> this.getRef('trabajador',this.getValue(obj, 'proveedor'),'emails')
 
     }
 

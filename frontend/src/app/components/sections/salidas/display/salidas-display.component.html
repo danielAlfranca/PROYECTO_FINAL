@@ -5,12 +5,8 @@
         </li> 
       
     </app-card-display>
-    <app-card-display  title="Pasajeros">
-       <app-pax-list display-table [passengers]="passengers" mode="display"></app-pax-list>  
-    </app-card-display>
-    <app-card-display  title="Servicios">
-        <app-activities-list display-table type="salida" [data]="item" mode="display"></app-activities-list>    
-    </app-card-display>  
+    <app-salidas-passengers [(passengers)]="passengers" [salida]="item"></app-salidas-passengers>
+    <app-salidas-activity-table [(activities)]="activities" [salida]="item"> </app-salidas-activity-table>  
     
     <footer>
         <div class="text-end">

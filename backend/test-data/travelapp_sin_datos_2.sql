@@ -91,8 +91,8 @@ CREATE TABLE reservas(
     pasajeros VARCHAR(10) NOT NULL,
     date_start DATE NOT NULL ,
     date_end DATE NOT NULL ,
-    time_start TIME,# 4
-    time_end TIME,# 5
+    time_start CHAR(5),# 4
+    time_end CHAR(5),# 5
     proveedor INT NOT NULL,
     user INT NOT NULL,
     PRIMARY KEY (id),
@@ -106,8 +106,8 @@ CREATE TABLE salidas(
     tour INT NOT NULL,
     date_start DATE NOT NULL ,
     date_end DATE NOT NULL ,
-    time_start TIME,# 4
-    time_end TIME,# 5
+    time_start CHAR(5),# 4
+    time_end CHAR(5),# 5
     comments VARCHAR(255),
     user INT NOT NULL,
     PRIMARY KEY (id),
@@ -122,9 +122,9 @@ CREATE TABLE tour_reserva(
     tour INT NOT NULL,
     date_start DATE NOT NULL ,
     date_end DATE NOT NULL ,
-    time_start TIME,# 4
-    time_end TIME,# 5
-    salida INT,
+    time_start CHAR(5),# 4
+    time_end CHAR(5),# 5
+    salida INT NULL,
     pasajeros_salida VARCHAR(10),
     comments_salida VARCHAR(255),
     PRIMARY KEY (id),    
@@ -141,8 +141,8 @@ CREATE TABLE hotel_reserva(
     hotel INT NOT NULL,
     date_start DATE NOT NULL ,
     date_end DATE NOT NULL ,
-    time_start TIME,# 4
-    time_end TIME,# 5
+    time_start CHAR(5),# 4
+    time_end CHAR(5),# 5
     comments VARCHAR(255),
     PRIMARY KEY (id),
     FOREIGN KEY (reserva) REFERENCES reservas(id),  

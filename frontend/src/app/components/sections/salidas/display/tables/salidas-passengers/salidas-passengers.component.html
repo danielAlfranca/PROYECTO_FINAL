@@ -1,0 +1,49 @@
+<app-card-display title="Pasajeros" [addButton]="true" (edit)="form()">
+
+    <div display-table style="margin:-1rem; margin-bottom:0">
+        <div style="max-height:200px" class="overflow-auto" *ngIf="rows.length else noActivities">
+            <table class="table align-middle table-sm ">         
+
+                <tbody>
+                    <tr class="pointer" *ngFor="let data of rows; let i = index;"
+                        (click)="display(data.item,data.type,i)">
+                        <td [ngSwitch]="data.type">
+                            <div *ngSwitchCase="'tourActivity'" class="d-flex align-items-center">
+                                <i class="bi bi-bag-check me-2 ms-3 h5 mb-0"></i>
+    
+                                {{data.item | show:data.type:'nombre_cliente'}} {{data.item | show:data.type:'apellidos_cliente'}}
+    
+                            </div>
+                            <div *ngSwitchCase="'passenger'" class="d-flex align-items-center">
+                                <i class="bi bi-bag me-2 ms-3 h5 mb-0"></i>
+                                <div>
+                                    {{data.item | show:data.type:'nombre'}} {{data.item | show:data.type:'apellidos'}}    
+                                </div>
+                            </div> 
+                        </td>
+                        <td [ngSwitch]="data.type">    
+                            <div *ngSwitchCase="'tourActivity'" class="d-flex align-items-center">
+                                {{data.item | show:data.type:'passengers_list'}} 
+                            </div>
+                            <div *ngSwitchCase="'passenger'" class="d-flex align-items-center">
+                                {{data.item | show:data.type:'passengers_list'}} 
+                            </div>                           
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</app-card-display>
+
+
+
+
+
+<ng-template #noActivities>
+    <small class="mt-3 text-start text-secondary d-flex align-items-center ms-3">
+        <i class="bi bi-exclamation-diamond h4 me-2 mb-0"></i> <em> No hay pasajeros registrados en esta salida</em>
+    </small>
+
+</ng-template>

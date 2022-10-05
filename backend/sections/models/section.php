@@ -97,7 +97,7 @@ class Section{
 
             }else return false;
 
-        }catch(PDOException $e) { return $e; }
+        }catch(PDOException $e) { return false; }
     }
 
     public function update($data){
@@ -123,18 +123,16 @@ class Section{
                 $this->connection->commit();                
 
                 $item = $this->select(static::get_property($data,'id'));
-                $extra_data = [];
-
+          
                 return $item;
 
             }else return false;
 
-        }catch(PDOExecption $e) { return false; }
+        }catch(PDOException $e) { return false; }
         
     }
     
-    
-   
+  
     public function select($id){
 
         try{            
@@ -148,12 +146,12 @@ class Section{
             $query->bindValue(':id', $id);
             
             if($query->execute()){
-
+                
                 return $query->fetch();
 
             }else return false;
 
-        }catch(PDOExecption $e) { return false; }
+        }catch(PDOException $e) { return false; }
     
     }
 
@@ -167,13 +165,14 @@ class Section{
 
             $query->bindValue(':id', static::get_property($data,'id')); 
 
-            if($query->execute()){
+            $query->execute();
 
-                return $data;
+            $this->connection->commit();   
 
-            }else return false;
+            return ['item'=>$data];
 
-        }catch(PDOExecption $e) { return false; }
+
+        }catch(PDOException $e) { return false; }
 
     }
 
@@ -192,12 +191,6 @@ class Section{
         return false;
     }
 
-    protected function save_extra_data($item, $extra_data){
-
-        return [];
-    }
-
-    
     public function validate($data){ // validada datos segun las validaciones especificadas en keys
 
         $keys = static::$indexes;
@@ -248,6 +241,8 @@ class Section{
         $this->validations['is_string'] = fn($data, $name)=>is_string(static::get_property($data,$name)); 
 
         $this->validations['is_number'] = fn($data, $name)=>is_numeric(static::get_property($data,$name)); 
+
+        $this->validations['nullable'] = true; 
 
         $this->validations['is_boolean'] =  function($data, $name) {
             
@@ -323,9 +318,9 @@ class Section{
 
         $this->sanitize_funcs['is_string'] = fn($data, $name)=>filter_var(self::get_property($data,$name),FILTER_SANITIZE_STRING); 
 
-        $this->sanitize_funcs['is_boolean'] =  fn($data, $name)=>(filter_var(self::get_property($data,$name),FILTER_VALIDATE_INT));
+        $this->sanitize_funcs['is_boolean'] =  fn($data, $name)=>(filter_var(self::get_property($data,$name),FILTER_SANITIZE_NUMBER_INT));
 
-        $this->sanitize_funcs['is_number'] =  fn($data, $name)=>filter_var(self::get_property($data,$name),FILTER_VALIDATE_INT);
+        $this->sanitize_funcs['is_number'] =  fn($data, $name)=>filter_var(self::get_property($data,$name),FILTER_SANITIZE_NUMBER_INT);
 
         $this->sanitize_funcs['agent_valid'] = fn($data, $name)=>filter_var(strval(self::get_property($data,$name)),FILTER_SANITIZE_STRING);
 
@@ -342,6 +337,15 @@ class Section{
         $this->sanitize_funcs['date_end_valid'] = fn($data, $name)=>  filter_var(self::get_property($data,$name),FILTER_SANITIZE_STRING); 
 
         $this->sanitize_funcs['time_valid'] = fn($data, $name)=>  filter_var(self::get_property($data,$name),FILTER_SANITIZE_STRING); 
+
+        $this->sanitize_funcs['nullable'] = function($data, $name) {
+
+            $value = self::get_property($data,$name);
+
+            if(isset($value) || empty($value) || $value==NULL || $value=='') return NULL;
+
+            return $value;
+        }; 
             
     }
 

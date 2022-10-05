@@ -4,6 +4,8 @@ import { DatePipe } from "@angular/common";
 import { PassengerConfig } from "./passenger.config";
 import { DataConfigService } from "../data-config.service";
 import { format, parse } from "date-fns";
+import { DataTypes } from "src/app/interfaces/types/data-config";
+import { AppConfigService } from "../../app-config.service";
 
 @Injectable({
     providedIn: 'root' 
@@ -15,15 +17,24 @@ export class SalidaConfig extends DataConfig{
     protected override validations:any = {
 
         ...this.validations,
-        type_valid: (obj:any, key:string) => this.getValue(obj,key) == 2,
-        agent_valid:(obj:any, key:string) => this.valid_agent(obj)     
+        
 
     }
     constructor(protected override injector:Injector,private datePipe:DatePipe ){ super(injector); }
 
     protected override getters = {
 
-        tour_name:(obj:any)=>this.getRef('tour',this.getValue(obj,'tour_id') ,'nombre'),
+        tour_name:(obj:any)=>this.getRef('tour',this.getValue(obj,'tour') ,'nombre'),
+
+        operadores:(obj:any)=>this.getActivities(obj,'operadorActivity'),
+
+        guiados:(obj:any)=>this.getActivities(obj,'guiadoActivity'),
+
+        chofers:(obj:any)=>this.getActivities(obj,'choferActivity'),
+
+        pasajeros_clientes:(obj:any)=>this.getActivities(obj,'tourActivity'),
+
+        pasajeros_no_clientes:(obj:any)=>this.getActivities(obj,'passenger'),
 
         operators_list:(obj:any)=> {
 
@@ -51,39 +62,41 @@ export class SalidaConfig extends DataConfig{
        return super.valueIsValid(obj,key)
     }
 
-    private valid_agent(obj:any){
+    private getActivities(obj:any, activity:DataTypes){
 
-        const agent = this.getValue(obj,'agent');
-        return (this.getValue(obj,'id') == 'nuevo' && agent === 1) || !isNaN(agent);
+        const   service = this.injector.get(AppConfigService),
+        list = Object.values(service.queries.section(activity) || {}),
+        id = this.getValue(obj,'id');
+
+        return list.filter((e:any)=>Number(service.dataConfig.getValue(e,'salida',activity))==Number(id))
     }
+
+   
 
     private paxTotalList(obj:any){
 
-        let adultos, ninos, infantes, service = this.injector.get(PassengerConfig);
+        let  service = this.injector.get(AppConfigService).dataConfig;
 
-        const pax = [...(this.getValue(obj,'pax') || [])].reduce((arr,item)=>{
-            
-            adultos = service.getValue(item,'adultos')||0;
-            ninos = service.getValue(item,'ninos')||0;
-            infantes = service.getValue(item,'infantes')||0;
-
-            return ([arr[0]+Number(adultos), arr[1]+Number(ninos), arr[2]+Number(infantes)]);
+        let   clientes = (this.getValue(obj,'pasajeros_clientes') || []).map((e:any)=>service.getValue(e,'pasajeros','tourActivity')), 
+              noClientes = (this.getValue(obj,'pasajeros_no_clientes') || []).map((e:any)=>service.getValue(e,'pasajeros','passenger')),
+              pax = [...clientes,...noClientes].map(e=>e.split('.')).reduce((arr,item)=>{
+           
+       
+            return ([arr[0]+Number(item[0]), arr[1]+Number(item[1]), arr[2]+Number(item[2])]);
         
         }, [0,0,0]);
 
-
-        return this.get_passengers_list(pax)
+ 
+        return this.get_passengers_list(pax.join('.'))
 
     }
 
-    private get_passengers_list(pax:any[]){
+    private get_passengers_list(pax:string){
 
-        
         let str = '', num;
-        const   singulars = ['adulto', 'nino', 'infante'],
-                plurals = ['adultos', 'ninos', 'infantes'];
-
-        return pax.reduce((strPax:string,el:number, i:number)=>{
+        const   arr:any = pax.split('.'),
+                singulars = ['adulto', 'nino', 'infante'],
+                plurals = ['adultos', 'ninos', 'infantes'], list =  arr.reduce((strPax:string,el:number, i:number)=>{
 
             num = Number(el);
 
@@ -97,6 +110,11 @@ export class SalidaConfig extends DataConfig{
             return strPax;
 
         }, '')
+
+    
+
+        return list
+
 
     }
 

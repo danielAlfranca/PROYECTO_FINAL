@@ -3,7 +3,7 @@ import { FormItem } from "../interfaces/form";
 export const choferActivityForm = [
   {
     title:'Chofer',
-    name:'agent',
+    name:'proveedor',
     input:'itemPicker',
     options:{listType:'trabajador',propertyForDisplay:'full_name'}
   },

@@ -32,6 +32,36 @@ export const tourForm =   [
 
   ] as FormItem[];
 
+  export const tourFormPopUp =   [
+
+    {
+      title:'Nombre',
+      name:'nombre',
+      input:'text'
+    },
+    {
+      title:'inicio',
+      name:'inicio',
+      input:'time',
+    },
+    {
+      title:'fin',
+      name:'fin',
+      input:'time', 
+    },
+    {
+      title:'duracion',
+      name:'duracion',
+      input:'number'
+    },
+    {
+      title:'destino',
+      name:'destino',
+      input:'text'
+    }    
+
+  ] as FormItem[];
+
 export const tourTable = {
 
     title:'Tours',

@@ -47,6 +47,21 @@ class ReservasGenerator extends FakeDataGenerator {
         
         return $list;
     }
+
+    public function insert($items){
+
+        $instance = new $this->section();
+        $inserted = [];        
+  
+        foreach ($items as $item) {
+            
+            $data = ['reserva'=>$item,'hoteles'=>[],'tours'=>[]];
+            $inserted[] = $instance->save($data);            
+
+        }
+
+        return $inserted;
+    }
     
     public function getDates(){
 

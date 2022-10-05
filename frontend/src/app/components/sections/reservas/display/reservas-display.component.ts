@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { DisplayAdminComponent } from 'src/app/components/shared/models/display-admin/display-admin.component';
+import { DataTypes } from 'src/app/interfaces/types/data-config';
 import { AppConfigService } from 'src/app/services/app-config.service';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'app-reservas-display',
@@ -37,18 +39,28 @@ export class ReservasDisplayComponent extends DisplayAdminComponent implements O
       {title:'Pasajeros', value: this.value('passengers_list'), icon:'people'}, 
     ];
 
-    this.activities = this.getTours().concat(this.getHoteles())
+    this.activities = {tours:this.getTours(), hoteles:this.getHoteles()}
   }
 
   getTours(){
 
-    return (this.appConfig.dataConfig.getValue(this.item,'tours','reserva') || []).map((e:any)=>({item:e,type:'tourActivity'}))
+    return (this.appConfig.dataConfig.getValue(this.item,'tours','reserva') || [])
 
   }
 
   getHoteles(){
 
-    return (this.appConfig.dataConfig.getValue(this.item,'hotels','reserva')|| []).map((e:any)=>({item:e,type:'hotelActivity'}))
+    return (this.appConfig.dataConfig.getValue(this.item,'hotels','reserva')|| [])
+  }
+
+  override delete(){
+    
+    const data = {reserva:this.item, tours:this.activities.tours, hoteles:this.activities.hoteles};
+    this.appConfig.queries.delete(this.section as DataTypes,data).pipe(take(1)).subscribe(response=>{
+
+      if(response && !response.errors){ this.successDelete(); } else  { this.errorDelete(); }
+      
+    });
   }
 
 

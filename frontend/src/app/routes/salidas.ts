@@ -2,6 +2,7 @@ import { DisplayChoferComponent } from "../components/sections/salidas/display/a
 import { DisplayGuiadoComponent } from "../components/sections/salidas/display/activities/guiado/display-guiado.component";
 import { DisplayOperadorComponent } from "../components/sections/salidas/display/activities/operador/display-operador.component";
 import { DisplayPassengerComponent } from "../components/sections/salidas/display/passenger/display-passenger.component";
+import { PassengerClienteComponent } from "../components/sections/salidas/display/passenger/passenger-cliente/passenger-cliente.component";
 import { SalidasDisplayComponent } from "../components/sections/salidas/display/salidas-display.component";
 import { ChoferFormComponent } from "../components/sections/salidas/form/activities/chofer/chofer-form.component";
 import { GuiadoFormComponent } from "../components/sections/salidas/form/activities/guiado/guiado-form.component";
@@ -41,133 +42,114 @@ export const salidasRoutes = [
         
     },
     {
-        path: 'form-activity-salida', component: SalidaActivityComponent, outlet:'aside-2', data: {
+        path: 'form-activity-salida', component: SalidaActivityComponent, outlet:'popUp-1', data: {
 
             title: 'Nueva Actividad',
-            icon: 'bi bi-file-plus'
-        },        
-        
-    },
-    {
-        path: 'form-activity-salida-2', component: SalidaActivityComponent, outlet:'aside-3', data: {
-
-            title: 'Nueva Actividad',
-            icon: 'bi bi-file-plus'
+            icon: 'bi bi-file-plus',
+            size:'dialog'
         },        
         
     },
     {
 
-        path: 'form-operadorActivity', component: OperadorFormComponent, outlet:'aside-3', data: {
+        path: 'form-operadorActivity', component: OperadorFormComponent, outlet:'popUp-2', data: {
 
             title: 'Crear nuevo Operador',
-            icon: 'bi bi-file-plus'
+            icon: 'bi bi-file-plus',
+            size:'form'
         },
     },
 
     {
 
-        path: 'form-guiadoActivity', component: GuiadoFormComponent, outlet:'aside-3', data: {
+        path: 'form-guiadoActivity', component: GuiadoFormComponent, outlet:'popUp-2', data: {
 
             title: 'Crear nuevo Guia',
-            icon: 'bi bi-file-plus'
+            icon: 'bi bi-file-plus',
+            size:'form'
         },
     },
 
     {
 
-        path: 'form-choferActivity', component: ChoferFormComponent, outlet:'aside-3', data: {
+        path: 'form-choferActivity', component: ChoferFormComponent, outlet:'popUp-2', data: {
 
             title: 'Crear nuevo chofer',
-            icon: 'bi bi-pencil'
+            icon: 'bi bi-pencil',
+            size:'form'
         },
     },
     {
 
-        path: 'form-operadorActivity-2', component: OperadorFormComponent, outlet:'aside-4', data: {
+        path: 'add-passenger', component: SelectPassengerComponent, outlet:'popUp-1', data: {
 
-            title: 'Crear nuevo Operador',
-            icon: 'bi bi-file-plus'
+            title: 'Seleccionar pasajero',
+            icon: 'bi bi-file-plus',
+            size:'form'
         },
-    },
 
+        
+    },
     {
 
-        path: 'form-guiadoActivity-2', component: GuiadoFormComponent, outlet:'aside-4', data: {
+        path: 'new-passenger', component: CreatePassengerComponent, outlet:'popUp-2', data: {
 
-            title: 'Crear nuevo Guia',
-            icon: 'bi bi-file-plus'
+            title: 'Añadir pasajero',
+            icon: 'bi bi-file-plus',
+            size:'form'
         },
+        
     },
 
-    {
-
-        path: 'form-choferActivity-2', component: ChoferFormComponent, outlet:'aside-4', data: {
-
-            title: 'Crear nuevo chofer',
-            icon: 'bi bi-pencil'
-        },
-    },
     {
         path: 'editar-salida', component: SalidasFormComponent, outlet:'aside-2', data: {
 
             title: 'Editar Salida',
-            icon: 'bi bi-file-plus'
+            icon: 'bi bi-pencil',
+          
         },        
         
     },
     {
 
-        path: 'editar-operadorActivity', component: OperadorFormComponent, outlet:'aside-2', data: {
+        path: 'editar-operadorActivity', component: OperadorFormComponent, outlet:'popUp-2', data: {
 
-            title: 'Crear nuevo Operador',
-            icon: 'bi bi-file-plus'
+            title: 'Editar Operador',
+            icon: 'bi bi-pencil',
+            size:'form'
         },
     },
 
     {
 
-        path: 'editar-guiadoActivity', component: GuiadoFormComponent, outlet:'aside-2', data: {
+        path: 'editar-guiadoActivity', component: GuiadoFormComponent, outlet:'popUp-2', data: {
 
-            title: 'Crear nuevo Guia',
-            icon: 'bi bi-file-plus'
+            title: 'Editar Guia',
+            icon: 'bi bi-pencil',
+            size:'form'
         },
     },
 
     {
 
-        path: 'editar-choferActivity', component: ChoferFormComponent, outlet:'aside-2', data: {
+        path: 'editar-choferActivity', component: ChoferFormComponent, outlet:'popUp-2', data: {
 
-            title: 'Crear nuevo chofer',
-            icon: 'bi bi-pencil'
-        },
-    },
-    {
-
-        path: 'editar-operadorActivity-2', component: OperadorFormComponent, outlet:'aside-3', data: {
-
-            title: 'Crear nuevo Operador',
-            icon: 'bi bi-file-plus'
+            title: 'Editar chofer',
+            icon: 'bi bi-pencil',
+            size:'form'
         },
     },
 
     {
 
-        path: 'editar-guiadoActivity-2', component: GuiadoFormComponent, outlet:'aside-3', data: {
+        path: 'editar-passenger', component: CreatePassengerComponent, outlet:'popUp-2', data: {
 
-            title: 'Crear nuevo Guia',
-            icon: 'bi bi-file-plus'
+            title: 'editar pasajero',
+            icon: 'bi bi-pencil',
+            size:'form'
         },
     },
 
-    {
-
-        path: 'editar-choferActivity-2', component: ChoferFormComponent, outlet:'aside-3', data: {
-
-            title: 'Crear nuevo chofer',
-            icon: 'bi bi-pencil'
-        },
-    },
     {
         path: 'display-salida', component: SalidasDisplayComponent, outlet:'aside-1', data: {
 
@@ -178,111 +160,55 @@ export const salidasRoutes = [
     },
     {
 
-        path: 'display-choferActivity', component: DisplayChoferComponent, outlet:'aside-2', data: {
+        path: 'display-choferActivity', component: DisplayChoferComponent, outlet:'popUp-1', data: {
 
             title: 'Detalles Chofer',
-            icon: 'bi bi-binoculars'
+            icon: 'bi bi-binoculars',
+            size:'form'
         },
     },
     {
 
-        path: 'display-guiadoActivity', component: DisplayGuiadoComponent, outlet:'aside-2', data: {
+        path: 'display-guiadoActivity', component: DisplayGuiadoComponent, outlet:'popUp-1', data: {
 
             title: 'Detalles Guia',
-            icon: 'bi bi-binoculars'
+            icon: 'bi bi-binoculars',
+            size:'form'
         },
     },
     {
 
-        path: 'display-operadorActivity', component: DisplayOperadorComponent, outlet:'aside-2', data: {
+        path: 'display-operadorActivity', component: DisplayOperadorComponent, outlet:'popUp-1', data: {
 
             title: 'Detalles Operador',
-            icon: 'bi bi-binoculars'
+            icon: 'bi bi-binoculars',
+            size:'form'
         },
     },
 
     {
 
-        path: 'display-passenger', component: DisplayPassengerComponent, outlet:'aside-2', data: {
+        path: 'display-passenger', component: DisplayPassengerComponent, outlet:'popUp-1', data: {
 
             title: 'Detalles Pasajero',
-            icon: 'bi bi-binoculars'
+            icon: 'bi bi-binoculars',
+            size:'form'
         },
     },
 
     {
 
-        path: 'form-activity-operadorActivity-2', component: OperadorFormComponent, outlet:'aside-3', data: {
+        path: 'display-passenger-cliente', component: PassengerClienteComponent, outlet:'popUp-1', data: {
 
-            title: 'Editar Operador',
-            icon: 'bi bi-pencil'
+            title: 'Detalles Pasajero',
+            icon: 'bi bi-binoculars',
+            size:'form'
         },
-    },
+    }
 
-    {
+ 
 
-        path: 'form-activity-guiadoActivity-2', component: GuiadoFormComponent, outlet:'aside-3', data: {
-
-            title: 'Editar Guia',
-            icon: 'bi bi-pencil'
-        },
-    },
-
-    {
-
-        path: 'form-activity-choferActivity-2', component: ChoferFormComponent, outlet:'aside-3', data: {
-
-            title: 'Editar chofer',
-            icon: 'bi bi-pencil'
-        },
-    },
-    {
-
-        path: 'form-activity-operadorActivity', component: OperadorFormComponent, outlet:'aside-2', data: {
-
-            title: 'Editar Operador',
-            icon: 'bi bi-pencil'
-        },
-    },
-
-    {
-
-        path: 'form-activity-guiadoActivity', component: GuiadoFormComponent, outlet:'aside-2', data: {
-
-            title: 'Editar Guia',
-            icon: 'bi bi-pencil'
-        },
-    },
-
-    {
-
-        path: 'form-activity-choferActivity', component: ChoferFormComponent, outlet:'aside-2', data: {
-
-            title: 'Editar chofer',
-            icon: 'bi bi-pencil'
-        },
-    },
-
-    {
-
-        path: 'add-passenger', component: SelectPassengerComponent, outlet:'popUp-1', data: {
-
-            title: 'Seleccionar pasajero',
-            icon: 'bi bi-file-plus'
-        },
-
-        
-    },
-    {
-
-        path: 'new-passenger', component: CreatePassengerComponent, outlet:'popUp-2', data: {
-
-            title: 'Añadir pasajero',
-            icon: 'bi bi-file-plus'
-        },
-
-        
-    },
+    
     
 ];
 

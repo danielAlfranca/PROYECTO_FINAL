@@ -3,6 +3,9 @@ import { FormAdminComponent } from 'src/app/components/shared/models/form-admin/
 import { formAdminTemplate } from 'src/app/components/shared/models/form-admin/template';
 import { tourActivityForm } from 'src/app/fields/tourActivity';
 import { AppConfigService } from 'src/app/services/app-config.service';
+import { take } from 'rxjs';
+import { DataTypes } from 'src/app/interfaces/types/data-config';
+import { FormItem } from 'src/app/interfaces/form';
 
 @Component({
   selector: 'app-tour-activity-form',
@@ -11,9 +14,58 @@ import { AppConfigService } from 'src/app/services/app-config.service';
 })
 export class TourActivityFormComponent extends FormAdminComponent implements OnInit {
 
+  reserva:any;
+  
   constructor(protected override appConfig:AppConfigService) { super(appConfig) }
 
-  ngOnInit(): void { this.init('tourActivity', tourActivityForm); }
+  ngOnInit(): void { 
+    
+    this.init('tourActivity', tourActivityForm);    
+  
+  }
+
+  
+  override init(type:DataTypes, fields:FormItem[] = []): void {
+
+    let idReserva;
+
+    this.item = this.appConfig.canvas.last.query?.formItem || this.appConfig.dataConfig.getModel(type);
+
+    this.type = type;
+
+    this.fields = fields;
+
+    this.reserva = this.appConfig.canvas.last.query.editData;
+
+    idReserva = this.appConfig.dataConfig.getValue(this.reserva,'id','reserva');
+
+    this.appConfig.dataConfig.setValue(this.item,'reserva',this.type, idReserva);
+ }
+
+  override save(item:any):any{
+
+    if(!this.is_valid(item)) return this.form_error_message();
+
+    if(this.reservaIsNew()) return this.appConfig.canvas.close(item)
+   
+    this.appConfig.queries.save(this.type,item).pipe(take(1)).subscribe(response=>{
+    
+      if(!response || response.errors) {   this.server_error_message() }
+
+      else{        
+       
+        this.server_success_message().pipe(take(1)).subscribe(e=>this.appConfig.canvas.close(response)) 
+      }
+      
+    });
+  }
+
+  private reservaIsNew(){
+
+    return this.appConfig.dataConfig.getValue(this.reserva,'id','reserva') == 'nuevo'
+  }
+
+
 
 }
 

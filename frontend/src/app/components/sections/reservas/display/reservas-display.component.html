@@ -1,18 +1,17 @@
 <div class="p-4">
-    <app-card-display title="Cliente" [editButton]="true" (edit)="edit(1)">
+    <app-card-display title="Cliente" [editButton]="true" (edit)="edit(0)">
         <li app-data-item-display *ngFor="let data of dataDisplay" [icon]="data.icon" [title]="data.title" >
             {{data.value}}        
         </li>
     </app-card-display>
-    <app-card-display title="Paquete" [editButton]="true" (edit)="edit(2)">
+    <app-card-display title="Paquete" [editButton]="true" (edit)="edit(1)">
         <li app-data-item-display *ngFor="let data of dataPaquete" [icon]="data.icon" [title]="data.title" >
             {{data.value}}        
         </li>
-       <div display-table class="mt-3">
-            <app-reservas-activity-table [activities]="activities" mode="display"> </app-reservas-activity-table> 
-       </div>
+      
              
     </app-card-display>
+    <app-reservas-activity-table [(activities)]="activities" [reserva]="item"> </app-reservas-activity-table> 
     
     <footer>
         <div class="text-end">

@@ -11,9 +11,9 @@ class Tour extends Section{
 
         'nombre'=>['private'=>1, 'validations'=>['is_string'], 'required'=>true], 
 
-        'inicio'=>['private'=>2, 'validations'=>['is_string'], 'required'=>true], // !!! FALTA VALIDACION
+        'inicio'=>['private'=>2, 'validations'=>['time_valid'], 'required'=>true], // !!! FALTA VALIDACION
 
-        'fin'=>['private'=>3, 'validations'=>['is_string'], 'required'=>true], // !!! FALTA VALIDACION
+        'fin'=>['private'=>3, 'validations'=>['time_valid'], 'required'=>true], // !!! FALTA VALIDACION
 
         'duracion'=>['private'=>4, 'validations'=>['is_number'], 'required'=>true], 
 

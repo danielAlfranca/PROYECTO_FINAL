@@ -33,7 +33,8 @@ export class FormAdminComponent {
   save(item:any):any{
 
     if(!this.is_valid(item)) return this.form_error_message();
-   
+    
+    //console.log(this.is_valid(item))
     this.appConfig.queries.save(this.type,item).pipe(take(1)).subscribe(response=>{
     
       if(!response || response.errors) {   this.server_error_message() }
@@ -45,6 +46,8 @@ export class FormAdminComponent {
       
     });
   }
+
+  
 
   close(item:any){
 
@@ -83,6 +86,8 @@ export class FormAdminComponent {
     // si el form esta como elemento de form item ya esta en popUp y los mensajes se muestran en la posicion 3
     
     const index = Number(this.appConfig.canvas.currentOutletsIndex.popUp) + 1;
+
+     console.log(`modal-${result}-${index}`)
 
     return  `modal-${result}-${index}`;
   }

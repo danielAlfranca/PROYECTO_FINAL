@@ -1,6 +1,6 @@
 <div class="p-4">
-    <app-card-display (edit)="edit()" [title]="title"> 
-        <li app-data-item-display icon="person-circle" title="guia">
+    <app-card-display (edit)="edit()" [title]="title" [editButton]="true"> 
+        <li app-data-item-display icon="person-circle" title="Empresa">
             {{item | show:'operadorActivity':'operator_name'}} 
         </li>   
         <li app-data-item-display icon="map" title="direccion">{{item | show:'operadorActivity':'address'}}</li> 

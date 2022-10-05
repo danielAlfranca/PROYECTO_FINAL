@@ -4,7 +4,7 @@ export const guiadoActivityForm = [
 
     {
       title:'Guia',
-      name:'agent',
+      name:'proveedor',
       input:'itemPicker',
       options:{listType:'trabajador',propertyForDisplay:'full_name'}
     }, 

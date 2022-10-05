@@ -1,10 +1,7 @@
 <?php 
 
-class RestaurantActivity extends Activity{   
-    
-   /*  public static $fixed_constants = ['activity_type'=>1];// para valores fijos
+class RestaurantActivity extends Activity{       
 
-    public static $model =[null,null,1, null, null, null,null, null, [null, [0,0,0]]];  */
 
     public static $indexes = [
 

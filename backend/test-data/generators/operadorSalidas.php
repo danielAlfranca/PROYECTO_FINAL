@@ -10,7 +10,7 @@ class OperadorSalidasGenerator extends FakeDataGenerator {
     
     public function __construct($salidas, $empresas){
         
-        parent::__construct(OperadorSalida::class);
+        parent::__construct(OperadorActivity::class);
 
         $this->numberOfItems = 0;
   

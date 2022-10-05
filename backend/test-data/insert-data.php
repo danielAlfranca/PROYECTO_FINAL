@@ -89,8 +89,8 @@
 
       foreach ($toursReservas as $tour) {
         
-        $date = TourReserva::get_property($tour,'date_start');
-        $tour_id = TourReserva::get_property($tour,'tour');
+        $date = TourActivity::get_property($tour,'date_start');
+        $tour_id = TourActivity::get_property($tour,'tour');
 
         foreach ($salidas as $salida) {
             
@@ -100,7 +100,7 @@
 
                 if($start==$date && Salida::get_property($salida,'tour')==$tour_id ){
 
-                    $item = TourReserva::set_property($tour,Salida::get_property($salida,'id'),'salida');
+                    $item = TourActivity::set_property($tour,Salida::get_property($salida,'id'),'salida');
                     $items[] = $item;
                }
             }           

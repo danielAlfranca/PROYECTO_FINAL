@@ -1,5 +1,5 @@
 <div class="p-4">
-    <app-card-display (edit)="edit()" [title]="title"> 
+    <app-card-display (edit)="edit()" [title]="title" [editButton]="true"> 
         <li app-data-item-display icon="person-circle" title="guia">
             {{item | show:'guiadoActivity':'full_name'}} <small class="d-block text-secondary">({{item | show:'guiadoActivity':'regimen'}})</small>
         </li>   

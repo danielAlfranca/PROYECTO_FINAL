@@ -3,37 +3,35 @@ import { FormItem } from "../interfaces/form";
 export const passengerForm = [ // datos cliente
     {
       title:'Nombre',
-      name:'name',
+      name:'nombre',
       input:'text'
     },
     {
       title:'Apellidos',
-      name:'surname',
+      name:'apellidos',
       input:'text'
-    },
+    }, 
     {
       title:'Pasajeros',
-      name:'pax',
+      name:'pasajeros',
       input:'passengersList'
     },
     {
       title:'Telefonos',
-      name:'phones',
-      input:'array'
+      name:'telefonos',
+      input:'text'
     },
     {
       title:'Emails',
       name:'emails',
-      input:'array'
+      input:'text'
     },
     {
       title:'Proveedor',
-      name:'provider_id',
+      name:'proveedor',
       input:'itemPicker',
       options:{listType:'empresa',propertyForDisplay:'provider_name'}
-    }
-
-   
+    }   
 
 ] as FormItem[];
 
@@ -59,6 +57,6 @@ export const passengerTable = {
   ],
   search:[
 
-    'full_name','pax_list','date_start'
+    'full_name','passengers_list','date_start'
   ]
 };

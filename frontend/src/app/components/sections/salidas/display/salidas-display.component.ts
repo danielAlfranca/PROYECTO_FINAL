@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { format, parse } from 'date-fns';
 import { DisplayAdminComponent } from 'src/app/components/shared/models/display-admin/display-admin.component';
+import { DataTypes } from 'src/app/interfaces/types/data-config';
 import { AppConfigService } from 'src/app/services/app-config.service';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'app-salidas-display',
@@ -11,7 +13,7 @@ import { AppConfigService } from 'src/app/services/app-config.service';
 export class SalidasDisplayComponent extends DisplayAdminComponent implements OnInit {
 
   passengers!:any;
-  services!:any;
+  activities:any;
 
   constructor(protected override appConfig:AppConfigService) { super(appConfig) }
 
@@ -28,14 +30,47 @@ export class SalidasDisplayComponent extends DisplayAdminComponent implements On
     ];
 
     this.passengers = this.value('pax') || [];
+
+    this.activities = {
+
+      operadores:this.getActivity('operadores'),
+      guias:this.getActivity('guiados'), 
+      chofers:this.getActivity('chofers')
+
+    };
+
+    this.passengers = {
+
+      clientes:this.getActivity('pasajeros_clientes'), noClientes:this.getActivity('pasajeros_no_clientes')
+    
+    };
     
   }
 
-  showPax(item:any){
+  
+  getActivity(type:string){
 
-    this.appConfig.canvas.open('display-passenger', {displayItem:item});
+    return (this.appConfig.dataConfig.getValue(this.item,type,'salida') || [])
+
   }
 
+  getPasajeros(type:string){
+
+    return (this.appConfig.dataConfig.getValue(this.item,type,'salida') || [])
+
+  }
+
+ 
+
+  override delete(){
+    
+    const data = {reserva:this.item, tours:this.activities.tours, hoteles:this.activities.hoteles};
+    this.appConfig.queries.delete(this.section as DataTypes,data).pipe(take(1)).subscribe(response=>{
+
+      if(response && !response.errors){ this.successDelete(); } else  { this.errorDelete(); }
+      
+    });
+  }
 
 
 

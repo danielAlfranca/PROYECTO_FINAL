@@ -26,7 +26,7 @@ class SalidasGenerator extends FakeDataGenerator {
 
             foreach (['date_start','date_end','time_start','time_end','tour'] as $keyName) {
 
-                $arr[$keyName]= TourReserva::get_property($tour, $keyName);
+                $arr[$keyName]= TourActivity::get_property($tour, $keyName);
                 
             }
 

@@ -1,6 +1,6 @@
 <?php 
 
-class ChoferSalida extends Section{   
+class ChoferActivity extends Section{   
     
     public static $table = "chofer_salida";   
 

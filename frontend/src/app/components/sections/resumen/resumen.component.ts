@@ -73,7 +73,7 @@ export class ResumenComponent implements OnInit, OnDestroy {
   private rankingTours(){
 
     const service = this.appConfig.dataConfig, 
-          items = countBy(flatMap(this.data.reserva, (e)=>service.getValue(e,'tours', 'reserva')),(e)=>service.getValue(e,'tour_name','tourActivity'));
+          items = countBy(flatMap(this.data.reserva, (e)=>service.getValue(e,'tours', 'reserva')),(e)=>service.getValue(e,'tour_nombre','tourActivity'));
 
     return this.mapRanking(items,'bar');
   }
@@ -81,7 +81,7 @@ export class ResumenComponent implements OnInit, OnDestroy {
   private rankingHoteles(){
 
     const service = this.appConfig.dataConfig, 
-          items = countBy(flatMap(this.data.reserva, (e)=>service.getValue(e,'hotels', 'reserva')),(e)=>service.getValue(e,'hotel_name','hotelActivity'));
+          items = countBy(flatMap(this.data.reserva, (e)=>service.getValue(e,'hotels', 'reserva')),(e)=>service.getValue(e,'hotel_nombre','hotelActivity'));
 
     return this.mapRanking(items,'bar');
   }
@@ -89,7 +89,7 @@ export class ResumenComponent implements OnInit, OnDestroy {
   private porcentajeDestinos(){
 
     const service = this.appConfig.dataConfig,
-          items = countBy(this.data.reserva, (e)=>service.getValue(e,'destination','reserva'));
+          items = countBy(this.data.reserva, (e)=>service.getValue(e,'destino','reserva'));
 
       return this.mapRanking(items,'bar');   
   }

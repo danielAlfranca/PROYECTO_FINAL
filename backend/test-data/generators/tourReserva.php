@@ -13,7 +13,7 @@ class TourReservasGenerator extends FakeDataGenerator {
 
     public function __construct($paquetes, $tours){
         
-        parent::__construct(TourReserva::class);
+        parent::__construct(TourActivity::class);
 
         $this->numberOfItems = 50;
         $this->paquetes = $paquetes;

@@ -3,7 +3,7 @@ import { FormItem } from "../interfaces/form";
 export const operatorActivityForm = [
   {
     title:'Operador',
-    name:'agent',
+    name:'proveedor',
     input:'itemPicker',
     options:{listType:'empresa',propertyForDisplay:'operator_name'}
   }, 

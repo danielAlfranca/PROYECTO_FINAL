@@ -47,7 +47,7 @@ export const reservasRoutes = [
     },
     {
 
-        path: 'display-hotelActivity', component: HotelActivityDisplayComponent, outlet:'popUp-2', data: {
+        path: 'display-hotelActivity', component: HotelActivityDisplayComponent, outlet:'popUp-1', data: {
 
             title: 'Detalles Hotel',
             icon: 'bi bi-binoculars',
@@ -63,85 +63,38 @@ export const reservasRoutes = [
         
     }, 
     {
-        path: 'form-activity-reserva', component: NewReservaActivityComponent, outlet:'aside-2', data: {
+        path: 'form-reserva-activity', component: NewReservaActivityComponent, outlet:'popUp-1', data: {
 
             title: 'Nueva actividad',
-            icon: 'bi bi-file-plus'
-        },
+            icon: 'bi bi-file-plus',
+            size:'modal'
+        },        
+        
+    }, 
+    {
+        path: 'nueva-tourActivity', component: TourActivityFormComponent, outlet:'popUp-2', data: {
+
+            title: 'Nuevo Servicio de Tour',
+            icon: 'bi bi-file-plus',
+            size:'form'
+        },        
         
     },
     {
-        path: 'form-activity-reserva-2', component: NewReservaActivityComponent, outlet:'aside-3', data: {
+        path: 'nueva-hotelActivity', component: HotelActivityFormComponent, outlet:'popUp-2', data: {
 
-            title: 'Nueva actividad',
-            icon: 'bi bi-file-plus'
-        },
+            title: 'Nuevo Servicio de Hotel',
+            icon: 'bi bi-file-plus',
+            size:'form'
+        },        
         
-    },
-    {
-        path: 'form-activity-tourActivity', component: TourActivityFormComponent, outlet:'aside-3', data: {
-
-            title: 'Nuevo Tour',
-            icon: 'bi bi-file-plus'
-        },
-        
-    },
-    {
-        path: 'form-activity-tourActivity', component: TourActivityFormComponent, outlet:'aside-3', data: {
-
-            title: 'Nuevo Tour',
-            icon: 'bi bi-file-plus'
-        },
-        
-    },
-    {
-        path: 'form-activity-tourActivity-2', component: TourActivityFormComponent, outlet:'aside-4', data: {
-
-            title: 'Nuevo Tour',
-            icon: 'bi bi-file-plus'
-        },
-        
-    },
+    },     
 
     {
-        path: 'form-activity-hotelActivity', component: HotelActivityFormComponent, outlet:'aside-3', data: {
-
-            title: 'Nuevo Hotel',
-            icon: 'bi bi-file-plus'
-        },
-        
-    },
-    {
-        path: 'form-activity-hotelActivity-4', component: HotelActivityFormComponent, outlet:'aside-4', data: {
-
-            title: 'Nuevo Hotel',
-            icon: 'bi bi-file-plus'
-        },
-        
-    },
-    {
-        path: 'form-tourActivity-2', component: TourActivityFormComponent, outlet:'aside-4', data: {
-
-            title: 'Nuevo Tour',
-            icon: 'bi bi-file-plus'
-        },
-        
-    },
-
-    {
-        path: 'form-hotelActivity-2', component: HotelActivityFormComponent, outlet:'aside-4', data: {
-
-            title: 'Nuevo Hotel',
-            icon: 'bi bi-file-plus'
-        },
-        
-    },
-
-    {
-        path: 'rooms-list', component: RoomListPopUpComponent, outlet:'popUp-1', data: {
+        path: 'rooms-list', component: RoomListPopUpComponent, outlet:'popUp-3', data: {
 
             title: 'Lista de habitaciones',
-            icon: 'bi bi-home',
+            icon: 'bi bi-hand-index',
             size:'modal'           
         }
         
@@ -173,25 +126,7 @@ export const reservasRoutes = [
             size:'form' 
         },        
         
-    },
-
-    {
-        path: 'editar-tourActivity-2', component: TourActivityFormComponent, outlet:'aside-3', data: {
-
-            title: 'Editar Tour',
-            icon: 'bi bi-pen'
-        },        
-        
-    },
-
-    {
-        path: 'editar-hotelActivity-2', component: HotelActivityFormComponent, outlet:'aside-3', data: {
-
-            title: 'Editar Hotel',
-            icon: 'bi bi-pen'
-        },        
-        
-    },
+    }
     
 
 ];

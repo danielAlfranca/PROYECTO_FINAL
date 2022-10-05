@@ -34,6 +34,122 @@ class Reserva extends Section{
 
     ]; 
 
+    public function save($items){ 
+        
+        $reserva = $items['reserva'];
+        $tours = $items['tours'];
+        $hoteles = $items['hoteles'];
+       
+        $id = static::get_property($reserva,'id');
+
+        $newValues = ['item'=>null, 'extra_data'=>['tourActivity'=>[],'hotelActivity'=>[]]];
+       
+        if($id!='nuevo') return $this->update($items);
+
+        try{
+
+            $reserva = parent::save($items['reserva']);
+            $id = static::get_property($reserva,'id');
+
+            $newValues['item']=  $reserva;
+
+            foreach ($tours as $tour) {
+            
+                $manager = new TourActivity();
+                $parsed = $manager::set_property($tour, $id, 'reserva');
+                $newValues['extra_data']['tourActivity'][]= $manager->save($parsed);
+            }
+    
+            foreach ($hoteles as $hotel) {
+                
+                $manager = new HotelActivity();
+                $parsed = $manager::set_property($hotel, $id, 'reserva');
+                $newValues['extra_data']['hotelActivity'][]= $manager->save($parsed);
+                             
+            } 
+            
+            return $newValues;
+
+        }catch(PDOException $e) { return $e; }
+    }
+
+    public function update($items){ 
+        
+        $reserva = $items['reserva'];
+        $tours = $items['tours'];
+        $hoteles = $items['hoteles'];
+       
+        $id = static::get_property($reserva,'id');        
+       
+        if($id=='nuevo') return $this->save($items);
+
+        $newValues = ['item'=>null, 'extra_data'=>['tourActivity'=>[],'hotelActivity'=>[]]];
+
+        try{
+
+            $reserva = parent::update($items['reserva']);
+            $newValues['item']=  $reserva;
+
+            foreach ($tours as $tour) {
+            
+                $manager = new TourActivity();
+                $parsed = $manager::set_property($tour, $id, 'reserva');
+                $newValues['extra_data']['tourActivity'][]= $manager->save($parsed);
+            }
+    
+            foreach ($hoteles as $hotel) {
+                
+                $manager = new HotelActivity();
+                $parsed = $manager::set_property($hotel, $id, 'reserva');
+                $newValues['extra_data']['hotelActivity'][]= $manager->save($parsed);                             
+            } 
+            
+            return $newValues;
+
+        }catch(PDOException $e) { return $e; }
+    }
+
+    public function delete($items){
+
+        $reserva = $items['reserva'];
+        $tours = $items['tours'];
+        $hoteles = $items['hoteles'];
+
+        try{
+
+            if(!$this->connection->inTransaction()) $this->connection->beginTransaction();
+
+            $query = $this->connection->prepare("DELETE FROM tour_reserva WHERE reserva=:id; ");
+
+            $query->bindValue(':id', static::get_property($reserva,'id')); 
+
+             $query->execute();
+             $query->closeCursor();
+
+            $query = $this->connection->prepare("DELETE FROM hotel_reserva WHERE reserva=:id;");
+
+            $query->bindValue(':id', static::get_property($reserva,'id')); 
+
+             $query->execute();
+             $query->closeCursor();
+            
+             $query = $this->connection->prepare(" DELETE FROM reservas WHERE id=:id;");
+
+             $query->bindValue(':id', static::get_property($reserva,'id')); 
+
+             $query->execute();
+             $query->closeCursor();
+            
+             $this->connection->commit();  
+             
+             return ['item'=>$reserva, 'extra_data'=>['tourActivity'=>$tours,'hotelActivity'=>$hoteles]];
+
+        }catch(PDOException $e) { return false; }
+
+        
+
+    }
+
 
     public function dataSet($field, $value, $dates = false){
   
@@ -70,16 +186,20 @@ class Reserva extends Section{
         $hoteles = $items['hoteles'];
 
         $errors = parent::validate($items['reserva']);
-    
+        
+        $manager = new TourActivity();
+
         foreach ($tours as $tour) {
             
-            $manager = new TourActivity();
+           
             $errors =array_merge($errors,$manager->validate($tour));
         }
 
+        $manager = new HotelActivity();
+        
         foreach ($hoteles as $hotel) {
             
-            $manager = new HotelActivity();
+           
             $errors =array_merge($errors,$manager->validate($hotel));
         }      
 
@@ -96,11 +216,17 @@ class Reserva extends Section{
 
         $manager = new TourActivity();
 
-        $items['tours'] = $manager->sanitize($items['tours']);
+        foreach ($items['tours'] as $key => $value) {
 
-        $manager = new TourActivity();
+            $items['tours'][$key]= $manager->sanitize($value);
+        }
 
-        $items['hoteles'] = $manager->sanitize($items['hoteles']);
+        $manager = new HotelActivity();
+
+        foreach ($items['hoteles'] as $key => $value) {
+
+            $items['hoteles'][$key]= $manager->sanitize($value);
+        }
 
         return $items;
     }

@@ -27,11 +27,11 @@
         <ng-template let-data="data" #hoteles>
             <tr (click)="display(data,false,'hotel')" class="pointer">
                 <td>{{data | show:'hotel':'nombre'}} </td>
-                <td>{{data | show:'hotel':'tipo'}} </td>
-                <td>{{data | show:'hotel':'direccion'}} </td>
-                <td> 
-                    <div><i class="bi bi-telephone me-2"></i> {{data | show:'hotel':'telefonos'}}</div>
-                    <div><i class="bi bi-envelope me-2"></i> {{data | show:'hotel':'emails'}} </div>  
+                <td>{{data | show:'hotel':'tipo_nombre'}} </td>
+                <td>
+                    {{data | show:'hotel':'direccion'}} 
+                    <div class="text-secondary"><i class="bi bi-telephone me-2"></i> {{data | show:'hotel':'telefonos'}}</div>
+                    <div  class="text-secondary"><i class="bi bi-envelope me-2"></i> {{data | show:'hotel':'emails'}} </div>  
                 </td>
                 <td>{{data | show:'hotel':'propietario_nombre'}} </td>
             </tr>

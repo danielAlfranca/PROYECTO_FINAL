@@ -78,7 +78,7 @@ class AppData{
         // luego actividades salida
 
 
-        $activities =  ['operadorActivity'=>new OperadorSalida(), 'guiadoActivity'=>new GuiadoSalida(),'choferActivity'=>new ChoferSalida()];
+        $activities =  ['operadorActivity'=>new OperadorActivity(), 'guiadoActivity'=>new GuiadoActivity(),'choferActivity'=>new ChoferActivity()];
 
         foreach ($activities as $key => $manager) {
 
@@ -97,7 +97,25 @@ class AppData{
     
             $sections[$key] = $this->indexArrayByID($activitiesType);           
         } 
-       
+
+        // luego pasajeros no clientes
+
+        $manager = new Passenger();
+        $pasajeros = [];
+     
+        foreach ($sections['salida'] as $id => $salida) {
+                
+            $paxSalida = $manager->dataSet('salida',$id);
+
+            if($paxSalida !==false) foreach ($paxSalida  as $pax) {
+                
+                $pasajeros []= $pax;
+
+            }else return false;           
+        }
+
+        $sections['passenger'] = $this->indexArrayByID($pasajeros);
+    
         return $sections;
     }
 

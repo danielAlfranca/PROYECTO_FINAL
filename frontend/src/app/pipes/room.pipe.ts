@@ -22,7 +22,9 @@ export class RoomPipe implements PipeTransform {
 
     if(value){
 
-      if(isRoomList) {
+      console.log(value)
+
+        if(isRoomList) {
         
         const arr = value.split('-');
         return arr.map((e:any)=>this.getString(e)).join(', ');

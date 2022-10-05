@@ -5,7 +5,7 @@ import { ItemListComponent } from "../components/shared/form/custom-fields/item-
 import { LoadingComponent } from "../components/shared/modal/loading/loading.component";
 import { ModalComponent } from "../components/shared/modal/modal.component";
 
-const popUpOutlets = 4;
+const popUpOutlets = 8;
 export const comunesRoutes = [
 
     ... new Array(popUpOutlets).fill(1).map((e:number,i:number)=>({

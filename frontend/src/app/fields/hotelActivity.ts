@@ -3,9 +3,9 @@ import { FormItem } from "../interfaces/form";
 export const hotelActivityForm = [
   {
     title:'Hotel',
-    name:'hotel_id',
+    name:'hotel',
     input:'itemPicker',
-    options:{listType:'hotel',propertyForDisplay:'hotel_name'}
+    options:{listType:'hotel',propertyForDisplay:'hotel_nombre'}
   },
   {
     title:'Fecha Inicio',
@@ -19,7 +19,7 @@ export const hotelActivityForm = [
   },
   {
     title:'Habitaciones',
-    name:'rooms',
+    name:'habitaciones',
     input:'roomsList'
   }
   

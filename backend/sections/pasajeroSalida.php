@@ -1,6 +1,6 @@
 <?php 
 
-class PasajeroSalida extends Section{   
+class Passenger extends Section{   
     
     public static $table = "pasajeros_salida";   
 

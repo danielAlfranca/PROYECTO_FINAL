@@ -1,6 +1,6 @@
 <?php 
 
-class GuiadoSalida extends Section{   
+class GuiadoActivity extends Section{   
     
     public static $table = "guia_salida";   
 

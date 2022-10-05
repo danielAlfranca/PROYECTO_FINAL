@@ -15,6 +15,7 @@ export class ReservaFormComponent extends FormAdminComponent implements OnInit {
 
   fieldsPaquete!:FormItem[]; // for stepform
   step!:number;
+  activities!:any;
 
   constructor(protected override appConfig:AppConfigService) { super(appConfig) }
 
@@ -29,8 +30,8 @@ export class ReservaFormComponent extends FormAdminComponent implements OnInit {
     this.item = formData?.formItem || this.appConfig.dataConfig.getModel(type)
     this.step = formData?.editData || 0; 
     this.type = type; 
-    
-    console.log(this.item);
+
+    this.activities = {tours:this.getTours(), hoteles:this.getHoteles()}
 
   }
 
@@ -48,6 +49,24 @@ export class ReservaFormComponent extends FormAdminComponent implements OnInit {
     }
   }
 
+  override save(item:any):any{
+
+    const allData = {reserva:item, tours:this.activities.tours, hoteles:this.activities.hoteles};
+
+    if(!this.is_valid(item)) return this.form_error_message();
+   
+    this.appConfig.queries.save(this.type,allData, true).pipe(take(1)).subscribe(response=>{
+    
+      if(!response || response.errors) {   this.server_error_message() }
+
+      else{        
+   
+        this.server_success_message().pipe(take(1)).subscribe(e=>this.appConfig.canvas.close(response.item)) 
+      }
+      
+    });
+  }
+
   update(){
 
     this.fields.forEach(field=>{
@@ -58,15 +77,25 @@ export class ReservaFormComponent extends FormAdminComponent implements OnInit {
       
     });
 
-    this.item = [...this.item]; 
-    
-    console.log(this.item);
+    this.item = [...this.item];     
+
   } 
 
   validateField(name:string){
 
     return this.appConfig.dataConfig.validateProperty(this.item,name, this.type);
   }
+
+  getTours(){
+
+    return (this.appConfig.dataConfig.getValue(this.item,'tours','reserva') || [])
+  }
+
+  getHoteles(){
+
+    return (this.appConfig.dataConfig.getValue(this.item,'hotels','reserva')|| [])
+  }
+
 
   
 

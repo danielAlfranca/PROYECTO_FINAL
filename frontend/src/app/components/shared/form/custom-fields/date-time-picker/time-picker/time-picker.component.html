@@ -1,10 +1,10 @@
-<div >
-    <div class="d-flex justify-content-center">
-        <select class="form-select border-end-0 rounded-0 text-center" (change)="hours=$any($event.target).value">
+<div class="w-100">
+    <div class="d-flex justify-content-center w-100">
+        <select class="form-select border-end-0 rounded-0 text-center w-50" (change)="hours=$any($event.target).value">
             <option selected value="''" [selected]="hours==''" ><small>HH</small> </option>
             <option *ngFor="let hour of hoursList" [value]="hour" [selected]="hours==hour">{{hour}}</option>        
         </select>
-        <select class="form-select border-start-0 rounded-0 text-center" (change)="minutes=$any($event.target).value">
+        <select class="form-select border-start-0 rounded-0 text-center w-50" (change)="minutes=$any($event.target).value">
             <option value="''" [selected]="minutes==''" ><small>MM</small> </option>
             <option *ngFor="let minute of minutesList" [value]="minute" [selected]="minutes==minute">{{minute}}</option>        
         </select>

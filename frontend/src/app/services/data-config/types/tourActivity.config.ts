@@ -11,12 +11,19 @@ export class TourActivityConfig extends DataConfig{
    
     constructor(protected override injector:Injector){ super(injector); }
 
-
     protected override getters:any = { 
  
         ...this.getters,
 
         tour_nombre:(obj:any)=> this.getRef('tour',this.getValue(obj, 'tour'),'nombre'),
+
+        nombre_cliente:(obj:any)=> this.getRef('reserva',this.getValue(obj, 'reserva'),'nombre'),
+
+        apellidos_cliente:(obj:any)=> this.getRef('reserva',this.getValue(obj, 'reserva'),'apellidos'),
+
+        telefonos_cliente:(obj:any)=> this.getRef('reserva',this.getValue(obj, 'reserva'),'telefonos'),
+
+        proveedor_cliente:(obj:any)=> this.getRef('reserva',this.getValue(obj, 'reserva'),'provider_name'),
 
         passengers_list:(obj:any)=>this.get_passengers_list(obj),
 

@@ -10,7 +10,7 @@ class ChoferSalidasGenerator extends FakeDataGenerator {
     private $salidas;
     public function __construct($salidas, $trabajadores){
         
-        parent::__construct(ChoferSalida::class);
+        parent::__construct(ChoferActivity::class);
 
         $this->numberOfItems = 0;
   

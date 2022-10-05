@@ -21,6 +21,11 @@ export class DataStoreService {
     return this._store.trabajador 
   }
 
+  get passenger(){
+
+    return this._store.passenger 
+  }
+
   get tour(){
 
     return this._store.tour 
@@ -49,6 +54,21 @@ export class DataStoreService {
   get salida(){
 
     return this._store.salida 
+  }
+
+  get operadorActivity(){
+
+    return this._store.operadorActivity 
+  }
+
+  get guiadoActivity(){
+
+    return this._store.guiadoActivity 
+  }
+
+  get choferActivity(){
+
+    return this._store.choferActivity 
   }
 
   get reserva(){
@@ -81,6 +101,8 @@ export class DataStoreService {
   removeItem(section:DataTypes, item:any){
 
     const id = this.injector.get(DataConfigService).getValue(item,'id',section);
+
+    delete this[section as keyof DataStoreService][id];
         
   }
 

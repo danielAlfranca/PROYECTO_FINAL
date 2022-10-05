@@ -35,7 +35,7 @@ export class SalidasCalendarComponent extends CalendarAdminComponent implements 
   getTitleEvent(salida:any){
 
     const name = this.parseProp(salida,'tour_name','salida'),
-          pax = this.parseProp(salida,'passengers_total_list','salida'),
+          pax = this.parseProp(salida,'passengers_total_list','salida') || 'sin pasajeros asignados',
           start = this.parseProp(salida,'time_start','salida'),
           end = this.parseProp(salida,'time_end','salida'),
           iconpax = '<i class="bi bi-people mx-2"></i>',

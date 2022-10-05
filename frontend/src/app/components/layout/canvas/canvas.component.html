@@ -29,7 +29,7 @@
     <div class="pop-up position-absolute top-50 start-50 translate-middle rounded-3 {{popUpClass}}" [ngClass]="{'pop-up-hidden':!popUpIsActive}">
 
         <div class="slider h-100 w-100 bg-light">
-            <div class="slider-inner slides-5 h-100" [ngClass]="{slide1:popUp[0],slide2:popUp[1],slide3:popUp[2],slide4:popUp[3],slide5:popUp[4]}">
+            <div class="slider-inner slides-8 h-100" [ngClass]="{slide1:popUp[0],slide2:popUp[1],slide3:popUp[2],slide4:popUp[3],slide5:popUp[4],slide6:popUp[5],slide7:popUp[6],slide8:popUp[7]}">
                 <div class="slide h-100">
                     
                     <app-header-canvas [config]="popUp[0]" [isFirstRoute]="true"></app-header-canvas>
@@ -60,6 +60,24 @@
                     <app-header-canvas [config]="popUp[4]"></app-header-canvas>
                     <div class="p-4">
                         <router-outlet name="popUp-5"></router-outlet>
+                    </div>
+                </div>
+                <div class="slide h-100">
+                    <app-header-canvas [config]="popUp[5]"></app-header-canvas>
+                    <div class="p-4">
+                        <router-outlet name="popUp-6"></router-outlet>
+                    </div>
+                </div>
+                <div class="slide h-100">
+                    <app-header-canvas [config]="popUp[6]"></app-header-canvas>
+                    <div class="p-4">
+                        <router-outlet name="popUp-7"></router-outlet>
+                    </div>
+                </div>
+                <div class="slide h-100">
+                    <app-header-canvas [config]="popUp[7]"></app-header-canvas>
+                    <div class="p-4">
+                        <router-outlet name="popUp-8"></router-outlet>
                     </div>
                 </div>
             </div>

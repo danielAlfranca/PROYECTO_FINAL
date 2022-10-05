@@ -18,7 +18,7 @@ export class LoadingComponent implements OnInit {
 
     const config = this.appConfig.canvas.last.query;
 
-    config.query.pipe(take(1)).subscribe((response:any) => setTimeout(()=>this.back(response),1500));  
+    config.query.pipe(take(1)).subscribe((response:any) => setTimeout(()=>this.back(response),1500)); 
          
   }
 

@@ -18,27 +18,26 @@ export class CreatePassengerComponent extends FormAdminComponent implements OnIn
 
   ngOnInit(): void {
 
-    this.init('reserva', passengerForm); 
+    this.init('passenger', passengerForm); 
 
   }
 
   override init(type:DataTypes, fields:FormItem[] = []): void {
 
-    this.item = this.appConfig.canvas.last.query?.formItem || this.appConfig.dataConfig.getModel(type);
+    let idSalida;
 
-    this.salida = this.appConfig.canvas.last.query?.salida;
+    this.item = this.appConfig.canvas.last.query?.formItem || this.appConfig.dataConfig.getModel(type);
 
     this.type = type;
 
     this.fields = fields;
 
-  }
+    this.salida = this.appConfig.canvas.last.query.editData;
 
-  setTourActivityFromSalida(item:any,salida:any){
+    idSalida = this.appConfig.dataConfig.getValue(this.salida,'id','salida');
 
-    // FALTA this.appConfig.dataConfig.setValue(this.item,)
-
-  }
+    this.appConfig.dataConfig.setValue(this.item,'salida',this.type, idSalida);
+ }
 
 
 }

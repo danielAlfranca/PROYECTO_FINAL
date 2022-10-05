@@ -41,7 +41,6 @@ export class DataService {
         this.store(data); 
         notification.next(data); 
         this.$_dataUpdates.next(undefined);
-        console.log(data);
     
       }});
 
@@ -49,30 +48,31 @@ export class DataService {
 
   }  
 
-  public save(section:DataTypes, data:any):Observable<any>{
+  public save(section:DataTypes, data:any, multidata=false):Observable<any>{
 
     const notification = new Subject();  
 
- 
-
-    this.connect(section,'save',data).subscribe((response:any)=>{      
-  
-
+    this.connect(section,'save',data).subscribe((response:any)=>{   
+   
       if(response){ 
 
-        this.addItem(section,response);
+        if(multidata){
 
-        Object.keys(response.extra_data || {}).forEach((key:any)=>{
+          this.addItem(section,response.item);
+       
+          Object.keys(response.extra_data || {}).forEach((key:any)=>{
 
-          response.extra_data[key].forEach((el:any)=>this.addItem(key,el));
+            response.extra_data[key].forEach((el:any)=>this.addItem(key,el));
 
-        });
+          });
 
-        console.log(response)
+        }else{ this.addItem(section,response); console.log(section,response)}
+              
 
-        notification.next(response); 
+        notification.next(response);
+        this.$_dataUpdates.next(undefined); 
       
-      } else{    console.log(response); notification.next(false)}; 
+      } else{  notification.next(false)}; 
     
     })
 
@@ -84,11 +84,13 @@ export class DataService {
     const notification = new Subject();
 
     this.connect(section,'delete',data).subscribe((response:any)=>{ 
-   
-      if(response){ 
+
+      
+
+      if(response){
         
-        this.removeItem(section,response);  
- 
+        this.removeItem(section,response.item);  
+  
         Object.keys(response.extra_data || {}).forEach((key:any)=>{ // para elementos donde se eliminan otros datos dependientes
 
           response.extra_data[key].forEach((el:any)=>this.removeItem(key,el));
@@ -96,6 +98,7 @@ export class DataService {
         });
 
         notification.next(response); 
+        this.$_dataUpdates.next(undefined);
       
       }else notification.next(false);
     })

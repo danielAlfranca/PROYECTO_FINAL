@@ -15,7 +15,7 @@ export class RoomsListComponent  extends  CustomFieldComponent implements OnInit
 
   ngOnInit(): void {
 
-    this.value ||= [];
+    this.value ||= '';
 
   }
 

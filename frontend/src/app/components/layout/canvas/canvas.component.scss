@@ -77,9 +77,9 @@ aside.aside-hidden{
 
 /*** SIZES INNER ***/
 
-.slider-inner.slides-5{
+.slider-inner.slides-8{
     
-    width:500%;
+    width:800%;
 }
 .slider-inner.slides-4{
     
@@ -88,9 +88,9 @@ aside.aside-hidden{
 
 /*** SIZES SLIDE  ***/
 
-.slides-5>.slide{
+.slides-8>.slide{
 
-    width:20%;
+    width:12.5%;
 }
 
 .slides-4>.slide{
@@ -109,6 +109,12 @@ aside.aside-hidden{
 .slide1.slide2.slide3.slide4{  left:-300%; }
 
 .slide1.slide2.slide3.slide4.slide5{  left:-400%; }
+
+.slide1.slide2.slide3.slide4.slide5.slide6{  left:-500%; }
+
+.slide1.slide2.slide3.slide4.slide5.slide5.slide7{  left:-600%; }
+
+.slide1.slide2.slide3.slide4.slide5.slide5.slide8{  left:-700%; }
 
 /***  POP-UP SIZES  ***/
 

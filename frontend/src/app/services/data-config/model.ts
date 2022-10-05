@@ -38,6 +38,8 @@ export abstract class DataConfig{
 
         is_number:(obj:any, key:string) => !isNaN(this.getByPath(obj,this.getKey(key))),
 
+        nullable:(obj:any, key:string) => true,
+
        /*  is_string_array:(obj:any, key:string) =>{ let value = this.getByPath(obj,this.getKey(key)); return Array.isArray(value) && value.every((e:any)=>typeof (e+'')  == "string")}, */
 
         id_valid:(obj:any, key:string) => { let value = this.getByPath(obj,this.getKey(key)); return !isNaN(value) || value  == 'nuevo'},
@@ -82,15 +84,15 @@ export abstract class DataConfig{
     public objectIsValid!:(obj:any)=>boolean;
 
     public valueIsValid(obj:any,key:string):boolean{ // VALIDA PROPIEDAD
-        //console.log(key);
+  
         const propConfig:PropertyConfig = this.getKey(key), value = this.getByPath(obj, propConfig);
-        console.log(key,value);
-        if(propConfig.required && value === undefined) return false;
-
-        if(!propConfig.required && value === undefined) return true;
+        console.log(key,value)
+        if(propConfig.required && (value === undefined || value === null)) return false;
+        console.log(key,value)
+        if(!propConfig.required && (value === undefined || value === null || value === '')) return true;
 
         return !propConfig.validations || propConfig.validations.every(validation=>{ // SI NO REQUIERE VALIDACION O TODAS LAS VALIDACIONES OK
-              
+            console.log(key,value,this.validations[validation](obj,key)); 
             return (this.validations[validation])(obj,key); // SE BUSCA EN VALIDACIONES ESPECIFICAS DE LA CLASE
         });
     }

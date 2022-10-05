@@ -98,6 +98,9 @@ import { SelectCustomDateComponent } from './components/layout/header/select-dat
 import { ReservasCalendarComponent } from './components/sections/reservas/section/reservas-calendar/reservas-calendar.component';
 import { LoadingComponent } from './components/shared/modal/loading/loading.component';
 import { ReservasActivityTableComponent } from './components/sections/reservas/display/activity-table/reservas-activity-table.component';
+import { SalidasActivityTableComponent } from './components/sections/salidas/display/tables/salidas-activity-table/salidas-activity-table.component';
+import { SalidasPassengersComponent } from './components/sections/salidas/display/tables/salidas-passengers/salidas-passengers.component';
+import { PassengerClienteComponent } from './components/sections/salidas/display/passenger/passenger-cliente/passenger-cliente.component';
 
 
 @NgModule({
@@ -187,7 +190,10 @@ import { ReservasActivityTableComponent } from './components/sections/reservas/d
     SelectCustomDateComponent,
     ReservasCalendarComponent,
     LoadingComponent,
-    ReservasActivityTableComponent
+    ReservasActivityTableComponent,
+    SalidasActivityTableComponent,
+    SalidasPassengersComponent,
+    PassengerClienteComponent
 
   ],
   imports: [

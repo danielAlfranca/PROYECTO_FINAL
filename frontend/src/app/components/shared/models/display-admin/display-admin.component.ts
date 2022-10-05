@@ -15,9 +15,7 @@ export class DisplayAdminComponent  {
   editPath!:string;
   dataDisplay:any;
 
-  deleteSuccess ='delete-success';
-  deleteError ='delete-error';
-  
+ 
   constructor(protected appConfig:AppConfigService) { }
 
   init(section:string, editPath?:string){
@@ -33,8 +31,8 @@ export class DisplayAdminComponent  {
   edit(data?:any){
 
     this.appConfig.canvas.open(this.editPath, {formItem:this.item, editData:data}).pipe(take(1)).subscribe(response=>{
-
-      if(response) {this.item = response; this.updateDisplayData(response) }
+      console.log(response)
+      if(response) {this.item = response; this.updateDisplayData(response); }
 
     });
   }
@@ -42,7 +40,6 @@ export class DisplayAdminComponent  {
   updateDisplayData(item:any){}  
 
   delete(){
-
     
     this.appConfig.queries.delete(this.section as DataTypes,this.item).pipe(take(1)).subscribe(response=>{
 
@@ -56,21 +53,26 @@ export class DisplayAdminComponent  {
     return this.appConfig.dataConfig.getValue(this.item,prop,this.section);
   }
 
-  successDelete(){
+  successDelete(msg?:any){
 
-    this.appConfig.canvas.open(this.deleteSuccess,{message:"Elemento eliminado con exito", type:'success'}).pipe(take(1)).subscribe(response=>{
+    this.appConfig.canvas.open(this.get_modal_path('success'),{message:"Elemento eliminado con exito", type:'success'}).pipe(take(1)).subscribe(response=>{
 
-      this.appConfig.canvas.close();
+      this.appConfig.canvas.close(msg);
     })
   }
 
   errorDelete(){
 
-    this.appConfig.canvas.open(this.deleteError,{message:"No se pudo eliminar", type:'error'}).pipe(take(1)).subscribe(response=>{
-
-      this.appConfig.canvas.close();
-    })
+    this.appConfig.canvas.open(this.get_modal_path('error'),{message:"No se pudo eliminar", type:'error'});
   }
+
+  get_modal_path(type:string){
+
+   const index = Number(this.appConfig.canvas.currentOutletsIndex.popUp) + 1;
+
+    return  `delete-${type}-${index}`;
+  }
+
 
 
 }

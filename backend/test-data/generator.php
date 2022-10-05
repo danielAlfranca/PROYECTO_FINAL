@@ -57,11 +57,7 @@ class FakeDataGenerator {
         $instance = new $this->section();
         $inserted = [];        
   
-        foreach ($items as $item) {
-            
-            $inserted[] = $instance->save(['item'=>$item])['item'];            
-
-        }
+        foreach ($items as $item) { $inserted[] = $instance->save($item); }
 
         return $inserted;
     }
